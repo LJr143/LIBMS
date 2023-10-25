@@ -1,9 +1,11 @@
 <?php
-include 'C:\wamp64\www\LIBMS\db_config\config.php';
-include 'C:\wamp64\www\LIBMS\includes\fetch_penalties.php';
+include 'C:\wamp64\www\LIBMS\LIBMS\db_config\config.php';
+include 'C:\wamp64\www\LIBMS\LIBMS\includes\fetch_penalties.php';
+include 'C:\wamp64\www\LIBMS\LIBMS\includes\fetch_borrowed_book.php';
 $database = new Database();
 $penaltyData = new penaltyData($database);
-
+$borrowData = new BorrowDataWithStatus($database);
+$allBooks = $borrowData->getAllBooks();
 $user_penalty = $penaltyData->getAllPenalty();
 
 ?>
@@ -110,15 +112,15 @@ $user_penalty = $penaltyData->getAllPenalty();
                     <p style="font-size: 12px; font-weight: bold; font-style: italic">Books Recently Borrowed</p>
                     <swiper-container class="mySwiper" pagination="true" pagination-clickable="true" space-between="30"
                                       slides-per-view="3">
-
+                        <?php foreach ($allBooks as $borrowed_book) { ?>
                             <swiper-slide class="mt-2">
 
                                 <div class="custom_book_container d-flex flex-column align-items-center justify-content-center swiper-slide">
 
-                                    <img src="../wish_img/ alt="" class="custom-book-img">
+                                    <img src="../book_img/<?php echo $borrowed_book['book_img'];?>" alt="" class="custom-book-img">
                                     <div style="width: 100%; height: 30px; margin-top: 10px;" class="d-flex align-items-center  flex-column">
-                                        <p style="font-size: 12px; text-align: center" class="custom-book-text"></p>
-                                        <p style="margin-top: -20px; font-size: 8px;" class="custom-book-text"></p>
+                                        <p style="font-size: 12px; text-align: center" class="custom-book-text"><?php echo $borrowed_book['book_title'] ?></p>
+                                        <p style="margin-top: -20px; font-size: 8px;" class="custom-book-text"><?php echo $borrowed_book['book_author']?></p>
                                     </div>
                                     <div style="width: 100%; margin-top: 10px;" class="d-flex justify-content-center">
                                         <button style="font-size: 10px; width: 80%; border: 1px solid black" class="btn">View Book</button>
@@ -126,51 +128,8 @@ $user_penalty = $penaltyData->getAllPenalty();
                                 </div>
 
                             </swiper-slide>
-                        <swiper-slide class="mt-2">
+                        <?php } ?>
 
-                            <div class="custom_book_container d-flex flex-column align-items-center justify-content-center swiper-slide">
-
-                                <img src="../wish_img/ alt="" class="custom-book-img">
-                                <div style="width: 100%; height: 30px; margin-top: 10px;" class="d-flex align-items-center  flex-column">
-                                    <p style="font-size: 12px; text-align: center" class="custom-book-text"></p>
-                                    <p style="margin-top: -20px; font-size: 8px;" class="custom-book-text"></p>
-                                </div>
-                                <div style="width: 100%; margin-top: 10px;" class="d-flex justify-content-center">
-                                    <button style="font-size: 10px; width: 80%; border: 1px solid black" class="btn">View Book</button>
-                                </div>
-                            </div>
-
-                        </swiper-slide>
-                        <swiper-slide class="mt-2">
-
-                            <div class="custom_book_container d-flex flex-column align-items-center justify-content-center swiper-slide">
-
-                                <img src="../wish_img/ alt="" class="custom-book-img">
-                                <div style="width: 100%; height: 30px; margin-top: 10px;" class="d-flex align-items-center  flex-column">
-                                    <p style="font-size: 12px; text-align: center" class="custom-book-text"></p>
-                                    <p style="margin-top: -20px; font-size: 8px;" class="custom-book-text"></p>
-                                </div>
-                                <div style="width: 100%; margin-top: 10px;" class="d-flex justify-content-center">
-                                    <button style="font-size: 10px; width: 80%; border: 1px solid black" class="btn">View Book</button>
-                                </div>
-                            </div>
-
-                        </swiper-slide>
-                        <swiper-slide class="mt-2">
-
-                            <div class="custom_book_container d-flex flex-column align-items-center justify-content-center swiper-slide">
-
-                                <img src="../wish_img/ alt="" class="custom-book-img">
-                                <div style="width: 100%; height: 30px; margin-top: 10px;" class="d-flex align-items-center  flex-column">
-                                    <p style="font-size: 12px; text-align: center" class="custom-book-text"></p>
-                                    <p style="margin-top: -20px; font-size: 8px;" class="custom-book-text"></p>
-                                </div>
-                                <div style="width: 100%; margin-top: 10px;" class="d-flex justify-content-center">
-                                    <button style="font-size: 10px; width: 80%; border: 1px solid black" class="btn">View Book</button>
-                                </div>
-                            </div>
-
-                        </swiper-slide>
 
                     </swiper-container>
 
@@ -187,7 +146,7 @@ $user_penalty = $penaltyData->getAllPenalty();
                     </div>
                     <div class="export__file">
                         <label for="export-file" class="export__file-btn" title="Export File"></label>
-                        <input type="checkbox" id="export-file">
+                        <input type="checkbox" id="export-file"style="background-color: red; width: 1000px">
                         <div class="export__file-options">
                             <label>Export As &nbsp; &#10140;</label>
                             <label for="export-file" id="toPDF">PDF <img src="../icons/pdf.png" alt=""></label>
@@ -201,6 +160,7 @@ $user_penalty = $penaltyData->getAllPenalty();
                         <thead>
                         <tr>
                             <th> Id <span class="icon-arrow">&UpArrow;</span></th>
+                            <th></th>
                             <th> Book <span class="icon-arrow">&UpArrow;</span></th>
                             <th> Author <span class="icon-arrow">&UpArrow;</span></th>
                             <th> Date Borrowed <span class="icon-arrow">&UpArrow;</span></th>
@@ -210,12 +170,13 @@ $user_penalty = $penaltyData->getAllPenalty();
                         <tbody>
                         <?php foreach ($user_penalty as $user_penalties) { ?>
                             <tr>
-                                <td> 1 </td>
-                                <td> <img src="../book_img/<?php echo $user_penalties['book_img'] ?>" alt=""><?php echo $user_penalties['book_title'] ?></td>
+                                <td><?php echo $user_penalties['borrow_id'] ?> </td>
+                                <td><img src="../book_img/<?php echo $user_penalties['book_img'] ?>" alt=""></td>
+                                <td><?php echo $user_penalties['book_title'] ?></td>
                                 <td><?php echo $user_penalties['Author_id'] ?></td>
                                 <td> <?php echo $user_penalties['date_barrowed'] ?> </td>
                                 <td>
-                                    <p class="status <?php echo ($user_penalties['status'] === 'Paid') ? 'delivered' : (($user_penalties['status'] === 'Unpaid') ? 'cancelled' : 'pending'); ?>"><?php echo $user_penalties['status']; ?></p>
+                                    <p class="status <?php echo ($user_penalties['status'] === 'Returned') ? 'delivered' : (($user_penalties['status'] === 'Unpaid') ? 'cancelled' : 'pending'); ?>"><?php echo $user_penalties['status']; ?></p>
                                 </td>
 
                             </tr>

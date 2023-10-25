@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.32/dist/sweetalert2.min.css">
     <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body style="">
 <div>
     <nav class="navbar navbar-light bg-light header">
         <div class="container-fluid">
@@ -34,7 +34,7 @@
             </div>
         </div>
     </nav>
-    <div class="main-content" style="background-image: url('icons/bglms 1.png'); background-size: cover; background-repeat: no-repeat;">
+    <div class="main-content">
         <div class="form-box" >
             <form action="" method="POST" enctype="multipart/form-data">
                 <div class="form-content">

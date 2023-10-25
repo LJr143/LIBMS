@@ -8,6 +8,12 @@
     box-sizing: border-box;
     font-family: 'Inter', serif;
 }
+body {
+    background-image: url('icons/bglms 1.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position-y: -20px;
+}
 
 nav {
     box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.42);

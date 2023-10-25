@@ -1,5 +1,5 @@
 <?php
-require_once 'C:\wamp64\www\LIBMS\db_config\config.php';
+require_once 'C:\wamp64\www\LIBMS\LIBMS\db_config\config.php';
 
 class BorrowedData
 {
@@ -12,7 +12,7 @@ class BorrowedData
 
     public function getAllBooks(): array
     {
-        $sql = "SELECT * FROM tbl_borrow";
+        $sql = "SELECT * FROM vw_borrowed_books";
         $result = $this->database->executeQuery($sql);
 
         $wishbooks = array();
@@ -29,7 +29,7 @@ class BorrowDataWithStatus extends BorrowedData
 {
     public function getBooksByStatus($status): array
     {
-        $sql = "SELECT * FROM tbl_borrowed WHERE status = '$status'";
+        $sql = "SELECT * FROM vw_borrowed_books WHERE status = '$status'";
         $result = $this->database->executeQuery($sql);
 
         $borrowedbooks = array();
@@ -44,7 +44,7 @@ class BorrowDataWithStatus extends BorrowedData
 
 // Example usage:
 //$database = new Database();
-//$wishData = new WishDataWithStatus($database);
+//$borrowData = new BarrowDataWithStatus($database);
 //
 //$allBooks = $wishData->getAllBooks();
 //$availableBooks = $wishData->getBooksByStatus('available');

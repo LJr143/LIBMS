@@ -1,6 +1,6 @@
 <?php
-include 'C:\wamp64\www\LIBMS\db_config\config.php';
-include 'C:\wamp64\www\LIBMS\includes\fetch_wishlist.php';
+include 'C:\wamp64\www\LIBMS\LIBMS\db_config\config.php';
+include 'C:\wamp64\www\LIBMS\LIBMS\includes\fetch_wishlist.php';
 $database = new Database();
 $wishData = new WishDataWithStatus($database);
 
@@ -144,6 +144,7 @@ $availableBooks = $wishData->getBooksByStatus('available');
                         <thead>
                         <tr>
                             <th> Id <span class="icon-arrow">&UpArrow;</span></th>
+                            <th></th>
                             <th> Book <span class="icon-arrow">&UpArrow;</span></th>
                             <th> Author <span class="icon-arrow">&UpArrow;</span></th>
                             <th> Date Wished <span class="icon-arrow">&UpArrow;</span></th>
@@ -154,7 +155,8 @@ $availableBooks = $wishData->getBooksByStatus('available');
                         <?php foreach ($allBooks as $book) { ?>
                         <tr>
                             <td> 1 </td>
-                            <td> <img src="../wish_img/<?php echo $book['img'] ?>" alt=""><?php echo $book['book_title'] ?></td>
+                            <td><img src="../wish_img/<?php echo $book['img'] ?>" alt=""></td>
+                            <td> <?php echo $book['book_title'] ?></td>
                             <td><?php echo $book['author'] ?></td>
                             <td> <?php echo $book['date_wished'] ?> </td>
                             <td>
