@@ -1,0 +1,101 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Noto+Sans:ital,wght@0,100;1,100&family=Playfair+Display+SC:ital,wght@0,400;0,700;0,900;1,400;1,700;1,900&family=Poppins:ital,wght@0,100;0,200;0,300;0,500;1,100;1,300;1,400&display=swap');
+
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Inter', serif;
+}
+
+nav {
+    box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.42);
+    height: 55px;
+}
+.custom_img {
+    width: 40px;
+    padding: 0px 0px;
+    margin: 0px 0px 0px 5px;
+}
+nav .head-text {
+    display: flex;
+
+}
+nav .head-text > .usep-text {
+    margin-left: 10px;
+
+}
+nav .head-text .right-side {
+    display: flex;
+
+
+}
+nav .right-side > .right-side-text {
+
+}
+.main-content {
+    position: relative;
+    min-height: 90vh;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+}
+.main-content .form-box {
+    width: 340px;
+    height: 450px;
+    background-color: white;
+    box-shadow: 0px 2px 3px 0px rgba(0, 0, 0, 0.42);
+    border-radius: 5px;
+}
+
+.main-content .form-box form .form-content {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}
+.main-content .form-box form .form-content label {
+    font-size: 8px;
+    font-weight: 500;
+
+}
+.main-content .form-box form .form-content input {
+    border-radius: 2px;
+    border: 1px solid rgba(0, 0, 0, 0.49);
+    width: 250px;
+    font-size: 10px;
+    height: 28px;
+    padding: 0px 0px 0px 5px;
+
+}
+.main-content .form-box form .form-content  #form_submit_btn, #google_login {
+    height: 30px;
+    margin-top: 10px;
+    width: 250px;
+    font-size: 9px;
+    font-weight: bold;
+    border: none;
+    background-color: #0073E6;
+    color: white;
+}
+.main-content .form-box form .form-content .google-button {
+    display: flex;
+}
+.main-content .form-box form .form-content select {
+    width: 250px;
+    height: 30px;
+    font-size: 9px;
+    padding: 5px;
+    border-radius: 5px;
+    border: none;
+    box-shadow: 0px 2px 3px 0px rgba(0, 0, 0, 0.42);
+}
+/* For Responsiveness **/
+@media screen and (max-width: 600px) {
+    #usep-logo {
+        display: none;
+    }
+}
