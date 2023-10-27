@@ -57,7 +57,7 @@ if (isset($_GET['book_id'])) {
         echo '</div>';
         echo '<div class="row vw_btns_borrow_reserve" style="display: flex; flex-wrap: wrap; height: 30px; width: 550px;">';
         echo '<button data-bs-toggle="modal" data-bs-target="#borrowModal"  data-book-id="' . $book['book_id'] . '" type="button"  class="btn btn-secondary borrow-button">Borrow</button>';
-        echo '<button type="button" id="'.$book['book_id'].'" class="btn btn-secondary ">Reserve</button>';
+        echo '<button data-bs-toggle="modal" data-bs-target="#reserveModal"  data-book-id="' . $book['book_id'] . '" type="button"  class="btn btn-secondary reserve-button">Reserve</button>';
         echo '<img src="../icons/heart.png" alt="" style="width: 20px">';
         echo '</div>';
         echo '</div>';
@@ -76,6 +76,27 @@ if (isset($_GET['book_id'])) {
                 console.log('clicked!');
                 $.ajax({
                     url: '../includes/borrowing.php?book_id=' + bookId,
+                    method: 'GET',
+                    success: function(data) {
+                        modalBody.html(data);
+                    },
+                    error: function() {
+                        modalBody.html('Failed to fetch book details.');
+                    }
+                });
+            });
+        </script>
+        <script>
+            $('.reserve-button').on('click', function() {
+                $('.modal').modal('hide');
+
+
+                var bookId = $(this).data('book-id');
+                var modalBody = $('.modal-body');
+                console.log(bookId);
+                console.log('clicked!');
+                $.ajax({
+                    url: '../includes/reserve.php?book_id=' + bookId,
                     method: 'GET',
                     success: function(data) {
                         modalBody.html(data);
