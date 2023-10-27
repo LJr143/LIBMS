@@ -97,13 +97,8 @@
                     <div class="col mb-3 mt-3" style="width: 50%; height: 50vh;">
                         <p style="font-size: 12px; font-weight: bold; font-style: italic">Borrowing History</p>
 
-                     <div class="scrollable-div" style="width: 100%; height: 50vh;">
-                         <div class="card d-flex justify-content-between mb-2" style="box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); height: 8vh">
-                             <div class="d-flex justify-content-between align-items-center p-3">
-                                 <span>A Cat in the City</span>
-                                 <span class="text-success">RETURNED</span>
-                             </div>
-                         </div>
+                     <div class="scrollable-div" style="width: 100%; height: 50vh; padding: 10px 10px;">
+                        
                          <div class="card d-flex justify-content-between mb-2" style="box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); height: 8vh">
                              <div class="d-flex justify-content-between align-items-center p-3">
                                  <span>A Cat in the City</span>

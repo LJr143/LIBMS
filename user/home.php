@@ -1,13 +1,15 @@
 <?php
 session_start();
+error_reporting(0);
+if(!isset($_SESSION['authenticate_user'])){
+    header('Location: ../index.php');
+}
 include 'C:\wamp64\www\LIBMS\LIBMS\db_config\config.php';
 include 'C:\wamp64\www\LIBMS\LIBMS\includes\fetch_books.php';
 $database = new Database();
 $bookData = new BookData($database);
 
 $books = $bookData->getAllBooks();
-
-
 
 
 ?>
@@ -61,8 +63,25 @@ $books = $bookData->getAllBooks();
                     <a class="nav-link " href="credit_score.php"  >CREDIT SCORE</a>
                 </li>
             </ul>
+
+            <div class=" d-flex justify-content-center align-items-center" style="height: 50px; width: 60px; right: 10px; position: absolute">
+                <div class="dropdown" style=" margin-right: 0px; position: absolute">
+                    <button style="background: none; border: none;" class=" dropdown-toggle" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
+                        <img src="../icons/user.png" alt="" width="30px" style="border-radius: 60px;">
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-dark dropdown_menu_setting aria-labelledby="dropdownMenuButton2">
+                        <li><a class="dropdown-item" href="manage_account.php"><img src="../icons/manage_account.png" alt="" class="custom_icon"><span>Manage Account</span></a></li>
+                        <li><a class="dropdown-item" href="#"><img src="../icons/bookmark.png" alt="" class="custom_icon"><span>Book Status</span></a></li>
+                        <li><a class="dropdown-item" href="#"><img src="../icons/help.png" alt="" class="custom_icon"><span>Help</span></a></li>
+                        <li><a class="dropdown-item" href="#"><img src="../icons/connect.png" alt="" class="custom_icon"><span>Feedback</span></a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="#"><img src="../icons/plug.png" alt="" class="custom_icon"><span>Logout</span></a></li>
+                    </ul>
+                </div>
+
+            </div>
         </div>
-  <div class="main-content">
+  <div class="main-content" >
         <div class="container-fluid">
             <p class="text-main"">HOME</p>
         </div>
@@ -108,7 +127,8 @@ $books = $bookData->getAllBooks();
                                   <p style="margin-top: -20px; font-size: 8px;" class="custom-book-text"><?php echo $book['Author_id']; ?></p>
                               </div>
                               <div style="width: 100%; margin-top: 10px;" class="d-flex justify-content-center">
-                                  <button style="font-size: 10px; width: 80%; border: 1px solid black" class="btn">View Book</button>
+                                  <button  data-bs-toggle="modal" data-bs-target="#bookModal" data-book-id="<?php echo $book['book_id']; ?>" style="font-size: 10px; width: 80%; border: 1px solid black" class="btn btn-view-book">View Book</button>
+
                               </div>
                           </div>
                       <?php } ?>
@@ -131,7 +151,7 @@ $books = $bookData->getAllBooks();
                               <p style="margin-top: -20px; font-size: 8px;" class="custom-book-text"><?php echo $book['Author_id']; ?></p>
                           </div>
                           <div style="width: 100%; margin-top: 10px;" class="d-flex justify-content-center">
-                              <button style="font-size: 10px; width: 80%; border: 1px solid black" class="btn">View Book</button>
+                              <button data-bs-toggle="modal" data-bs-target="#bookModal" data-book-id="<?php echo $book['book_id']; ?>" style="font-size: 10px; width: 80%; border: 1px solid black" class="btn btn-view-book">View Book</button>
                           </div>
                       </div>
                   <?php } ?>
@@ -142,7 +162,100 @@ $books = $bookData->getAllBooks();
   </div>
 
 </div>
+
+
+<!-- View Modal -->
+<div class="modal fade " id="bookModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content" >
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">BOOK INFORMATION</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- Borrow Modal -->
+<div class="modal fade " id="borrowModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog  modal-dialog-centered">
+        <div class="modal-content" >
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">BORROWING CREDENTIALS</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- Borrow Confirmation Modal -->
+<div class="modal fade " id="borrowConfirmationModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog  modal-dialog-centered">
+        <div class="modal-content" >
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">BORROWING CREDENTIALS</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<!-- Borrow Success Modal -->
+<div class="modal fade " id="borrowSuccessModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog  modal-dialog-centered">
+        <div class="modal-content" >
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">BORROWING SUCCESSFUL</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
+<script>
+    $('.btn-view-book').on('click', function() {
+        var bookId = $(this).data('book-id');
+        var modalBody = $('.modal-body');
+        console.log(bookId);
+
+        $.ajax({
+            url: '../includes/fetch.php?book_id=' + bookId,
+            method: 'GET',
+            success: function(data) {
+                modalBody.html(data);
+            },
+            error: function() {
+                modalBody.html('Failed to fetch book details.');
+            }
+        });
+    });
+</script>
+
 <script>
     const listItems = document.querySelectorAll('.user-nav .nav-item');
     listItems.forEach((listItem) => {
@@ -183,5 +296,7 @@ $books = $bookData->getAllBooks();
     });
 
 </script>
+
+
 </body>
 </html>

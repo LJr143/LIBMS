@@ -1,4 +1,8 @@
 <?php
+session_start();
+if(isset($_SESSION['authenticate_user'])){
+    header('Location: user/home.php');
+}
 ?>
 
 <!doctype html>
