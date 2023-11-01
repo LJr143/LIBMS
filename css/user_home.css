@@ -52,6 +52,10 @@ nav .head-text .right-side {
 nav .right-side > .right-side-text {
 
 }
+.active {
+    background-color: #560606;
+    color: white;
+}
 .user-nav {
     position: relative;
     width: 100%;
