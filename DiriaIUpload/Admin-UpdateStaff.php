@@ -23,17 +23,16 @@
         }
 
         .ImportFile input {
-            width: 100%;
+            width: 50%;
         }
 
     .AddImageContainer {
             position: relative;
             margin-top: 20px;
-            width:90px;
-            height:90px;
+            width:70px;
+            height:70px;
             border-radius: 50%;
             overflow: hidden;
-            background-color: #fda700;
         }
 
         .AddImageContainer i {
@@ -111,14 +110,14 @@
                 </button>
                 </div>
                 <div class="modal-body">
-                <div class="container-fluid">
+                <div class="container-fluid " style="padding-left: 40px ; padding-right: 40px">
                     <div class="row">
 
                <!-- uploading image -->               
-            <form class="row  needs-validation" novalidate>
+            <form class="row  needs-validation"      novalidate>
                 <div class="col-md-2 " style="margin-bottom: -70px;">
                     <div class="AddImageContainer">
-                        <i class="bi bi-plus-circle" title="Add Image"></i>
+                        <i class="bi bi-plus-circle" title="Add Image" style="color: gray"></i>
                         <img src="" width="100" height="100" id="Profile-Pic">
                     </div>
                     <input type="file" accept="image/jpeg, image/png, image/jpg" id="input-file"
@@ -128,99 +127,98 @@
 
 
 
-            <div class="col-md-3 firstname">
-                <label for="validationCustom01" class="form-label mb-0" style="font-size: 12px;">FIRST NAME</label>
-                <input type="text" class="form-control" placeholder="Juan" id="validationCustom01" style="font-size: 10px; text-transform: capitalize !important;" required>
-                
-              </div>
-              <div class="col-md-4">
-                <label for="validationCustom02" class="form-label mb-0" style="font-size: 12px;">LAST NAME</label>
-                <input type="text" class="form-control" placeholder="Dela Cruz" id="validationCustom02" style="font-size: 10px; text-transform: capitalize !important;" required>
-               
-              </div>
-              <div class="col-md-2">
-                <label for="validationCustom02" class="form-label mb-0" style="font-size: 12px;">M.I.</label>
-                <input type="text" class="form-control mb-0" placeholder="I" id="validationCustom02" style="font-size: 10px; text-transform: capitalize !important;" required>
-                <div class="invalid-feedback">
-                  Please type the middle initial .
-                </div>
-              </div>
-           
-              <div class="col-md-2"></div>
-            
 
-           
-            <div class="col-md-5">
-                <label for="validationCustomUsername" class="form-label mb-0" style="font-size: 12px;" >EMAIL ADDRESS</label>
-                <div class="input-group has-validation">
-                  <input type="text" class="form-control " id="validationCustomUsername"
-                    aria-describedby="inputGroupPrepend" placeholder="@usep.edu.ph" style="font-size: 10px;" required>
-                  
-                </div>
-              </div>
-           
-              <div class="col-md-5">
-                <label for="validationCustom01" class="form-label mb-0" style="font-size: 12px;">PHONE NUMBER</label>
-                <input type="number" class="form-control" id="validationCustom01" placeholder="091234567890" style="font-size: 10px;" required>
-               
-              </div>
 
-              <div class="col-md-2 mt-0" >
-               
-              </div>
-          
-           
-            <div class="col-md-12 mt-0">
-                <label for="validationCustom03" class="form-label mb-0"  style="font-size: 12px; ">ADDRESS</label>
-                <input type="text" class="form-control" id="validationCustom03" style="font-size: 10px; text-transform: capitalize !important;"  placeholder="Purok, Baranggay, City/Municipality, Province">
-                
-              </div>
+                <div class="col-md-4 firstname">
+                    <label for="validationCustom01" class="form-label mb-0" style="font-size: 12px;">FIRST NAME</label>
+                    <input type="text" class="form-control" placeholder="Juan" id="validationCustom01" style="font-size: 10px; text-transform: capitalize !important;" required>
 
-              <div class="col-md-4 mt-2">
-                <label for="validationCustomUsername" class="form-label mb-0" style="font-size: 12px;" >EMAIL ADDRESS</label>
-                <div class="input-group has-validation">
-                  <input type="text" class="form-control " id="validationCustomUsername"
-                    aria-describedby="inputGroupPrepend" placeholder="@usep.edu.ph" style="font-size: 10px;" required>
-                  
                 </div>
-              </div>
+                <div class="col-md-4">
+                    <label for="validationCustom02" class="form-label mb-0" style="font-size: 12px;">LAST NAME</label>
+                    <input type="text" class="form-control" placeholder="Dela Cruz" id="validationCustom02" style="font-size: 10px; text-transform: capitalize !important;" required>
 
-              <div class="col-md-4 mt-2">
-                <label for="validationCustomUsername" class="form-label mb-0" style="font-size: 12px;">USERNAME</label>
-                <div class="input-group has-validation">
-                  <input type="text" class="form-control" id="validationCustomUsername" aria-describedby="inputGroupPrepend" placeholder="juandlz" style="font-size: 10px;"
-                    required>
-                  
                 </div>
-              </div>
-           
-            <div class="col-md-4 mt-2">
-              <label for="validationCustomUsername" class="form-label mb-0" style="font-size: 12px;">PASSWORD</label>
-              <div class="input-group has-validation">
-                <input type="password" class="form-control" placeholder="Password123." id="psw" style="font-size: 10px;"
-                  aria-describedby="inputGroupPrepend" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
-                  title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters"
-                  required>
-                 
-              </div>
-            </div>
-  
-  
-      
-      </div>
-    
+                <div class="col-md-2">
+                    <label for="validationCustom02" class="form-label mb-0" style="font-size: 12px;">M.I.</label>
+                    <input type="text" class="form-control mb-0" placeholder="I" id="validationCustom02" style="font-size: 10px; text-transform: capitalize !important;" required>
+                    <div class="invalid-feedback">
+                        Please type the middle initial .
+                    </div>
+                </div>
+
+                <div class="col-md-2"></div>
+
+
+
+                <div class="col-md-4 mt-2">
+                    <label for="validationCustomUsername" class="form-label mb-0" style="font-size: 12px;" >EMAIL ADDRESS</label>
+                    <div class="input-group has-validation">
+                        <input type="text" class="form-control " id="validationCustomUsername"
+                               aria-describedby="inputGroupPrepend" placeholder="@usep.edu.ph" style="font-size: 10px;" required>
+
+                    </div>
+                </div>
+
+                <div class="col-md-4 mt-2">
+                    <label for="validationCustom01" class="form-label mb-0" style="font-size: 12px;">PHONE NUMBER</label>
+                    <input type="number" class="form-control" id="validationCustom01" placeholder="091234567890" style="font-size: 10px;" required>
+
+                </div>
+
+                <div class="col-md-2 mt-0" >
+
+                </div>
+
+
+                <div class="col-md-10 mt-2 " style="margin-left: 90px" >
+                    <label for="validationCustom03" class="form-label mb-0"  style="font-size: 12px; ">ADDRESS</label>
+                    <input type="text" class="form-control" id="validationCustom03" style="font-size: 10px; text-transform: capitalize !important;"  placeholder="Purok, Baranggay, City/Municipality, Province">
+
+                </div>
+
+                <div class="col-md-4 mt-3">
+                    <label for="validationCustomUsername" class="form-label mb-0" style="font-size: 12px;" >EMAIL ADDRESS</label>
+                    <div class="input-group has-validation">
+                        <input type="text" class="form-control " id="validationCustomUsername"
+                               aria-describedby="inputGroupPrepend" placeholder="@usep.edu.ph" style="font-size: 10px;" required>
+
+                    </div>
+                </div>
+
+                <div class="col-md-4 mt-3">
+                    <label for="validationCustomUsername" class="form-label mb-0" style="font-size: 12px;">USERNAME</label>
+                    <div class="input-group has-validation">
+                        <input type="text" class="form-control" id="validationCustomUsername" aria-describedby="inputGroupPrepend" placeholder="juandlz" style="font-size: 10px;"
+                               required>
+
+                    </div>
+                </div>
+
+                <div class="col-md-4 mt-3">
+                    <label for="validationCustomUsername" class="form-label mb-0" style="font-size: 12px;">PASSWORD</label>
+                    <div class="input-group has-validation">
+                        <input type="password" class="form-control" placeholder="Password123." id="psw" style="font-size: 10px;"
+                               aria-describedby="inputGroupPrepend" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+                               title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters"
+                               required>
+
+                    </div>
+                </div>
+
+
+
+                    </div>
       </form>
 
-                <div class="modal-footer mt-2">
-                    <div class="wishlist-container mt-0 mb-0">
-                        <button type="button" class="clear shadow" onclick="clearPhoto()">CLEAR</button>
+                    <div class=" wishlist-container  mt-4 mb-0 " style="margin-left: 270px">
+                        <button type="button" class="clear shadow "   onclick="clearPhoto()">CLEAR</button>
                         <button type="button" class="add shadow" onclick="updateStudent()">UPDATE</button>
                     </div>
                 </div>
             </div>
           </div>
         </div>
-      </div>
 
 
       
