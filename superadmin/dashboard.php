@@ -39,10 +39,11 @@
             </div>
             <div>
                 <ul class="menu_icon">
-                    <li class="active"><img class="custom_menu_icon" src="../icons/dashboard_icon.png" alt=""><span><a href="">Dashboard</a></span></li>
-                    <li><img class="custom_menu_icon" src="../icons/staff_icon.png" alt=""><span><a href="">Staff</a></span></li>
-                    <li><img class="custom_menu_icon" src="../icons/reports_icon.png" alt=""><span><a href="">Reports</a></span></li>
-                    <li><img class="custom_menu_icon" src="../icons/logs_icon.png" alt=""><span><a href="">Logs</a></span></li>
+                    <li class="active"><img class="custom_menu_icon" src="../icons/dashboard_icon.png" alt=""><span><a href="#">Dashboard</a></span></li>
+                    <li><img class="custom_menu_icon" src="../icons/staff_icon.png" alt=""><span><a href="staff.php">Staff</a></span></li>
+                    <li><img class="custom_menu_icon" src="../icons/reports_icon.png" alt=""><span><a href="report.php">Reports</a></span></li>
+                    <li><img class="custom_menu_icon" src="../icons/logs_icon.png" alt=""><span><a href="logs.php">Logs</a></span></li>
+                    <li><img class="custom_menu_icon" src="../icons/feedback_icon_dashboard.png" alt=""><span><a href="feedback.php">Feedback</a></span></li>
                 </ul>
             </div>
 
@@ -379,14 +380,35 @@
                       <div style="padding: 0; margin-top: 20px; margin-bottom: -10px">
                           <p style="font-size: 12px; font-weight: bold">TOP CHOICES</p>
                       </div>
-                      <div style="width: 100%; background-color: rgb(244,244,244); height: 160px; margin-bottom: 10px">
-
+                      <div class="top_choice_book_container" style="width: 100%; background-color: rgb(244,244,244); height: 160px; margin-bottom: 10px">
+                            <div style="display: flex; justify-content: center; align-items: center; font-size: 12px">
+                                <img class="custom_book_img" src="../book_img/book1.jpg" alt="">
+                                <div style="margin-left: 10px">
+                                    <b style="margin-bottom: -4px">IT Chapter 3</b>
+                                    <br>
+                                    <i>Jasmine Carga</i>
+                                </div>
+                            </div>
                       </div>
-                      <div style="width: 100%; background-color: rgb(244,244,244); height: 160px; margin-bottom: 10px">
-
+                      <div class="top_choice_book_container" style="width: 100%; background-color: rgb(244,244,244); height: 160px; margin-bottom: 10px">
+                          <div style="display: flex; justify-content: center; align-items: center; font-size: 12px">
+                              <img class="custom_book_img" src="../book_img/book2.jpg" alt="">
+                              <div style="margin-left: 10px">
+                                  <b style="margin-bottom: -4px">IT Chapter 3</b>
+                                  <br>
+                                  <i>Jasmine Carga</i>
+                              </div>
+                          </div>
                       </div>
-                      <div style="width: 100%; background-color: rgb(244,244,244); height: 160px; margin-bottom: 10px">
-
+                      <div class="top_choice_book_container" style="width: 100%; background-color: rgb(244,244,244); height: 160px; margin-bottom: 10px">
+                          <div style="display: flex; justify-content: center; align-items: center; font-size: 12px">
+                              <img class="custom_book_img" src="../book_img/1984.jpg" alt="">
+                              <div style="margin-left: 10px">
+                                  <b style="margin-bottom: -4px">IT Chapter 3</b>
+                                  <br>
+                                  <i>Jasmine Carga</i>
+                              </div>
+                          </div>
                       </div>
 
                   </div>
@@ -399,8 +421,22 @@
 </div>
 
 
-
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<script>
+    const listItems = document.querySelectorAll('li');
+    listItems.forEach((listItem) => {
+        listItem.addEventListener('click', () => {
+            listItems.forEach((item) => {
+                item.classList.remove('active');
+            });
+
+            listItem.classList.add('active');
+        });
+    });
+</script>
 <script>
     const ctx = document.getElementById('borrowedCategory').getContext('2d');
     const ctx1 = document.getElementById('visitorsCategory').getContext('2d');

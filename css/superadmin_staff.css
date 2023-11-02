@@ -127,15 +127,13 @@ nav .right-side > .right-side-text {
     background-color: rgba(86,6,6,100%);
     color: rgba(255,255,255,100%);
 }
-tr th,td {
-    font-size: 12px;
+.operation_all_btn  {
+    width: 120px;
+    height: 30px;
+    border: none;
+    border-radius: 5px;
+    background-color: transparent;
+    border: 2px solid rgba(86,6,6,100%);
+    color: rgba(86,6,6,100%);
+    font-weight: bold;
 }
-.custom_book_img {
-    width: 80px;
-}
-.top_choice_book_container {
-    display: flex;
-    align-items: center;
-    align-content: center;
-    padding: 20px;
- }
