@@ -1,6 +1,6 @@
 <?php
-include 'C:\wamp64\www\LIBMS\db_config\config.php';
-include 'C:\wamp64\www\LIBMS\includes\fetch_wishlist.php';
+require_once 'C:\wamp64\www\LIBMS\LIBMS\db_config\config.php';
+include 'C:\wamp64\www\LIBMS\LIBMS\includes\fetch_wishlist.php';
 $database = new Database();
 $wishData = new WishDataWithStatus($database);
 
