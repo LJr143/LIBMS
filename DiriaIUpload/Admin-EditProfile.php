@@ -10,8 +10,9 @@
     </head>
 
 
-    <!--  css  -->
+      <!-- css -->    
     <style>
+        
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300&family=Poppins&display=swap');
         
     *{
@@ -20,7 +21,6 @@
     .ImportFile {
             padding: 20px;
         }
-
 
         .ImportFile input {
             width: 100%;
@@ -92,20 +92,20 @@
 
         
     </style>
-     <!-- end  css  -->
+      <!-- end css -->    
     <body>
         <button id="addStudentBtn">
-            ADD STUDENT
+            EDIT PROFILE
         </button>
 
-        <!-- Modal for ADMIN add student details -->
+        <!-- Modal for admin update student details -->
         <div class="modal fade" id="studentModal" tabindex="-1" role="dialog" aria-labelledby="studentModalLabel" aria-hidden="true">
             <div class="modal-dialog  modal-dialog-centered" role="document" style="max-width: 600px;">
                 <div class="modal-content">
                 <div class="modal-header">
                     
                 <p class="modal-title" id="borrowModalLabel " style="font-size: 16px; color: #800000; font-weight: 600;">
-                    <i class="bi bi-person-plus-fill ml-3 m-3" style="font-size: 20px; color: #800000;"></i>ADD STUDENT</p>
+                    <i class="bi bi-pen-fill ml-3 m-3" style="font-size: 20px; color: #800000;"></i>EDIT PROFILE</p>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -114,7 +114,7 @@
                 <div class="container-fluid">
                     <div class="row">
 
-                 <!-- uploading image -->        
+               <!-- uploading image -->               
             <form class="row  needs-validation" novalidate>
                 <div class="col-md-2 " style="margin-bottom: -70px;">
                     <div class="AddImageContainer">
@@ -149,26 +149,24 @@
               <div class="col-md-2"></div>
             
             <div class="col-md-3 mt-0" >
-              <label for="validationCustom01" class="form-label mb-0"style="font-size: 12px;">STUDENT ID</label>
-              <input type="number" class="form-control" id="validationCustom01 " min="9" max="9" placeholder="2021-00565" style="font-size: 10px;"
+              <label for="validationCustom01" class="form-label mb-0"style="font-size: 12px;">TELEPHONE</label>
+              <input type="number" class="form-control" id="validationCustom01 " min="9" max="9" placeholder="8-7000" style="font-size: 10px;"
                 required>
              
             </div>
            
-            <div class="col-md-3">
-                <label for="validationCustomUsername" class="form-label mb-0" style="font-size: 12px;" >EMAIL ADDRESS</label>
-                <div class="input-group has-validation">
-                  <input type="text" class="form-control " id="validationCustomUsername"
-                    aria-describedby="inputGroupPrepend" placeholder="@usep.edu.ph" style="font-size: 10px;" required>
-                  
-                </div>
-              </div>
+
            
               <div class="col-md-3">
                 <label for="validationCustom01" class="form-label mb-0" style="font-size: 12px;">PHONE NUMBER</label>
                 <input type="number" class="form-control" id="validationCustom01" placeholder="091234567890" style="font-size: 10px;" required>
                
               </div>
+                <div class="col-md-4">
+                    <label for="validationCustom02" class="form-label mb-0" style="font-size: 12px;">ROLE</label>
+                    <input type="text" class="form-control" placeholder="Librarian" id="validationCustom02" style="font-size: 10px; text-transform: capitalize !important;" required>
+
+                </div>
 
               <div class="col-md-2 mt-0" >
                
@@ -198,28 +196,23 @@
                   
                 </div>
               </div>
-           
-            <div class="col-md-4 mt-2">
-              <label for="validationCustomUsername" class="form-label mb-0" style="font-size: 12px;">PASSWORD</label>
-              <div class="input-group has-validation">
-                <input type="password" class="form-control" placeholder="Password123." id="psw" style="font-size: 10px;"
-                  aria-describedby="inputGroupPrepend" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
-                  title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters"
-                  required>
-                 
-              </div>
-            </div>
-  
+
+                <div class="col-md-3 mt-0" >
+                    <label for="validationCustom01" class="form-label mb-0"style="font-size: 12px;">STAFF ID</label>
+                    <input type="number" class="form-control" id="validationCustom01 " min="3" max="9" placeholder="001" style="font-size: 10px;"
+                           required>
+
+                </div>
   
       
       </div>
     
       </form>
-                 <!-- working ang clear for photo ra and add-->
+
                 <div class="modal-footer mt-2">
                     <div class="wishlist-container mt-0 mb-0">
                         <button type="button" class="clear shadow" onclick="clearPhoto()">CLEAR</button>
-                        <button type="button" class="add shadow" onclick="addStudent()">ADD</button>
+                        <button type="button" class="add shadow" onclick="savephoto()">SAVE</button>
                     </div>
                 </div>
             </div>
@@ -234,6 +227,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
     <script>
+        // Wait for the document to be ready
         $(document).ready(function () {
             // Attach a click event to the "ADD STUDENT" button
             $("#addStudentBtn").click(function () {
@@ -259,7 +253,7 @@
 
                 reader.onload = function (e) {
                     $('#Profile-Pic').attr('src', e.target.result);
-                    $(".AddImageContainer i").hide();
+                    $(".AddImageContainer i").html('<i class="bi bi-pencil" title="Update Image"></i>');
                 }
 
                 reader.readAsDataURL(input.files[0]);
@@ -274,16 +268,15 @@
         // Function to clear the displayed photo
         function clearPhoto() {
             $('#Profile-Pic').attr('src', '');
-            $(".AddImageContainer i").show();
+            $(".AddImageContainer i").html('<i class="bi bi-plus-circle" title="Add Image"></i>');
         }
 
         // Function to handle adding a student (you can replace this with your actual logic)
-        function addStudent() {
+        function savephoto() {
             // Add your logic here
             $("#studentModal").modal("hide");
         }
     </script>
-
 </body>
 
 </html>

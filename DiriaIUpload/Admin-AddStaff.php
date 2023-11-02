@@ -95,7 +95,7 @@
      <!-- end  css  -->
     <body>
         <button id="addStudentBtn">
-            ADD STUDENT
+            ADD STAFF
         </button>
 
         <!-- Modal for ADMIN add student details -->
@@ -105,7 +105,7 @@
                 <div class="modal-header">
                     
                 <p class="modal-title" id="borrowModalLabel " style="font-size: 16px; color: #800000; font-weight: 600;">
-                    <i class="bi bi-person-plus-fill ml-3 m-3" style="font-size: 20px; color: #800000;"></i>ADD STUDENT</p>
+                    <i class="bi bi-person-plus-fill ml-3 m-3" style="font-size: 20px; color: #800000;"></i>ADD STAFF</p>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -148,14 +148,9 @@
            
               <div class="col-md-2"></div>
             
-            <div class="col-md-3 mt-0" >
-              <label for="validationCustom01" class="form-label mb-0"style="font-size: 12px;">STUDENT ID</label>
-              <input type="number" class="form-control" id="validationCustom01 " min="9" max="9" placeholder="2021-00565" style="font-size: 10px;"
-                required>
-             
-            </div>
+
            
-            <div class="col-md-3">
+            <div class="col-md-5">
                 <label for="validationCustomUsername" class="form-label mb-0" style="font-size: 12px;" >EMAIL ADDRESS</label>
                 <div class="input-group has-validation">
                   <input type="text" class="form-control " id="validationCustomUsername"
@@ -164,7 +159,7 @@
                 </div>
               </div>
            
-              <div class="col-md-3">
+              <div class="col-md-5">
                 <label for="validationCustom01" class="form-label mb-0" style="font-size: 12px;">PHONE NUMBER</label>
                 <input type="number" class="form-control" id="validationCustom01" placeholder="091234567890" style="font-size: 10px;" required>
                
