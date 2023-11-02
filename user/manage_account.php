@@ -1,7 +1,7 @@
 <?php
 session_start();
-include 'C:\wamp64\www\LIBMS\db_config\config.php';
-include 'C:\wamp64\www\LIBMS\includes\fetch_books.php';
+include 'C:\wamp64\www\LIBMS\LIBMS\db_config\config.php';
+include 'C:\wamp64\www\LIBMS\LIBMS\includes\fetch_books.php';
 $database = new Database();
 $bookData = new BookData($database);
 
@@ -48,7 +48,7 @@ $books = $bookData->getAllBooks();
 
         <div class="user-nav bg-dark text-white" style="position: relative">
             <ul class="nav justify-content-center align-items-center align-content-center" style="width: 100%">
-                <li class="nav-item active">
+                <li class="nav-item">
                     <a class="nav-link" aria-current="page" href="home.php">BOOKS</a>
                 </li>
                 <li class="nav-item">

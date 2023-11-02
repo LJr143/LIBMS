@@ -9,7 +9,7 @@
     <link rel="icon" href="../icons/usep-logo.png">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.32/dist/sweetalert2.min.css">
-    <link rel="stylesheet" href="../css/admin_inventory.css">
+    <link rel="stylesheet" href="../css/admin_student.css">
 </head>
 <body style="">
 <div>
@@ -39,11 +39,11 @@
             </div>
             <div>
                 <ul class="menu_icon">
-                    <li><img class="custom_menu_icon" src="../icons/dashboard_icon.png" alt=""><span><a href="#">Dashboard</a></span></li>
-                    <li><img class="custom_menu_icon" src="../icons/staff_icon.png" alt=""><span><a href="staff.php">Student</a></span></li>
+                    <li><img class="custom_menu_icon" src="../icons/dashboard_icon.png" alt=""><span><a href="dashboard.php">Dashboard</a></span></li>
+                    <li class="active"><img class="custom_menu_icon" src="../icons/staff_icon.png" alt=""><span><a href="student.php">Student</a></span></li>
                     <li><img class="custom_menu_icon" src="../icons/reports_icon.png" alt=""><span><a href="report.php">Reports</a></span></li>
                     <li><img class="custom_menu_icon" src="../icons/logs_icon.png" alt=""><span><a href="logs.php">Logs</a></span></li>
-                    <li class="active"><img class="custom_menu_icon" src="../icons/admin_inventory_menu.png" alt=""><span><a href="inventory.php">Inventory</a></span></li>
+                    <li><img class="custom_menu_icon" src="../icons/admin_inventory_menu.png" alt=""><span><a href="inventory.php">Inventory</a></span></li>
 
                 </ul>
             </div>
@@ -52,21 +52,135 @@
         <div class="col" style=" width: 100%; height: 100vh; ">
             <div style="display: flex; justify-content: center; ">
                 <div style="background-color: white; width: 95%; height: 45px; margin: 15px; border-radius: 5px;display: flex; box-shadow: 0px 4px 8px rgba(0,0,0,0.27)">
-                    <p style="font-size: 10px; font-weight: 600; margin: 14px">HOME | DASHBOARD</p>
+                    <p style="font-size: 10px; font-weight: 600; margin: 14px">HOME | STUDENT</p>
                 </div>
             </div>
-            
+
+            <div style="display: flex; justify-content: center; ">
+                <div style="background-color: white; width: 95%; height: 55px; margin: 15px; border-radius: 5px;display: flex; box-shadow: 0px 4px 8px rgba(0,0,0,0.27); align-items: center">
+                   <div class="col col-md-10" style="display: flex">
+                       <select name="" id="" style="width: 150px; padding: 0px 10px; margin-left: 10px; border-radius: 5px;  height: 30px; font-size: 12px;">
+                           <option value="">SEARCH BY</option>
+                           <option value="">College</option>
+                           <option value="">Course</option>
+                           <option value="">Section</option>
+                           <option value="">Department</option>
+
+                       </select>
+                       <div class="input_search-wrapper" style="margin-left: 20px;">
+                           <input type="search" class="search-input" placeholder="Search Book">
+                       </div>
+                   </div>
+
+                    <div class="col col-md-2">
+                        <button style="width: 30px; border: none; background: transparent;"><img style="width: 25px; margin-right: 20px;" src="../icons/download_icon.png" alt=""></button>
+                        <button style="font-size: 12px; width: 150px; height: 30px; border-radius: 5px; background-color: rgb(128,0,0); color: white; border: none">ADD STUDENT</button>
+                    </div>
+                </div>
+            </div>
+
+            <div style="display: flex; justify-content: center; ">
+                <div style="font-size: 12px; background-color: white; width: 95%; max-height: 550px; box-shadow: 0px 4px 8px rgba(0,0,0,0.27);">
+                        <div style="width: 100%; display: flex; justify-content: center; border-radius: 5px">
+                            <table style="width: 98%; " class=" table text-center">
+                                <thead>
+                                <tr>
+                                    <th><input type="checkbox" style="position: absolute; margin: 2px 0px 0px -20px;">Select All</th>
+                                    <th></th>
+                                    <th>Name</th>
+                                    <th>Gender</th>
+                                    <th>Course</th>
+                                    <th>Year Level</th>
+                                    <th>Manage</th>
+
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr style="height: 10px">
+
+                                </tr>
+                                <tr style=" height: 40px; background-color: rgb(246,246,246); margin-bottom: 10px; border: 1px solid rgba(0,0,0,0.25);">
+                                    <td><input type="checkbox"></td>
+                                    <td>Sheena Marie Pagas</td>
+                                    <td>880423897-57838</td>
+                                    <td>IT</td>
+                                    <td>Stephen King</td>
+                                    <td>7 hours</td>
+
+
+                                </tr>
+                                <tr style="height: 10px">
+
+                                </tr>
+                                <tr style=" height: 40px;background-color: rgb(246,246,246); margin-bottom: 10px; border: 1px solid rgba(0,0,0,0.25); border-radius: 5px;">
+
+                                    <td><input type="checkbox"></td>
+                                    <td>Lorjohn M. Raña</td>
+                                    <td>880423897-57838</td>
+                                    <td>IT</td>
+                                    <td>Stephen King</td>
+                                    <td>7 hours</td>
+
+
+                                </tr>
+                                <tr style="height: 10px">
+
+                                </tr>
+                                <tr style=" height: 40px; background-color: rgb(246,246,246); margin-bottom: 10px;border: 1px solid rgba(0,0,0,0.25);">
+                                    <td><input type="checkbox"></td>
+                                    <td>Sheena Marie Pagas</td>
+                                    <td>880423897-57838</td>
+                                    <td>IT</td>
+                                    <td>Stephen King</td>
+                                    <td>7 hours</td>
+
+
+                                </tr>
+                                <tr style="height: 10px">
+
+                                </tr>
+                                <tr style=" height: 40px; background-color: rgb(246,246,246); margin-bottom: 10px; border: 1px solid rgba(0,0,0,0.25);">
+                                    <td><input type="checkbox"></td>
+                                    <td>Sheena Marie Pagas</td>
+                                    <td>880423897-57838</td>
+                                    <td>IT</td>
+                                    <td>Stephen King</td>
+                                    <td>7 hours</td>
+
+
+                                </tr>
+                                <tr style="height: 10px">
+
+                                </tr>
+
+                                </tbody>
+                            </table>
+
+                        </div>
+                    <div  style="width: 100%; display: flex; justify-content: center; margin: 20px 0px">
+                        <div class="row" style="width: 98%;">
+                            <div class="col col-md-8" style="">
+                                <img style="width: 180px" src="../icons/pagination_sample.png" alt="">
+                            </div>
+                            <div class="col col-md-4" style="display: flex; padding: 0; margin: 0">
+                                <button style="margin-left: 160px" class="operation_all_btn">Delete All</button>
+                                <button style="margin-left: 10px; " class="operation_all_btn">Suspend All</button>
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                </div>
+            </div>
+
         </div>
-
-
     </div>
 </div>
-
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 <script>
     const listItems = document.querySelectorAll('li');
     listItems.forEach((listItem) => {
@@ -79,176 +193,5 @@
         });
     });
 </script>
-<script>
-    const ctx = document.getElementById('borrowedCategory').getContext('2d');
-    const ctx1 = document.getElementById('visitorsCategory').getContext('2d');
-    const ctx2 = document.getElementById('quarterlyCategory').getContext('2d');
-    const  ctx3 = document.getElementById('quarterlyVisitCategory').getContext('2d');
-
-    const chart1 = new Chart(ctx, {
-        type: 'doughnut',
-        data: {
-            labels: ['Environment and Forestry', 'Agriculture and Agricultural Engineering','Usepiana', 'General Information','Filipiñiana', 'Educational','Video Tapes','Special Education', 'Others'],
-            datasets: [{
-                label: '',
-                data: [12,12,10,24,67,98,25, 65, 90],
-                backgroundColor: ['rgb(128,0,0)', 'rgb(94,0,0)', 'rgb(72,0,0)','rgb(54,0,0)','rgb(38,0,0)','rgb(16,0,0)','rgb(0,0,0)','rgb(181,0,0)','rgb(156,0,0)'],
-                cutout: '65%',
-                borderWidth: 1,
-                pointStyle: 'circle',
-
-            }]
-        },
-        options: {
-            maintainAspectRatio: false,
-                plugins: {
-                legend: {
-                    position: 'left',
-                    labels: {
-                        usePointStyle: true
-                    }
-                }
-            }
-        }
-    });
-
-    const chart2 = new Chart(ctx1, {
-        type: 'bar',
-        data: {
-            labels: ['MON', 'TUE', 'WED', 'THUR', 'FRI'],
-            datasets: [{
-                label: 'Visitors',
-                data: [ 70, 140, 210, 280, 350],
-                backgroundColor: 'rgba(147,38,38,100%)',
-               barThickness: 15,
-
-            },
-                {
-                    label: 'Borrowers',
-                    data: [ 50, 160, 200, 180, 150],
-                    backgroundColor: 'rgba(37,37,37,100%)',
-                    barThickness: 15,
-
-                }
-
-            ]
-        },
-        options: {
-            maintainAspectRatio: false,
-            scales: {
-                x: {
-                    grid: {
-                        display: false,
-                    }
-                },
-
-            },
-            plugins: {
-                legend: {
-                    position: 'bottom',
-                    labels: {
-                        usePointStyle: true
-                    }
-                }
-            }
-        }
-    });
-
-    const chart3 = new Chart(ctx2, {
-        type: 'bar',
-        data: {
-            labels: ['JAN', 'FEB', 'MAR', 'APR', 'MAY','JUN', 'JLY', 'SEP', 'NOV', 'DEC'],
-            datasets: [{
-                label: 'BORROWED',
-                data: [ 70, 140, 210, 280, 350, 200, 150,90, 26, 10, 120, 120],
-                backgroundColor: 'rgba(147,38,38,100%)',
-                barThickness: 15,
-
-            },
-                {
-                    label: 'RESERVED',
-                    data: [ 50, 160, 200, 180, 150, 130, 140, 135, 60, 70, 50],
-                    backgroundColor: 'rgba(37,37,37,100%)',
-                    barThickness: 15,
-
-                }
-
-            ]
-        },
-        options: {
-            maintainAspectRatio: false,
-            scales: {
-                x: {
-                    grid: {
-                        display: false,
-                    }
-                },
-
-            },
-            plugins: {
-                legend: {
-                    position: 'bottom',
-                    labels: {
-                        usePointStyle: true
-                    }
-                }
-            }
-        }
-    });
-    const chart4 = new Chart(ctx3, {
-        type: 'line',
-        data: {
-            labels: ['JAN', 'FEB', 'MAR', 'APR', 'MAY','JUN', 'JLY', 'SEP', 'NOV', 'DEC'],
-            datasets: [{
-                label: 'VISITORS',
-                data: [ 70, 140, 210, 280, 350, 200, 150,90, 26, 10, 120, 120],
-                fill: false,
-                borderColor: 'rgba(147,38,38,100%)',
-                backgroundColor: 'rgba(147,38,38,100%)',
-                tension: 0.1
-
-
-            },
-                {
-                    label: 'NEW USERS',
-                    data: [ 50, 160, 200, 180, 150, 130, 140, 135, 60, 70, 50],
-                    borderColor: 'rgba(37,37,37,100%)',
-                    backgroundColor: 'rgba(37,37,37,100%)',
-                    tension: 0.1
-
-                }
-
-            ]
-        },
-        options: {
-            maintainAspectRatio: false,
-            scales: {
-                x: {
-                    grid: {
-                        display: false,
-                    }
-                },
-
-            },
-            plugins: {
-                legend: {
-                    position: 'bottom',
-                    labels: {
-                        usePointStyle: true
-                    }
-                }
-            }
-        }
-    });
-
-
-</script>
-<script>
-
-
-
-</script>
-
-
 </body>
 </html>

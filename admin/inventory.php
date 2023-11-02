@@ -39,8 +39,8 @@
             </div>
             <div>
                 <ul class="menu_icon">
-                    <li><img class="custom_menu_icon" src="../icons/dashboard_icon.png" alt=""><span><a href="#">Dashboard</a></span></li>
-                    <li><img class="custom_menu_icon" src="../icons/staff_icon.png" alt=""><span><a href="staff.php">Student</a></span></li>
+                    <li><img class="custom_menu_icon" src="../icons/dashboard_icon.png" alt=""><span><a href="dashboard.php">Dashboard</a></span></li>
+                    <li><img class="custom_menu_icon" src="../icons/staff_icon.png" alt=""><span><a href="student.php">Student</a></span></li>
                     <li><img class="custom_menu_icon" src="../icons/reports_icon.png" alt=""><span><a href="report.php">Reports</a></span></li>
                     <li><img class="custom_menu_icon" src="../icons/logs_icon.png" alt=""><span><a href="logs.php">Logs</a></span></li>
                     <li class="active"><img class="custom_menu_icon" src="../icons/admin_inventory_menu.png" alt=""><span><a href="inventory.php">Inventory</a></span></li>
@@ -80,7 +80,7 @@
                        </div>
                    </div>
                     <div class="col col-md-2" style="display: flex; align-items: center; justify-content: flex-end;" >
-                        <img style="width: 25px; margin-right: 20px;" src="../icons/download_icon.png" alt="">
+                        <button style="width: 30px; border: none; background: transparent;"><img style="width: 25px; margin-right: 20px;" src="../icons/download_icon.png" alt=""></button>
                         <button style="font-size: 12px; width: 150px; height: 30px; border-radius: 5px; background-color: rgb(128,0,0); color: white; border: none">ADD BOOK</button>
                     </div>
                 </div>
@@ -163,7 +163,7 @@
                                 <h6 class="card-title"><input type="checkbox"></h6>
                                 <div style="width: 100%; height: 21vh; display: flex;">
                                     <div style=" height: 21vh; width: 138px; overflow: hidden ">
-                                        <img style="width: 97px" src="../book_img/1984.jpg" alt="">
+                                        <img style="width: 97px" src="../book_img/book1.jpg" alt="">
                                     </div>
                                     <div style="width: 100%; height: 21vh; margin-left: 15px; ">
                                         <h6 style="font-size: 12px; font-weight: 700; font-style: italic">1984</h6>
@@ -200,7 +200,7 @@
                                 <h6 class="card-title"><input type="checkbox"></h6>
                                 <div style="width: 100%; height: 21vh; display: flex;">
                                     <div style=" height: 21vh; width: 138px; overflow: hidden ">
-                                        <img style="width: 97px" src="../book_img/1984.jpg" alt="">
+                                        <img style="width: 97px" src="../book_img/book2.jpg" alt="">
                                     </div>
                                     <div style="width: 100%; height: 21vh; margin-left: 15px; ">
                                         <h6 style="font-size: 12px; font-weight: 700; font-style: italic">1984</h6>

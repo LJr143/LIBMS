@@ -75,7 +75,7 @@ $books = $bookData->getAllBooks();
                         <li><a class="dropdown-item" href="#"><img src="../icons/help.png" alt="" class="custom_icon"><span>Help</span></a></li>
                         <li><a class="dropdown-item" href="#"><img src="../icons/connect.png" alt="" class="custom_icon"><span>Feedback</span></a></li>
                         <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" href="#"><img src="../icons/plug.png" alt="" class="custom_icon"><span>Logout</span></a></li>
+                        <li><a class="dropdown-item" href="../operations/logout.php"><img src="../icons/plug.png" alt="" class="custom_icon"><span>Logout</span></a></li>
                     </ul>
                 </div>
 
