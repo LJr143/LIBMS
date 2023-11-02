@@ -68,7 +68,7 @@
   <body>
 
 
-    <a href="#" class="btn custom-btn" id="deleteAllUser"> <img class="imgmng" src="../images/trash3-fill.svg" alt="Image Button"> </a>
+    <a href="#" class="btn custom-btn" id="deleteAllUser"> <img class="imgmng" src="../icons/trash3-fill.svg" alt="Image Button"> </a>
 </body>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 <script src="../../script/bootstrap.bundle.min.js"></script>

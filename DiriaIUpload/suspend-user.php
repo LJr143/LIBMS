@@ -68,7 +68,7 @@
   @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300&family=Poppins&display=swap');
         </style>
   <body>
-    <a href="#" class="btn custom-btn" id="suspendUser"> <img class="imgmng" src="../images/exclamation-octagon.svg" alt="Image Button"> </a>
+    <a href="#" class="btn custom-btn" id="suspendUser"> <img class="imgmng" src="../icons/exclamation-octagon.svg" alt="Image Button"> </a>
 </body>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 <script src="../../script/bootstrap.bundle.min.js"></script>
