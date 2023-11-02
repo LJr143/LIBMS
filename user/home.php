@@ -4,8 +4,8 @@ error_reporting(0);
 if(!isset($_SESSION['authenticate_user'])){
     header('Location: ../index.php');
 }
-include 'C:\wamp64\www\LIBMS\LIBMS\db_config\config.php';
-include 'C:\wamp64\www\LIBMS\LIBMS\includes\fetch_books.php';
+include 'C:\wamp64\www\LIBMS\db_config\config.php';
+include 'C:\wamp64\www\LIBMS\includes\fetch_books.php';
 $database = new Database();
 $bookData = new BookData($database);
 

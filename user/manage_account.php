@@ -1,7 +1,7 @@
 <?php
 session_start();
-include 'C:\wamp64\www\LIBMS\LIBMS\db_config\config.php';
-include 'C:\wamp64\www\LIBMS\LIBMS\includes\fetch_books.php';
+include 'C:\wamp64\www\LIBMS\db_config\config.php';
+include 'C:\wamp64\www\LIBMS\includes\fetch_books.php';
 $database = new Database();
 $bookData = new BookData($database);
 

@@ -1,6 +1,6 @@
 <?php
-require_once 'C:\wamp64\www\LIBMS\LIBMS\db_config\config.php';
-require_once 'C:\wamp64\www\LIBMS\LIBMS\includes\fetch_books.php';
+require_once 'C:\wamp64\www\LIBMS\db_config\config.php';
+require_once 'C:\wamp64\www\LIBMS\includes\fetch_books.php';
 class BorrowBookInsert {
     private $conn;
 
