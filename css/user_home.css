@@ -56,6 +56,10 @@ nav .right-side > .right-side-text {
     background-color: #560606;
     color: white;
 }
+ .dropdown-toggle::after {
+     display: none;
+ }
+
 .user-nav {
     position: relative;
     width: 100%;
