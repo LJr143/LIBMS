@@ -49,7 +49,7 @@ $books = $bookData->getAllBooks();
 </nav>
 <div style=" height: 100%; width: 100%; overflow-x: hidden; position: relative">
 
-        <div class="user-nav bg-dark text-white" style="position: relative">
+        <div class="user-nav  text-white" style="position: relative">
             <ul class="nav justify-content-center align-items-center align-content-center" style="width: 100%">
                 <li class="nav-item active">
                     <a class="nav-link" aria-current="page" href="home.php">BOOKS</a>

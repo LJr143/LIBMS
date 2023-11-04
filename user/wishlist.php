@@ -64,7 +64,7 @@ $availableBooks = $wishData->getBooksByStatus('available');
             </div>
         </div>
     </nav>
-    <div class="user-nav bg-dark text-white">
+    <div class="user-nav  text-white">
         <ul class="nav justify-content-center align-items-center align-content-center" style="width: 100%">
             <li class="nav-item">
                 <a class="nav-link" aria-current="page" href="home.php">BOOKS</a>

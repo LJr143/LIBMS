@@ -127,5 +127,19 @@ nav .right-side > .right-side-text {
     background-color: rgba(86,6,6,100%);
     color: rgba(255,255,255,100%);
 }
+.search-input {
+    border: none;
+    border-bottom: 1px solid #000000;
+    padding: 5px 30px;
+    background: transparent url('../icons/search.png') no-repeat 0% 50%;
+    background-size: 15px;
+    outline: none;
+    width: 200px;
+    font-size: 12px;
+}
+
+.search-input::placeholder {
+    color: white;
+}
 
 

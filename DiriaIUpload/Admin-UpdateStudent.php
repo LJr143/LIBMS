@@ -117,7 +117,7 @@
                             <form class="row  needs-validation"      novalidate>
                                 <div class="col-md-2 " style="margin-bottom: -70px;">
                                     <div class="AddImageContainer">
-                                        <i class="bi bi-plus-circle" title="Add Image" style="color: gray"></i>
+                                        <i class="bi bi-plus-circle" title="Add Image" style="color: grey"></i>
                                         <img src="" width="100" height="100" id="Profile-Pic">
                                     </div>
                                     <input type="file" accept="image/jpeg, image/png, image/jpg" id="input-file"
