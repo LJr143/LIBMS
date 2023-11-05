@@ -166,3 +166,30 @@ tr th,td {
     align-content: center;
     padding: 20px;
  }
+.dash_cards .card {
+    position: relative;
+    isolation: isolate;
+    background-color: #560204;
+}
+.dash_cards .card::after {
+    content: '';
+    position: absolute;
+    opacity: 0.2;
+    inset: 0;
+    z-index: -1;
+    background-image: url("../icons/usep-logo.png");
+    background-size: 100px;
+    background-repeat: no-repeat;
+    background-position: right;
+    background-position-x: 160px;
+
+}
+.dash_cards .card h6, h5 {
+    font-size: 12px;
+    font-weight: bold;
+    color: white;
+}
+.dash_cards .card  h5 {
+    font-style: italic;
+    font-size: 18px;
+}

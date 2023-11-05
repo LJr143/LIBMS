@@ -56,9 +56,22 @@
 
         </div>
         <div class="col" style=" width: 100%; height: 100vh; ">
-            <div style="display: flex; justify-content: center; ">
-                <div style="background-color: white; width: 95%; height: 45px; margin: 15px; border-radius: 5px;display: flex; box-shadow: 0px 4px 8px rgba(0,0,0,0.27)">
-                    <p style="font-size: 10px; font-weight: 600; margin: 14px">HOME | REPORTS</p>
+            <div style="background-color: white; width: 95%; height: 45px; margin: 15px; border-radius: 5px;display: flex; box-shadow: 0px 4px 8px rgba(0,0,0,0.27); align-content: center; align-items: center">
+                <div style="width: 90%">
+                    <p style="font-size: 10px; font-weight: 700; margin: 14px">HOME | REPORT</p>
+                </div>
+                <div class=" d-flex justify-content-end align-items-center" style="height: 50px; width: 10%; margin-right: 20px ">
+                    <div class="dropdown" style=" margin-right: 0px; position: absolute">
+                        <button style="background: none; border: none;" class=" dropdown-toggle" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
+                            <img src="../img/me_sample_profile.jpg" alt="" width="35px" style="border-radius: 60px; border: 1px solid #4d0202">
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-dark dropdown_menu_setting aria-labelledby="dropdownMenuButton2">
+                        <li><a class="dropdown-item" href="manage_account.php"><img src="../icons/manage_account.png" alt="" class="custom_icon"><span>Manage Account</span></a></li>
+                        <li><a class="dropdown-item" href="#"><img src="../icons/help.png" alt="" class="custom_icon"><span>Help</span></a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="../operations/logout.php"><img src="../icons/plug.png" alt="" class="custom_icon"><span>Logout</span></a></li>
+                        </ul>
+                    </div>
                 </div>
             </div>
             <div style="display: flex; justify-content: center; ">
