@@ -52,6 +52,33 @@ nav .head-text .right-side {
 nav .right-side > .right-side-text {
 
 }
+.profile_section {
+    --bg_image: url('../icons/eagle.jpg');
+    --opacity: 0.30;
+    margin-bottom: 25px;
+    height: 100px;
+    background-color: rgb(4, 12, 38);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    align-content: center;
+    background-size: cover;
+    position: relative;
+    isolation: isolate;
+}
+
+.profile_section::after {
+    content: '';
+    position: absolute;
+    opacity: var(--opacity);
+    inset: 0;
+    z-index: -1;
+    background-image: var(--bg_image);
+    background-position: center;
+    background-size: cover;
+
+}
 .user-nav {
     position: relative;
     width: 100%;
@@ -139,3 +166,30 @@ tr th,td {
     align-content: center;
     padding: 20px;
  }
+.dash_cards .card {
+    position: relative;
+    isolation: isolate;
+    background-color: #560204;
+}
+.dash_cards .card::after {
+    content: '';
+    position: absolute;
+    opacity: 0.2;
+    inset: 0;
+    z-index: -1;
+    background-image: url("../icons/usep-logo.png");
+    background-size: 100px;
+    background-repeat: no-repeat;
+    background-position: right;
+    background-position-x: 160px;
+
+}
+.dash_cards .card h6, h5 {
+    font-size: 12px;
+    font-weight: bold;
+    color: white;
+}
+.dash_cards .card  h5 {
+    font-style: italic;
+    font-size: 18px;
+}

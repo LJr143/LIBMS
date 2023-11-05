@@ -34,8 +34,15 @@
 
     <div class="main-content d-flex" >
         <div class="col col-md-2 side_bar">
-            <div style="margin-bottom: 25px;height: 10vh; background-color: #740000; display: flex; justify-content: flex-start; align-items: center">
-                <div style="margin-left: 35px"><img style="width: 35px;" src="../icons/admin_icon.png"  alt=""><span style="font-size: 12px; color: white; margin-left: 10px">Lorjohn M. Rana</span></div>
+            <div class="profile_section">
+                <div>
+                    <img style="width: 60px; border-radius: 60px;" src="../img/me_sample_profile.jpg" alt="">
+                </div>
+                <div style="display: block; text-align: center; color: white; height: 20px;">
+                    <ul style="margin-right: 36px;">
+                        <li style="font-size: 12px; color: #0cb90c; font-weight: 600">Active</li>
+                    </ul>
+                </div>
             </div>
             <div>
                 <ul class="menu_icon">

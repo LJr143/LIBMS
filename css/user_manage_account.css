@@ -73,6 +73,33 @@ nav .right-side > .right-side-text {
     align-content: center;
     color: white;
 }
+.profile_section {
+    --bg_image: url('../icons/eagle.jpg');
+    --opacity: 0.30;
+    margin-bottom: 25px;
+    height: 100px;
+    background-color: rgb(4, 12, 38);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    align-content: center;
+    background-size: cover;
+    position: relative;
+    isolation: isolate;
+}
+
+.profile_section::after {
+    content: '';
+    position: absolute;
+    opacity: var(--opacity);
+    inset: 0;
+    z-index: -1;
+    background-image: var(--bg_image);
+    background-position: center;
+    background-size: cover;
+
+}
 .user-nav ul li {
     width: 150px;
     text-align: center;

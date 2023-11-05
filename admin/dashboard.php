@@ -34,8 +34,15 @@
 
     <div class="main-content d-flex" >
         <div class="col col-md-2 side_bar">
-            <div style="margin-bottom: 25px;height: 10vh; background-color: #740000; display: flex; justify-content: flex-start; align-items: center">
-                <div style="margin-left: 35px"><img style="width: 35px;" src="../icons/admin_icon.png"  alt=""><span style="font-size: 12px; color: white; margin-left: 10px">Lorjohn M. Rana</span></div>
+            <div class="profile_section">
+                <div>
+                    <img style="width: 60px; border-radius: 60px;" src="../img/me_sample_profile.jpg" alt="">
+                </div>
+                <div style="display: block; text-align: center; color: white; height: 20px;">
+                    <ul style="margin-right: 36px;">
+                        <li style="font-size: 12px; color: #0cb90c; font-weight: 600">Active</li>
+                    </ul>
+                </div>
             </div>
             <div>
                 <ul class="menu_icon">
@@ -51,17 +58,32 @@
         </div>
         <div class="col" style=" width: 100%; height: 100vh; ">
             <div style="display: flex; justify-content: center; ">
-                <div style="background-color: white; width: 95%; height: 45px; margin: 15px; border-radius: 5px;display: flex; box-shadow: 0px 4px 8px rgba(0,0,0,0.27)">
-                    <p style="font-size: 10px; font-weight: 600; margin: 14px">HOME | DASHBOARD</p>
+                <div style="background-color: white; width: 95%; height: 45px; margin: 15px; border-radius: 5px;display: flex; box-shadow: 0px 4px 8px rgba(0,0,0,0.27); align-content: center; align-items: center">
+                    <div style="width: 90%">
+                        <p style="font-size: 10px; font-weight: 700; margin: 14px">HOME | DASHBOARD</p>
+                    </div>
+                    <div class=" d-flex justify-content-end align-items-center" style="height: 50px; width: 10%; margin-right: 20px ">
+                        <div class="dropdown" style=" margin-right: 0px; position: absolute">
+                            <button style="background: none; border: none;" class=" dropdown-toggle" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
+                                <img src="../img/me_sample_profile.jpg" alt="" width="35px" style="border-radius: 60px; border: 1px solid #4d0202">
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-dark dropdown_menu_setting aria-labelledby="dropdownMenuButton2">
+                            <li><a class="dropdown-item" href="manage_account.php"><img src="../icons/manage_account.png" alt="" class="custom_icon"><span>Manage Account</span></a></li>
+                            <li><a class="dropdown-item" href="#"><img src="../icons/help.png" alt="" class="custom_icon"><span>Help</span></a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="../operations/logout.php"><img src="../icons/plug.png" alt="" class="custom_icon"><span>Logout</span></a></li>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div style="margin: 0px 35px; display: flex; justify-content: space-between; margin-top: 10px ">
+            <div class="dash_cards" style="margin: 0px 35px; display: flex; justify-content: space-between; margin-top: 10px ">
                 <div class="card" style="width: 18rem; height: 140px; box-shadow: 0px 3px 6px rgba(0,0,0,0.26)">
                     <div class="card-body">
-                        <h6 class="card-title">New Books</h6>
+                        <h6 class="card-title">No. of New Books</h6>
                         <h5>251</h5>
                         <div style="width: 100%; display: flex; justify-content: flex-end; margin-top: -40px; ">
-                            <img style="width: 65px; margin-right: 20px;" src="../icons/dashboard_new_books.png" alt="">
+
                         </div>
                         <p class="card-text"></p>
 
@@ -69,10 +91,10 @@
                 </div>
                 <div class="card" style="width: 18rem; height: 140px; box-shadow: 0px 3px 6px rgba(0,0,0,0.26)">
                     <div class="card-body">
-                        <h6 class="card-title">Total Books</h6>
+                        <h6 class="card-title">Total No. of Books</h6>
                         <h5>251</h5>
                         <div style="width: 100%; display: flex; justify-content: flex-end; margin-top: -40px; ">
-                            <img style="width: 65px; margin-right: 20px;" src="../icons/dashboard_total_books.png" alt="">
+
                         </div>
                         <p class="card-text"></p>
 
@@ -80,10 +102,10 @@
                 </div>
                 <div class="card" style="width: 18rem; height: 140px; box-shadow: 0px 3px 6px rgba(0,0,0,0.26)">
                     <div class="card-body">
-                        <h6 class="card-title">New Users</h6>
+                        <h6 class="card-title">No. of New Users</h6>
                         <h5>251</h5>
                         <div style="width: 100%; display: flex; justify-content: flex-end; margin-top: -40px; ">
-                            <img style="width: 65px; margin-right: 20px;" src="../icons/dashboard_new_users.png" alt="">
+
                         </div>
                         <p class="card-text"></p>
 
@@ -91,10 +113,10 @@
                 </div>
                 <div class="card" style="width: 18rem; height: 140px; box-shadow: 0px 3px 6px rgba(0,0,0,0.26)">
                     <div class="card-body">
-                        <h6 class="card-title">Total Users</h6>
+                        <h6 class="card-title">Total No. of Users</h6>
                         <h5>251</h5>
                         <div style="width: 100%; display: flex; justify-content: flex-end; margin-top: -40px; ">
-                            <img style="width: 65px; margin-right: 20px;" src="../icons/dashboard_total_users.png" alt="">
+
                         </div>
                         <p class="card-text"></p>
 
