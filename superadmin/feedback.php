@@ -113,7 +113,7 @@
                                <p style="width: 70ch; font-size: 12px" class="card-text">“Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod  tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.”</p>
                            </div>
                             <div style="display: flex; justify-content: flex-end; margin-top: 10px">
-                                <button style="border: none"><img style="width: 20px" src="../icons/delete_rating.png" alt=""></button>
+                                <button style="border: none; background: none;"><img style="width: 20px" src="../icons/delete_rating.png" alt=""></button>
                             </div>
 
                         </div>
@@ -142,7 +142,7 @@
                                 <p style="width: 70ch; font-size: 12px" class="card-text">“Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod  tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.”</p>
                             </div>
                             <div style="display: flex; justify-content: flex-end; margin-top: 10px">
-                                <button style="border: none"><img style="width: 20px" src="../icons/delete_rating.png" alt=""></button>
+                                <button style="border: none; background: none;"><img style="width: 20px" src="../icons/delete_rating.png" alt=""></button>
                             </div>
 
                         </div>
@@ -171,7 +171,7 @@
                                 <p style="width: 70ch; font-size: 12px" class="card-text">“Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod  tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.”</p>
                             </div>
                             <div style="display: flex; justify-content: flex-end; margin-top: 10px">
-                                <button style="border: none"><img style="width: 20px" src="../icons/delete_rating.png" alt=""></button>
+                                <button style="border: none; background: none;"><img style="width: 20px" src="../icons/delete_rating.png" alt=""></button>
                             </div>
 
                         </div>
@@ -200,7 +200,7 @@
                                 <p style="width: 70ch; font-size: 12px" class="card-text">“Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod  tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.”</p>
                             </div>
                             <div style="display: flex; justify-content: flex-end; margin-top: 10px">
-                                <button style="border: none"><img style="width: 20px" src="../icons/delete_rating.png" alt=""></button>
+                                <button style="border: none; background: none;"><img style="width: 20px" src="../icons/delete_rating.png" alt=""></button>
                             </div>
 
                         </div>
@@ -229,7 +229,7 @@
                                 <p style="width: 70ch; font-size: 12px" class="card-text">“Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod  tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.”</p>
                             </div>
                             <div style="display: flex; justify-content: flex-end; margin-top: 10px">
-                                <button style="border: none"><img style="width: 20px" src="../icons/delete_rating.png" alt=""></button>
+                                <button style="border: none; background: none;"><img style="width: 20px" src="../icons/delete_rating.png" alt=""></button>
                             </div>
 
                         </div>
@@ -258,7 +258,7 @@
                                 <p style="width: 70ch; font-size: 12px" class="card-text">“Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod  tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.”</p>
                             </div>
                             <div style="display: flex; justify-content: flex-end; margin-top: 10px">
-                                <button style="border: none"><img style="width: 20px" src="../icons/delete_rating.png" alt=""></button>
+                                <button style="border: none; background: none;"><img style="width: 20px" src="../icons/delete_rating.png" alt=""></button>
                             </div>
 
                         </div>

@@ -4,7 +4,7 @@ require_once 'C:\wamp64\www\LIBMS\LIBMS\db_config\config.php';
 
 
 
-class User
+class Admin
 {
     private $db;
 
@@ -13,13 +13,13 @@ class User
         $this->db = $dbConnection;
     }
 
-    public function login($username, $password)
+    public function login($username, $password, $role)
     {
         if (empty($username) || empty($password)) {
             return array("status" => "error", "login_result" => "empty_fields");
         }
 
-        $query = "SELECT * FROM tbl_user WHERE username = :username";
+        $query = "SELECT * FROM tbl_admin WHERE username = :username";
         $stmt = $this->db->prepare($query);
         $stmt->bindParam(':username', $username);
         $stmt->execute();
@@ -33,7 +33,16 @@ class User
 
         if ($password === $user['password']) {
             $_SESSION['authenticate_user'] = $authenticate_user;
-            return array("status" => "success", "login_result" => "login_successful");
+            if($role === 'Librarian'){
+                return array("status" => "success", "login_result" => "login_superadmin");
+            }
+            else if ($role == 'Staff') {
+                return array("status" => "success", "login_result" => "login_admin");
+            }
+            else {
+                return array("status" => "success", "login_result" => "login_successful");
+            }
+
 
 
         } else {

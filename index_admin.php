@@ -42,10 +42,10 @@
 
                     <div style="display: inline;">
                        <div style="margin-top: 50px">
-                           <select name="" id="">
+                           <select name="" id="admin_role">
                                <option value="">Select Admin</option>
-                               <option value="">Librarian</option>
-                               <option value="">Staff</option>
+                               <option value="Librarian">Librarian</option>
+                               <option value="Staff">Staff</option>
                            </select>
                        </div>
                         <label for="user_username">Username</label>
@@ -81,7 +81,88 @@
     </div>
 </div>
 
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    function togglePasswordVisibility() {
+        var passwordInput = document.getElementById("user_password");
+        if (passwordInput.type === "password") {
+            passwordInput.type = "text";
+        } else {
+            passwordInput.type = "password";
+        }
+    }
+</script>
+<script>
+    $(document).ready(function(){
+        $("#form_submit_btn").click(function (event) {
+            event.preventDefault(); // Prevent the default form submission behavior.
+            $("#form_submit_btn").prop("disabled", true);
+
+            var username = $("#user_username").val();
+            var password = $("#user_password").val();
+            var role = $("#admin_role").val();
+
+            $.ajax({
+                type: "POST",
+                url: "operations/login_admin.php",
+                data: {
+                    username: username,
+                    password: password,
+                    role: role
+                },
+                dataType: 'json',
+
+                success: function (response) {
+                    $("#form_submit_btn").prop("disabled", false);
+                    console.log(response);
+
+                    var login_result = response.login_result;
+
+                    if (login_result == "login_successful") {
+                        window.location = 'admin/dashboard.php';
+                    }
+                    else if (login_result == "login_admin"){
+                        window.location = 'admin/dashboard.php';
+                    }
+                    else if (login_result == "login_superadmin"){
+                        window.location ='superadmin/dashboard.php';
+                    }
+                    else if (login_result == "wrong_password") {
+                        Swal.fire({
+                            title: 'Login Failed!',
+                            text: "Incorrect username or password",
+                            icon: 'error',
+                            confirmButtonColor: '#A24D4D',
+                            confirmButtonText: 'Try Again',
+                        });
+                    } else if (login_result == "empty_fields") {
+                        Swal.fire({
+                            title: 'Login Failed!',
+                            text: "Some fields are empty. Make sure to fill in all fields.",
+                            icon: 'error',
+                            confirmButtonColor: '#A24D4D',
+                            confirmButtonText: 'Try Again!'
+                        });
+                    } else {
+                        Swal.fire({
+                            title: 'Login Failed!',
+                            text: "Account does not exist in our database!",
+                            icon: 'error',
+                            confirmButtonColor: '#A24D4D',
+                            confirmButtonText: 'Try Again!'
+                        });
+                    }
+                },
+                error: function () {
+                    // Re-enable the login button in case of an error
+                    $("#form_submit_btn").prop("disabled", false);
+                }
+            });
+        });
+    });
+
+</script>
 </body>
 </html>
