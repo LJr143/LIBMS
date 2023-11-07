@@ -1,6 +1,33 @@
 <?php
-?>
+session_start();
+require_once 'C:\wamp64\www\LIBMS\LIBMS\db_config\config.php';
+include "operations/authentication.php";
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+$db = new Database();
+$userAuth = new UserAuthentication($db);
 
+if (isset($_POST['form_submit_btn'])) {
+    $username = $_POST['username'];
+    $password = $_POST['password'];
+    $role = $_POST['admin_role'];
+
+    if ($userAuth->loginAdmin($username, $password, $role)) {
+        if($role == 'Librarian'){
+            header('Location: superadmin/dashboard.php');
+            exit();
+        }else {
+            header('Location: admin/dashboard.php');
+            exit();
+        }
+
+    } else {
+        $loginError = 'Invalid username or password';
+    }
+}
+
+
+?>
 <!doctype html>
 <html lang="en">
 <head>
@@ -33,7 +60,7 @@
             </div>
         </div>
     </nav>
-    <div class="main-content" style="background-image: url('icons/bglms 1.png'); background-size: width; background-repeat: no-repeat;">
+    <div class="main-content">
         <div class="form-box">
             <form action="" method="post" enctype="multipart/form-data">
                 <div class="form-content">
@@ -42,7 +69,7 @@
 
                     <div style="display: inline;">
                        <div style="margin-top: 50px">
-                           <select name="" id="admin_role">
+                           <select name="admin_role" id="admin_role">
                                <option value="">Select Admin</option>
                                <option value="Librarian">Librarian</option>
                                <option value="Staff">Staff</option>
@@ -50,11 +77,11 @@
                        </div>
                         <label for="user_username">Username</label>
                         <br>
-                        <input type="text" id="user_username">
+                        <input  name="username" type="text" id="user_username">
                         <br>
                         <label for="user_username">Password</label>
                         <br>
-                        <input type="text" id="user_password">
+                        <input name="password" id="user_password">
                         <br>
                         <div style="display: flex; justify-content: space-between">
                             <div style="display:flex;">
@@ -65,7 +92,7 @@
                                 <a href="" style="font-size: 8px">forgot password?</a>
                             </div>
                         </div>
-                        <input type="submit" value="LOGIN" id="form_submit_btn">
+                        <input name="form_submit_btn" type="submit" value="LOGIN" id="form_submit_btn">
                     </div>
 
                     <div class="google-button">
@@ -94,75 +121,6 @@
         }
     }
 </script>
-<script>
-    $(document).ready(function(){
-        $("#form_submit_btn").click(function (event) {
-            event.preventDefault(); // Prevent the default form submission behavior.
-            $("#form_submit_btn").prop("disabled", true);
 
-            var username = $("#user_username").val();
-            var password = $("#user_password").val();
-            var role = $("#admin_role").val();
-
-            $.ajax({
-                type: "POST",
-                url: "operations/login_admin.php",
-                data: {
-                    username: username,
-                    password: password,
-                    role: role
-                },
-                dataType: 'json',
-
-                success: function (response) {
-                    $("#form_submit_btn").prop("disabled", false);
-                    console.log(response);
-
-                    var login_result = response.login_result;
-
-                    if (login_result == "login_successful") {
-                        window.location = 'admin/dashboard.php';
-                    }
-                    else if (login_result == "login_admin"){
-                        window.location = 'admin/dashboard.php';
-                    }
-                    else if (login_result == "login_superadmin"){
-                        window.location ='superadmin/dashboard.php';
-                    }
-                    else if (login_result == "wrong_password") {
-                        Swal.fire({
-                            title: 'Login Failed!',
-                            text: "Incorrect username or password",
-                            icon: 'error',
-                            confirmButtonColor: '#A24D4D',
-                            confirmButtonText: 'Try Again',
-                        });
-                    } else if (login_result == "empty_fields") {
-                        Swal.fire({
-                            title: 'Login Failed!',
-                            text: "Some fields are empty. Make sure to fill in all fields.",
-                            icon: 'error',
-                            confirmButtonColor: '#A24D4D',
-                            confirmButtonText: 'Try Again!'
-                        });
-                    } else {
-                        Swal.fire({
-                            title: 'Login Failed!',
-                            text: "Account does not exist in our database!",
-                            icon: 'error',
-                            confirmButtonColor: '#A24D4D',
-                            confirmButtonText: 'Try Again!'
-                        });
-                    }
-                },
-                error: function () {
-                    // Re-enable the login button in case of an error
-                    $("#form_submit_btn").prop("disabled", false);
-                }
-            });
-        });
-    });
-
-</script>
 </body>
 </html>

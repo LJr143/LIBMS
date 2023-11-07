@@ -1,17 +1,26 @@
 <?php
 session_start();
-//error_reporting(0);
-if(!isset($_SESSION['authenticate_user'])){
-    header('Location: ../index.php');
-}
 require_once 'C:\wamp64\www\LIBMS\LIBMS\db_config\config.php';
 include 'C:\wamp64\www\LIBMS\LIBMS\includes\fetch_books.php';
+include 'C:\wamp64\www\LIBMS\LIBMS\operations\authentication.php';
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
 $database = new Database();
+$userAuth = new UserAuthentication($database);
 $bookData = new BookData($database);
 
 $books = $bookData->getAllBooks();
 
+if($userAuth->isAuthenticated()){
 
+} else {
+    header('Location: ../index_admin.php');
+}
+if (isset($_POST['logout'])) {
+    $userAuth->logout();
+    header('Location: ../index.php');
+    exit();
+}
 ?>
 
 <!doctype html>
@@ -285,7 +294,6 @@ $books = $bookData->getAllBooks();
         });
     });
 </script>
-
 <script>
     const listItems = document.querySelectorAll('.user-nav .nav-item');
     listItems.forEach((listItem) => {

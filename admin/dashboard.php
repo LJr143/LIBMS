@@ -1,3 +1,9 @@
+<?php
+
+
+?>
+
+
 <!doctype html>
 <html lang="en">
 <head>
@@ -68,10 +74,10 @@
                                 <img src="../img/me_sample_profile.jpg" alt="" width="35px" style="border-radius: 60px; border: 1px solid #4d0202">
                             </button>
                             <ul class="dropdown-menu dropdown-menu-dark dropdown_menu_setting aria-labelledby="dropdownMenuButton2">
-                            <li><a class="dropdown-item" href="manage_account.php"><img src="../icons/manage_account.png" alt="" class="custom_icon"><span>Manage Account</span></a></li>
+                            <li><a class="dropdown-item" href="profile.php"><img src="../icons/manage_account.png" alt="" class="custom_icon"><span>Manage Account</span></a></li>
                             <li><a class="dropdown-item" href="#"><img src="../icons/help.png" alt="" class="custom_icon"><span>Help</span></a></li>
                             <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="../operations/logout.php"><img src="../icons/plug.png" alt="" class="custom_icon"><span>Logout</span></a></li>
+                            <li><a id="logoutButton" class="dropdown-item" href=""><img src="../icons/plug.png" alt="" class="custom_icon"><span>Logout</span></a></li>
                             </ul>
                         </div>
                     </div>
@@ -460,9 +466,25 @@
 
 </script>
 <script>
+    $(document).ready(function() {
+        // Handle the logout button click event
+        $("#logoutButton").click(function() {
+            $.ajax({
+                url: '../operations/logout_admin.php',
+                type: 'POST',
+                dataType: 'json',
+                success: function(data) {
 
-
-
+                    if (data.success) {
+                        window.location.href = 'login.php';
+                    }
+                },
+                error: function() {
+                    alert('Logout failed. Please try again.');
+                }
+            });
+        });
+    });
 </script>
 
 

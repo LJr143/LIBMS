@@ -15,14 +15,13 @@ class BookData
         $sql = "SELECT * FROM tbl_book";
         $result = $this->database->executeQuery($sql);
 
-        $books = array();
-
-        while ($row = $result->fetch_assoc()) {
-            $books[] = $row;
+        if ($result) {
+            return $result;
+        } else {
+            return array();
         }
-
-        return $books;
     }
+
 
     public function getBookById($bookId): ?array
     {

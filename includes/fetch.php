@@ -1,5 +1,4 @@
 <?php
-// Connect to your database (You need to set your database credentials here)
 $host = 'localhost';
 $database = 'lms_db';
 $username = 'root';
@@ -13,11 +12,9 @@ try {
     exit();
 }
 
-// Check if the book_id parameter is set
 if (isset($_GET['book_id'])) {
     $bookId = $_GET['book_id'];
 
-    // Prepare a SQL query to fetch book details based on book_id
     $query = "SELECT * FROM tbl_book WHERE book_id = :bookId";
 
     $stmt = $conn->prepare($query);
@@ -30,7 +27,7 @@ if (isset($_GET['book_id'])) {
     $book = $stmt->fetch(PDO::FETCH_ASSOC);
 
     if ($book) {
-        // Format the response as HTML (you can customize this part)
+        // Format the response as HTML
         echo '<div id="img_container_vw" style=" display: flex; align-items: center">';
         echo '<div id="img_container_vw_2" style="display: flex; justify-content: center; align-items: center; width: 30%; height: 300px; overflow: hidden;">';
         echo '<img style="width: 190px;" src="../book_img/'.$book['book_img'].'" alt="">';

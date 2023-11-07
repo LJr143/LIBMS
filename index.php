@@ -1,7 +1,20 @@
 <?php
+session_start();
+require_once 'C:\wamp64\www\LIBMS\LIBMS\db_config\config.php';
+include "operations/authentication.php";
+$db = new Database();
+$userAuth = new UserAuthentication($db);
 
-if(isset($_SESSION['authenticate_user'])){
-    header('Location: user/home.php');
+if (isset($_POST['form_submit_btn'])) {
+    $username = $_POST['username'];
+    $password = $_POST['password'];
+
+    if ($userAuth->login($username, $password)) {
+        header('Location: user/home.php');
+        exit();
+    } else {
+        $loginError = 'Invalid username or password';
+    }
 }
 ?>
 
@@ -50,11 +63,11 @@ if(isset($_SESSION['authenticate_user'])){
                     <div style="display: inline;">
                         <label for="user_username">Username</label>
                         <br>
-                        <input type="text" id="user_username" autofocus>
+                        <input name="username" type="text" id="user_username" autofocus>
                         <br>
                         <label for="user_username">Password</label>
                         <br>
-                        <input type="password" id="user_password">
+                        <input name="password" type="password" id="user_password">
                         <br>
                         <div style="display: flex; justify-content: space-between">
                             <div style="display:flex;">
@@ -65,7 +78,7 @@ if(isset($_SESSION['authenticate_user'])){
                                 <a href="" style="font-size: 8px">forgot password?</a>
                             </div>
                         </div>
-                        <input type="submit" value="LOGIN" id="form_submit_btn">
+                        <input type="submit" name="form_submit_btn" value="LOGIN" id="form_submit_btn">
                     </div>
 
                     <div class="google-button">
@@ -94,70 +107,65 @@ if(isset($_SESSION['authenticate_user'])){
         }
     }
 </script>
-<script>
-    $(document).ready(function(){
-        $("#form_submit_btn").click(function (event) {
-            event.preventDefault(); // Prevent the default form submission behavior.
-            $("#form_submit_btn").prop("disabled", true);
-
-            var username = $("#user_username").val();
-            var password = $("#user_password").val();
-
-            $.ajax({
-                type: "POST",
-                url: "operations/login_user.php",
-                data: {
-                    username: username,
-                    password: password
-                },
-                dataType: 'json',
-
-                success: function (response) {
-                    $("#form_submit_btn").prop("disabled", false);
-                    console.log(response);
-
-                    var login_result = response.login_result;
-
-                    if (login_result == "login_successful") {
-                        window.location = 'user/home.php';
-                    } else if (login_result == "wrong_password") {
-                        Swal.fire({
-                            title: 'Login Failed!',
-                            text: "Incorrect username or password",
-                            icon: 'error',
-                            confirmButtonColor: '#A24D4D',
-                            confirmButtonText: 'Try Again',
-                        });
-                    } else if (login_result == "empty_fields") {
-                        Swal.fire({
-                            title: 'Login Failed!',
-                            text: "Some fields are empty. Make sure to fill in all fields.",
-                            icon: 'error',
-                            confirmButtonColor: '#A24D4D',
-                            confirmButtonText: 'Try Again!'
-                        });
-                    } else {
-                        Swal.fire({
-                            title: 'Login Failed!',
-                            text: "Account does not exist in our database!",
-                            icon: 'error',
-                            confirmButtonColor: '#A24D4D',
-                            confirmButtonText: 'Try Again!'
-                        });
-                    }
-                },
-                error: function () {
-                    // Re-enable the login button in case of an error
-                    $("#form_submit_btn").prop("disabled", false);
-                }
-            });
-        });
-    });
-
-</script>
-
-
-
+<!--<script>-->
+<!--    $(document).ready(function(){-->
+<!--        $("#loginForm").submit(function (event) {-->
+<!--            event.preventDefault();-->
+<!--            $("#form_submit_btn").prop("disabled", true);-->
+<!---->
+<!--            var username = $("#user_username").val();-->
+<!--            var password = $("#user_password").val();-->
+<!---->
+<!--            $.ajax({-->
+<!--                type: "POST",-->
+<!--                url: "operations/authentication.php",-->
+<!--                data: {-->
+<!--                    username: username,-->
+<!--                    password: password-->
+<!--                },-->
+<!--                dataType: 'json',-->
+<!---->
+<!--                success: function (response) {-->
+<!--                    $("#form_submit_btn").prop("disabled", false);-->
+<!--                    console.log(response);-->
+<!---->
+<!--                    var login_result = response.login_result;-->
+<!---->
+<!--                    if (login_result == "login_successful") {-->
+<!--                        window.location = 'user/home.php';-->
+<!--                    } else if (login_result == "wrong_password") {-->
+<!--                        Swal.fire({-->
+<!--                            title: 'Login Failed!',-->
+<!--                            text: "Incorrect username or password",-->
+<!--                            icon: 'error',-->
+<!--                            confirmButtonColor: '#A24D4D',-->
+<!--                            confirmButtonText: 'Try Again',-->
+<!--                        });-->
+<!--                    } else if (login_result == "empty_fields") {-->
+<!--                        Swal.fire({-->
+<!--                            title: 'Login Failed!',-->
+<!--                            text: "Some fields are empty. Make sure to fill in all fields.",-->
+<!--                            icon: 'error',-->
+<!--                            confirmButtonColor: '#A24D4D',-->
+<!--                            confirmButtonText: 'Try Again!'-->
+<!--                        });-->
+<!--                    } else {-->
+<!--                        Swal.fire({-->
+<!--                            title: 'Login Failed!',-->
+<!--                            text: "Account does not exist in our database!",-->
+<!--                            icon: 'error',-->
+<!--                            confirmButtonColor: '#A24D4D',-->
+<!--                            confirmButtonText: 'Try Again!'-->
+<!--                        });-->
+<!--                    }-->
+<!--                },-->
+<!--                error: function () {-->
+<!--                    $("#form_submit_btn").prop("disabled", false);-->
+<!--                }-->
+<!--            });-->
+<!--        });-->
+<!--    });-->
+<!--</script>-->
 
 </body>
 </html>

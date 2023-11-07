@@ -10,9 +10,10 @@
 }
 body {
     background-image: url('icons/bglms 1.png');
-    background-size: cover;
+    background-size: 1600px;
     background-repeat: no-repeat;
-    background-position-y: -20px;
+    background-position-y: -130px;
+    background-position-x: 0px;
 }
 
 nav {
