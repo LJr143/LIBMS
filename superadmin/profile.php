@@ -79,7 +79,7 @@ if (isset($_SESSION['user'])) {
         <div class="col col-md-2 side_bar">
             <div class="profile_section">
                 <div>
-                    <img style="width: 60px; border-radius: 60px;" src="../img/me_sample_profile.jpg" alt="">
+                    <img style="width: 60px; border-radius: 60px;" src="../img/<?=$loggedAdmin['img']?>" alt="">
                 </div>
                 <div style="display: block; text-align: center; color: white; height: 20px;">
                     <ul style="margin-right: 36px;">
@@ -133,7 +133,7 @@ if (isset($_SESSION['user'])) {
                <div class="row " style="width: 95%; display: flex; justify-content: space-between">
                    <div style="height: 300px; width: 20rem; box-shadow:0px 4px 8px rgba(0,0,0,0.27); margin: 20px 0px; ">
                     <div style="width: 100%; display: flex; justify-content: center; margin: 50px 0 0 0;">
-                        <img style="width: 150px; border-radius: 100px; border: 1px solid rgb(116,0,0)" src="../img/me_sample_profile.jpg" alt="">
+                        <img style="width: 150px; border-radius: 100px; border: 1px solid rgb(116,0,0)" src="../img/<?=$loggedAdmin['img']?>" alt="">
                     </div>
                        <div style="margin: 14px 0 0 0;">
                           <div style="display: flex; width: 100%; justify-content: center">

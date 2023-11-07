@@ -31,7 +31,6 @@ class UserAuthentication {
     }
 
     public function isAuthenticated() {
-
         return isset($_SESSION['user']);
 
     }

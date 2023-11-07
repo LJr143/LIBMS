@@ -3,6 +3,7 @@ session_start();
 require_once 'C:\wamp64\www\LIBMS\LIBMS\db_config\config.php';
 include 'C:\wamp64\www\LIBMS\LIBMS\operations\authentication.php';
 include 'C:\wamp64\www\LIBMS\LIBMS\includes\fetch_user_data.php';
+include 'C:\wamp64\www\LIBMS\LIBMS\includes\fetch_staff_data.php';
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
@@ -11,6 +12,8 @@ $loggedAdmin ='';
 $database = new Database();
 $userAuth = new UserAuthentication($database);
 $userData = new UserData($database);
+$staffData = new StaffData($database);
+$staffList = $staffData->getAllStaff();
 
 if ($userAuth->isAuthenticated()) {
 } else {
@@ -150,63 +153,16 @@ if (isset($_SESSION['user'])) {
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr style="height: 10px">
-
-                                </tr>
-                                <tr style=" height: 40px; background-color: rgb(246,246,246); margin-bottom: 10px; border: 1px solid rgba(0,0,0,0.25);">
-                                    <td><input type="checkbox"></td>
-                                    <td>Sheena Marie Pagas</td>
-                                    <td>880423897-57838</td>
-                                    <td>IT</td>
-                                    <td>Stephen King</td>
-                                    <td>7 hours</td>
-
-
-                                </tr>
-                                <tr style="height: 10px">
-
-                                </tr>
-                                <tr style=" height: 40px;background-color: rgb(246,246,246); margin-bottom: 10px; border: 1px solid rgba(0,0,0,0.25); border-radius: 5px;">
-
-                                    <td><input type="checkbox"></td>
-                                    <td>Lorjohn M. Raña</td>
-                                    <td>880423897-57838</td>
-                                    <td>IT</td>
-                                    <td>Stephen King</td>
-                                    <td>7 hours</td>
-
-
-                                </tr>
-                                <tr style="height: 10px">
-
-                                </tr>
-                                <tr style=" height: 40px; background-color: rgb(246,246,246); margin-bottom: 10px;border: 1px solid rgba(0,0,0,0.25);">
-                                    <td><input type="checkbox"></td>
-                                    <td>Sheena Marie Pagas</td>
-                                    <td>880423897-57838</td>
-                                    <td>IT</td>
-                                    <td>Stephen King</td>
-                                    <td>7 hours</td>
-
-
-                                </tr>
-                                <tr style="height: 10px">
-
-                                </tr>
-                                <tr style=" height: 40px; background-color: rgb(246,246,246); margin-bottom: 10px; border: 1px solid rgba(0,0,0,0.25);">
-                                    <td><input type="checkbox"></td>
-                                    <td>Sheena Marie Pagas</td>
-                                    <td>880423897-57838</td>
-                                    <td>IT</td>
-                                    <td>Stephen King</td>
-                                    <td>7 hours</td>
-
-
-                                </tr>
-                                <tr style="height: 10px">
-
-                                </tr>
-
+                                <?php foreach ($staffList as $staff) { ?>
+                                    <tr>
+                                        <td><input type="checkbox"></td>
+                                        <td></td>
+                                        <td><?php echo $staff['fname']?>&nbsp;<?php echo $staff['lname']; ?></td>
+                                        <td><?php echo $staff['admin_role']?></td>
+                                        <td><?php echo $staff['status']; ?></td>
+                                        <td></td>
+                                    </tr>
+                                <?php } ?>
                                 </tbody>
                             </table>
 

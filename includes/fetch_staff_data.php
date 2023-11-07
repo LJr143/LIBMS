@@ -3,7 +3,7 @@ require_once 'C:\wamp64\www\LIBMS\LIBMS\db_config\config.php';
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
-class UserData
+class StaffData
 {
     protected $database;
 
@@ -12,9 +12,9 @@ class UserData
         $this->database = $database->getDb();
     }
 
-    public function getAllUsers(): array
+    public function getAllStaff(): array
     {
-        $sql = "SELECT * FROM tbl_user";
+        $sql = "SELECT * FROM tbl_admin WHERE admin_role = 'Staff'";
         $stmt = $this->database->query($sql);
 
         if ($stmt) {
@@ -25,18 +25,18 @@ class UserData
         }
     }
 
-    public function getNumberOfUser(): int
+    public function getNumberOfStaff(): int
     {
-        $sql = "SELECT COUNT(*) as num_user FROM tbl_user";
+        $sql = "SELECT COUNT(*) as num_user FROM tbl_admin WHERE admin_role = 'Staff'";
         $stmt = $this->database->prepare($sql);
 
         if ($stmt->execute()) {
-            return (int) $stmt->fetch(PDO::FETCH_ASSOC)['num_user'];
+            return (int) $stmt->fetch(PDO::FETCH_ASSOC)['num_staff'];
         } else {
             return 0;
         }
     }
-    public function getAdminIdByUsername($username): ?string
+    public function getStaffIdByUsername($username): ?string
     {
         $sql = "SELECT admin_id FROM tbl_admin WHERE username = :username";
         $stmt = $this->database->prepare($sql);
@@ -50,7 +50,7 @@ class UserData
         }
     }
 
-    public function getAdminById($userId): array
+    public function getStaffById($userId): array
     {
         $sql = "SELECT * FROM tbl_admin WHERE admin_id = :userId";
         $stmt = $this->database->prepare($sql);
@@ -64,4 +64,27 @@ class UserData
     }
 
 }
+$database = new Database();
+$staffData = new StaffData($database);
+
+// Call the getAllStaff method to retrieve all staff data
+$staffList = $staffData->getAllStaff();
+
+// Check if there are staff members
+if (!empty($staffList)) {
+    foreach ($staffList as $staff) {
+        // Access staff data fields
+        $adminId = $staff['admin_id'];
+        $username = $staff['username'];
+        // Add more fields as needed
+
+        // Output or process staff data
+        echo "Admin ID: $adminId, Username: $username\n";
+        // Perform additional operations here
+    }
+} else {
+    // No staff members found
+    echo "No staff members found.";
+}
+
 

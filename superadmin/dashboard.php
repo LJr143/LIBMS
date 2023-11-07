@@ -3,6 +3,7 @@ session_start();
 require_once 'C:\wamp64\www\LIBMS\LIBMS\db_config\config.php';
 include 'C:\wamp64\www\LIBMS\LIBMS\operations\authentication.php';
 include 'C:\wamp64\www\LIBMS\LIBMS\includes\fetch_user_data.php';
+include 'C:\wamp64\www\LIBMS\LIBMS\includes\fetch_books_data.php';
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
@@ -10,14 +11,16 @@ $loggedAdmin ='';
 
 $database = new Database();
 $userAuth = new UserAuthentication($database);
+$bookData = new BookData($database);
 $userData = new UserData($database);
+$numberOfBooks = $bookData->getNumberOfBooks();
+$numberOfUsers = $userData->getNumberOfUser();
 
-if ($userAuth->isAuthenticated()) {
+ if($userAuth->isAuthenticated()) {
 } else {
     header('Location: ../index_admin.php');
     exit();
 }
-
 if (isset($_POST['logout'])) {
     $userAuth->logout();
     header('Location: ../index_admin.php');
@@ -128,7 +131,7 @@ if (isset($_SESSION['user'])) {
                 <div class="card" style="width: 18rem; height: 140px; box-shadow: 0px 3px 6px rgba(0,0,0,0.26)">
                     <div class="card-body">
                         <h6 class="card-title">No. of New Books</h6>
-                        <h5>251</h5>
+                        <h5>...</h5>
                         <div style="width: 100%; display: flex; justify-content: flex-end; margin-top: -40px; ">
 
                         </div>
@@ -139,7 +142,7 @@ if (isset($_SESSION['user'])) {
                 <div class="card" style="width: 18rem; height: 140px; box-shadow: 0px 3px 6px rgba(0,0,0,0.26)">
                     <div class="card-body">
                         <h6 class="card-title">Total No. of Books</h6>
-                        <h5>251</h5>
+                        <h5><?php echo $numberOfBooks ?></h5>
                         <div style="width: 100%; display: flex; justify-content: flex-end; margin-top: -40px; ">
 
                         </div>
@@ -150,7 +153,7 @@ if (isset($_SESSION['user'])) {
                 <div class="card" style="width: 18rem; height: 140px; box-shadow: 0px 3px 6px rgba(0,0,0,0.26)">
                     <div class="card-body">
                         <h6 class="card-title">No. of New Users</h6>
-                        <h5>251</h5>
+                        <h5>...</h5>
                         <div style="width: 100%; display: flex; justify-content: flex-end; margin-top: -40px; ">
 
                         </div>
@@ -161,7 +164,7 @@ if (isset($_SESSION['user'])) {
                 <div class="card" style="width: 18rem; height: 140px; box-shadow: 0px 3px 6px rgba(0,0,0,0.26)">
                     <div class="card-body">
                         <h6 class="card-title">Total No. of Users</h6>
-                        <h5>251</h5>
+                        <h5><?php echo $numberOfUsers?></h5>
                         <div style="width: 100%; display: flex; justify-content: flex-end; margin-top: -40px; ">
 
                         </div>
