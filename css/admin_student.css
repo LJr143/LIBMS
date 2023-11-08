@@ -178,3 +178,122 @@ nav .right-side > .right-side-text {
 .search-input::placeholder {
     color: white;
 }
+
+
+
+
+
+.ImportFile {
+    padding: 20px;
+}
+
+.ImportFile input {
+    width: 50%;
+}
+
+.AddImageContainer {
+    position: relative;
+    margin-top: 20px;
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+.AddImageContainer i {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-size: 50px;
+    cursor: pointer;
+}
+
+.SI img {
+    border-radius: 50%;
+}
+
+
+
+.SI input {
+    display: none;
+}
+
+/* Hide "Choose File" button */
+#input-file {
+    visibility: hidden !important;
+}
+
+.clear {
+    padding: 3px 30px;
+    color: #800000;
+    border: 1px #800000 solid;
+    font-size: 10px;
+    border-radius: 5px;
+    background-color: white;
+    font-weight: bold;
+    margin-right: 15px;
+
+}
+
+.add {
+
+    background-color: #800000;
+    padding: 3px 30px;
+    color: white;
+    border: none;
+    font-size: 10px;
+    border-radius: 5px;
+}
+
+.clear,
+.add:hover {
+    opacity: 0.8;
+    cursor: pointer;
+}
+
+@media only screen and (max-width: 767px) {
+    .firstname {
+        margin-top: 50px !important;
+    }
+}
+
+.imgmngline {
+    max-width: 10%;
+
+}
+
+.my-swal-popup {
+    width: 330px;
+    height: 300px;
+    background-color: #ffffff;
+}
+
+
+
+/* Custom CSS for the title text */
+.my-swal-popup .swal-title {
+    color: #711717;
+    font-size: 14px;
+}
+
+.my-swal-popup .my-swal-content {
+    font-weight: 600;
+    color: black;
+    font-size: 12px;
+    margin-top: -8px;
+}
+
+.my-swal-popup .my-cancel-button {
+    background-color: #dfdfdf !important;
+    color: #711717 !important;
+    border-color: #711717 !important;
+    font-size: 13px !important;
+}
+
+.my-swal-popup .my-confirm-button {
+    background-color: #711717;
+    color: #ffffff;
+    font-size: 13px !important;
+}
