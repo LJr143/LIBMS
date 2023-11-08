@@ -1,6 +1,6 @@
 <?php
 session_start();
-require_once 'C:\wamp64\www\LIBMS\LIBMS\db_config\config.php';
+require_once 'C:\wamp64\www\LIBMS\db_config\config.php';
 include "operations/authentication.php";
 $db = new Database();
 $userAuth = new UserAuthentication($db);
