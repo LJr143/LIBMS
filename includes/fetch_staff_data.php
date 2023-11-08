@@ -76,11 +76,6 @@ if (!empty($staffList)) {
         // Access staff data fields
         $adminId = $staff['admin_id'];
         $username = $staff['username'];
-        // Add more fields as needed
-
-        // Output or process staff data
-        echo "Admin ID: $adminId, Username: $username\n";
-        // Perform additional operations here
     }
 } else {
     // No staff members found
