@@ -1,20 +1,20 @@
 <?php
 session_start();
-require_once 'C:\wamp64\www\LIBMS\LIBMS\db_config\config.php';
-include 'C:\wamp64\www\LIBMS\LIBMS\includes\fetch_books.php';
-include 'C:\wamp64\www\LIBMS\LIBMS\operations\authentication.php';
+require_once 'C:\wamp64\www\LIBMS\db_config\config.php';
+include 'C:\wamp64\www\LIBMS\includes\fetch_books_data.php';
+include 'C:\wamp64\www\LIBMS\operations\authentication.php';
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 $database = new Database();
 $userAuth = new UserAuthentication($database);
 $bookData = new BookData($database);
 
-$books = $bookData->getAllBooks();
+$book = $bookData->getAllBook();
 
 if($userAuth->isAuthenticated()){
 
 } else {
-    header('Location: ../index_admin.php');
+    header('Location: ../index.php');
 }
 if (isset($_POST['logout'])) {
     $userAuth->logout();
@@ -126,18 +126,18 @@ if (isset($_POST['logout'])) {
           <div class="container" style="box-shadow: 0px 4px 8px rgba(91, 3, 3, 0.26)">
               <div class="swiper mySwiper">
                   <div class="book-container-new swiper-wrapper" style="padding: 20px">
-                      <?php foreach ($books as $book) { ?>
+                      <?php foreach ($book as $books) { ?>
                           <div class="custom_book_container d-flex flex-column align-items-center justify-content-center swiper-slide">
                               <p class="custom-book-text" style="background-color: #FFB93E; padding: 5px 0px 5px 20px; margin-top: -20px; width: 100px; font-size: 8px; color: white">
                                     OUT OF STOCK
                               </p>
-                              <img src="../book_img/<?php echo $book['book_img']; ?>" alt="" class="custom-book-img">
+                              <img src="../book_img/<?php echo $books['book_img']; ?>" alt="" class="custom-book-img">
                               <div style="width: 100%; height: 30px; margin-top: 10px;" class="d-flex align-items-center  flex-column">
-                                  <p style="font-size: 12px; text-align: center" class="custom-book-text"><?php echo $book['book_title']; ?></p>
-                                  <p style="margin-top: -20px; font-size: 8px;" class="custom-book-text"><?php echo $book['Author_id']; ?></p>
+                                  <p style="font-size: 12px; text-align: center" class="custom-book-text"><?php echo $books['book_title']; ?></p>
+                                  <p style="margin-top: -20px; font-size: 8px;" class="custom-book-text"><?php echo $books['Author_id']; ?></p>
                               </div>
                               <div style="width: 100%; margin-top: 10px;" class="d-flex justify-content-center">
-                                  <button  data-bs-toggle="modal" data-bs-target="#bookModal" data-book-id="<?php echo $book['book_id']; ?>" style="font-size: 10px; width: 80%; border: 1px solid black" class="btn btn-view-book">View Book</button>
+                                  <button  data-bs-toggle="modal" data-bs-target="#bookModal" data-book-id="<?php echo $books['book_id']; ?>" style="font-size: 10px; width: 80%; border: 1px solid black" class="btn btn-view-book">View Book</button>
 
                               </div>
                           </div>
@@ -152,16 +152,16 @@ if (isset($_POST['logout'])) {
           <div id="book-section"><h6>Recommendations</h6></div>
           <div class="container d-flex flex-column" style="box-shadow: 0px 4px 8px rgba(91, 3, 3, 0.26); width: 100%;">
               <div class="book-container-new swiper-wrapper d-flex flex-wrap mt-5"> <!-- Use flex-wrap to allow elements to wrap -->
-                  <?php foreach ($books as $book) { ?>
+                  <?php foreach ($book as $books) { ?>
                       <div class="custom_book_container mb-5 d-flex flex-column align-items-center justify-content-center swiper-slide">
                           <p class="custom-book-text" style="background-color: #FFB93E; padding: 5px 0px 5px 20px; margin-top: -20px; width: 100px; font-size: 8px; color: white">OUT OF STOCKS</p>
-                          <img src="../book_img/<?php echo $book['book_img']; ?>" alt="" class="custom-book-img" style="">
+                          <img src="../book_img/<?php echo $books['book_img']; ?>" alt="" class="custom-book-img" style="">
                           <div style="width: 100%; height: 30px; margin-top: 10px;" class="d-flex align-items-center  flex-column">
-                              <p style="font-size: 12px" class="custom-book-text"><?php echo $book['book_title']; ?></p>
-                              <p style="margin-top: -20px; font-size: 8px;" class="custom-book-text"><?php echo $book['Author_id']; ?></p>
+                              <p style="font-size: 12px" class="custom-book-text"><?php echo $books['book_title']; ?></p>
+                              <p style="margin-top: -20px; font-size: 8px;" class="custom-book-text"><?php echo $books['Author_id']; ?></p>
                           </div>
                           <div style="width: 100%; margin-top: 10px;" class="d-flex justify-content-center">
-                              <button data-bs-toggle="modal" data-bs-target="#bookModal" data-book-id="<?php echo $book['book_id']; ?>" style="font-size: 10px; width: 80%; border: 1px solid black" class="btn btn-view-book">View Book</button>
+                              <button data-bs-toggle="modal" data-bs-target="#bookModal" data-book-id="<?php echo $books['book_id']; ?>" style="font-size: 10px; width: 80%; border: 1px solid black" class="btn btn-view-book">View Book</button>
                           </div>
                       </div>
                   <?php } ?>

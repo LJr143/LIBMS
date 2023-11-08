@@ -54,10 +54,9 @@ nav .right-side > .right-side-text {
 }
 .profile_section {
     --bg_image: url('../icons/eagle.jpg');
-    --opacity: 0.30;
+    --opacity: 1;
     margin-bottom: 25px;
     height: 100px;
-    background-color: rgb(4, 12, 38);
     display: flex;
     justify-content: center;
     align-items: center;

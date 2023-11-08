@@ -1,9 +1,9 @@
 <?php
 session_start();
-require_once 'C:\wamp64\www\LIBMS\LIBMS\db_config\config.php';
-include 'C:\wamp64\www\LIBMS\LIBMS\operations\authentication.php';
-include 'C:\wamp64\www\LIBMS\LIBMS\includes\fetch_user_data.php';
-include 'C:\wamp64\www\LIBMS\LIBMS\includes\fetch_books_data.php';
+require_once 'C:\wamp64\www\LIBMS\db_config\config.php';
+include 'C:\wamp64\www\LIBMS\operations\authentication.php';
+include 'C:\wamp64\www\LIBMS\includes\fetch_user_data.php';
+include 'C:\wamp64\www\LIBMS\includes\fetch_books_data.php';
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
@@ -225,7 +225,7 @@ if (isset($_SESSION['user'])) {
 
 
                         <div style="margin-top: 30px; display: flex; width: 100%;">
-                            <div>
+                            <div style="width: 200px;">
                                <?php for ($page = 1; $page <= $totalPages; $page++) {
                                    echo '<a href="?page=' . $page . '">' . $page . '</a> ';
                                } ?>
