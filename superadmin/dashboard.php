@@ -122,8 +122,6 @@ if (isset($_SESSION['user'])) {
                             <input style="font-size: 12px; color: white; background: none; border: none;" name="logout" type="submit" value="Logout">
                         </form>
                         </ul>
-
-
                     </div>
                 </div>
             </div>
