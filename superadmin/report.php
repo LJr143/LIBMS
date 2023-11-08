@@ -123,9 +123,9 @@ if (isset($_SESSION['user'])) {
                 <div style="background-color: white; width: 95%; height: 40px; margin: 0px; border-radius: 5px;display: flex;  align-items: center; align-content: center;">
                 <div style="width: 60%; display: flex; justify-content: space-between">
                     <button style="font-size: 12px; width: 170px; height: 35px; border-radius: 5px; border: none; box-shadow: 0px 4px 8px rgba(0,0,0,0.27);"><img style="width: 20px;" src="../icons/book_inventory_report_icon.png" alt=""><span style="margin-left: 10px;">Book Inventory</span></button>
-                    <button style="background-color: white; font-size: 12px; width: 170px; height: 35px; border-radius: 5px; border: none; box-shadow: 0px 4px 8px rgba(0,0,0,0.27);"><img style="width: 20px;" src="../icons/categories_report_icon.png" alt=""><span style="margin-left: 10px;">Categories</span></button>
-                    <button style="background-color: white; font-size: 12px; width: 170px; height: 35px; border-radius: 5px; border: none; box-shadow: 0px 4px 8px rgba(0,0,0,0.27);"><img style="width: 20px;" src="../icons/newuser_report_icon.png" alt=""><span style="margin-left: 10px;">New Users/Visitors</span></button>
-                    <button style="background-color: white; font-size: 12px; width: 170px; height: 35px; border-radius: 5px; border: none; box-shadow: 0px 4px 8px rgba(0,0,0,0.27);"><img style="width: 20px;" src="../icons/book_status_icon.png" alt=""><span style="margin-left: 10px;">Book Status</span></button>
+                    <button style="background-color: white; font-size: 12px; width: 170px; height: 35px; border-radius: 5px; border: none; box-shadow: 0px 4px 8px rgba(0,0,0,0.27);"><img style="width: 20px;" src="../icons/categories_report_icon.png" alt=""><span style="margin-left: 10px;"><a href="report_categories_inventory.php" style="text-decoration: none; color: inherit;">Categories</a></span></button>
+                    <button style="background-color: white; font-size: 12px; width: 170px; height: 35px; border-radius: 5px; border: none; box-shadow: 0px 4px 8px rgba(0,0,0,0.27);"><img style="width: 20px;" src="../icons/newuser_report_icon.png" alt=""><span style="margin-left: 10px;"><a href="report_users_inventory.php" style="text-decoration: none; color: inherit;">New Users/Visitors</a></span></button>
+                    <button style="background-color: white; font-size: 12px; width: 170px; height: 35px; border-radius: 5px; border: none; box-shadow: 0px 4px 8px rgba(0,0,0,0.27);"><img style="width: 20px;" src="../icons/book_status_icon.png" alt=""><span style="margin-left: 10px;"><a href="report_book_status_inventory.php" style="text-decoration: none; color: inherit;">Book Status</a></span></button>
 
                 </div>
                     <div style="width: 40%; display: flex; justify-content: flex-end; align-items: center; height: 35px;">
@@ -138,12 +138,12 @@ if (isset($_SESSION['user'])) {
                 <div style=" margin: 20px 30px; display: flex">
                     <div style="width: 85%;"><h6 style="font-size: 13px; font-weight: 700;">OVERALL REPORTS <span style="font-size: 10px; color: #CA0C00; margin: 0px 10px;">* From the start of the academic year until the present</span></h6></div>
                     <div style="width: 15%; display: flex; justify-content: flex-end">
-                        <select name="" id="" style="font-size: 12px; width: 150px; padding: 2px 5px; border-radius: 5px">
-                            <option value="">OVERALL</option>
-                            <option value="">BORROWED</option>
-                            <option value="">RESERVED</option>
-                            <option value="">RETURNED</option>
-                            <option value="">BOOK COPIES</option>
+                        <select name="" id="mySelect" style="font-size: 12px; width: 150px; padding: 2px 5px; border-radius: 5px">
+                            <option selected value="">OVERALL</option>
+                            <option value="report_borrowed_inventory.php">BORROWED</option>
+                            <option value="report_reserved_inventory.php">RESERVED</option>
+                            <option value="report_returned_inventory.php">RETURNED</option>
+                            <option value="report_copies_inventory.php">BOOK COPIES</option>
                         </select>
                     </div>
                 </div>
@@ -411,6 +411,10 @@ if (isset($_SESSION['user'])) {
     });
 
 </script>
-
+<script>
+    document.getElementById('mySelect').addEventListener('change', function() {
+        window.location.href = this.value;
+    });
+</script>
 </body>
 </html>

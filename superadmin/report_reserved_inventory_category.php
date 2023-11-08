@@ -92,7 +92,7 @@
                 <div style="background-color: #390000; width: 95%; height: 40px; margin: 0px; border-radius: 5px;display: flex;  align-items: center; align-content: center;">
                 <div style="margin: 0px 20px; width: 100%; display: flex;">
                     <div style=" width: 85%;">
-                        <button style="border: none; background-color: transparent"><img style="width: 20px" src="../icons/back_to.png" alt=""></button>
+                    <a href="report_reserved_inventory.php"><button style="border: none; background-color: transparent"><img style="width: 20px" src="../icons/back_to.png" alt=""></a></button>
                         <span style="font-size: 12px; font-weight: 400; color: white; margin: 0px 20px"> RESERVED REPORTS BY CATEGORY</span>
                     </div>
                     <div style="width: 15%; display: flex; align-items: center; justify-content: space-between;">
