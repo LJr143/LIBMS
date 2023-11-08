@@ -74,6 +74,25 @@
                 <a class="nav-link " href="credit_score.php"  >CREDIT SCORE</a>
             </li>
         </ul>
+        <div class=" d-flex justify-content-center align-items-center" style="height: 50px; width: 60px; right: 10px; position: absolute">
+            <div class="dropdown" style=" margin-right: 0px; position: absolute">
+                <button style="background: none; border: none;" class=" dropdown-toggle" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
+<!--                    <img src="../img/--><?php //= $loggedAdmin['img'] ?><!--" alt="" width="35px" style="border-radius: 60px; border: 1px solid #4d0202">-->
+                </button>
+                <ul class="dropdown-menu dropdown-menu-dark dropdown_menu_setting aria-labelledby="dropdownMenuButton2">
+                <li><a style="font-size: 12px; color: white;" class="dropdown-item" href="profile.php"><img src="../icons/manage_account.png" alt="" class="custom_icon"><span>Manage Account</span></a></li>
+                <li><a style="font-size: 12px; color: white;"class="dropdown-item" href="#"><img src="../icons/help.png" alt="" class="custom_icon"><span>Help</span></a></li>
+                <li><hr class="dropdown-divider"></li>
+
+                <form action="" method="post" style="margin-left: 20px;">
+
+                    <label for="logout"><img src="../icons/plug.png" style="width: 20px; " alt=""></label>
+                    <input style="font-size: 12px; color: white; background: none; border: none;" name="logout" type="submit" value="Logout">
+                </form>
+                </ul>
+            </div>
+
+        </div>
     </div>
     <div class="main-content">
         <div class="container-fluid">
@@ -141,6 +160,9 @@
 
 </div>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/chart.js/dist/chart.umd.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
 <script>
     const listItems = document.querySelectorAll('.user-nav .nav-item');
     listItems.forEach((listItem) => {

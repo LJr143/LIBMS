@@ -29,6 +29,11 @@ nav {
     padding: 0px 0px;
     margin: 0px 0px 0px 5px;
 }
+.custom_icon {
+    width: 20px;
+    padding: 0px 1px;
+    margin: 0px 5px 5px 0px;
+}
 nav .head-text {
     display: flex;
 

@@ -1,5 +1,5 @@
 <?php
-require_once 'C:\wamp64\www\LIBMS\LIBMS\db_config\config.php';
+require_once 'C:\wamp64\www\LIBMS\db_config\config.php'; // Adjust the path accordingly
 
 class BorrowedData
 {
@@ -13,15 +13,10 @@ class BorrowedData
     public function getAllBooks(): array
     {
         $sql = "SELECT * FROM vw_borrowed_books";
-        $result = $this->database->executeQuery($sql);
+        $stmt = $this->database->executeQuery($sql);
 
-        $wishbooks = array();
-
-        while ($row = $result->fetch_assoc()) {
-            $wishbooks[] = $row;
-        }
-
-        return $wishbooks;
+        // Fetch all records
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 }
 
@@ -29,22 +24,21 @@ class BorrowDataWithStatus extends BorrowedData
 {
     public function getBooksByStatus($status): array
     {
-        $sql = "SELECT * FROM vw_borrowed_books WHERE status = '$status'";
-        $result = $this->database->executeQuery($sql);
+        $sql = "SELECT * FROM vw_borrowed_books WHERE status = :status";
+        $params = array(':status' => $status);
+        $stmt = $this->database->executeQuery($sql, $params);
 
-        $borrowedbooks = array();
-
-        while ($row = $result->fetch_assoc()) {
-            $borrowedbooks[] = $row;
-        }
-
-        return $borrowedbooks;
+        // Fetch all records
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 }
 
 // Example usage:
-//$database = new Database();
-//$borrowData = new BarrowDataWithStatus($database);
-//
-//$allBooks = $wishData->getAllBooks();
-//$availableBooks = $wishData->getBooksByStatus('available');
+$database = new Database();
+$borrowData = new BorrowDataWithStatus($database);
+
+// Get all books
+$allBooks = $borrowData->getAllBooks();
+
+// Get available books
+$availableBooks = $borrowData->getBooksByStatus('available');

@@ -1,7 +1,7 @@
 <?php
-include 'C:\wamp64\www\LIBMS\LIBMS\db_config\config.php';
-include 'C:\wamp64\www\LIBMS\LIBMS\includes\fetch_penalties.php';
-include 'C:\wamp64\www\LIBMS\LIBMS\includes\fetch_borrowed_book.php';
+include 'C:\wamp64\www\LIBMS\db_config\config.php';
+include 'C:\wamp64\www\LIBMS\includes\fetch_penalty_data.php';
+include 'C:\wamp64\www\LIBMS\includes\fetch_borrowed_book.php';
 $database = new Database();
 $penaltyData = new penaltyData($database);
 $borrowData = new BorrowDataWithStatus($database);
