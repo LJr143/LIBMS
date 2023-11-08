@@ -153,7 +153,8 @@ if (isset($_SESSION['user'])) {
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <?php foreach ($staffList as $staff) { ?>
+                                <?php foreach ($staffList as $staff) {?>
+
                                     <tr>
                                         <td><input type="checkbox"></td>
                                         <td></td>

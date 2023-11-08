@@ -1,3 +1,67 @@
+<?php
+session_start();
+require_once 'C:\wamp64\www\LIBMS\LIBMS\db_config\config.php';
+include 'C:\wamp64\www\LIBMS\LIBMS\operations\authentication.php';
+include 'C:\wamp64\www\LIBMS\LIBMS\includes\fetch_user_data.php';
+include 'C:\wamp64\www\LIBMS\LIBMS\includes\fetch_books_data.php';
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
+$loggedAdmin ='';
+
+$database = new Database();
+$userAuth = new UserAuthentication($database);
+$userData = new UserData($database);
+$booksData = new BookData($database);
+$books = $booksData->getAllBook();
+$numberBooks = $booksData->getNumberOfBooks();
+// Get the total number of books
+$totalBooks = count($books);
+
+// Define how many books to display per page
+$booksPerPage = 3;
+
+// Calculate the total number of pages needed
+$totalPages = ceil($totalBooks / $booksPerPage);
+
+// Set the current page number
+$currentPage = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+
+// Calculate the starting index for the books to display
+$startIndex = ($currentPage - 1) * $booksPerPage;
+
+// Calculate the ending index
+$endIndex = min($startIndex + $booksPerPage - 1, $totalBooks - 1);
+
+if ($userAuth->isAuthenticated()) {
+} else {
+    header('Location: ../index_admin.php');
+    exit();
+}
+
+if (isset($_POST['logout'])) {
+    $userAuth->logout();
+    header('Location: ../index_admin.php');
+    exit();
+}
+if (isset($_SESSION['user'])) {
+    $adminUsername = $_SESSION['user'];
+
+    $adminID = $userData->getAdminIdByUsername($adminUsername);
+    if (!empty($adminID)) {
+        $admin = $userData->getAdminById($adminID);
+
+        if (!empty($admin)) {
+            $loggedAdmin = $admin[0];
+        } else {
+            echo 'Admin data not found.';
+        }
+    } else {
+        echo 'Invalid admin ID.';
+    }
+
+}
+?>
 <!doctype html>
 <html lang="en">
 
@@ -38,12 +102,11 @@
             <div class="col col-md-2 side_bar">
                 <div class="profile_section">
                     <div>
-                        <img style="width: 60px; border-radius: 60px;" src="../img/me_sample_profile.jpg" alt="">
+                        <img style="border: 3px solid white; width: 60px; border-radius: 60px;" src="../img/<?= $loggedAdmin['img'] ?>" alt="">
+                        <div style="position: absolute; top: 55px; right: 72px; background:#01d501; height: 15px; width: 15px; border-radius: 60px;"></div>
                     </div>
                     <div style="display: block; text-align: center; color: white; height: 20px;">
-                        <ul style="margin-right: 36px;">
-                            <li style="font-size: 12px; color: #0cb90c; font-weight: 600">Active</li>
-                        </ul>
+
                     </div>
                 </div>
                 <div>
@@ -110,31 +173,39 @@
                     </div>
                 </div>
                 <div style="display: flex; justify-content: center;">
+
                     <div style="width: 95%; min-height: 100vh; margin-top: 10px; ">
+
+
                         <div class="col col-md-12" style="background: rgb(246,246,247); height: 38vh; border-radius: 5px; box-shadow: 0px 4px 8px rgba(0,0,0,0.2); display: flex; align-items: center; padding: 15px 5px 15px 15px; margin: 20px 0px 0px 0px;">
+                            <?php
+                            for ($i = $startIndex; $i <= $endIndex; $i++) {
+                            $book = $books[$i];
+
+                             ?>
                             <div class="card" style="width: 25rem; height: 250px; box-shadow: 0px 3px 6px rgba(0,0,0,0.26); margin: 0px 10px 0px 0px;">
                                 <div class="card-body">
                                     <h6 class="card-title"><input type="checkbox"></h6>
                                     <div style="width: 100%; height: 21vh; display: flex;">
                                         <div style=" height: 21vh; width: 138px; overflow: hidden ">
-                                            <img style="width: 97px" src="../book_img/1984.jpg" alt="">
+                                            <img style="width: 97px" src="../book_img/<?php echo $book['book_img']; ?>" alt="">
                                         </div>
                                         <div style="width: 100%; height: 21vh; margin-left: 15px; ">
-                                            <h6 style="font-size: 12px; font-weight: 700; font-style: italic">1984</h6>
+                                            <h6 style="font-size: 12px; font-weight: 700; font-style: italic"><?php echo $book['book_title'];?></h6>
                                             <div class="book_information_inventory" style="display: flex;">
                                                 <div>
-                                                    <p>George Orwell</p>
-                                                    <p>Status: <span style="color: green; font-weight: 700">AVAILABLE</span></p>
+                                                    <!-- book author -->
+                                                    <p><?php echo $book['Author_id']?></p>
+                                                    <p>Status: <span style="color: green; font-weight: 700"><?php echo $book['status']?></span></p>
                                                 </div>
                                                 <div style="margin-left: 20px">
                                                     <p>Fiction</p>
-                                                    <p>Shelf: <span style="color: #711717; font-weight: 700">CN1023</span></p>
+                                                    <p>Shelf: <span style="color: #711717; font-weight: 700"><?php echo $book['shelf']?></span></p>
                                                 </div>
                                             </div>
                                             <div style="line-height: 15px; font-size: 10px; padding: 0px 0px 0px 5px;">
                                                 <p>Description:</p>
-                                                <p style="margin-top: -15px;">The story begins when a band of seven “uncool” 11-year-olds, led by Bill Denbrough, discovers and battles an evil, shape-changing monster that the children call “It.” It ....</p>
-                                            </div>
+                                                <p style="margin-top: -15px;"><?php echo $book['description']?></div>
                                         </div>
 
                                     </div>
@@ -147,295 +218,17 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="card" style="width: 25rem; height: 250px; box-shadow: 0px 3px 6px rgba(0,0,0,0.26); margin: 0px 10px 0px 0px;">
-                                <div class="card-body">
-                                    <h6 class="card-title"><input type="checkbox"></h6>
-                                    <div style="width: 100%; height: 21vh; display: flex;">
-                                        <div style=" height: 21vh; width: 138px; overflow: hidden ">
-                                            <img style="width: 97px" src="../book_img/1984.jpg" alt="">
-                                        </div>
-                                        <div style="width: 100%; height: 21vh; margin-left: 15px; ">
-                                            <h6 style="font-size: 12px; font-weight: 700; font-style: italic">1984</h6>
-                                            <div class="book_information_inventory" style="display: flex;">
-                                                <div>
-                                                    <p>George Orwell</p>
-                                                    <p>Status: <span style="color: green; font-weight: 700">AVAILABLE</span></p>
-                                                </div>
-                                                <div style="margin-left: 20px">
-                                                    <p>Fiction</p>
-                                                    <p>Shelf: <span style="color: #711717; font-weight: 700">CN1023</span></p>
-                                                </div>
-                                            </div>
-                                            <div style="line-height: 15px; font-size: 10px; padding: 0px 0px 0px 5px;">
-                                                <p>Description:</p>
-                                                <p style="margin-top: -15px;">The story begins when a band of seven “uncool” 11-year-olds, led by Bill Denbrough, discovers and battles an evil, shape-changing monster that the children call “It.” It ....</p>
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                    <div style="width: 96px; height: 18px; display: flex; justify-content: center; padding: 2px 0px 0px 0px;">
-                                        <p style="font-size: 10px; font-weight: 600">Copies Left: 3</p>
-                                    </div>
-                                    <div style="display: flex; justify-content: flex-end;">
-                                        <button data-bs-toggle="modal" data-bs-target="#editBookModal" style="border: none; background: transparent; margin-right: 15px;"><img style="width: 17px" src="../icons/edit_profile_icon.png" alt=""></button>
-                                        <button style="border: none; background: transparent"><img id="deleteBook2" style="width: 20px" src="../icons/delete_book_inventory.png" alt=""></button>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="card" style="width: 25rem; height: 250px; box-shadow: 0px 3px 6px rgba(0,0,0,0.26); margin: 0px 10px 0px 0px;">
-                                <div class="card-body">
-                                    <h6 class="card-title"><input type="checkbox"></h6>
-                                    <div style="width: 100%; height: 21vh; display: flex;">
-                                        <div style=" height: 21vh; width: 138px; overflow: hidden ">
-                                            <img style="width: 97px" src="../book_img/book1.jpg" alt="">
-                                        </div>
-                                        <div style="width: 100%; height: 21vh; margin-left: 15px; ">
-                                            <h6 style="font-size: 12px; font-weight: 700; font-style: italic">1984</h6>
-                                            <div class="book_information_inventory" style="display: flex;">
-                                                <div>
-                                                    <p>George Orwell</p>
-                                                    <p>Status: <span style="color: green; font-weight: 700">AVAILABLE</span></p>
-                                                </div>
-                                                <div style="margin-left: 20px">
-                                                    <p>Fiction</p>
-                                                    <p>Shelf: <span style="color: #711717; font-weight: 700">CN1023</span></p>
-                                                </div>
-                                            </div>
-                                            <div style="line-height: 15px; font-size: 10px; padding: 0px 0px 0px 5px;">
-                                                <p>Description:</p>
-                                                <p style="margin-top: -15px;">The story begins when a band of seven “uncool” 11-year-olds, led by Bill Denbrough, discovers and battles an evil, shape-changing monster that the children call “It.” It ....</p>
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                    <div style="width: 96px; height: 18px; display: flex; justify-content: center; padding: 2px 0px 0px 0px;">
-                                        <p style="font-size: 10px; font-weight: 600">Copies Left: 3</p>
-                                    </div>
-                                    <div style="display: flex; justify-content: flex-end;">
-                                        <button data-bs-toggle="modal" data-bs-target="#editBookModal" style="border: none; background: transparent; margin-right: 15px;"><img style="width: 17px" src="../icons/edit_profile_icon.png" alt=""></button>
-                                        <button style="border: none; background: transparent"><img id="deleteBook3" style="width: 20px" src="../icons/delete_book_inventory.png" alt=""></button>
-                                    </div>
-                                </div>
-                            </div>
+                            <?php     }
+                           ?>
                         </div>
-                        <div class="col col-md-12" style="background: rgb(246,246,247); height: 38vh; border-radius: 5px; box-shadow: 0px 4px 8px rgba(0,0,0,0.2); display: flex; align-items: center; padding: 15px 5px 15px 15px; margin: 20px 0px 0px 0px;">
-                            <div class="card" style="width: 25rem; height: 250px; box-shadow: 0px 3px 6px rgba(0,0,0,0.26); margin: 0px 10px 0px 0px;">
-                                <div class="card-body">
-                                    <h6 class="card-title"><input type="checkbox"></h6>
-                                    <div style="width: 100%; height: 21vh; display: flex;">
-                                        <div style=" height: 21vh; width: 138px; overflow: hidden ">
-                                            <img style="width: 97px" src="../book_img/book2.jpg" alt="">
-                                        </div>
-                                        <div style="width: 100%; height: 21vh; margin-left: 15px; ">
-                                            <h6 style="font-size: 12px; font-weight: 700; font-style: italic">1984</h6>
-                                            <div class="book_information_inventory" style="display: flex;">
-                                                <div>
-                                                    <p>George Orwell</p>
-                                                    <p>Status: <span style="color: green; font-weight: 700">AVAILABLE</span></p>
-                                                </div>
-                                                <div style="margin-left: 20px">
-                                                    <p>Fiction</p>
-                                                    <p>Shelf: <span style="color: #711717; font-weight: 700">CN1023</span></p>
-                                                </div>
-                                            </div>
-                                            <div style="line-height: 15px; font-size: 10px; padding: 0px 0px 0px 5px;">
-                                                <p>Description:</p>
-                                                <p style="margin-top: -15px;">The story begins when a band of seven “uncool” 11-year-olds, led by Bill Denbrough, discovers and battles an evil, shape-changing monster that the children call “It.” It ....</p>
-                                            </div>
-                                        </div>
 
-                                    </div>
-                                    <div style="width: 96px; height: 18px; display: flex; justify-content: center; padding: 2px 0px 0px 0px;">
-                                        <p style="font-size: 10px; font-weight: 600">Copies Left: 3</p>
-                                    </div>
-                                    <div style="display: flex; justify-content: flex-end;">
-                                        <button data-bs-toggle="modal" data-bs-target="#editBookModal" style="border: none; background: transparent; margin-right: 15px;"><img style="width: 17px" src="../icons/edit_profile_icon.png" alt=""></button>
-                                        <button style="border: none; background: transparent"><img id="deleteBook4" style="width: 20px" src="../icons/delete_book_inventory.png" alt=""></button>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="card" style="width: 25rem; height: 250px; box-shadow: 0px 3px 6px rgba(0,0,0,0.26); margin: 0px 10px 0px 0px;">
-                                <div class="card-body">
-                                    <h6 class="card-title"><input type="checkbox"></h6>
-                                    <div style="width: 100%; height: 21vh; display: flex;">
-                                        <div style=" height: 21vh; width: 138px; overflow: hidden ">
-                                            <img style="width: 97px" src="../book_img/1984.jpg" alt="">
-                                        </div>
-                                        <div style="width: 100%; height: 21vh; margin-left: 15px; ">
-                                            <h6 style="font-size: 12px; font-weight: 700; font-style: italic">1984</h6>
-                                            <div class="book_information_inventory" style="display: flex;">
-                                                <div>
-                                                    <p>George Orwell</p>
-                                                    <p>Status: <span style="color: green; font-weight: 700">AVAILABLE</span></p>
-                                                </div>
-                                                <div style="margin-left: 20px">
-                                                    <p>Fiction</p>
-                                                    <p>Shelf: <span style="color: #711717; font-weight: 700">CN1023</span></p>
-                                                </div>
-                                            </div>
-                                            <div style="line-height: 15px; font-size: 10px; padding: 0px 0px 0px 5px;">
-                                                <p>Description:</p>
-                                                <p style="margin-top: -15px;">The story begins when a band of seven “uncool” 11-year-olds, led by Bill Denbrough, discovers and battles an evil, shape-changing monster that the children call “It.” It ....</p>
-                                            </div>
-                                        </div>
 
-                                    </div>
-                                    <div style="width: 96px; height: 18px; display: flex; justify-content: center; padding: 2px 0px 0px 0px;">
-                                        <p style="font-size: 10px; font-weight: 600">Copies Left: 3</p>
-                                    </div>
-                                    <div style="display: flex; justify-content: flex-end;">
-                                        <button data-bs-toggle="modal" data-bs-target="#editBookModal" style="border: none; background: transparent; margin-right: 15px;"><img style="width: 17px" src="../icons/edit_profile_icon.png" alt=""></button>
-                                        <button style="border: none; background: transparent"><img id="deleteBook5" style="width: 20px" src="../icons/delete_book_inventory.png" alt=""></button>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="card" style="width: 25rem; height: 250px; box-shadow: 0px 3px 6px rgba(0,0,0,0.26); margin: 0px 10px 0px 0px;">
-                                <div class="card-body">
-                                    <h6 class="card-title"><input type="checkbox"></h6>
-                                    <div style="width: 100%; height: 21vh; display: flex;">
-                                        <div style=" height: 21vh; width: 138px; overflow: hidden ">
-                                            <img style="width: 97px" src="../book_img/1984.jpg" alt="">
-                                        </div>
-                                        <div style="width: 100%; height: 21vh; margin-left: 15px; ">
-                                            <h6 style="font-size: 12px; font-weight: 700; font-style: italic">1984</h6>
-                                            <div class="book_information_inventory" style="display: flex;">
-                                                <div>
-                                                    <p>George Orwell</p>
-                                                    <p>Status: <span style="color: green; font-weight: 700">AVAILABLE</span></p>
-                                                </div>
-                                                <div style="margin-left: 20px">
-                                                    <p>Fiction</p>
-                                                    <p>Shelf: <span style="color: #711717; font-weight: 700">CN1023</span></p>
-                                                </div>
-                                            </div>
-                                            <div style="line-height: 15px; font-size: 10px; padding: 0px 0px 0px 5px;">
-                                                <p>Description:</p>
-                                                <p style="margin-top: -15px;">The story begins when a band of seven “uncool” 11-year-olds, led by Bill Denbrough, discovers and battles an evil, shape-changing monster that the children call “It.” It ....</p>
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                    <div style="width: 96px; height: 18px; display: flex; justify-content: center; padding: 2px 0px 0px 0px;">
-                                        <p style="font-size: 10px; font-weight: 600">Copies Left: 3</p>
-                                    </div>
-                                    <div style="display: flex; justify-content: flex-end;">
-                                        <button data-bs-toggle="modal" data-bs-target="#editBookModal" style="border: none; background: transparent; margin-right: 15px;"><img style="width: 17px" src="../icons/edit_profile_icon.png" alt=""></button>
-                                        <button style="border: none; background: transparent"><img id="deleteBook6" style="width: 20px" src="../icons/delete_book_inventory.png" alt=""></button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col col-md-12" style="background: rgb(246,246,247); height: 38vh; border-radius: 5px; box-shadow: 0px 4px 8px rgba(0,0,0,0.2); display: flex; align-items: center; padding: 15px 5px 15px 15px; margin: 20px 0px 0px 0px;">
-                            <div class="card" style="width: 25rem; height: 250px; box-shadow: 0px 3px 6px rgba(0,0,0,0.26); margin: 0px 10px 0px 0px;">
-                                <div class="card-body">
-                                    <h6 class="card-title"><input type="checkbox"></h6>
-                                    <div style="width: 100%; height: 21vh; display: flex;">
-                                        <div style=" height: 21vh; width: 138px; overflow: hidden ">
-                                            <img style="width: 97px" src="../book_img/1984.jpg" alt="">
-                                        </div>
-                                        <div style="width: 100%; height: 21vh; margin-left: 15px; ">
-                                            <h6 style="font-size: 12px; font-weight: 700; font-style: italic">1984</h6>
-                                            <div class="book_information_inventory" style="display: flex;">
-                                                <div>
-                                                    <p>George Orwell</p>
-                                                    <p>Status: <span style="color: green; font-weight: 700">AVAILABLE</span></p>
-                                                </div>
-                                                <div style="margin-left: 20px">
-                                                    <p>Fiction</p>
-                                                    <p>Shelf: <span style="color: #711717; font-weight: 700">CN1023</span></p>
-                                                </div>
-                                            </div>
-                                            <div style="line-height: 15px; font-size: 10px; padding: 0px 0px 0px 5px;">
-                                                <p>Description:</p>
-                                                <p style="margin-top: -15px;">The story begins when a band of seven “uncool” 11-year-olds, led by Bill Denbrough, discovers and battles an evil, shape-changing monster that the children call “It.” It ....</p>
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                    <div style="width: 96px; height: 18px; display: flex; justify-content: center; padding: 2px 0px 0px 0px;">
-                                        <p style="font-size: 10px; font-weight: 600">Copies Left: 3</p>
-                                    </div>
-                                    <div style="display: flex; justify-content: flex-end;">
-                                        <button data-bs-toggle="modal" data-bs-target="#editBookModal" style="border: none; background: transparent; margin-right: 15px;"><img style="width: 17px" src="../icons/edit_profile_icon.png" alt=""></button>
-                                        <button style="border: none; background: transparent"><img id="deleteBook7" style="width: 20px" src="../icons/delete_book_inventory.png" alt=""></button>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="card" style="width: 25rem; height: 250px; box-shadow: 0px 3px 6px rgba(0,0,0,0.26); margin: 0px 10px 0px 0px;">
-                                <div class="card-body">
-                                    <h6 class="card-title"><input type="checkbox"></h6>
-                                    <div style="width: 100%; height: 21vh; display: flex;">
-                                        <div style=" height: 21vh; width: 138px; overflow: hidden ">
-                                            <img style="width: 97px" src="../book_img/1984.jpg" alt="">
-                                        </div>
-                                        <div style="width: 100%; height: 21vh; margin-left: 15px; ">
-                                            <h6 style="font-size: 12px; font-weight: 700; font-style: italic">1984</h6>
-                                            <div class="book_information_inventory" style="display: flex;">
-                                                <div>
-                                                    <p>George Orwell</p>
-                                                    <p>Status: <span style="color: green; font-weight: 700">AVAILABLE</span></p>
-                                                </div>
-                                                <div style="margin-left: 20px">
-                                                    <p>Fiction</p>
-                                                    <p>Shelf: <span style="color: #711717; font-weight: 700">CN1023</span></p>
-                                                </div>
-                                            </div>
-                                            <div style="line-height: 15px; font-size: 10px; padding: 0px 0px 0px 5px;">
-                                                <p>Description:</p>
-                                                <p style="margin-top: -15px;">The story begins when a band of seven “uncool” 11-year-olds, led by Bill Denbrough, discovers and battles an evil, shape-changing monster that the children call “It.” It ....</p>
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                    <div style="width: 96px; height: 18px; display: flex; justify-content: center; padding: 2px 0px 0px 0px;">
-                                        <p style="font-size: 10px; font-weight: 600">Copies Left: 3</p>
-                                    </div>
-                                    <div style="display: flex; justify-content: flex-end;">
-                                        <button data-bs-toggle="modal" data-bs-target="#editBookModal" style="border: none; background: transparent; margin-right: 15px;"><img style="width: 17px" src="../icons/edit_profile_icon.png" alt=""></button>
-                                        <button style="border: none; background: transparent"><img id="deleteBook8" style="width: 20px" src="../icons/delete_book_inventory.png" alt=""></button>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="card" style="width: 25rem; height: 250px; box-shadow: 0px 3px 6px rgba(0,0,0,0.26); margin: 0px 10px 0px 0px;">
-                                <div class="card-body">
-                                    <h6 class="card-title"><input type="checkbox"></h6>
-                                    <div style="width: 100%; height: 21vh; display: flex;">
-                                        <div style=" height: 21vh; width: 138px; overflow: hidden ">
-                                            <img style="width: 97px" src="../book_img/1984.jpg" alt="">
-                                        </div>
-                                        <div style="width: 100%; height: 21vh; margin-left: 15px; ">
-                                            <h6 style="font-size: 12px; font-weight: 700; font-style: italic">1984</h6>
-                                            <div class="book_information_inventory" style="display: flex;">
-                                                <div>
-                                                    <p>George Orwell</p>
-                                                    <p>Status: <span style="color: green; font-weight: 700">AVAILABLE</span></p>
-                                                </div>
-                                                <div style="margin-left: 20px">
-                                                    <p>Fiction</p>
-                                                    <p>Shelf: <span style="color: #711717; font-weight: 700">CN1023</span></p>
-                                                </div>
-                                            </div>
-                                            <div style="line-height: 15px; font-size: 10px; padding: 0px 0px 0px 5px;">
-                                                <p>Description:</p>
-                                                <p style="margin-top: -15px;">The story begins when a band of seven “uncool” 11-year-olds, led by Bill Denbrough, discovers and battles an evil, shape-changing monster that the children call “It.” It ....</p>
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                    <div style="width: 96px; height: 18px; display: flex; justify-content: center; padding: 2px 0px 0px 0px;">
-                                        <p style="font-size: 10px; font-weight: 600">Copies Left: 3</p>
-                                    </div>
-                                    <div style="display: flex; justify-content: flex-end;">
-                                        <button data-bs-toggle="modal" data-bs-target="#editBookModal" style="border: none; background: transparent; margin-right: 15px;"><img style="width: 17px" src="../icons/edit_profile_icon.png" alt=""></button>
-                                        <button style="border: none; background: transparent"><img id="deleteBook9" style="width: 20px" src="../icons/delete_book_inventory.png" alt=""></button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
 
                         <div style="margin-top: 30px; display: flex; width: 100%;">
                             <div>
-                                <img style="width: 180px;" src="../icons/pagination_sample.png" alt="">
+                               <?php for ($page = 1; $page <= $totalPages; $page++) {
+                                   echo '<a href="?page=' . $page . '">' . $page . '</a> ';
+                               } ?>
                             </div>
                             <div style="display: flex; justify-content: flex-end; width: 100%; font-size: 10px;  ">
                                 <button style="color: #800000;font-weight: 700; border-radius: 5px; border: 1px solid #740000; width: 100px; height: 28px; background: transparent; margin-right: 35px;">CANCEL</button>

@@ -1,3 +1,47 @@
+<?php
+session_start();
+require_once 'C:\wamp64\www\LIBMS\LIBMS\db_config\config.php';
+include 'C:\wamp64\www\LIBMS\LIBMS\operations\authentication.php';
+include 'C:\wamp64\www\LIBMS\LIBMS\includes\fetch_user_data.php';
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
+$loggedAdmin ='';
+
+$database = new Database();
+$userAuth = new UserAuthentication($database);
+$userData = new UserData($database);
+
+if ($userAuth->isAuthenticated()) {
+} else {
+    header('Location: ../index_admin.php');
+    exit();
+}
+
+if (isset($_POST['logout'])) {
+    $userAuth->logout();
+    header('Location: ../index_admin.php');
+    exit();
+}
+if (isset($_SESSION['user'])) {
+    $adminUsername = $_SESSION['user'];
+
+    $adminID = $userData->getAdminIdByUsername($adminUsername);
+    if (!empty($adminID)) {
+        $admin = $userData->getAdminById($adminID);
+
+        if (!empty($admin)) {
+            $loggedAdmin = $admin[0];
+        } else {
+            echo 'Admin data not found.';
+        }
+    } else {
+        echo 'Invalid admin ID.';
+    }
+
+}
+?>
+
 <!doctype html>
 <html lang="en">
 
@@ -38,12 +82,11 @@
             <div class="col col-md-2 side_bar">
                 <div class="profile_section">
                     <div>
-                        <img style="width: 60px; border-radius: 60px;" src="../img/me_sample_profile.jpg" alt="">
+                        <img style="border: 3px solid white; width: 60px; border-radius: 60px;" src="../img/<?= $loggedAdmin['img'] ?>" alt="">
+                        <div style="position: absolute; top: 55px; right: 72px; background:#01d501; height: 15px; width: 15px; border-radius: 60px;"></div>
                     </div>
                     <div style="display: block; text-align: center; color: white; height: 20px;">
-                        <ul style="margin-right: 36px;">
-                            <li style="font-size: 12px; color: #0cb90c; font-weight: 600">Active</li>
-                        </ul>
+
                     </div>
                 </div>
                 <div>
@@ -203,7 +246,7 @@
     </div>
 
     <div class="modal fade" id="studentModal" tabindex="-1" role="dialog" aria-labelledby="studentModalLabel" aria-hidden="true">
-        <div class="modal-dialog  modal-dialog-centered" role="document" style="max-width: 700px;">
+        <div class="modal-dialog  modal-dialog-centered" role="document" style="max-width: 800px;">
             <div class="modal-content">
                 <div class="modal-header" style="height: 15px;">
 
@@ -222,9 +265,9 @@
                             <!-- add new photo -->
                             <div style="width: 100px; height:220px;">
                                 <div class="col-md-2" style="margin-bottom: 0px; margin-left: 8px;">
-                                    <div class="AddImageContainer">
-                                        <i class="bi bi-plus-circle" title="Add Image" style="color: gray; margin-left: -10px;"></i>
-                                        <img src="" width="100" height="100" id="Profile-Pic" style="margin-left: -13px; margin-top:-10px;">
+                                    <div class="AddImageContainer" style="margin-top: 60px; display: flex; justify-content: center; border: 1px solid maroon; width: 100px; height: 100px">
+                                        <i class="bi bi-plus-circle" title="Add Image" style="color: grey; "></i>
+                                        <img src="" width="110" height="120" id="Profile-Pic" style="margin-top: -10px;">
 
                                     </div>
                                     <input type="file" accept="image/jpeg, image/png, image/jpg" id="input-file" class="visually-hidden mb-0">
@@ -233,7 +276,7 @@
 
 
 
-                            <form class="row" style="margin-left: 30px; margin: top -950%; width: 80%; height: 65%;">
+                            <form class="row" style="margin-left: 30px; width: 80%; height: 65%;">
                                 <div class="col-md-5 firstname">
                                     <label for="validationCustom01" class="form-label mb-0" style="font-size: 12px;">FIRST NAME</label>
                                     <input type="text" class="form-control" placeholder="Juan" id="validationCustom01" style="font-size: 10px; text-transform: capitalize !important;" required>
@@ -297,7 +340,7 @@
                                 </div>
                             </form>
                             <form class="row">
-                                <div class="col-md-5 mt-3">
+                                <div class="col col-md-5 mt-3">
                                     <label for="validationCustomUsername" class="form-label mb-0" style="font-size: 12px;">EMAIL ADDRESS</label>
                                     <div class="input-group has-validation">
                                         <input type="text" class="form-control " id="validationCustomUsername" aria-describedby="inputGroupPrepend" placeholder="@usep.edu.ph" style="font-size: 10px;" required>
@@ -305,7 +348,7 @@
                                     </div>
                                 </div>
 
-                                <div class="col-md-3 mt-3">
+                                <div class=" col col-md-3 mt-3">
                                     <label for="validationCustomUsername" class="form-label mb-0" style="font-size: 12px;">USERNAME</label>
                                     <div class="input-group has-validation">
                                         <input type="text" class="form-control" id="validationCustomUsername" aria-describedby="inputGroupPrepend" placeholder="juandlz" style="font-size: 10px;" required>
@@ -313,7 +356,7 @@
                                     </div>
                                 </div>
 
-                                <div class="col-md-4 mt-3">
+                                <div class="col col-md-4 mt-3">
                                     <label for="validationCustomUsername" class="form-label mb-0" style="font-size: 12px;">PASSWORD</label>
                                     <div class="input-group has-validation">
                                         <input type="password" class="form-control" placeholder="Password123." id="psw" style="font-size: 10px;" aria-describedby="inputGroupPrepend" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" required>
@@ -323,9 +366,9 @@
                             </form>
                         </div>
 
-                        <div class=" wishlist-container  mt-4 mb-0 " style="margin-left: 390px">
-                            <button type="button" class="clear shadow " onclick="clearPhoto()">CLEAR</button>
-                            <button type="button" class="add shadow" onclick="addStudent()">ADD</button>
+                        <div class=" wishlist-container  mt-4 mb-0 " style=" display: flex; justify-content: flex-end; width: 664px; ">
+                            <button style="height: 25px; width: 100px" type="button" class="clear shadow " onclick="clearPhoto()">CLEAR</button>
+                            <button style="height: 25px; width: 100px" type="button" class="add shadow" onclick="addStudent()">ADD</button>
                         </div>
                     </div>
                 </div>
