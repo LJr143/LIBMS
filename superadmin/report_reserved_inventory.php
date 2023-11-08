@@ -77,10 +77,10 @@
             <div style="display: flex; justify-content: center; ">
                 <div style="background-color: white; width: 95%; height: 40px; margin: 0px; border-radius: 5px;display: flex;  align-items: center; align-content: center;">
                 <div style="width: 60%; display: flex; justify-content: space-between">
-                    <button style="font-size: 12px; width: 170px; height: 35px; border-radius: 5px; border: none; box-shadow: 0px 4px 8px rgba(0,0,0,0.27);"><img style="width: 20px;" src="../icons/book_inventory_report_icon.png" alt=""><span style="margin-left: 10px;">Book Inventory</span></button>
-                    <button style="background-color: white; font-size: 12px; width: 170px; height: 35px; border-radius: 5px; border: none; box-shadow: 0px 4px 8px rgba(0,0,0,0.27);"><img style="width: 20px;" src="../icons/categories_report_icon.png" alt=""><span style="margin-left: 10px;">Categories</span></button>
-                    <button style="background-color: white; font-size: 12px; width: 170px; height: 35px; border-radius: 5px; border: none; box-shadow: 0px 4px 8px rgba(0,0,0,0.27);"><img style="width: 20px;" src="../icons/newuser_report_icon.png" alt=""><span style="margin-left: 10px;">New Users/Visitors</span></button>
-                    <button style="background-color: white; font-size: 12px; width: 170px; height: 35px; border-radius: 5px; border: none; box-shadow: 0px 4px 8px rgba(0,0,0,0.27);"><img style="width: 20px;" src="../icons/book_status_icon.png" alt=""><span style="margin-left: 10px;">Book Status</span></button>
+                <button style="font-size: 12px; width: 170px; height: 35px; border-radius: 5px; border: none; box-shadow: 0px 4px 8px rgba(0,0,0,0.27);"><img style="width: 20px;" src="../icons/book_inventory_report_icon.png" alt=""><span style="margin-left: 10px;">Book Inventory</span></button>
+                    <button style="background-color: white; font-size: 12px; width: 170px; height: 35px; border-radius: 5px; border: none; box-shadow: 0px 4px 8px rgba(0,0,0,0.27);"><img style="width: 20px;" src="../icons/categories_report_icon.png" alt=""><span style="margin-left: 10px;"><a href="report_categories_inventory.php" style="text-decoration: none; color: inherit;">Categories</a></span></button>
+                    <button style="background-color: white; font-size: 12px; width: 170px; height: 35px; border-radius: 5px; border: none; box-shadow: 0px 4px 8px rgba(0,0,0,0.27);"><img style="width: 20px;" src="../icons/newuser_report_icon.png" alt=""><span style="margin-left: 10px;"><a href="report_users_inventory.php" style="text-decoration: none; color: inherit;">New Users/Visitors</a></span></button>
+                    <button style="background-color: white; font-size: 12px; width: 170px; height: 35px; border-radius: 5px; border: none; box-shadow: 0px 4px 8px rgba(0,0,0,0.27);"><img style="width: 20px;" src="../icons/book_status_icon.png" alt=""><span style="margin-left: 10px;"><a href="report_book_status_inventory.php" style="text-decoration: none; color: inherit;">Book Status</a></span></button>
 
                 </div>
                     <div style="width: 40%; display: flex; justify-content: flex-end; align-items: center; height: 35px;">
@@ -93,12 +93,12 @@
                 <div style=" margin: 20px 30px; display: flex">
                     <div style="width: 85%;"><h6 style="font-size: 12px; font-weight: 700;">QUARTERLY REPORTS</h6></div>
                     <div style="width: 15%; display: flex; justify-content: flex-end">
-                        <select name="" id="" style="font-size: 12px; width: 150px; padding: 2px 5px; border-radius: 5px">
-                            <option value="">OVERALL</option>
-                            <option value="">BORROWED</option>
-                            <option value="">RESERVED</option>
-                            <option value="">RETURNED</option>
-                            <option value="">BOOK COPIES</option>
+                        <select name="" id="mySelect" style="font-size: 12px; width: 150px; padding: 2px 5px; border-radius: 5px">
+                            <option value="report.php">OVERALL</option>
+                            <option value="report_borrowed_inventory.php">BORROWED</option>
+                            <option selected value="">RESERVED</option>
+                            <option value="report_returned_inventory.php">RETURNED</option>
+                            <option value="report_copies_inventory.php">BOOK COPIES</option>
                         </select>
                     </div>
                 </div>
@@ -139,7 +139,7 @@
                               <div style=" margin: 15px 0 0 50px; height: 40px; width: 450px; border-radius: 5px; background-color: #390000; display: flex">
                                   <div style="width: 80%; height: 40px;display: flex; align-items: center;margin-left: 20px; font-size: 12px; font-weight: bold; color: white">RESERVED REPORTS BY CATEGORY</div>
                                   <div style="width: 20%; height: 40px;display: flex; align-items: center;margin-left: 20px; font-size: 12px; font-weight: bold; color: white">
-                                      <button style="border: none; background-color: transparent"><img style="width: 20px" src="../icons/go_to.png" alt=""></button></div>
+                                  <a href="report_reserved_inventory_category.php"><button style="border: none; background-color: transparent"><img style="width: 20px" src="../icons/go_to.png" alt=""></a></button></div>
                               </div>
 
                           </div>
@@ -220,6 +220,10 @@
 
 
 </script>
-
+<script>
+    document.getElementById('mySelect').addEventListener('change', function() {
+        window.location.href = this.value;
+    });
+</script>
 </body>
 </html>
