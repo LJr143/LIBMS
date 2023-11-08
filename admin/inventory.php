@@ -1,9 +1,9 @@
 <?php
 session_start();
-require_once 'C:\wamp64\www\LIBMS\LIBMS\db_config\config.php';
-include 'C:\wamp64\www\LIBMS\LIBMS\operations\authentication.php';
-include 'C:\wamp64\www\LIBMS\LIBMS\includes\fetch_user_data.php';
-include 'C:\wamp64\www\LIBMS\LIBMS\includes\fetch_books_data.php';
+require_once 'C:\wamp64\www\LIBMS\db_config\config.php';
+include 'C:\wamp64\www\LIBMS\operations\authentication.php';
+include 'C:\wamp64\www\LIBMS\includes\fetch_user_data.php';
+include 'C:\wamp64\www\LIBMS\includes\fetch_books_data.php';
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
@@ -129,15 +129,18 @@ if (isset($_SESSION['user'])) {
                     <div class=" d-flex justify-content-end align-items-center" style="height: 50px; width: 10%; margin-right: 20px ">
                         <div class="dropdown" style=" margin-right: 0px; position: absolute">
                             <button style="background: none; border: none;" class=" dropdown-toggle" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
-                                <img src="../img/me_sample_profile.jpg" alt="" width="35px" style="border-radius: 60px; border: 1px solid #4d0202">
+                                <img src="../img/<?= $loggedAdmin['img'] ?>" alt="" width="35px" style="border-radius: 60px; border: 1px solid #4d0202">
                             </button>
-                            <ul class="dropdown-menu dropdown-menu-dark dropdown_menu_setting aria-labelledby=" dropdownMenuButton2">
-                                <li><a class="dropdown-item" href="manage_account.php"><img src="../icons/manage_account.png" alt="" class="custom_icon"><span>Manage Account</span></a></li>
-                                <li><a class="dropdown-item" href="#"><img src="../icons/help.png" alt="" class="custom_icon"><span>Help</span></a></li>
-                                <li>
-                                    <hr class="dropdown-divider">
-                                </li>
-                                <li><a class="dropdown-item" href="../operations/logout.php"><img src="../icons/plug.png" alt="" class="custom_icon"><span>Logout</span></a></li>
+                            <ul class="dropdown-menu dropdown-menu-dark dropdown_menu_setting aria-labelledby="dropdownMenuButton2">
+                            <li><a style="font-size: 12px; color: white;" class="dropdown-item" href="profile.php"><img src="../icons/manage_account.png" alt="" class="custom_icon"><span>Manage Account</span></a></li>
+                            <li><a style="font-size: 12px; color: white;"class="dropdown-item" href="#"><img src="../icons/help.png" alt="" class="custom_icon"><span>Help</span></a></li>
+                            <li><hr class="dropdown-divider"></li>
+
+                            <form action="" method="post" style="margin-left: 20px;">
+
+                                <label for="logout"><img src="../icons/plug.png" style="width: 20px; " alt=""></label>
+                                <input style="font-size: 12px; color: white; background: none; border: none;" name="logout" type="submit" value="Logout">
+                            </form>
                             </ul>
                         </div>
                     </div>
@@ -225,7 +228,7 @@ if (isset($_SESSION['user'])) {
 
 
                         <div style="margin-top: 30px; display: flex; width: 100%;">
-                            <div>
+                            <div style="width: 200px;">
                                <?php for ($page = 1; $page <= $totalPages; $page++) {
                                    echo '<a href="?page=' . $page . '">' . $page . '</a> ';
                                } ?>
