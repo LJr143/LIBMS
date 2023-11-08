@@ -1,8 +1,8 @@
 <?php
 session_start();
-require_once 'C:\wamp64\www\LIBMS\LIBMS\db_config\config.php';
-include 'C:\wamp64\www\LIBMS\LIBMS\operations\authentication.php';
-include 'C:\wamp64\www\LIBMS\LIBMS\includes\fetch_user_data.php';
+require_once 'C:\wamp64\www\LIBMS\db_config\config.php';
+include 'C:\wamp64\www\LIBMS\operations\authentication.php';
+include 'C:\wamp64\www\LIBMS\includes\fetch_user_data.php';
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
@@ -250,8 +250,8 @@ if (isset($_SESSION['user'])) {
             <div class="modal-content">
                 <div class="modal-header" style="height: 15px;">
 
-                    <p class="modal-title" id="borrowModalLabel " style="font-size: 16px; color: #800000; font-weight: 600;">
-                        <i class="bi bi-pencil-square ml-3 m-3" style="font-size: 20px; color: #800000;"></i>ADD STUDENT
+                    <p class="modal-title" id="borrowModalLabel " style="font-size: 12px; color: #800000; font-weight: 600;">
+                        <i class="bi bi-pencil-square ml-3 m-3" style="font-size: 16px; color: #800000;"></i>ADD STUDENT
                     </p>
                     <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close" style="background-color: transparent; border:none;">
                         <span aria-hidden="true">&times;</span>
