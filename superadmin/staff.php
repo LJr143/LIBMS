@@ -53,7 +53,7 @@ if (isset($_SESSION['user'])) {
     <title>USeP | LMS</title>
     <link rel="icon" href="../icons/usep-logo.png">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-  < <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10/dist/sweetalert2.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10/dist/sweetalert2.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
     <link rel="stylesheet" href="../css/superadmin_staff.css">
 </head>
@@ -228,7 +228,7 @@ if (isset($_SESSION['user'])) {
                                                         <input type="text" class="form-control" id="validationCustom03" style="font-size: 10px; text-transform: capitalize !important;" placeholder="Librarian">
 
                                                     </div>
-                                            
+
                                                 </form>
                                                 <form class="row">
                                                     <div class="col col-md-5 mt-3">
@@ -399,7 +399,7 @@ if (isset($_SESSION['user'])) {
         }
     </script>
 
-<script>
+    <script>
         document.getElementById('deleteAllStaff').addEventListener('click', function() {
             showDeleteConfirmation(1); // Pass a unique identifier
         });
@@ -423,7 +423,8 @@ if (isset($_SESSION['user'])) {
                     title: 'swal-title',
                     cancelButton: 'my-cancel-button',
                     confirmButton: 'my-confirm-button'
-                }
+                },
+                width: '520px'
             }).then((result) => {
                 if (result.isConfirmed) {
                     // If the user confirms, you can proceed with the deletion logic here
@@ -432,7 +433,7 @@ if (isset($_SESSION['user'])) {
             });
         }
     </script>
-     <script>
+    <script>
         document.getElementById('suspendAll').addEventListener('click', function() {
             showSuspendConfirmation(1); // Pass a unique identifier
         });
@@ -456,7 +457,8 @@ if (isset($_SESSION['user'])) {
                     title: 'swal-title',
                     cancelButton: 'my-cancel-button',
                     confirmButton: 'my-confirm-button',
-                }
+                },
+                width: '520px'
             }).then((result) => {
                 if (result.isConfirmed) {
                     // If the user confirms, you can proceed with the suspension logic here
