@@ -1,3 +1,49 @@
+<?php
+session_start();
+require_once 'C:\wamp64\www\LIBMS\db_config\config.php';
+include 'C:\wamp64\www\LIBMS\operations\authentication.php';
+include 'C:\wamp64\www\LIBMS\includes\fetch_user_data.php';
+include 'C:\wamp64\www\LIBMS\includes\fetch_books_data.php';
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
+$loggedAdmin ='';
+
+$database = new Database();
+$userAuth = new UserAuthentication($database);
+$bookData = new BookData($database);
+$userData = new UserData($database);
+$numberOfBooks = $bookData->getNumberOfBooks();
+$numberOfUsers = $userData->getNumberOfUser();
+
+if($userAuth->isAuthenticated()) {
+} else {
+    header('Location: ../index_admin.php');
+    exit();
+}
+if (isset($_POST['logout'])) {
+    $userAuth->logout();
+    header('Location: ../index_admin.php');
+    exit();
+}
+if (isset($_SESSION['user'])) {
+    $adminUsername = $_SESSION['user'];
+
+    $adminID = $userData->getAdminIdByUsername($adminUsername);
+    if (!empty($adminID)) {
+        $admin = $userData->getAdminById($adminID);
+
+        if (!empty($admin)) {
+            $loggedAdmin = $admin[0];
+        } else {
+            echo 'Admin data not found.';
+        }
+    } else {
+        echo 'Invalid admin ID.';
+    }
+
+}
+?>
 <!doctype html>
 <html lang="en">
 <head>
@@ -13,30 +59,12 @@
 </head>
 <body style="">
 <div>
-    <nav class="navbar navbar-light bg-light header">
-        <div class="container-fluid">
-
-            <div class="head-text">
-                <div> <img src="../icons/usep-logo.png" alt="" class="custom_img" id="usep-logo"></div>
-                <div class="usep-text">
-                    <p style="font-size: 14px; font-weight: bold">University of Southeastern Philippines Tagum - Mabini Campus</p>
-                    <p style="font-size: 12px; font-weight: 600; margin-top: -20px">Apokon RD, Tagum City Davao Del Norte 8100</p>
-                </div>
-            </div>
-            <div class="right-side">
-                <div class="right-side-text">
-                    <p style="font-size: 14px; font-weight: bold;">LIBRARY MANAGEMENT SYSTEM</p>
-                    <p style="font-size: 12px; font-weight: 600; margin-top: -20px">E - System Environment</p>
-                </div>
-            </div>
-        </div>
-    </nav>
-
+    <?php include 'header.php'?>
     <div class="main-content d-flex" >
         <div class="col col-md-2 side_bar">
             <div class="profile_section">
                 <div>
-                    <img style="width: 60px; border-radius: 60px;" src="../img/me_sample_profile.jpg" alt="">
+                    <img style="width: 60px; border-radius: 60px;" src="../img/<?= $loggedAdmin['img']; ?>" alt="">
                 </div>
                 <div style="display: block; text-align: center; color: white; height: 20px;">
                     <ul style="margin-right: 36px;">

@@ -31,7 +31,7 @@ if (isset($_GET['book_id'])) {
     if ($book) {
         ?>
         <form action="" method="post">
-        <div id="img_container_borrow" style="width: 100%; height: 330px">
+        <div id="img_container_borrow" style="width: 100%; height: 330px; text-align: center">
             <div style="width: 100%; display: flex; justify-content: center;"><img src="../icons/confirmation.png" alt="" style="width: 80px;height: 80px"></div>
             <div style="font-size: 14px; letter-spacing: 0.2px; width: 100%; color: #711717; display: flex; justify-content: center;"><p style="font-style: italic; font-weight: 700;">Confirmation</p></div>
             <div style="font-size: 12px; width: 100%; display: flex; justify-content: center;"><p style="font-weight: 700;">Would you like to borrow <?php echo $book['book_title'] ?> by <?php echo $book['Author_id'] ?> ?</p></div>
@@ -40,7 +40,12 @@ if (isset($_GET['book_id'])) {
                 <label for="date_borrowed_vw"></label>
                 <input  name="date_for_borrow" id="date_borrowed_vw" style="padding: 2px 10px;" type="date" required>
             </span></div>
-            <div style="font-size: 12px; width: 100%; display: flex; justify-content: center;"><p style="padding: 5px 0px; font-weight: 700;">Due Date: &nbsp;&nbsp;</p></div>
+            <div style="font-size: 12px; width: 100%; display: flex; justify-content: center;">
+                <p style="padding: 5px 0px; font-weight: 700;">Due Date: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p><span>
+                <label for="date_due_vw"></label>
+                <input  name="date_for_due" id="date_due_vw" style="padding: 2px 10px;" type="date" value="11/10/2002" readonly>
+            </span>
+            </div>
             <div style="font-size: 12px; width: 100%; display: flex; justify-content: center;"><p style="padding: 5px 0px; font-weight: 700;">
                     <button data-bs-dismiss="modal" type="button" style="width: 100px; margin: 0px 20px; font-weight: bold; border-radius: 5px; padding: 10px; color: #711717; background-color: transparent; border: 1px solid #711717">Cancel</button>
                     <button data-bs-toggle="modal" data-bs-target="#borrowSuccessModal" data-book-id="<?php echo $book['book_id'] ?>" class="barrow_confirm_btn" type="button" style="width: 100px; font-weight: bold; border-radius: 5px; padding: 10px; color: white; background-color: #740000; border: 1px solid #711717">Confirm</button>

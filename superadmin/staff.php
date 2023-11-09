@@ -53,32 +53,14 @@ if (isset($_SESSION['user'])) {
     <title>USeP | LMS</title>
     <link rel="icon" href="../icons/usep-logo.png">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-  < <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10/dist/sweetalert2.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10/dist/sweetalert2.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
     <link rel="stylesheet" href="../css/superadmin_staff.css">
 </head>
 
 <body style="">
     <div>
-        <nav class="navbar navbar-light bg-light header">
-            <div class="container-fluid">
-
-                <div class="head-text">
-                    <div> <img src="../icons/usep-logo.png" alt="" class="custom_img" id="usep-logo"></div>
-                    <div class="usep-text">
-                        <p style="font-size: 14px; font-weight: bold">University of Southeastern Philippines Tagum - Mabini Campus</p>
-                        <p style="font-size: 12px; font-weight: 600; margin-top: -20px">Apokon RD, Tagum City Davao Del Norte 8100</p>
-                    </div>
-                </div>
-                <div class="right-side">
-                    <div class="right-side-text">
-                        <p style="font-size: 14px; font-weight: bold;">LIBRARY MANAGEMENT SYSTEM</p>
-                        <p style="font-size: 12px; font-weight: 600; margin-top: -20px">E - System Environment</p>
-                    </div>
-                </div>
-            </div>
-        </nav>
-
+        <?php include 'header.php'?>
         <div class="main-content d-flex">
             <div class="col col-md-2 side_bar">
                 <div class="profile_section">

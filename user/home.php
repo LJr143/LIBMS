@@ -38,24 +38,7 @@ if (isset($_POST['logout'])) {
 
 </head>
 <body>
-<nav class="navbar navbar-light bg-light header" id="navbar" >
-    <div class="container-fluid">
-
-        <div class="head-text">
-            <div> <img src="../icons/usep-logo.png" alt="" class="custom_img"></div>
-            <div class="usep-text">
-                <p style="font-size: 14px; font-weight: bold">University of Southeastern Philippines Tagum - Mabini Campus</p>
-                <p style="font-size: 12px; font-weight: 600; margin-top: -20px">Apokon RD, Tagum City Davao Del Norte 8100</p>
-            </div>
-        </div>
-        <div class="right-side" >
-            <div class="right-side-text">
-                <p style="font-size: 14px; font-weight: bold;">LIBRARY MANAGEMENT SYSTEM</p>
-                <p style="font-size: 12px; font-weight: 600; margin-top: -20px">E - System Environment</p>
-            </div>
-        </div>
-    </div>
-</nav>
+<?php include 'header.php'?>
 <div style=" height: 100%; width: 100%; overflow-x: hidden; position: relative">
 
         <div class="user-nav  text-white" style="position: relative">
@@ -77,7 +60,7 @@ if (isset($_POST['logout'])) {
             <div class=" d-flex justify-content-center align-items-center" style="height: 50px; width: 60px; right: 10px; position: absolute">
                 <div class="dropdown" style=" margin-right: 0px; position: absolute">
                     <button style="background: none; border: none;" class=" dropdown-toggle" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
-<!--                        <img src="../img/--><?php //= $loggedAdmin['img'] ?><!--" alt="" width="35px" style="border-radius: 60px; border: 1px solid #4d0202">-->
+                        <img src="../img/me_sample_profile.jpg ?>" alt="" width="35px" style="border-radius: 60px; border: 1px solid #4d0202">
                     </button>
                     <ul class="dropdown-menu dropdown-menu-dark dropdown_menu_setting aria-labelledby="dropdownMenuButton2">
                     <li><a style="font-size: 12px; color: white;" class="dropdown-item" href="profile.php"><img src="../icons/manage_account.png" alt="" class="custom_icon"><span>Manage Account</span></a></li>
