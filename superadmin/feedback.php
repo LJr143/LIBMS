@@ -55,93 +55,36 @@ if (isset($_SESSION['user'])) {
     <link rel="stylesheet" href="../css/superadmin_staff.css">
 </head>
 
-<body style="">
-<<<<<<< HEAD
+<body>
 <div>
     <?php include 'header.php'?>
     <div class="main-content d-flex" >
         <div class="col col-md-2 side_bar">
             <div class="profile_section">
-=======
-    <div>
-        <nav class="navbar navbar-light bg-light header">
-            <div class="container-fluid">
-
-                <div class="head-text">
-                    <div> <img src="../icons/usep-logo.png" alt="" class="custom_img" id="usep-logo"></div>
-                    <div class="usep-text">
-                        <p style="font-size: 14px; font-weight: bold">University of Southeastern Philippines Tagum - Mabini Campus</p>
-                        <p style="font-size: 12px; font-weight: 600; margin-top: -20px">Apokon RD, Tagum City Davao Del Norte 8100</p>
-                    </div>
-                </div>
-                <div class="right-side">
-                    <div class="right-side-text">
-                        <p style="font-size: 14px; font-weight: bold;">LIBRARY MANAGEMENT SYSTEM</p>
-                        <p style="font-size: 12px; font-weight: 600; margin-top: -20px">E - System Environment</p>
-                    </div>
-                </div>
-            </div>
-        </nav>
-
-        <div class="main-content d-flex">
-            <div class="col col-md-2 side_bar">
-                <div class="profile_section">
-                    <div>
-                        <img style="border: 3px solid white; width: 60px; border-radius: 60px;" src="../img/<?= $loggedAdmin['img'] ?>" alt="">
-                        <div style="position: absolute; top: 55px; right: 72px; background:#01d501; height: 15px; width: 15px; border-radius: 60px;"></div>
-                    </div>
-                    <div style="display: block; text-align: center; color: white; height: 20px;">
-
-                    </div>
-                </div>
->>>>>>> 2743028724c0710f40305a1618b19b141b873590
                 <div>
-                    <ul class="menu_icon">
-                        <li><img class="custom_menu_icon" src="../icons/dashboard_icon.png" alt=""><span><a href="dashboard.php">Dashboard</a></span></li>
-                        <li><img class="custom_menu_icon" src="../icons/staff_icon.png" alt=""><span><a href="staff.php">Staff</a></span></li>
-                        <li><img class="custom_menu_icon" src="../icons/reports_icon.png" alt=""><span><a href="report.php">Reports</a></span></li>
-                        <li><img class="custom_menu_icon" src="../icons/logs_icon.png" alt=""><span><a href="logs.php">Logs</a></span></li>
-                        <li class="active"><img class="custom_menu_icon" src="../icons/feedback_icon_dashboard.png" alt=""><span><a href="">Feedback</a></span></li>
+                    <img style="width: 60px; border-radius: 60px;" src="../img/<?= $loggedAdmin['img']; ?>" alt="">
+                </div>
+                <div style="display: block; text-align: center; color: white; height: 20px;">
+                    <ul style="margin-right: 36px;">
+                        <li style="font-size: 12px; color: #0cb90c; font-weight: 600">Active</li>
                     </ul>
                 </div>
-
             </div>
-<<<<<<< HEAD
-            <div class="col" style=" width: 100%; height: 100vh;">
-                <div style="background-color: white; width: 95%; height: 45px; margin: 15px; border-radius: 5px;display: flex; box-shadow: 0px 4px 8px rgba(0,0,0,0.27); align-content: center; align-items: center">
-                    <div style="width: 90%">
-                        <p style="font-size: 10px; font-weight: 700; margin: 14px">HOME | FEEDBACK</p>
-                    </div>
-                    <div class=" d-flex justify-content-end align-items-center" style="height: 50px; width: 10%; margin-right: 20px ">
-                        <div class="dropdown" style=" margin-right: 0px; position: absolute">
-                            <button style="background: none; border: none;" class=" dropdown-toggle" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
-                                <img src="../img/<?= $loggedAdmin['img'] ?>" alt="" width="35px" style="border-radius: 60px; border: 1px solid #4d0202">
-                            </button>
-                            <ul class="dropdown-menu dropdown-menu-dark dropdown_menu_setting aria-labelledby=" dropdownMenuButton2">
-                                <li><a class="dropdown-item" href="manage_account.php"><img src="../icons/manage_account.png" alt="" class="custom_icon"><span>Manage Account</span></a></li>
-                                <li><a class="dropdown-item" href="#"><img src="../icons/help.png" alt="" class="custom_icon"><span>Help</span></a></li>
-                                <li>
-                                    <hr class="dropdown-divider">
-                                </li>
-                                <li><a class="dropdown-item" href="../operations/logout.php"><img src="../icons/plug.png" alt="" class="custom_icon"><span>Logout</span></a></li>
-                            </ul>
-                        </div>
-=======
             <div>
                 <ul class="menu_icon">
                     <li><img class="custom_menu_icon" src="../icons/dashboard_icon.png" alt=""><span><a href="dashboard.php">Dashboard</a></span></li>
-                    <li ><img class="custom_menu_icon" src="../icons/staff_icon.png" alt=""><span><a href="staff.php">Staff</a></span></li>
+                    <li><img class="custom_menu_icon" src="../icons/staff_icon.png" alt=""><span><a href="staff.php">Staff</a></span></li>
                     <li><img class="custom_menu_icon" src="../icons/reports_icon.png" alt=""><span><a href="report.php">Reports</a></span></li>
                     <li><img class="custom_menu_icon" src="../icons/logs_icon.png" alt=""><span><a href="logs.php">Logs</a></span></li>
-                    <li class="active"><img class="custom_menu_icon" src="../icons/feedback_icon_dashboard.png" alt=""><span><a href="">Feedback</a></span></li>
+                    <li class="active"><img class="custom_menu_icon" src="../icons/feedback_icon_dashboard.png" alt=""><span><a href="feedback.php">Feedback</a></span></li>
                 </ul>
             </div>
 
         </div>
-        <div class="col" style=" width: 100%; height: 100vh;">
+        <div class="col" style=" width: 100%; height: 100vh; ">
             <div style="background-color: white; width: 95%; height: 45px; margin: 15px; border-radius: 5px;display: flex; box-shadow: 0px 4px 8px rgba(0,0,0,0.27); align-content: center; align-items: center">
                 <div style="width: 90%">
-                    <p style="font-size: 10px; font-weight: 700; margin: 14px">HOME | FEEDBACK</p>
+                    <p style="font-size: 10px; font-weight: 700; margin: 14px">HOME | REPORT</p>
                 </div>
                 <div class=" d-flex justify-content-end align-items-center" style="height: 50px; width: 10%; margin-right: 20px ">
                     <div class="dropdown" style=" margin-right: 0px; position: absolute">
@@ -159,9 +102,9 @@ if (isset($_SESSION['user'])) {
                             <input style="font-size: 12px; color: white; background: none; border: none;" name="logout" type="submit" value="Logout">
                         </form>
                         </ul>
->>>>>>> b2aaac18b25b82955a1918ad157d518ec1f48a70
                     </div>
                 </div>
+            </div>
                 <div style="display: flex; justify-content: center; ">
                     <div>
 
