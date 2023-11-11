@@ -56,6 +56,7 @@ if (isset($_SESSION['user'])) {
     <link rel="icon" href="../icons/usep-logo.png">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.32/dist/sweetalert2.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
     <link rel="stylesheet" href="../css/admin_dashboard.css">
 </head>
 <body style="">
@@ -121,7 +122,7 @@ if (isset($_SESSION['user'])) {
                             <form action="" method="post" style="margin-left: 20px;">
 
                                 <label for="logout"><img src="../icons/plug.png" style="width: 20px; " alt=""></label>
-                                <input style="font-size: 12px; color: white; background: none; border: none;" name="logout" type="submit" value="Logout">
+                                <input id="logoutButton" style="font-size: 12px; color: white; background: none; border: none;" name="logout" type="submit" value="Logout">
                             </form>
                             </ul>
                         </div>
@@ -333,6 +334,7 @@ if (isset($_SESSION['user'])) {
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 <script>
     const listItems = document.querySelectorAll('li');
@@ -511,26 +513,55 @@ if (isset($_SESSION['user'])) {
 
 </script>
 <script>
+    // Handle the logout button click event
     $(document).ready(function() {
-        // Handle the logout button click event
-        $("#logoutButton").click(function() {
-            $.ajax({
-                url: '../operations/logout_admin.php',
-                type: 'POST',
-                dataType: 'json',
-                success: function(data) {
+        $('#logoutButton').click(function(e) {
+            // Prevent the default form submission
+            e.preventDefault();
 
-                    if (data.success) {
-                        window.location.href = 'login.php';
-                    }
-                },
-                error: function() {
-                    alert('Logout failed. Please try again.');
+            // Display a confirmation dialog
+            Swal.fire({
+                title: 'LOGOUT?',
+                text: 'You will be logged out!',
+                icon: null, // Remove the 'icon' property, as it's overridden by 'iconHtml'
+                iconHtml: '<div style="background-color: white; padding: 31px; "><i class="bi bi-box-arrow-in-right" style="font-size: 60px; color: #711717; margin-left: -25px;"></i></div>',
+                showCancelButton: true,
+                cancelButtonColor: '#3085d6',
+                confirmButtonColor: '#d33',
+                cancelButtonText: 'CANCEL',
+                confirmButtonText: 'LOGOUT'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    console.log('Performing logout operation...');
+                    // Perform the logout operation
+                    $.ajax({
+                        url: '../operations/logout_admin.php',
+                        type: 'POST',
+                        dataType: 'json',
+                        success: function(logoutData) {
+                            if (logoutData.success) {
+                                // Upon successful logout, redirect to the login page
+                                console.log('Logout successful. Redirecting to login page...');
+                                window.location.href = 'login.php';
+                            }
+                        },
+                        error: function() {
+                            // Display an error message if the logout operation fails
+                            console.error('Logout failed. Please try again.');
+                            Swal.fire({
+                                title: 'Error!',
+                                text: 'Logout failed. Please try again.',
+                                icon: 'error'
+                            });
+                        }
+                    });
                 }
             });
         });
     });
 </script>
+
+
 
 
 </body>
