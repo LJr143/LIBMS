@@ -192,3 +192,50 @@ tr th,td {
     font-style: italic;
     font-size: 18px;
 }
+
+
+
+
+
+        .swal2-popup {
+            width: 38%;
+            height: 43%;
+        }
+
+        .swal2-popup .swal2-title {
+            color: #711717;
+            font-size: 16px;
+            font-weight: bold;
+            font-style: italic;
+            margin-top: -13px;
+            /* Change text color as needed */
+        }
+
+        .swal2-popup .swal2-content {
+            font-weight: 600;
+            color: black;
+            font-size: 13px;
+            margin-top: -8px;
+        }
+
+        .swal2-popup .swal2-cancel {
+            font-size: 13px !important;
+            padding: 5px 15px;
+            border-radius: 5px;
+            border: 1px solid !important;
+            background-color: #ffffff !important;
+            color: #711717 !important;
+            border-color: #711717 !important;
+
+        }
+
+        .swal2-popup .swal2-confirm {
+            font-size: 13px !important;
+            padding: 5px 15px;
+            border-radius: 5px;
+            border: 1px solid !important;
+            background-color: #711717 !important;
+            color: #ffffff !important;
+            border-color: #711717 !important;
+
+        }
