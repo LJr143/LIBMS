@@ -7,22 +7,29 @@ ini_set('display_errors', 1);
 $db = new Database();
 $userAuth = new UserAuthentication($db);
 
+if($userAuth->isAuthenticated()) {
+    if($_SESSION['admin_role'] == 'Staff'){
+        header('Location: admin/dashboard.php');
+    }else if ($_SESSION['admin_role'] == 'Librarian'){
+        header('Location: superadmin/dashboard.php');
+    }else {
+        echo 'eRROr';
+    }
+}
+
 if (isset($_POST['form_submit_btn'])) {
     $username = $_POST['username'];
     $password = $_POST['password'];
     $role = $_POST['admin_role'];
 
     if ($userAuth->loginAdmin($username, $password, $role)) {
-        if($role == 'Librarian'){
-            header('Location: superadmin/dashboard.php');
+        header('Location: admin/dashboard.php');
             exit();
-        }else {
-            header('Location: admin/dashboard.php');
-            exit();
-        }
+    } elseif ($userAuth->loginSuperAdmin($username, $password, $role)){
 
-    } else {
-        $loginError = 'Invalid username or password';
+        header('Location: superadmin/dashboard.php');
+    }else {
+        header('Location: index_admin.php');
     }
 }
 
