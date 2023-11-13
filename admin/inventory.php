@@ -75,6 +75,7 @@ if (isset($_SESSION['user'])) {
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.32/dist/sweetalert2.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
     <link rel="stylesheet" href="../css/admin_inventory.css">
+    <link rel="stylesheet" href="../css/logout.css">
 </head>
 
 <body style="">
@@ -139,7 +140,7 @@ if (isset($_SESSION['user'])) {
                             <form action="" method="post" style="margin-left: 20px;">
 
                                 <label for="logout"><img src="../icons/plug.png" style="width: 20px; " alt=""></label>
-                                <input style="font-size: 12px; color: white; background: none; border: none;" name="logout" type="submit" value="Logout">
+                                <input id="logoutButton" style="font-size: 12px; color: white; background: none; border: none;" name="logout" type="submit" value="Logout">
                             </form>
                             </ul>
                         </div>
@@ -466,18 +467,9 @@ if (isset($_SESSION['user'])) {
     <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
-    <script>
-        const listItems = document.querySelectorAll('li');
-        listItems.forEach((listItem) => {
-            listItem.addEventListener('click', () => {
-                listItems.forEach((item) => {
-                    item.classList.remove('active');
-                });
 
-                listItem.classList.add('active');
-            });
-        });
-    </script>
+    <script src='../js/logout_script.js'></script>
+    <script src="../js/navbar_select.js"></script>
 
 <script>
         function updateProfilePicture(event) {
