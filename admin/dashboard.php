@@ -22,11 +22,6 @@ if ($userAuth->isAuthenticated()) {
     exit();
 }
 
-if (isset($_POST['logout'])) {
-    $userAuth->logout();
-    header('Location: ../index_admin.php');
-    exit();
-}
 if (isset($_SESSION['user'])) {
     $adminUsername = $_SESSION['user'];
 
@@ -336,18 +331,10 @@ if (isset($_SESSION['user'])) {
 <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
-<script>
-    const listItems = document.querySelectorAll('li');
-    listItems.forEach((listItem) => {
-        listItem.addEventListener('click', () => {
-            listItems.forEach((item) => {
-                item.classList.remove('active');
-            });
 
-            listItem.classList.add('active');
-        });
-    });
-</script>
+
+<script src='../js/logout_script.js'></script>
+<script src="../js/navbar_select.js"></script>
 <script>
     const ctx = document.getElementById('borrowedCategory').getContext('2d');
     const ctx1 = document.getElementById('visitorsCategory').getContext('2d');
@@ -512,54 +499,7 @@ if (isset($_SESSION['user'])) {
 
 
 </script>
-<script>
-    // Handle the logout button click event
-    $(document).ready(function() {
-        $('#logoutButton').click(function(e) {
-            // Prevent the default form submission
-            e.preventDefault();
 
-            // Display a confirmation dialog
-            Swal.fire({
-                title: 'LOGOUT?',
-                text: 'You will be logged out!',
-                icon: null, // Remove the 'icon' property, as it's overridden by 'iconHtml'
-                iconHtml: '<div style="background-color: white; padding: 31px; "><i class="bi bi-box-arrow-in-right" style="font-size: 60px; color: #711717; margin-left: -25px;"></i></div>',
-                showCancelButton: true,
-                cancelButtonColor: '#3085d6',
-                confirmButtonColor: '#d33',
-                cancelButtonText: 'CANCEL',
-                confirmButtonText: 'LOGOUT'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    console.log('Performing logout operation...');
-                    // Perform the logout operation
-                    $.ajax({
-                        url: '../operations/logout_admin.php',
-                        type: 'POST',
-                        dataType: 'json',
-                        success: function(logoutData) {
-                            if (logoutData.success) {
-                                // Upon successful logout, redirect to the login page
-                                console.log('Logout successful. Redirecting to login page...');
-                                window.location.href = 'login.php';
-                            }
-                        },
-                        error: function() {
-                            // Display an error message if the logout operation fails
-                            console.error('Logout failed. Please try again.');
-                            Swal.fire({
-                                title: 'Error!',
-                                text: 'Logout failed. Please try again.',
-                                icon: 'error'
-                            });
-                        }
-                    });
-                }
-            });
-        });
-    });
-</script>
 
 
 

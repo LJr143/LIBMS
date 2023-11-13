@@ -172,22 +172,8 @@ if (isset($_SESSION['user'])) {
                     <tr style="height: 5px">
 
                     </tr>
-                    <tr style=" font-size: 12px; height: 30px; border-bottom: 1px solid rgba(0,0,0,0.14)">
-                        <td>2023-15-09 7:30:45 AM </td>
-                        <td>Sheena Marie Pagas</td>
-                        <td>Staff</td>
-                        <td>Delete User: Lorjohn Rana</td>
-                    </tr>
-                    <tr style="height: 5px">
 
-                    </tr>
-                    <tr style=" font-size: 12px; height: 30px; border-bottom: 1px solid rgba(0,0,0,0.14)">
-                        <td>2023-15-09 7:30:45 AM </td>
-                        <td>Sheena Marie Pagas</td>
-                        <td>Staff</td>
-                        <td>Delete User: Lorjohn Rana</td>
-                    </tr>
-                    <tr styl
+
 
 
                     </tbody>
