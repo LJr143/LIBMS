@@ -6,6 +6,7 @@ include 'C:\wamp64\www\LIBMS\includes\fetch_user_data.php';
 include 'C:\wamp64\www\LIBMS\includes\fetch_books_data.php';
 include 'C:\wamp64\www\LIBMS\includes\fetch_staff_data.php';
 include 'C:\wamp64\www\LIBMS\includes\fetch_superadmin_data.php';
+include 'C:\wamp64\www\LIBMS\includes\logs_operation.php';
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
@@ -17,6 +18,7 @@ $bookData = new BookData($database);
 $userData = new UserData($database);
 $adminData = new StaffData($database);
 $superAdminData = new SuperAdminData($database);
+$log = new Logs($database);
 
 
 $numberOfBooks = $bookData->getNumberOfBooks();
@@ -45,6 +47,7 @@ if (isset($_SESSION['user'])) {
             if(!empty($adminID)){
                 $admin = $superAdminData->getSuperadminById($adminID);
                 $loggedAdmin = $admin[0];
+                $_SESSION['loggedAdmin'] = $loggedAdmin;
             }
             else {
                 echo 'SuperAdmin data not found.';
@@ -64,6 +67,8 @@ if (isset($_SESSION['user'])) {
     }
 
 }
+
+
 ?>
 <!doctype html>
 <html lang="en">
@@ -160,18 +165,21 @@ if (isset($_SESSION['user'])) {
                                 </tr>
                                 </thead>
                     <tbody>
+                    <?php foreach ($logsList as $logs){ ?>
                     <tr style="height: 20px">
 
                     </tr>
                     <tr style=" font-size: 12px; height: 30px; border-bottom: 1px solid rgba(0,0,0,0.14)">
-                        <td>2023-15-09 7:30:45 AM </td>
-                        <td>Sheena Marie Pagas</td>
-                        <td>Staff</td>
-                        <td>Delete User: Lorjohn Rana</td>
+                        <td><?php echo $logs['date'];?></td>
+                        <td><?php echo $logs['fname'] . $logs['lname'];?></td>
+                        <td><?php echo $logs['admin_role'];?></td>
+                        <td><?php echo $logs['action'];?></td>
+
                     </tr>
                     <tr style="height: 5px">
 
                     </tr>
+                    <?php } ?>
 
 
 

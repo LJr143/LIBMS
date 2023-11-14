@@ -411,7 +411,7 @@ if (isset($_SESSION['user'])) {
         </div>
 
     </div>
-
+<!-- Edit Student Modal -->
     <div class="modal fade" id="editStudentModal" tabindex="-1" role="dialog" aria-labelledby="editStudentModalLabel" aria-hidden="true">
         <div class="modal-dialog  modal-dialog-centered" role="document" style="max-width: 800px;">
             <div class="modal-content">

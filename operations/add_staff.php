@@ -1,7 +1,10 @@
 <?php
+session_start();
 require_once 'C:\wamp64\www\LIBMS\db_config\config.php';
 include '../includes/fetch_staff_data.php';
+include '../includes/logs_operation.php';
 $database = new Database();
+$log = new Logs($database);
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Get the data sent through AJAX
@@ -48,6 +51,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $result = $staff->addStaff($firstName, $lastName, $mi, $staffID, $officeEmail, $personalEmail, $PhoneNumber, $Telephone, $address, $role, $username, $password, $profile);
 
     if ($result) {
+        $addedStaff = $firstName ." ". $lastName;
+        $addLog = $log->insertAddLogs($_SESSION['loggedAdminID'],$_SESSION['user'],$addedStaff);
         echo json_encode(['success' => true]);
     } else {
         echo json_encode(['success' => false, 'error' => 'Failed to add staff member.']);

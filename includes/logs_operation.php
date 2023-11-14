@@ -1,7 +1,9 @@
 <?php
 require_once 'C:\wamp64\www\LIBMS\db_config\config.php';
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
+//error_reporting(E_ALL);
+//ini_set('display_errors', 1);
+
+error_reporting(0);
 
 class Logs
 {
@@ -14,7 +16,7 @@ class Logs
 
     public function getAllLogs(): array
     {
-        $sql = "SELECT * FROM tbl_logs";
+        $sql = "SELECT * FROM vw_logs";
         $stmt = $this->database->query($sql);
 
         if ($stmt) {
@@ -25,19 +27,42 @@ class Logs
         }
     }
 
-    public function insertAddLogs($user, $name): array
+    public function insertAddLogs($userID,$user, $name): bool
     {
-        $sql = "INSERT INTO tbl_logs";
-        $action = $user . "Added" . $name;
+        $admin_id = $userID;
+        $action = "{$user} added {$name}";
+        $timestamp = date("Y-m-d H:i:s");
+
+        $sql = "INSERT INTO tbl_logs (admin_id,action, date) VALUES (:admin_id,:action, :timestamp)";
         $stmt = $this->database->prepare($sql);
 
-        if ($stmt->execute()) {
-            return (int) $stmt->fetch(PDO::FETCH_ASSOC)['num_user'];
-        } else {
-            return 0;
-        }
+        $stmt->bindParam(':admin_id', $admin_id, PDO::PARAM_STR);
+        $stmt->bindParam(':action', $action, PDO::PARAM_STR);
+        $stmt->bindParam(':timestamp', $timestamp, PDO::PARAM_STR);
+
+        return $stmt->execute();
     }
 
 
+
+}
+
+$database = new Database();
+$logsData = new Logs($database);
+
+// Call the getAllStaff method to retrieve all staff data
+$logsList = $logsData->getAllLogs();
+
+// Check if there are staff members
+if (!empty($logsList)) {
+    foreach ($logsList as $logs) {
+        // Access staff data fields
+        $adminId = $logs['admin_id'];
+        $date = $logs['date'];
+        $action = $logs['action'];
+    }
+} else {
+    // No staff members found
+    //echo "No staff members found.";
 }
 

@@ -29,8 +29,8 @@ if (isset($_POST['logout'])) {
 }
 if (isset($_SESSION['user'])) {
     $adminUsername = $_SESSION['user'];
-
     $adminID = $superAdminData->getSuperadminIdByUsername($adminUsername);
+    $_SESSION['loggedAdminID'] = $adminID;
     if (!empty($adminID)) {
         $admin = $superAdminData->getSuperadminById($adminID);
 
@@ -152,7 +152,15 @@ if (isset($_SESSION['user'])) {
                                             <td><?php echo $staff['fname'] ?>&nbsp;<?php echo $staff['lname']; ?></td>
                                             <td><?php echo $staff['admin_role'] ?></td>
                                             <td><?php echo $staff['status']; ?></td>
-                                            <td></td>
+                                            <td style="padding: 1px;">
+                                                <div class="btn-group" role="group">
+                                                    <a href="#" class="btn custom-btn editStudentProfile" data-admin-id="<?php echo $staff['admin_id']; ?>">
+                                                        <i class="bi bi-pencil-square"></i>
+                                                    </a>
+                                                    <a href="#" class="btn custom-btn" id="<?php echo $staff['admin_id'];?>"> <i class="bi bi-trash"></i> </a>
+                                                    <a href="#" class="btn custom-btn" id="<?php echo $staff['admin_id'];?>"> <i class="bi bi-exclamation-octagon"></i> </a>
+                                                </div>
+                                            </td>
                                         </tr>
                                     <?php } ?>
                                 </tbody>
@@ -310,6 +318,130 @@ if (isset($_SESSION['user'])) {
         </div>
 
     </div>
+    </div>
+    <!-- Edit Student Modal -->
+    <div class="modal fade" id="editStudentModal" tabindex="-1" role="dialog" aria-labelledby="editStudentModalLabel" aria-hidden="true">
+            <div class="modal-dialog  modal-dialog-centered" role="document" style="max-width: 800px;">
+                <div class="modal-content">
+                    <div class="modal-header" style="height: 15px;">
+
+                        <p class="modal-title" id="borrowModalLabel " style="font-size: 12px; color: #800000; font-weight: 600;">
+                            <i class="bi bi-pencil-square ml-3 m-3" style="font-size: 16px; color: #800000;"></i>EDIT PROFILE
+                        </p>
+                        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close" style="background-color: transparent; border:none;">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="container-fluid " style="padding-left: 40px ; padding-right: 40px">
+                            <form class="row">
+
+                                <!-- uploading image -->
+                                <div style="width: 100px; height: 100px; overflow: hidden; border: 1px solid maroon; border-radius: 50%; margin: 0 auto; margin-top:40px;">
+                                    <label for="profilePictureInput" class="AddImageCon" style="display: flex; justify-content: center; align-items: center; width: 100%; height: 100%;">
+
+                                        <img src="../img/me_sample_profile.jpg" width="220px" height="100px" id="ProfilePic" style="display: block;">
+                                    </label>
+                                    <input type="file" accept="image/jpeg, image/png, image/jpg" id="profilePictureInput" class="visually-hidden mb-0" accept="image/*" onchange="updateProfilePicture(event)">
+                                </div>
+
+                                <div class="row" style="margin-left: 30px; width: 80%; height: 65%;">
+                                    <div class="col-md-5 firstname">
+                                        <label for="validationCustom01" class="form-label mb-0" style="font-size: 12px;">FIRST NAME</label>
+                                        <input type="text" class="form-control" placeholder="Juan" id="EditStaffFname" name="EditStaffFname" style="font-size: 10px; text-transform: capitalize !important;" required>
+
+                                    </div>
+                                    <div class="col-md-5">
+                                        <label for="validationCustom02" class="form-label mb-0" style="font-size: 12px;">LAST NAME</label>
+                                        <input type="text" class="form-control" placeholder="Dela Cruz" id="EditStaffLname" name="EditStaffLname"  style="font-size: 10px; text-transform: capitalize !important;" required>
+
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label for="validationCustom02" class="form-label mb-0" style="font-size: 12px;">M.I.</label>
+                                        <input type="text" class="form-control mb-0" placeholder="I" id="EditStaffInitial" name="EditStaffInitial"  style="font-size: 10px; text-transform: capitalize !important;" required>
+                                        <div class="invalid-feedback">
+                                            Please type the middle initial .
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-3 mt-2">
+                                        <label for="validationCustom01" class="form-label mb-0" style="font-size: 12px;">STAFF ID</label>
+                                        <input type="text" class="form-control" id="EditStaffID" name="EditStaffID"  placeholder="2021-00565" style="font-size: 10px;" required>
+
+                                    </div>
+
+                                    <div class="col-md-5 mt-2">
+                                        <label for="validationCustomUsername" class="form-label mb-0" style="font-size: 12px;">EMAIL ADDRESS</label>
+                                        <div class="input-group has-validation">
+                                            <input type="text" class="form-control " id="EditStaffPemail" name="EditStaffPemail"  aria-describedby="inputGroupPrepend" placeholder="@usep.edu.ph" style="font-size: 10px;" required>
+
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-4 mt-2">
+                                        <label for="validationCustom01" class="form-label mb-0" style="font-size: 12px;">PHONE NUMBER</label>
+                                        <input type="tex" class="form-control" id="EditStaffPnumber" name="EditStaffPnumber"  placeholder="091234567890" style="font-size: 10px;" required>
+
+                                    </div>
+                                    <div class="col-md-4 mt-2">
+                                        <label for="validationCustom01" class="form-label mb-0" style="font-size: 12px;">TELEPHONE NUMBER</label>
+                                        <input type="text" class="form-control" id="EditStaffTnumber" name="EditStaffTnumber"  placeholder="291-3281-919" style="font-size: 10px;" required>
+
+                                    </div>
+
+
+
+
+                                    <div class="col-md-8 mt-2">
+                                        <label for="validationCustom03" class="form-label mb-0" style="font-size: 12px; ">ADDRESS</label>
+                                        <input type="text" class="form-control" id="EditStaffAddress" name="EditStaffAddress"  style="font-size: 10px; text-transform: capitalize !important;" placeholder="Purok, Baranggay, City/Municipality, Province">
+
+                                    </div>
+                                    <div class="col-md-4 mt-2">
+                                        <label for="validationCustom03" class="form-label mb-0" style="font-size: 12px; ">ROLE</label>
+                                        <input type="text" class="form-control" id="EditStaffRole" name="EditStaffRole" style="font-size: 10px; text-transform: capitalize !important;" placeholder="Librarian">
+
+                                    </div>
+
+                                </div>
+                                <div class="row">
+                                    <div class="col col-md-5 mt-3">
+                                        <label for="validationCustomUsername" class="form-label mb-0" style="font-size: 12px;">EMAIL ADDRESS</label>
+                                        <div class="input-group has-validation">
+                                            <input type="text" class="form-control " id="EditStaffOemail" name="EditStaffOemail" aria-describedby="inputGroupPrepend" placeholder="@usep.edu.ph" style="font-size: 10px;" required>
+
+                                        </div>
+                                    </div>
+
+                                    <div class=" col col-md-3 mt-3">
+                                        <label for="validationCustomUsername" class="form-label mb-0" style="font-size: 12px;">USERNAME</label>
+                                        <div class="input-group has-validation">
+                                            <input type="text" class="form-control" id="EditStaffUsername" name="EditUsername" aria-describedby="inputGroupPrepend" placeholder="juandlz" style="font-size: 10px;" required>
+
+                                        </div>
+                                    </div>
+
+                                    <div class="col col-md-4 mt-3">
+                                        <label for="validationCustomUsername" class="form-label mb-0" style="font-size: 12px;">PASSWORD</label>
+                                        <div class="input-group has-validation">
+                                            <input type="password" class="form-control" placeholder="Password123." id="Editpsw" name="Editpsw" style="font-size: 10px;" aria-describedby="inputGroupPrepend" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" required>
+
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </form>
+
+                            <div class=" wishlist-container  mt-4 mb-0 " style=" display: flex; justify-content: flex-end; width: 664px; ">
+                                <button style="height: 25px; width: 100px" type="button" class="clear shadow " onclick="clearPhoto()">CLEAR</button>
+                                <button style="height: 25px; width: 100px" type="button" class="add shadow" onclick="addStudent()">ADD</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
@@ -455,8 +587,7 @@ if (isset($_SESSION['user'])) {
             });
         }
     </script>
-
-        <script>
+    <script>
             function addStaff() {
                 var formData = new FormData();
                 var profileFileInput = $('#addStaffinput-file')[0];
@@ -491,7 +622,6 @@ if (isset($_SESSION['user'])) {
                             var result = JSON.parse(response);
                             if (result.success) {
                                 alert('Staff member added successfully!');
-                                location.reload();
                             } else {
                                 alert('Failed to add staff member: ' + result.error);
                             }
@@ -505,6 +635,100 @@ if (isset($_SESSION['user'])) {
                 });
             }
         </script>
+    <script>
+        $(document).ready(function() {
+            $('.editStudentProfile').click(function(e) {
+                e.preventDefault();
+
+                // Get the admin_id from the data attribute
+                var adminId = $(this).data('admin-id');
+
+                // Make an AJAX request to fetch staff data
+                $.ajax({
+                    url: '../operations/fetch_staff.php', // Replace with your backend endpoint
+                    type: 'POST',
+                    data: { adminId: adminId },
+                    dataType: 'json',
+                    success: function(response) {
+                        // Log the response to inspect the structure
+                        console.log(response);
+
+                        // Handle the response and populate your modal with data
+                        populateModal(response);
+                    },
+                    error: function() {
+                        // Handle errors
+                        console.error('Error fetching staff data.');
+                    }
+                });
+            });
+
+            function populateModal(data) {
+                // Log the data to inspect the structure
+                console.log(data);
+
+                // Populate the modal fields with data received from the server
+                $('#EditStaffFname').val(data[0].fname);
+                $('#EditStaffLname').val(data[0].lname);
+                $('#EditStaffInitial').val(data[0].initial);
+                $('#EditStaffID').val(data[0].admin_id);
+                $('#EditStaffPemail').val(data[0].personal_email);
+                $('#EditStaffPnumber').val(data[0].phone_number);
+                $('#EditStaffTnumber').val(data[0].tele_number);
+                $('#EditStaffAddress').val(data[0].address);
+                $('#EditStaffRole').val(data[0].admin_role);
+                $('#Editpsw').val(data[0].password);
+                $('#EditStaffUsername').val(data[0].username);
+                $('#EditStaffOemail').val(data[0].email);
+
+                var imagePath = '../img/' + data[0].img;
+                $('#ProfilePic').attr('src', imagePath);
+
+                // Show the modal
+                $('#editStudentModal').modal('show');
+            }
+        });
+    // $(document).ready(function() {
+    //         // Attach a click event to all elements with the class "editStudentProfile"
+    //         $(".editStudentProfile").click(function() {
+    //             // Show the student modal
+    //             $("#editStudentModal").modal("show");
+    //         });
+    //
+    //         // Handle the file input change event
+    //         $("#profilePictureInput").change(function() {
+    //             readURL(this);
+    //         });
+    //     });
+
+        // Function to handle adding a student (you can replace this with your actual logic)
+        function addStudent() {
+            // Add your logic here
+            $("#editStudentModal").modal("hide");
+        }
+
+        // Function to clear the displayed photo
+        function clearPhoto() {
+            $('#ProfilePic').attr('src', '../img/me_sample_profile.jpg');
+            $(".AddImageCon i").show();
+        }
+
+        // Function to update the profile picture
+        function updateProfilePicture(event) {
+            const input = event.target;
+            if (input.files && input.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const profilePic = document.getElementById('ProfilePic');
+                    profilePic.src = e.target.result;
+
+                    // Hide the icon when a new image is selected
+                    $(".AddImageCon i").hide();
+                };
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+    </script>
 
 
 </body>
