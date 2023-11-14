@@ -176,9 +176,6 @@ if (isset($_SESSION['user'])) {
                         <td><?php echo $logs['action'];?></td>
 
                     </tr>
-                    <tr style="height: 5px">
-
-                    </tr>
                     <?php } ?>
 
 

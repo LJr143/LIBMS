@@ -87,6 +87,37 @@ class StaffData
         // Execute the query
         return $stmt->execute();
     }
+    public function updateStaff($userId, $firstName, $lastName, $mi, $Pemail, $Oemail, $phoneNumber, $telephoneNumber, $address, $admin_role, $username, $password, $profile): bool
+    {
+        $sql = "UPDATE tbl_admin 
+            SET fname = :fname, lname = :lname, initial = :initial, 
+                email = :email, personal_email = :personal_email, 
+                phone_number = :phone_number, tele_number = :tele_number, 
+                address = :address, admin_role = :admin_role, 
+                username = :username, password = :password, img = :img 
+            WHERE admin_id = :userId";
+
+        $stmt = $this->database->prepare($sql);
+
+        // Bind parameters
+        $stmt->bindParam(':fname', $firstName, PDO::PARAM_STR);
+        $stmt->bindParam(':lname', $lastName, PDO::PARAM_STR);
+        $stmt->bindParam(':initial', $mi, PDO::PARAM_STR);
+        $stmt->bindParam(':userId', $userId, PDO::PARAM_STR);
+        $stmt->bindParam(':email', $Pemail, PDO::PARAM_STR);
+        $stmt->bindParam(':personal_email', $Oemail, PDO::PARAM_STR);
+        $stmt->bindParam(':phone_number', $phoneNumber, PDO::PARAM_STR);
+        $stmt->bindParam(':tele_number', $telephoneNumber, PDO::PARAM_STR);
+        $stmt->bindParam(':address', $address, PDO::PARAM_STR);
+        $stmt->bindParam(':admin_role', $admin_role, PDO::PARAM_STR);
+        $stmt->bindParam(':username', $username, PDO::PARAM_STR);
+        $stmt->bindParam(':password', $password, PDO::PARAM_STR);
+        $stmt->bindParam(':img', $profile, PDO::PARAM_STR);
+
+        // Execute the query
+        return $stmt->execute();
+    }
+
 
 }
 $database = new Database();

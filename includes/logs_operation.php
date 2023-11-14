@@ -42,6 +42,21 @@ class Logs
 
         return $stmt->execute();
     }
+    public function editAddLogs($userID,$user, $name): bool
+    {
+        $admin_id = $userID;
+        $action = "{$user} edit {$name}";
+        $timestamp = date("Y-m-d H:i:s");
+
+        $sql = "INSERT INTO tbl_logs (admin_id,action, date) VALUES (:admin_id,:action, :timestamp)";
+        $stmt = $this->database->prepare($sql);
+
+        $stmt->bindParam(':admin_id', $admin_id, PDO::PARAM_STR);
+        $stmt->bindParam(':action', $action, PDO::PARAM_STR);
+        $stmt->bindParam(':timestamp', $timestamp, PDO::PARAM_STR);
+
+        return $stmt->execute();
+    }
 
 
 

@@ -144,25 +144,28 @@ if (isset($_SESSION['user'])) {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <?php foreach ($staffList as $staff) { ?>
-
-                                        <tr style=" height: 40px; background-color: rgb(246,246,246); margin-bottom: 10px; border: 1px solid rgba(0,0,0,0.25);">
-                                            <td><input type="checkbox"></td>
-                                            <td></td>
-                                            <td><?php echo $staff['fname'] ?>&nbsp;<?php echo $staff['lname']; ?></td>
-                                            <td><?php echo $staff['admin_role'] ?></td>
-                                            <td><?php echo $staff['status']; ?></td>
-                                            <td style="padding: 1px;">
-                                                <div class="btn-group" role="group">
-                                                    <a href="#" class="btn custom-btn editStudentProfile" data-admin-id="<?php echo $staff['admin_id']; ?>">
-                                                        <i class="bi bi-pencil-square"></i>
-                                                    </a>
-                                                    <a href="#" class="btn custom-btn" id="<?php echo $staff['admin_id'];?>"> <i class="bi bi-trash"></i> </a>
-                                                    <a href="#" class="btn custom-btn" id="<?php echo $staff['admin_id'];?>"> <i class="bi bi-exclamation-octagon"></i> </a>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    <?php } ?>
+                                <?php foreach ($staffList as $staff) { ?>
+                                    <tr style="height: 40px; background-color: rgb(246,246,246); margin-bottom: 10px; border: 1px solid rgba(0,0,0,0.25);">
+                                        <td><input type="checkbox"></td>
+                                        <td></td>
+                                        <td><?php echo $staff['fname'] ?>&nbsp;<?php echo $staff['lname']; ?></td>
+                                        <td><?php echo $staff['admin_role'] ?></td>
+                                        <td><?php echo $staff['status']; ?></td>
+                                        <td style="padding: 1px;">
+                                            <div class="btn-group" role="group">
+                                                <a href="#" class="btn custom-btn editStudentProfile" data-admin-id="<?php echo $staff['admin_id']; ?>">
+                                                    <i class="bi bi-pencil-square"></i>
+                                                </a>
+                                                <a href="#" class="btn custom-btn deleteStudent" data-admin-id="<?php echo $staff['admin_id']; ?>">
+                                                    <i class="bi bi-trash"></i>
+                                                </a>
+                                                <a href="#" class="btn custom-btn" id="<?php echo $staff['admin_id']; ?>">
+                                                    <i class="bi bi-exclamation-octagon"></i>
+                                                </a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                <?php } ?>
                                 </tbody>
                             </table>
 
@@ -334,13 +337,13 @@ if (isset($_SESSION['user'])) {
                     </div>
                     <div class="modal-body">
                         <div class="container-fluid " style="padding-left: 40px ; padding-right: 40px">
-                            <form class="row">
+                            <form  id="editStudentForm" class="row" method="post" enctype="multipart/form-data">
 
                                 <!-- uploading image -->
                                 <div style="width: 100px; height: 100px; overflow: hidden; border: 1px solid maroon; border-radius: 50%; margin: 0 auto; margin-top:40px;">
                                     <label for="profilePictureInput" class="AddImageCon" style="display: flex; justify-content: center; align-items: center; width: 100%; height: 100%;">
 
-                                        <img src="../img/me_sample_profile.jpg" width="220px" height="100px" id="ProfilePic" style="display: block;">
+                                        <img src="" width="220px" height="100px" id="ProfilePic" style="display: block;">
                                     </label>
                                     <input type="file" accept="image/jpeg, image/png, image/jpg" id="profilePictureInput" class="visually-hidden mb-0" accept="image/*" onchange="updateProfilePicture(event)">
                                 </div>
@@ -430,12 +433,13 @@ if (isset($_SESSION['user'])) {
                                     </div>
 
                                 </div>
-                            </form>
+
 
                             <div class=" wishlist-container  mt-4 mb-0 " style=" display: flex; justify-content: flex-end; width: 664px; ">
                                 <button style="height: 25px; width: 100px" type="button" class="clear shadow " onclick="clearPhoto()">CLEAR</button>
-                                <button style="height: 25px; width: 100px" type="button" class="add shadow" onclick="addStudent()">ADD</button>
+                                <button style="height: 25px; width: 100px" type="submit" class="add shadow" id="saveButton">SAVE</button>
                             </div>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -688,20 +692,9 @@ if (isset($_SESSION['user'])) {
                 $('#editStudentModal').modal('show');
             }
         });
-    // $(document).ready(function() {
-    //         // Attach a click event to all elements with the class "editStudentProfile"
-    //         $(".editStudentProfile").click(function() {
-    //             // Show the student modal
-    //             $("#editStudentModal").modal("show");
-    //         });
-    //
-    //         // Handle the file input change event
-    //         $("#profilePictureInput").change(function() {
-    //             readURL(this);
-    //         });
-    //     });
 
-        // Function to handle adding a student (you can replace this with your actual logic)
+
+        // Function to handle adding a student
         function addStudent() {
             // Add your logic here
             $("#editStudentModal").modal("hide");
@@ -728,7 +721,10 @@ if (isset($_SESSION['user'])) {
                 reader.readAsDataURL(input.files[0]);
             }
         }
+
+
     </script>
+    <script src="../js/update_staff.js"></script>
 
 
 </body>
