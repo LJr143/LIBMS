@@ -52,7 +52,9 @@ if (isset($_SESSION['user'])) {
     <link rel="icon" href="../icons/usep-logo.png">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.32/dist/sweetalert2.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
     <link rel="stylesheet" href="../css/superadmin_logs.css">
+    <link rel="stylesheet" href="../css/logout.css">
 </head>
 <body style="">
 <div>
@@ -116,7 +118,7 @@ if (isset($_SESSION['user'])) {
                         <form action="" method="post" style="margin-left: 20px;">
 
                             <label for="logout"><img src="../icons/plug.png" style="width: 20px; " alt=""></label>
-                            <input style="font-size: 12px; color: white; background: none; border: none;" name="logout" type="submit" value="Logout">
+                            <input id="logoutButton" style="font-size: 12px; color: white; background: none; border: none;" name="logout" type="submit" value="Logout">
                         </form>
                         </ul>
                     </div>
@@ -202,7 +204,8 @@ if (isset($_SESSION['user'])) {
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
-
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+<script src='../js/logout_script.js'></script>
 
 
 </body>

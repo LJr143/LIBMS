@@ -55,6 +55,7 @@ if (isset($_SESSION['user'])) {
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10/dist/sweetalert2.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
     <link rel="stylesheet" href="../css/admin_student.css">
+    <link rel="stylesheet" href="../css/logout.css">
 </head>
 <body style="">
     <div>
@@ -118,7 +119,7 @@ if (isset($_SESSION['user'])) {
                             <form action="" method="post" style="margin-left: 20px;">
 
                                 <label for="logout"><img src="../icons/plug.png" style="width: 20px; " alt=""></label>
-                                <input style="font-size: 12px; color: white; background: none; border: none;" name="logout" type="submit" value="Logout">
+                                <input id="logoutButton" style="font-size: 12px; color: white; background: none; border: none;" name="logout" type="submit" value="Logout">
                             </form>
                             </ul>
                         </div>
@@ -543,29 +544,9 @@ if (isset($_SESSION['user'])) {
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
-    <script>
-        const listItems = document.querySelectorAll('li');
-        listItems.forEach((listItem) => {
-            listItem.addEventListener('click', () => {
-                listItems.forEach((item) => {
-                    item.classList.remove('active');
-                });
-
-                listItem.classList.add('active');
-            });
-        });
-
-        // Get references to the "Select All" checkbox and all the other checkboxes in the table
-        const selectAllCheckbox = document.getElementById('selectAllCheckbox');
-        const checkboxes = document.querySelectorAll('tbody input[type="checkbox"]');
-
-        // Add an event listener to the "Select All" checkbox
-        selectAllCheckbox.addEventListener('change', () => {
-            checkboxes.forEach((checkbox) => {
-                checkbox.checked = selectAllCheckbox.checked;
-            });
-        });
-    </script>
+    <script src='../js/logout_script.js'></script>
+    <script src="../js/navbar_select.js"></script>
+    
     <script>
         $(document).ready(function() {
             // Attach a click event to the "ADD STUDENT" button
