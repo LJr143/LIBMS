@@ -317,21 +317,21 @@ if (isset($_SESSION['user'])) {
                                     <label for="validationCustom01" class="form-label mb-0" style="font-size: 12px;">FIRST NAME</label>
                                     <input type="text" class="form-control" placeholder="Juan" id="validationCustom01" style="font-size: 10px; text-transform: capitalize !important;" required pattern="[A-Za-z]+" required>
                                     <div class="invalid-feedback" style="font-size: 8px">
-                                        Please select your first name (letters).
+                                        Not a valid first name!
                                     </div>
                                 </div>
                                 <div class="col-md-5">
                                     <label for="validationCustom02" class="form-label mb-0" style="font-size: 12px;">LAST NAME</label>
                                     <input type="text" class="form-control" placeholder="Dela Cruz" id="validationCustom02" style="font-size: 10px; text-transform: capitalize !important;" required pattern="[A-Za-z]+" required>
                                     <div class="invalid-feedback" style="font-size: 8px">
-                                        Please select your last name (letters).
+                                        Not a valid last name!
                                     </div>
                                 </div>
                                 <div class="col-md-2">
                                     <label for="validationCustom02" class="form-label mb-0" style="font-size: 12px;">M.I.</label>
                                     <input type="text" class="form-control mb-0" placeholder="I" id="validationCustom02" style="font-size: 10px; text-transform: uppercase !important;" required pattern="[A-Za-z]{1}">
                                     <div class="invalid-feedback" style="font-size:8px">
-                                        Please input a valid letter M.I.
+                                        Not a valid M.I. !
                                     </div>
                                 </div>
 
@@ -340,7 +340,7 @@ if (isset($_SESSION['user'])) {
                                     <label for="validationCustom01" class="form-label mb-0" style="font-size: 12px;">STUDENT ID</label>
                                     <input type="text" class="form-control" id="validationCustom01" pattern="[0-9]{9}" placeholder="202100565" style="font-size: 10px;" required>
                                     <div class="invalid-feedback" style="font-size: 8px">
-                                        Please enter a valid 9-digit student ID.
+                                       Not a valid 9-digit student ID!
                                     </div>
                                 </div>
 
@@ -350,7 +350,7 @@ if (isset($_SESSION['user'])) {
                                     <div class="input-group has-validation">
                                         <input type="email" class="form-control" id="validationCustomUsername" aria-describedby="inputGroupPrepend" placeholder="juan001@usep.edu.ph" style="font-size: 10px;" required>
                                         <div class="invalid-feedback" style="font-size: 8px">
-                                            Please enter a valid email address in the format juan001@usep.edu.ph
+                                            Not a valid email address!
                                         </div>
                                     </div>
                                 </div>
@@ -358,9 +358,9 @@ if (isset($_SESSION['user'])) {
 
                                 <div class="col-md-4 mt-2">
                                     <label for="validationCustom01" class="form-label mb-0" style="font-size: 12px;">PHONE NUMBER</label>
-                                    <input type="tel" class="form-control" id="validationCustom01" pattern="[0-9]{11}" placeholder="091234567890" style="font-size: 10px;" required>
+                                    <input type="tel" class="form-control" id="validationCustom01" pattern="[0-9]{12}" placeholder="091234567890" style="font-size: 10px;" required>
                                     <div class="invalid-feedback" style="font-size: 8px">
-                                        Please enter a valid phone number with 11 digits.
+                                        Not a valid phone number with 11 digits!
                                     </div>
                                 </div>
 
@@ -369,7 +369,7 @@ if (isset($_SESSION['user'])) {
                                     <label for="validationCustom03" class="form-label mb-0" style="font-size: 12px; ">ADDRESS</label>
                                     <input type="text" class="form-control" id="validationCustom03" style="font-size: 10px; text-transform: capitalize !important;" placeholder="Purok, Baranggay, City/Municipality, Province" required>
                                     <div class="invalid-feedback" style="font-size: 8px">
-                                        Please select a valid address.
+                                        Not a valid address!
                                     </div>
                                 </div>
                                 <div class="col-md-4 mt-2">
@@ -383,7 +383,7 @@ if (isset($_SESSION['user'])) {
                                         <option value="5th">5th</option>
                                     </select>
                                     <div class="invalid-feedback" style="font-size: 8px">
-                                        Please select a valid section/year.
+                                        Not a valid section/year!
                                     </div>
                                 </div>
 
@@ -400,7 +400,7 @@ if (isset($_SESSION['user'])) {
                                         <option value="BSNED">BSNED</option>
                                     </select>
                                     <div class="invalid-feedback" style="font-size: 8px">
-                                        Please select a valid course.
+                                        Not a valid course!
                                     </div>
                                 </div>
 
@@ -408,17 +408,16 @@ if (isset($_SESSION['user'])) {
                                     <label for="validationCustom03" class="form-label mb-0" style="font-size: 12px; ">MAJOR</label>
                                     <input type="text" class="form-control" id="validationCustom03" style="font-size: 10px; text-transform: capitalize !important;" placeholder="Information Security"required>
                                     <div class="invalid-feedback" style="font-size: 8px">
-                                        Please select your major.
+                                        Not a valid major!
                                     </div>
                                 </div>
 
-
-                                <div class="col-md-5 mt-2">
+                                <div class="col-md-5 mt-3">
                                     <label for="validationCustomEmail" class="form-label mb-0" style="font-size: 12px;">EMAIL ADDRESS</label>
                                     <div class="input-group has-validation">
                                         <input type="email" class="form-control" id="validationCustomEmail" aria-describedby="inputGroupPrepend" placeholder="juan001@usep.edu.ph" style="font-size: 10px;" required>
                                         <div class="invalid-feedback" style="font-size: 8px;">
-                                            Please enter a valid email address in the format juan001@usep.edu.ph.
+                                            Not a valid email address!
                                         </div>
                                     </div>
                                 </div>
@@ -428,7 +427,7 @@ if (isset($_SESSION['user'])) {
                                     <div class="input-group has-validation">
                                         <input type="text" class="form-control" id="validationCustomUsername" aria-describedby="inputGroupPrepend" placeholder="juandlz" style="font-size: 10px;" required>
                                         <div class="invalid-feedback" style="font-size: 8px">
-                                            Please select a valid username.
+                                            Not a valid username!
                                         </div>
                                     </div>
                                 </div>
@@ -441,7 +440,7 @@ if (isset($_SESSION['user'])) {
                                                title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters"
                                                required>
                                         <div class="invalid-feedback" id="passwordRequirements" style="font-size: 8px; display: none;">
-                                            Password must contain at least <br>one number, <br>one uppercase letter, <br>one lowercase letter, <br>and be at least 8 characters long.
+                                            Not a valid password!
                                         </div>
                                     </div>
                                 </div>
