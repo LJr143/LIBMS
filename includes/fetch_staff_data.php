@@ -1,4 +1,5 @@
 <?php
+
 require_once 'C:\wamp64\www\LIBMS\db_config\config.php';
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
@@ -115,6 +116,15 @@ class StaffData
         $stmt->bindParam(':img', $profile, PDO::PARAM_STR);
 
         // Execute the query
+        return $stmt->execute();
+    }
+
+    public function deleteStaff($adminId){
+        $sql = "DELETE FROM tbl_admin WHERE admin_id = :admin_ID";
+
+        $stmt = $this->database->prepare($sql);
+        $stmt->bindParam(':admin_ID', $adminId, PDO::PARAM_STR);
+
         return $stmt->execute();
     }
 

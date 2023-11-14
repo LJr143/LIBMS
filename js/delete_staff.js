@@ -1,55 +1,61 @@
-function updateStudent() {
-        var formData = new FormData();
-        var profileFileInput = $('#profilePictureInput')[0];
-        if (profileFileInput.files.length > 0) {
-            formData.append('profile', profileFileInput.files[0]);
-        }
-        formData.append('first_name', $('#EditStaffFname').val());
-        formData.append('last_name', $('#EditStaffLname').val());
-        formData.append('mi', $('#EditStaffInitial').val());
-        formData.append('staffID', $('#EditStaffID').val());
-        formData.append('officeEmail', $('#EditStaffOemail').val());
-        formData.append('PhoneNumber', $('#EditStaffPnumber').val());
-        formData.append('Telephone', $('#EditStaffTnumber').val());
-        formData.append('Address', $('#EditStaffAddress').val());
-        formData.append('role', $('#EditStaffRole').val());
-        formData.append('personalEmail', $('#EditStaffPemail').val());
-        formData.append('username', $('#EditStaffUsername').val());
-        formData.append('password', $('#Editpsw').val());
+var adminId;
 
-        for (var pair of formData.entries()) {
-            console.log(pair[0] + ', ' + pair[1]);
-        }
+$(document).ready(function() {
+    // Attach click event to delete buttons
+    $('.deleteStudent').on('click', function(e) {
+        e.preventDefault();
+        adminId = $(this).data('admin-id');
 
-        $.ajax({
-            url: '../operations/update_staff.php',
-            type: 'POST',
-            data: formData,
-            contentType: false,
-            processData: false,
-            success: function (response) {
-                try {
-                    var result = JSON.parse(response);
-                    if (result.success) {
-                        alert('Staff member Edited successfully!');
-                        location.reload();
-                    } else {
-                        alert('Failed to Edit staff member: ' + result.error);
-                        location.reload();
-                    }
-                } catch (e) {
-                    console.error('Failed to parse JSON response:', response);
-                }
-            },
-            error: function () {
-                alert('AJAX request failed.');
-            }
-        });
+        // Get staff member's name for the confirmation message
+        var staffMemberName = $(this).data('staff-name');
+
+        // Call your delete function or AJAX request here with the adminId
+        showDeleteConfirmation(staffMemberName);
+    });
+});
+
+function deleteStudent(adminId) {
+    console.log(adminId);
+
+    $.ajax({
+        url: '../operations/delete_staff.php',
+        type: 'POST',
+        data: { admin_id: adminId },
+        dataType: 'json',
+        success: function(response) {
+            console.log(response);
+            // Handle the response, e.g., update the UI or remove the row from the table
+            alert('Staff member deleted successfully!');
+            location.reload();
+        },
+        error: function() {
+            console.error('Error deleting staff member.');
+            alert('Error deleting staff member. Please try again.');
+        }
+    });
 }
 
-// Attach the updateStudent function to the Save button click event
-$('#saveButton').click(function() {
-    // Disable the button to prevent multiple clicks
-    $(this).prop('disabled', true);
-    updateStudent();
-});
+function showDeleteConfirmation(staffMemberName) {
+    Swal.fire({
+        title: 'ARE YOU SURE?',
+        text: 'Do you really want to delete the account for ' + staffMemberName + '? This process cannot be undone.',
+        icon: 'error', // Set the icon as 'error'
+        iconHtml: '<div style="background-color: white; display: inline-block; padding: 20px; border-radius: 5px;"><i class="bi bi-trash3-fill" style="font-size: 50px; color: #711717;"></i></div>',
+        showCancelButton: true,
+        confirmButtonColor: '#711717',
+        confirmButtonText: 'DELETE',
+        cancelButtonText: 'CANCEL',
+        cancelButtonColor: '#e3e6e9',
+        customClass: {
+            popup: 'my-swal-popup',
+            content: 'my-swal-content',
+            title: 'swal-title',
+            cancelButton: 'my-cancel-button',
+            confirmButton: 'my-confirm-button'
+        }
+    }).then((result) => {
+        if (result.isConfirmed) {
+            deleteStudent(adminId);
+        }
+    });
+}
