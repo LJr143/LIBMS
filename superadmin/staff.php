@@ -156,7 +156,7 @@ if (isset($_SESSION['user'])) {
                                                 <a href="#" class="btn custom-btn editStudentProfile" data-admin-id="<?php echo $staff['admin_id']; ?>">
                                                     <i class="bi bi-pencil-square"></i>
                                                 </a>
-                                                <a href="#" class="btn custom-btn deleteStudent" data-admin-id="<?php echo $staff['admin_id']; ?>">
+                                                <a href="#" class="btn custom-btn deleteStudent" data-admin-id="<?php echo $staff['admin_id']; ?>" data-staff-name="<?php echo $staff['fname'] . " " . $staff['lname']; ?>" >
                                                     <i class="bi bi-trash"></i>
                                                 </a>
                                                 <a href="#" class="btn custom-btn" id="<?php echo $staff['admin_id']; ?>">
@@ -626,6 +626,7 @@ if (isset($_SESSION['user'])) {
                             var result = JSON.parse(response);
                             if (result.success) {
                                 alert('Staff member added successfully!');
+                                location.reload();
                             } else {
                                 alert('Failed to add staff member: ' + result.error);
                             }
@@ -725,6 +726,7 @@ if (isset($_SESSION['user'])) {
 
     </script>
     <script src="../js/update_staff.js"></script>
+    <script src="../js/delete_staff.js"></script>
 
 
 </body>
