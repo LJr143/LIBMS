@@ -3,6 +3,10 @@ session_start();
 require_once 'C:\wamp64\www\LIBMS\db_config\config.php';
 include '../includes/fetch_staff_data.php';
 include '../includes/logs_operation.php';
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
+
 $database = new Database();
 $log = new Logs($database);
 

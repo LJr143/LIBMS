@@ -622,6 +622,7 @@ if (isset($_SESSION['user'])) {
                     contentType: false,
                     processData: false,
                     success: function (response) {
+                        console.log('Response:', response);
                         try {
                             var result = JSON.parse(response);
                             if (result.success) {

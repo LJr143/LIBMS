@@ -6,8 +6,7 @@ include 'C:\wamp64\www\LIBMS\includes\fetch_user_data.php';
 include 'C:\wamp64\www\LIBMS\includes\fetch_books_data.php';
 include 'C:\wamp64\www\LIBMS\includes\fetch_staff_data.php';
 include 'C:\wamp64\www\LIBMS\includes\fetch_superadmin_data.php';
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
+
 
 $loggedAdmin ='';
 

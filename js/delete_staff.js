@@ -1,5 +1,5 @@
 var adminId;
-
+var staffMemberName;
 $(document).ready(function() {
     // Attach click event to delete buttons
     $('.deleteStudent').on('click', function(e) {
@@ -7,7 +7,7 @@ $(document).ready(function() {
         adminId = $(this).data('admin-id');
 
         // Get staff member's name for the confirmation message
-        var staffMemberName = $(this).data('staff-name');
+        staffMemberName = $(this).data('staff-name');
 
         // Call your delete function or AJAX request here with the adminId
         showDeleteConfirmation(staffMemberName);
@@ -20,7 +20,8 @@ function deleteStudent(adminId) {
     $.ajax({
         url: '../operations/delete_staff.php',
         type: 'POST',
-        data: { admin_id: adminId },
+        data: { admin_id: adminId,
+                staffName: staffMemberName,},
         dataType: 'json',
         success: function(response) {
             console.log(response);

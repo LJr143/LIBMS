@@ -1,8 +1,8 @@
 <?php
-
 require_once 'C:\wamp64\www\LIBMS\db_config\config.php';
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
+//error_reporting(E_ALL);
+//ini_set('display_errors', 1);
+
 
 class StaffData
 {
@@ -143,9 +143,6 @@ if (!empty($staffList)) {
         $adminId = $staff['admin_id'];
         $username = $staff['username'];
     }
-} else {
-    // No staff members found
-    echo "No staff members found.";
 }
 
 
