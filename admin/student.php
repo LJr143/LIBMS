@@ -311,7 +311,6 @@ if (isset($_SESSION['user'])) {
                         </div>
 
 
-
                         <form class="row needs-validation"  style="margin-left: 30px; width: 80%; height: 65%; "  novalidate >
                             <div class="col-md-5 firstname">
                                 <label for="validationCustom01" class="form-label mb-0" style="font-size: 12px;">FIRST NAME</label>
@@ -338,9 +337,9 @@ if (isset($_SESSION['user'])) {
 
                             <div class="col-md-3 mt-2">
                                 <label for="validationCustom01" class="form-label mb-0" style="font-size: 12px;">STUDENT ID</label>
-                                <input type="text" class="form-control" id="validationCustom01" pattern="[0-9]{9}" placeholder="202100565" style="font-size: 10px;" required>
+                                <input type="text" class="form-control" id="validationCustom01" pattern="[0-9]{4}-[0-9]{5}" placeholder="2021-00565" style="font-size: 10px;" required>
                                 <div class="invalid-feedback" style="font-size: 8px">
-                                    Not a valid 9-digit student ID!
+                                    Not a valid student ID!
                                 </div>
                             </div>
 
@@ -358,7 +357,7 @@ if (isset($_SESSION['user'])) {
 
                             <div class="col-md-4 mt-2">
                                 <label for="validationCustom01" class="form-label mb-0" style="font-size: 12px;">PHONE NUMBER</label>
-                                <input type="tel" class="form-control" id="validationCustom01" pattern="[0-9]{12}" placeholder="091234567890" style="font-size: 10px;" required>
+                                <input type="tel" class="form-control" id="validationCustom01" pattern="[0-9]{11}" placeholder="091234567890" style="font-size: 10px;" required>
                                 <div class="invalid-feedback" style="font-size: 8px">
                                     Not a valid phone number with 11 digits!
                                 </div>
@@ -406,11 +405,18 @@ if (isset($_SESSION['user'])) {
 
                             <div class="col-md-4 mt-2">
                                 <label for="validationCustom03" class="form-label mb-0" style="font-size: 12px; ">MAJOR</label>
-                                <input type="text" class="form-control" id="validationCustom03" style="font-size: 10px; text-transform: capitalize !important;" placeholder="Information Security"required>
+                                <select class="form-select" id="validationCustom03" style="font-size: 10px; " required>
+                                    <option value="" disabled selected>Select Major</option>
+                                    <option value="Information Security">Information Security</option>
+                                    <option value="English">English</option>
+                                    <option value="Mathematics">Mathematics</option>
+                                    <option value="Filipino">Filipino</option>
+                                </select>
                                 <div class="invalid-feedback" style="font-size: 8px">
                                     Not a valid major!
                                 </div>
                             </div>
+
 
                             <div class="col-md-5 mt-3">
                                 <label for="validationCustomEmail" class="form-label mb-0" style="font-size: 12px;">EMAIL ADDRESS</label>
@@ -435,9 +441,9 @@ if (isset($_SESSION['user'])) {
                             <div class="col col-md-4 mt-3">
                                 <label for="validationCustomUsername" class="form-label mb-0" style="font-size: 12px;">PASSWORD</label>
                                 <div class="input-group has-validation">
-                                    <input type="password" class="form-control" placeholder="Password123." id="psw" style="font-size: 10px;" aria-describedby="inputGroupPrepend"
-                                           pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
-                                           title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters"
+                                    <input type="password" class="form-control" placeholder="Password_123" id="psw" style="font-size: 10px;" aria-describedby="inputGroupPrepend"
+                                           pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@_]).{8,}"
+                                           title="Must contain at least one number, one uppercase and lowercase letter, one symbol, and at least 8 or more characters"
                                            required>
                                     <div class="invalid-feedback" id="passwordRequirements" style="font-size: 8px; display: none;">
                                         Not a valid password!
@@ -446,23 +452,19 @@ if (isset($_SESSION['user'])) {
                             </div>
 
 
-
                             <div class=" wishlist-container  mt-4 mb-0 " style=" display: flex; justify-content: flex-end; width: 664px; ">
                                 <button style="height: 25px; width: 100px" type="button" class="clear shadow " onclick="clearPhoto()">CLEAR</button>
                                 <button style="height: 25px; width: 100px" type="submit" class="add shadow" onclick="addStudent()">ADD</button>
                             </div>
                         </form>
-
-
                     </div>
-
-
                 </div>
             </div>
         </div>
     </div>
-
 </div>
+
+
 <!-- Edit Student Modal -->
 <div class="modal fade" id="editStudentModal" tabindex="-1" role="dialog" aria-labelledby="editStudentModalLabel" aria-hidden="true">
     <div class="modal-dialog  modal-dialog-centered" role="document" style="max-width: 800px;">
@@ -478,7 +480,7 @@ if (isset($_SESSION['user'])) {
             </div>
             <div class="modal-body">
                 <div class="container-fluid " style="padding-left: 40px ; padding-right: 40px">
-                    <form class="row">
+                    <div class="row">
 
                         <!-- uploading image -->
                         <div style="width: 100px; height: 100px; overflow: hidden; border: 1px solid maroon; border-radius: 50%; margin: 0 auto; margin-top:40px;">
@@ -489,121 +491,149 @@ if (isset($_SESSION['user'])) {
                             <input type="file" accept="image/jpeg, image/png, image/jpg" id="profilePictureInput" class="visually-hidden mb-0" accept="image/*" onchange="updateProfilePicture(event)">
                         </div>
 
-                        <div class="row" style="margin-left: 30px; width: 80%; height: 65%;">
+                        <form class="row needs-validation"  style="margin-left: 30px; width: 80%; height: 65%; "  novalidate >
                             <div class="col-md-5 firstname">
                                 <label for="validationCustom01" class="form-label mb-0" style="font-size: 12px;">FIRST NAME</label>
-                                <input type="text" class="form-control" placeholder="Juan" id="validationCustom01" style="font-size: 10px; text-transform: capitalize !important;" required>
-
+                                <input type="text" class="form-control" placeholder="Juan" id="validationCustom01" style="font-size: 10px; text-transform: capitalize !important;" required pattern="[A-Za-z]+" required>
+                                <div class="invalid-feedback" style="font-size: 8px">
+                                    Not a valid first name!
+                                </div>
                             </div>
                             <div class="col-md-5">
                                 <label for="validationCustom02" class="form-label mb-0" style="font-size: 12px;">LAST NAME</label>
-                                <input type="text" class="form-control" placeholder="Dela Cruz" id="validationCustom02" style="font-size: 10px; text-transform: capitalize !important;" required>
-
+                                <input type="text" class="form-control" placeholder="Dela Cruz" id="validationCustom02" style="font-size: 10px; text-transform: capitalize !important;" required pattern="[A-Za-z]+" required>
+                                <div class="invalid-feedback" style="font-size: 8px">
+                                    Not a valid last name!
+                                </div>
                             </div>
                             <div class="col-md-2">
                                 <label for="validationCustom02" class="form-label mb-0" style="font-size: 12px;">M.I.</label>
-                                <input type="text" class="form-control mb-0" placeholder="I" id="validationCustom02" style="font-size: 10px; text-transform: capitalize !important;" required>
-                                <div class="invalid-feedback">
-                                    Please type the middle initial .
+                                <input type="text" class="form-control mb-0" placeholder="I" id="validationCustom02" style="font-size: 10px; text-transform: uppercase !important;" required pattern="[A-Za-z]{1}">
+                                <div class="invalid-feedback" style="font-size:8px">
+                                    Not a valid M.I. !
                                 </div>
                             </div>
 
+
                             <div class="col-md-3 mt-2">
                                 <label for="validationCustom01" class="form-label mb-0" style="font-size: 12px;">STUDENT ID</label>
-                                <input type="number" class="form-control" id="validationCustom01 "  placeholder="2021-00565" style="font-size: 10px; " required>
-
+                                <input type="text" class="form-control" id="validationCustom01" pattern="[0-9]{4}-[0-9]{5}" placeholder="2021-00565" style="font-size: 10px;" required>
+                                <div class="invalid-feedback" style="font-size: 8px">
+                                    Not a valid student ID!
+                                </div>
                             </div>
+
 
                             <div class="col-md-5 mt-2">
                                 <label for="validationCustomUsername" class="form-label mb-0" style="font-size: 12px;">EMAIL ADDRESS</label>
                                 <div class="input-group has-validation">
-                                    <input type="text" class="form-control " id="validationCustomUsername" aria-describedby="inputGroupPrepend" placeholder="@usep.edu.ph" style="font-size: 10px;" required>
+                                    <input type="email" class="form-control" id="validationCustomUsername" aria-describedby="inputGroupPrepend" placeholder="juan001@usep.edu.ph" style="font-size: 10px;" required>
                                     <div class="invalid-feedback" style="font-size: 8px">
-                                        Please select your email address.
+                                        Not a valid email address!
                                     </div>
                                 </div>
                             </div>
 
+
                             <div class="col-md-4 mt-2">
                                 <label for="validationCustom01" class="form-label mb-0" style="font-size: 12px;">PHONE NUMBER</label>
-                                <input type="number" class="form-control" id="validationCustom01" placeholder="091234567890" style="font-size: 10px;" required>
-
+                                <input type="tel" class="form-control" id="validationCustom01" pattern="[0-9]{11}" placeholder="091234567890" style="font-size: 10px;" required>
+                                <div class="invalid-feedback" style="font-size: 8px">
+                                    Not a valid phone number with 11 digits!
+                                </div>
                             </div>
-
-
 
 
                             <div class="col-md-8 mt-2">
                                 <label for="validationCustom03" class="form-label mb-0" style="font-size: 12px; ">ADDRESS</label>
-                                <input type="text" class="form-control" id="validationCustom03" style="font-size: 10px; text-transform: capitalize !important;" placeholder="Purok, Baranggay, City/Municipality, Province">
+                                <input type="text" class="form-control" id="validationCustom03" style="font-size: 10px; text-transform: capitalize !important;" placeholder="Purok, Baranggay, City/Municipality, Province" required>
                                 <div class="invalid-feedback" style="font-size: 8px">
-                                    Please select your address.
+                                    Not a valid address!
                                 </div>
                             </div>
                             <div class="col-md-4 mt-2">
                                 <label for="validationCustom03" class="form-label mb-0" style="font-size: 12px; ">SECTION/YEAR</label>
-                                <input type="text" class="form-control" id="validationCustom03" style="font-size: 10px; text-transform: capitalize !important;" placeholder="Section/Year">
+                                <select class="form-select" id="validationCustom03" style="font-size: 10px; text-transform: capitalize !important;" required>
+                                    <option value="" disabled selected>Select Section/Year</option>
+                                    <option value="1st">1st</option>
+                                    <option value="2nd">2nd</option>
+                                    <option value="3rd">3rd</option>
+                                    <option value="4th">4th</option>
+                                    <option value="5th">5th</option>
+                                </select>
                                 <div class="invalid-feedback" style="font-size: 8px">
-                                    Please input field.
+                                    Not a valid section/year!
                                 </div>
                             </div>
+
                             <div class="col-md-8 mt-2">
                                 <label for="validationCustom03" class="form-label mb-0" style="font-size: 12px; ">COURSE</label>
-                                <input type="text" class="form-control" id="validationCustom03" style="font-size: 10px; text-transform: uppercase !important;" placeholder="Purok, Baranggay, City/Municipality, Province">
+                                <select class="form-select" id="validationCustom03" style="font-size: 10px; text-transform: uppercase !important;" required>
+                                    <option value="" disabled selected>Select Course</option>
+                                    <option value="BSIT">BSIT</option>
+                                    <option value="BTVTED">BTVTED</option>
+                                    <option value="BECED">BECED</option>
+                                    <option value="BECED">BECED</option>
+                                    <option value="BSED">BSED</option>
+                                    <option value="BSABE">BSABE</option>
+                                    <option value="BSNED">BSNED</option>
+                                </select>
                                 <div class="invalid-feedback" style="font-size: 8px">
-                                    Please select your course.
+                                    Not a valid course!
                                 </div>
                             </div>
+
                             <div class="col-md-4 mt-2">
                                 <label for="validationCustom03" class="form-label mb-0" style="font-size: 12px; ">MAJOR</label>
-                                <input type="text" class="form-control" id="validationCustom03" style="font-size: 10px; text-transform: capitalize !important;" placeholder="Section/Year">
+                                <select class="form-select" id="validationCustom03" style="font-size: 10px; " required>
+                                    <option value="" disabled selected>Select Major</option>
+                                    <option value="Information Security">Information Security</option>
+                                    <option value="English">English</option>
+                                    <option value="Mathematics">Mathematics</option>
+                                    <option value="Filipino">Filipino</option>
+                                </select>
                                 <div class="invalid-feedback" style="font-size: 8px">
-                                    Please select your major.
+                                    Not a valid major!
                                 </div>
                             </div>
-                        </div>
-                        <div class="row">
-                            <div class="col col-md-5 mt-3">
-                                <label for="validationCustomUsername" class="form-label mb-0" style="font-size: 12px;">EMAIL ADDRESS</label>
+
+
+                            <div class="col-md-5 mt-3">
+                                <label for="validationCustomEmail" class="form-label mb-0" style="font-size: 12px;">EMAIL ADDRESS</label>
                                 <div class="input-group has-validation">
-                                    <input type="text" class="form-control " id="validationCustomUsername" aria-describedby="inputGroupPrepend" placeholder="@usep.edu.ph" style="font-size: 10px;" required>
-                                    <div class="invalid-feedback" style="font-size: 8px">
-                                        Please select your email-address.
-                                    </div>
+                                    <input type="email" class="form-control" id="validationCustomEmail" aria-describedby="inputGroupPrepend" placeholder="juan001@usep.edu.ph" style="font-size: 10px;" readonly>
+
                                 </div>
                             </div>
 
                             <div class=" col col-md-3 mt-3">
                                 <label for="validationCustomUsername" class="form-label mb-0" style="font-size: 12px;">USERNAME</label>
                                 <div class="input-group has-validation">
-                                    <input type="text" class="form-control" id="validationCustomUsername" aria-describedby="inputGroupPrepend" placeholder="juandlz" style="font-size: 10px;" required>
-                                    <div class="invalid-feedback" style="font-size: 8px">
-                                        Please select your username.
-                                    </div>
+                                    <input type="text" class="form-control" id="validationCustomUsername" aria-describedby="inputGroupPrepend" placeholder="juandlz" style="font-size: 10px;" readonly>
                                 </div>
                             </div>
 
                             <div class="col col-md-4 mt-3">
                                 <label for="validationCustomUsername" class="form-label mb-0" style="font-size: 12px;">PASSWORD</label>
                                 <div class="input-group has-validation">
-                                    <input type="password" class="form-control" placeholder="Password123." id="psw" style="font-size: 10px;" aria-describedby="inputGroupPrepend" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" required>
-                                    <div class="invalid-feedback" style="font-size: 8px">
-                                        Please select your password correctly.
-                                    </div>
+                                    <input type="password" class="form-control" placeholder="Password_123" id="psw" style="font-size: 10px;" aria-describedby="inputGroupPrepend"
+                                           readonly>
+
                                 </div>
                             </div>
-                        </div>
-                    </form>
 
-                    <div class=" wishlist-container  mt-4 mb-0 " style=" display: flex; justify-content: flex-end; width: 664px; ">
-                        <button style="height: 25px; width: 100px" type="button" class="clear shadow" onclick="clearPhoto()">CLEAR</button>
-                        <button style="height: 25px; width: 100px" type="button" class="add shadow" onclick="addStudent()">ADD</button>
+
+                            <div class="wishlist-container mt-4 mb-0" style="display: flex; justify-content: flex-end; width: 664px;">
+                                <button style="height: 25px; width: 100px" type="submit" class="clear shadow" onclick="clearPhoto()">CLEAR</button>
+                                <button style="height: 25px; width: 100px" type="submit" class="add shadow" onclick="saveStudent()">SAVE</button>
+                            </div>
+
+                        </form>
                     </div>
                 </div>
-            </div>
         </div>
     </div>
-
+</div>
 </div>
 
 
@@ -613,6 +643,7 @@ if (isset($_SESSION['user'])) {
 <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
 <script src='../js/logout_script.js'></script>
 <script src="../js/navbar_select.js"></script>
+<script src="../js/student.js"></script>
 
 <script>
     $(document).ready(function() {
@@ -819,67 +850,5 @@ if (isset($_SESSION['user'])) {
 
 
 
-
-
-
-<script>
-    // Example starter JavaScript for disabling form submissions if there are invalid fields
-    (function () {
-        'use strict'
-
-        // Fetch all the forms we want to apply custom Bootstrap validation styles to
-        var forms = document.querySelectorAll('.needs-validation')
-
-        // Loop over them and prevent submission
-        Array.prototype.slice.call(forms)
-            .forEach(function (form) {
-                form.addEventListener('submit', function (event) {
-                    if (!form.checkValidity()) {
-                        event.preventDefault()
-                        event.stopPropagation()
-                    }
-
-                    form.classList.add('was-validated')
-                }, false)
-            })
-    })()
-</script>
-
-
-
-<script>
-    // Get the password input element
-    var passwordInput = document.getElementById("psw");
-
-    // Add an event listener to the input to check the password requirements
-    passwordInput.addEventListener("input", function () {
-        // Get the invalid feedback element
-        var passwordRequirements = document.getElementById("passwordRequirements");
-
-        // Check if the password meets the requirements
-        if (passwordInput.checkValidity()) {
-            passwordRequirements.style.display = "none"; // Hide the requirements message
-        } else {
-            passwordRequirements.style.display = "block"; // Show the requirements message
-        }
-    });
-</script>
-
-<script>
-    function clearPhoto() {
-        // Reset form fields
-        var form = document.querySelector('.needs-validation');
-        form.reset();
-
-        // Reset form validation state
-        form.classList.remove('was-validated');
-
-        // Reset the password requirements message
-        var passwordRequirements = document.getElementById("passwordRequirements");
-        passwordRequirements.style.display = "none";
-    }
-</script>
-
 </body>
-
 </html>
