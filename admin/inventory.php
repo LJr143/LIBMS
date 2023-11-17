@@ -256,7 +256,7 @@ if (isset($_SESSION['user'])) {
             <div class="modal-content">
                 <div class="modal-header" style="height: 15px;">
                     <p class="modal-title" id="borrowModalLabel " style="font-size: 16px; color: #800000; font-weight: 600;">
-                        <i class="bi bi-pencil-square ml-3 m-3" style="font-size: 20px; color: #800000;"></i>UPDATE STAFF
+                        <i class="bi bi-pencil-square ml-3 m-3" style="font-size: 20px; color: #800000;"></i>EDIT BOOK
                     </p>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
@@ -275,81 +275,120 @@ if (isset($_SESSION['user'])) {
                             </div>
 
                             <!-- input details -->
-                            <form class="row" style="margin-left: 0px; margin: top -600%; width: 70%; height: 65%;">
+                            <form class="row needs-validation" style="margin-left: 0px; margin: top -600%; width: 70%; height: 65%;" novalidate>
                                 <div class="col-md-3 firstname">
-                                    <label for="validationCustom01" class="form-label mb-0" style="font-size: 12px;">BOOK ID</label>
-                                    <input type="text" class="form-control" placeholder="Juan" id="validationCustom01" style="font-size: 10px; text-transform: capitalize !important;" required>
-
+                                    <label for="validationBookID" class="form-label mb-0" style="font-size: 12px;">BOOK ID</label>
+                                    <input type="text" class="form-control" placeholder="1234-56789" pattern="[0-9]{4}-[0-9]{5}" id="validationBookID" style="font-size: 10px; text-transform: capitalize !important;" required>
+                                    <div class="invalid-feedback" style="font-size: 8px">
+                                        Not a valid book ID!
+                                    </div>
                                 </div>
+
                                 <div class="col-md-6">
-                                    <label for="validationCustom02" class="form-label mb-0" style="font-size: 12px;">BOOK TITLE</label>
-                                    <input type="text" class="form-control" placeholder="Dela Cruz" id="validationCustom02" style="font-size: 10px; text-transform: capitalize !important;" required>
-
+                                    <label for="validationBookTitle" class="form-label mb-0" style="font-size: 12px;">BOOK TITLE</label>
+                                    <input type="text" class="form-control" placeholder="Programming 1" id="validationBookTitle"  style="font-size: 10px; text-transform: capitalize !important;" required>
+                                    <div class="invalid-feedback" style="font-size: 8px">
+                                        Not a valid book title!
+                                    </div>
                                 </div>
+
                                 <div class="col-md-3">
-                                    <label for="validationCustom02" class="form-label mb-0" style="font-size: 12px;">GENRE</label>
-                                    <input type="text" class="form-control mb-0" placeholder="I" id="validationCustom02" style="font-size: 10px; text-transform: capitalize !important;" required>
+                                    <label for="validationGenre" class="form-label mb-0" style="font-size: 12px;">GENRE</label>
+                                    <select class="form-select" id="validationGenre" style="font-size: 10px; text-transform: capitalize !important;" required>
+                                        <option value="" disabled selected>Select Genre</option>
+                                        <option value="Fiction">Fiction</option>
+                                        <option value="Non-Fiction">Non-Fiction</option>
+                                    </select>
+                                    <div class="invalid-feedback" style="font-size: 8px">
+                                        Not a valid genre!
+                                    </div>
                                 </div>
 
 
                                 <div class="col-md-6 mt-2">
-                                    <label for="validationCustom01" class="form-label mb-0" style="font-size: 12px;">BOOK AUTHOR</label>
-                                    <input type="number" class="form-control" id="validationCustom01 " min="9" max="9" placeholder="2021-00565" style="font-size: 10px;" required>
-
-                                </div>
-
-                                <div class="col-md-4 mt-2">
-                                    <label for="validationCustomUsername" class="form-label mb-0" style="font-size: 12px;">ISBN</label>
-                                    <div class="input-group has-validation">
-                                        <input type="text" class="form-control " id="validationCustomUsername" aria-describedby="inputGroupPrepend" placeholder="@usep.edu.ph" style="font-size: 10px;" required>
-
+                                    <label for="validationBookAuthor" class="form-label mb-0" style="font-size: 12px;">BOOK AUTHOR</label>
+                                    <input type="text" class="form-control" placeholder="Programming 1" id="validationBookAuthor"  style="font-size: 10px; text-transform: capitalize !important;" required>
+                                    <div class="invalid-feedback" style="font-size: 8px">
+                                        Not a valid book author!
                                     </div>
                                 </div>
 
-                                <div class="col-md-2 mt-2">
-                                    <label for="validationCustom01" class="form-label mb-0" style="font-size: 12px;">COPIES</label>
-                                    <input type="number" class="form-control" id="validationCustom01" placeholder="091234567890" style="font-size: 10px;" required>
-
+                                <div class="col-md-3 mt-2">
+                                    <label for="validationISBN" class="form-label mb-0" style="font-size: 12px;">ISBN</label>
+                                    <input type="text" class="form-control" placeholder="1234567891111" pattern="[0-9]{13}" id="validationISBN" style="font-size: 10px; text-transform: capitalize !important;" required>
+                                    <div class="invalid-feedback" style="font-size: 8px">
+                                        Not a valid format of 13 digits!
+                                    </div>
                                 </div>
 
-                                <div class="col-md-5 mt-2">
-                                    <label for="validationCustom03" class="form-label mb-0" style="font-size: 12px; ">SHELF</label>
-                                    <input type="text" class="form-control" id="validationCustom03" style="font-size: 10px; text-transform: capitalize !important;" placeholder="Purok, Baranggay, City/Municipality, Province">
-
+                                <div class="col-md-3 mt-2">
+                                    <label for="validationCopies" class="form-label mb-0" style="font-size: 12px;">COPIES</label>
+                                    <input type="text" class="form-control" id="validationCopies" pattern="[0-9]{3}" placeholder="010" style="font-size: 10px;" required>
+                                    <div class="invalid-feedback" style="font-size: 8px">
+                                        Not a valid format 010!
+                                    </div>
                                 </div>
-
 
                                 <div class="col-md-4 mt-2">
-                                    <label for="validationCustomUsername" class="form-label mb-0" style="font-size: 12px;">PUBLISHERS</label>
-                                    <div class="input-group has-validation">
-                                        <input type="text" class="form-control " id="validationCustomUsername" placeholder="@usep.edu.ph" style="font-size: 10px;" required>
-
+                                    <label for="validationShelf" class="form-label mb-0" style="font-size: 12px; ">SHELF</label>
+                                    <input type="text" class="form-control" placeholder="Circulation Module" id="validationShelf"  style="font-size: 10px; text-transform: capitalize !important;" required>
+                                    <div class="invalid-feedback" style="font-size: 8px">
+                                        Not a valid shelf!
                                     </div>
                                 </div>
 
 
-                                <div class="col-md-12">
-                                    <label for="validationCustomUsername" class="form-label mb-0" style="font-size: 12px;">DESCRIPTION</label>
+                                <div class="col-md-4 mt-2">
+                                    <label for="validationPublishers" class="form-label mb-0" style="font-size: 12px;">PUBLISHERS</label>
                                     <div class="input-group has-validation">
-                                        <textarea type="text" rows="7" class="form-control" id="validationCustomUsername" style="font-size: 10px; resize: none;" required>
-                                    The story begins when a band of seven “uncool” 11-year-olds, led by Bill Denbrough, discovers and battles an evil, shape-changing monster that the children call “It.”
+                                        <input type="text" class="form-control" placeholder="SITS Corp." id="validationPublishers"  style="font-size: 10px; text-transform: capitalize !important;" required>
+                                        <div class="invalid-feedback" style="font-size: 8px">
+                                            Not a valid publishers!
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-3 mt-2">
+                                    <label for="validationCategory" class="form-label mb-0" style="font-size: 12px;">CATEGORY</label>
+                                    <div class="input-group has-validation">
+                                        <select name="" id="" style="font-size: 10px; width: 130px; height: 28px; padding: 2px 5px; border-radius: 5px" required>
+                                            <option value="" disabled selected> Select Category</option>
+                                            <option value="option">Environment and Forestry</option>
+                                            <option value="option">Agriculture and Agriculture Engineering</option>
+                                            <option value="option">Usepiana</option>
+                                            <option value="option">General Information</option>
+                                            <option value="option">Filipiñiana </option>
+                                            <option value="option">Educational</option>
+                                            <option value="option">Video Tapes</option>
+                                            <option value="option">Special Education</option>
+                                            <option value="option">Others</option>
+                                        </select>
+                                        <div class="invalid-feedback" style="font-size: 8px">
+                                            Not a valid category!
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="col-md-12 mt-2">
+                                    <label for="validationSummary" class="form-label mb-0" style="font-size: 12px;">SUMMARY</label>
+                                    <div class="input-group has-validation">
+                                        <textarea type="text" rows="7" class="form-control" id="validationSummary" aria-describedby="inputGroupPrepend"  style="font-size: 10px; resize: none;" required>
                                     </textarea>
+                                        <div class="invalid-feedback" style="font-size: 8px">
+                                            Not a valid summary!
+                                        </div>
                                     </div>
+                                </div>
+
+                                <div class=" wishlist-container  mt-4 mb-0 " style=" display: flex; justify-content: flex-end; width: 664px; ">
+                                    <button style="height: 25px; width: 100px" type="button" class="clear shadow " onclick="clearPhoto()">CLEAR</button>
+                                    <button style="height: 25px; width: 100px" type="submit" class="add shadow" >SAVE</button>
                                 </div>
                             </form>
-
-
-
-                        </div>
-                        </form>
-
-                        <div class=" wishlist-container  mt-4 mb-0 " style="margin-left: 450px">
-                            <button type="button" class="clear shadow " onclick="clearPhoto()">CLEAR</button>
-                            <button type="button" class="add shadow" onclick="addStudent()">ADD</button>
                         </div>
                     </div>
                 </div>
-
             </div>
         </div>
     </div>
@@ -382,84 +421,123 @@ if (isset($_SESSION['user'])) {
 
 
                             <!-- input details -->
-                            <form class="row" style="margin-left: 0px; margin: top -600%; width: 70%; height: 65%;">
+                           <form class="row needs-validation" style="margin-left: 0px; margin: top -600%; width: 70%; height: 65%;" novalidate>
                                 <div class="col-md-3 firstname">
-                                    <label for="validationCustom01" class="form-label mb-0" style="font-size: 12px;">BOOK ID</label>
-                                    <input type="text" class="form-control" placeholder="Juan" id="validationCustom01" style="font-size: 10px; text-transform: capitalize !important;" required>
-
+                                    <label for="validationBookID" class="form-label mb-0" style="font-size: 12px;">BOOK ID</label>
+                                    <input type="text" class="form-control" placeholder="1234-56789" pattern="[0-9]{4}-[0-9]{5}" id="validationBookID" style="font-size: 10px; text-transform: capitalize !important;" required>
+                                    <div class="invalid-feedback" style="font-size: 8px">
+                                        Not a valid book ID!
+                                    </div>
                                 </div>
+
                                 <div class="col-md-6">
-                                    <label for="validationCustom02" class="form-label mb-0" style="font-size: 12px;">BOOK TITLE</label>
-                                    <input type="text" class="form-control" placeholder="Dela Cruz" id="validationCustom02" style="font-size: 10px; text-transform: capitalize !important;" required>
-
+                                    <label for="validationBookTitle" class="form-label mb-0" style="font-size: 12px;">BOOK TITLE</label>
+                                    <input type="text" class="form-control" placeholder="Programming 1" id="validationBookTitle"  style="font-size: 10px; text-transform: capitalize !important;" required>
+                                    <div class="invalid-feedback" style="font-size: 8px">
+                                        Not a valid book title!
+                                    </div>
                                 </div>
+
                                 <div class="col-md-3">
-                                    <label for="validationCustom02" class="form-label mb-0" style="font-size: 12px;">GENRE</label>
-                                    <input type="text" class="form-control mb-0" placeholder="I" id="validationCustom02" style="font-size: 10px; text-transform: capitalize !important;" required>
+                                    <label for="validationGenre" class="form-label mb-0" style="font-size: 12px;">GENRE</label>
+                                    <select class="form-select" id="validationGenre" style="font-size: 10px; text-transform: capitalize !important;" required>
+                                        <option value="" disabled selected>Select Genre</option>
+                                        <option value="Fiction">Fiction</option>
+                                        <option value="Non-Fiction">Non-Fiction</option>
+                                    </select>
+                                    <div class="invalid-feedback" style="font-size: 8px">
+                                        Not a valid genre!
+                                    </div>
                                 </div>
 
 
                                 <div class="col-md-6 mt-2">
-                                    <label for="validationCustom01" class="form-label mb-0" style="font-size: 12px;">BOOK AUTHOR</label>
-                                    <input type="number" class="form-control" id="validationCustom01 " min="9" max="9" placeholder="2021-00565" style="font-size: 10px;" required>
-
-                                </div>
-
-                                <div class="col-md-4 mt-2">
-                                    <label for="validationCustomUsername" class="form-label mb-0" style="font-size: 12px;">ISBN</label>
-                                    <div class="input-group has-validation">
-                                        <input type="text" class="form-control " id="validationCustomUsername" aria-describedby="inputGroupPrepend" placeholder="@usep.edu.ph" style="font-size: 10px;" required>
-
+                                    <label for="validationBookAuthor" class="form-label mb-0" style="font-size: 12px;">BOOK AUTHOR</label>
+                                    <input type="text" class="form-control" placeholder="Programming 1" id="validationBookAuthor"  style="font-size: 10px; text-transform: capitalize !important;" required>
+                                    <div class="invalid-feedback" style="font-size: 8px">
+                                        Not a valid book author!
                                     </div>
                                 </div>
 
-                                <div class="col-md-2 mt-2">
-                                    <label for="validationCustom01" class="form-label mb-0" style="font-size: 12px;">COPIES</label>
-                                    <input type="number" class="form-control" id="validationCustom01" placeholder="091234567890" style="font-size: 10px;" required>
-
+                                <div class="col-md-3 mt-2">
+                                    <label for="validationISBN" class="form-label mb-0" style="font-size: 12px;">ISBN</label>
+                                    <input type="text" class="form-control" placeholder="1234567891111" pattern="[0-9]{13}" id="validationISBN" style="font-size: 10px; text-transform: capitalize !important;" required>
+                                    <div class="invalid-feedback" style="font-size: 8px">
+                                        Not a valid format of 13 digits!
+                                    </div>
                                 </div>
 
-                                <div class="col-md-5 mt-2">
-                                    <label for="validationCustom03" class="form-label mb-0" style="font-size: 12px; ">SHELF</label>
-                                    <input type="text" class="form-control" id="validationCustom03" style="font-size: 10px; text-transform: capitalize !important;" placeholder="Purok, Baranggay, City/Municipality, Province">
-
+                                <div class="col-md-3 mt-2">
+                                    <label for="validationCopies" class="form-label mb-0" style="font-size: 12px;">COPIES</label>
+                                    <input type="text" class="form-control" id="validationCopies" pattern="[0-9]{3}" placeholder="010" style="font-size: 10px;" required>
+                                    <div class="invalid-feedback" style="font-size: 8px">
+                                        Not a valid format 010!
+                                    </div>
                                 </div>
-
 
                                 <div class="col-md-4 mt-2">
-                                    <label for="validationCustomUsername" class="form-label mb-0" style="font-size: 12px;">PUBLISHERS</label>
-                                    <div class="input-group has-validation">
-                                        <input type="text" class="form-control " id="validationCustomUsername" aria-describedby="inputGroupPrepend" placeholder="@usep.edu.ph" style="font-size: 10px;" required>
-
+                                    <label for="validationShelf" class="form-label mb-0" style="font-size: 12px; ">SHELF</label>
+                                    <input type="text" class="form-control" placeholder="Circulation Module" id="validationShelf"  style="font-size: 10px; text-transform: capitalize !important;" required>
+                                    <div class="invalid-feedback" style="font-size: 8px">
+                                        Not a valid shelf!
                                     </div>
                                 </div>
 
 
-                                <div class="col-md-12">
-                                    <label for="validationCustomUsername" class="form-label mb-0" style="font-size: 12px;">DESCRIPTION</label>
+                                <div class="col-md-4 mt-2">
+                                    <label for="validationPublishers" class="form-label mb-0" style="font-size: 12px;">PUBLISHERS</label>
                                     <div class="input-group has-validation">
-                                        <textarea type="text" rows="7" class="form-control" id="validationCustomUsername" aria-describedby="inputGroupPrepend" placeholder="juandlz" style="font-size: 10px; resize: none;" required>
+                                        <input type="text" class="form-control" placeholder="SITS Corp." id="validationPublishers"  style="font-size: 10px; text-transform: capitalize !important;" required>
+                                        <div class="invalid-feedback" style="font-size: 8px">
+                                            Not a valid publishers!
+                                        </div>
+                                    </div>
+                                </div>
+
+                               <div class="col-md-3 mt-2">
+                                   <label for="validationCategory" class="form-label mb-0" style="font-size: 12px;">CATEGORY</label>
+                                   <div class="input-group has-validation">
+                                       <select name="" id="" style="font-size: 10px; width: 130px; height: 28px; padding: 2px 5px; border-radius: 5px" required>
+                                           <option value="" disabled selected> Select Category</option>
+                                           <option value="option">Environment and Forestry</option>
+                                           <option value="option">Agriculture and Agriculture Engineering</option>
+                                           <option value="option">Usepiana</option>
+                                           <option value="option">General Information</option>
+                                           <option value="option">Filipiñiana </option>
+                                           <option value="option">Educational</option>
+                                           <option value="option">Video Tapes</option>
+                                           <option value="option">Special Education</option>
+                                           <option value="option">Others</option>
+                                       </select>
+                                       <div class="invalid-feedback" style="font-size: 8px">
+                                           Not a valid category!
+                                       </div>
+                                   </div>
+                               </div>
+
+
+                                <div class="col-md-12 mt-2">
+                                    <label for="validationSummary" class="form-label mb-0" style="font-size: 12px;">SUMMARY</label>
+                                    <div class="input-group has-validation">
+                                        <textarea type="text" rows="7" class="form-control" id="validationSummary" aria-describedby="inputGroupPrepend"  style="font-size: 10px; resize: none;" required>
                                     </textarea>
+                                        <div class="invalid-feedback" style="font-size: 8px">
+                                            Not a valid summary!
+                                        </div>
                                     </div>
+                                </div>
+
+                                <div class=" wishlist-container  mt-4 mb-0 " style=" display: flex; justify-content: flex-end; width: 664px; ">
+                                    <button style="height: 25px; width: 100px" type="button" class="clear shadow " onclick="clearPhoto()">CLEAR</button>
+                                    <button style="height: 25px; width: 100px" type="submit" class="add shadow" >ADD</button>
                                 </div>
                             </form>
-
-
-
-                        </div>
-
-
-                        <div class=" wishlist-container  mt-4 mb-0 " style="margin-left: 450px">
-                            <button type="button" class="clear shadow " onclick="clearPhoto()">CLEAR</button>
-                            <button type="button" class="add shadow" onclick="addStudent()">ADD</button>
-                        </div>
                     </div>
                 </div>
-
             </div>
         </div>
     </div>
-
+</div>
 
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -470,6 +548,7 @@ if (isset($_SESSION['user'])) {
 
     <script src='../js/logout_script.js'></script>
     <script src="../js/navbar_select.js"></script>
+    <script src="../js/student.js"></script>
 
 <script>
         function updateProfilePicture(event) {
@@ -560,5 +639,4 @@ if (isset($_SESSION['user'])) {
     </script>
 
 </body>
-
 </html>
