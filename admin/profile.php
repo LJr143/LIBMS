@@ -1,3 +1,48 @@
+<?php
+session_start();
+require_once 'C:\wamp64\www\LIBMS\db_config\config.php';
+include 'C:\wamp64\www\LIBMS\operations\authentication.php';
+include 'C:\wamp64\www\LIBMS\includes\fetch_user_data.php';
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
+$loggedAdmin ='';
+
+$database = new Database();
+$userAuth = new UserAuthentication($database);
+$userData = new UserData($database);
+
+if ($userAuth->isAuthenticated()) {
+} else {
+    header('Location: ../index_admin.php');
+    exit();
+}
+
+if (isset($_POST['logout'])) {
+    $userAuth->logout();
+    header('Location: ../index_admin.php');
+    exit();
+}
+if (isset($_SESSION['user'])) {
+    $adminUsername = $_SESSION['user'];
+
+    $adminID = $userData->getAdminIdByUsername($adminUsername);
+    if (!empty($adminID)) {
+        $admin = $userData->getAdminById($adminID);
+
+        if (!empty($admin)) {
+            $loggedAdmin = $admin[0];
+        } else {
+            echo 'Admin data not found.';
+        }
+    } else {
+        echo 'Invalid admin ID.';
+    }
+
+}
+?>
+
+
 <!doctype html>
 <html lang="en">
 
@@ -158,45 +203,74 @@
                             </ul>
 
                         </div>
-                        <div style="margin: 30px 20px; width: 100%;">
-                            <div style="display: flex; align-items: center">
-                                <div style="margin-right: 30px">
-                                    <label style="font-size: 12px; font-weight: 600" for="change_password_old_pass">OLD PASSWORD</label>
-                                    <br>
-                                    <input style=" width: 240px;border: 1px solid rgba(0,0,0,0.26); border-radius: 5px; padding: 5px 5px; font-size: 12px" type="password" id="change_password_old_pass">
-                                </div>
-                                <div style="margin-right: 30px">
-                                    <label style="font-size: 12px;font-weight: 600" for="change_password_new_pass">NEW PASSWORD</label>
-                                    <br>
-                                    <input style=" width: 240px;border: 1px solid rgba(0,0,0,0.26); border-radius: 5px;padding: 5px 5px; font-size: 12px" type="password" id="change_password_old_pass">
-                                </div>
-                                <div style="margin-right: 30px">
-                                    <label style="font-size: 12px; font-weight: 600" for="change_password_new_pass">CONFIRM NEW PASSWORD</label>
-                                    <br>
-                                    <input style=" width: 240px;border: 1px solid rgba(0,0,0,0.26); border-radius: 5px;padding: 5px 5px; font-size: 12px" type="password" id="change_password_old_pass">
-                                </div>
-                            </div>
-                            <div style="width: 88.5%; display: flex; margin-top: 40px">
-                                <button class="change_pass_btn" style="margin-left: 540px; background: transparent; color: rgb(116,0,0); border: 1px solid rgb(116,0,0)">CLEAR</button>
-                                <button class="change_pass_btn" style="margin-left: 20px">SAVE</button>
-                            </div>
+
+                        <!--FOR CHANGE PASS-->
+                       <div style="margin: 30px 20px; width: 100%;">
+                           <div style="display: flex; align-items: center">
+                              <div style="margin-right: 30px">
+                                <form class="row needs-validation" style="margin-left: 30px; width: 100%; height: 65%;" novalidate>
+
+                                    <div class="col col-md-4 mt-3">
+                                        <div style="margin-right: 30px">
+                                            <label style="font-size: 12px; font-weight: 600" for="change_password_old_pass">OLD PASSWORD</label>
+                                            <br>
+                                            <input type="password" class="form-control" value="Newpass_1" id="validationPassword" style="font-size: 12px;" aria-describedby="inputGroupPrepend"
+                                                   pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@_]).{8,}"
+                                                   title="Must contain at least one number, one uppercase and lowercase letter, one symbol, and at least 8 or more characters"
+                                                   required>
+                                            <div class="invalid-feedback" id="passwordRequirements" style="font-size: 8px; display: none;">
+                                                Not a valid password!
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col col-md-4 mt-3">
+                                        <div style="margin-right: 30px">
+                                            <label style="font-size: 12px;font-weight: 600" for="change_password_new_pass">NEW PASSWORD</label>
+                                            <br>
+                                            <input type="password" class="form-control" placeholder="Type New Password" id="validationPassword" style="font-size: 12px;" aria-describedby="inputGroupPrepend"
+                                                   pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@_]).{8,}"
+                                                   title="Must contain at least one number, one uppercase and lowercase letter, one symbol, and at least 8 or more characters"
+                                                   required>
+                                            <div class="invalid-feedback" id="passwordRequirements" style="font-size: 8px; display: none;">
+                                                Not a valid password!
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col col-md-4 mt-3">
+                                        <div style="margin-right: 30px">
+                                            <label style="font-size: 12px; font-weight: 600" for="change_password_new_pass">CONFIRM NEW PASSWORD</label>
+                                            <br>
+                                            <input type="password" class="form-control" placeholder="Confirm New Password" id="validationPassword" style="font-size: 12px;" aria-describedby="inputGroupPrepend"
+                                                   pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@_]).{8,}"
+                                                   title="Must contain at least one number, one uppercase and lowercase letter, one symbol, and at least 8 or more characters"
+                                                   required>
+                                            <div class="invalid-feedback" id="passwordRequirements" style="font-size: 8px; display: none;">
+                                                Not a valid password!
+                                            </div>
+                                        </div>
+                                    </div>
 
 
+                                    <div style="width: 100%; display: flex; margin-top: 40px">
+                                        <button class="change_pass_btn" style="margin-left: 540px; background: transparent; color: rgb(116,0,0); border: 1px solid rgb(116,0,0)">CLEAR</button>
+                                        <button class="change_pass_btn" style="margin-left: 20px">SAVE</button>
+                                    </div>
+                              </form>
+                            </div>
+                           </div>
                         </div>
 
-
-                    </div>
                 </div>
             </div>
-
-
         </div>
     </div>
-    </div>
+</div>
 
-    <div class="modal fade" id="editStudentModal" tabindex="-1" role="dialog" aria-labelledby="editStudentModalLabel" aria-hidden="true">
-        <div class="modal-dialog  modal-dialog-centered" role="document" style="max-width: 800px;">
-            <div class="modal-content">
+<div class="modal fade" id="editStudentModal" tabindex="-1" role="dialog" aria-labelledby="editStudentModalLabel" aria-hidden="true">
+      <div class="modal-dialog  modal-dialog-centered" role="document" style="max-width: 800px;">
+          <div class="modal-content">
                 <div class="modal-header" style="height: 15px;">
 
                     <p class="modal-title" id="borrowModalLabel " style="font-size: 12px; color: #800000; font-weight: 600;">
@@ -208,7 +282,7 @@
                 </div>
                 <div class="modal-body">
                     <div class="container-fluid " style="padding-left: 40px ; padding-right: 40px">
-                        <form class="row">
+                        <div class="row">
 
                             <!-- uploading image -->
                             <div style="width: 100px; height: 100px; overflow: hidden; border: 1px solid maroon; border-radius: 50%; margin: 0 auto; margin-top:40px;">
@@ -220,83 +294,90 @@
                             </div>
 
 
-
-
-
-                            <div class="row" style="margin-left: 30px; width: 80%; height: 65%;">
+                            <form class="row needs-validation" style="margin-left: 30px; width: 80%; height: 65%;" novalidate>
                                 <div class="col-md-5 firstname">
-                                    <label for="validationCustom01" class="form-label mb-0" style="font-size: 12px;">FIRST NAME</label>
-                                    <input type="text" class="form-control" value="Lorjohn" id="validationCustom01" style="font-size: 10px; text-transform: capitalize !important;" required>
-
+                                    <label for="validationFirstName" class="form-label mb-0" style="font-size: 12px;">FIRST NAME</label>
+                                    <input type="text" class="form-control" placeholder="Juan" id="validationFirstName" style="font-size: 10px; text-transform: capitalize !important;" required pattern="[A-Za-z]+" required>
+                                    <div class="invalid-feedback" style="font-size: 8px">
+                                        Not a valid first name!
+                                    </div>
                                 </div>
                                 <div class="col-md-5">
-                                    <label for="validationCustom02" class="form-label mb-0" style="font-size: 12px;">LAST NAME</label>
-                                    <input type="text" class="form-control" value="Rana" id="validationCustom02" style="font-size: 10px; text-transform: capitalize !important;" required>
-
+                                    <label for="validationLastName" class="form-label mb-0" style="font-size: 12px;">LAST NAME</label>
+                                    <input type="text" class="form-control" placeholder="Dela Cruz" id="validationLastName" style="font-size: 10px; text-transform: capitalize !important;" required pattern="[A-Za-z]+" required>
+                                    <div class="invalid-feedback" style="font-size: 8px">
+                                        Not a valid last name!
+                                    </div>
                                 </div>
                                 <div class="col-md-2">
-                                    <label for="validationCustom02" class="form-label mb-0" style="font-size: 12px;">M.I.</label>
-                                    <input type="text" class="form-control mb-0" value="I" id="validationCustom02" style="font-size: 10px; text-transform: capitalize !important;" required>
-                                    <div class="invalid-feedback">
-                                        Please type the middle initial .
+                                    <label for="validationMI" class="form-label mb-0" style="font-size: 12px;">M.I.</label>
+                                    <input type="text" class="form-control mb-0" placeholder="I" id="validationMI" style="font-size: 10px; text-transform: uppercase !important;" required pattern="[A-Za-z]{1}">
+                                    <div class="invalid-feedback" style="font-size:8px">
+                                        Not a valid M.I. !
                                     </div>
                                 </div>
 
-                                <div class="col-md-8 mt-2">
-                                    <label for="validationCustomUsername" class="form-label mb-0" style="font-size: 12px;">EMAIL ADDRESS</label>
+                                <div class="col-md-5 mt-3">
+                                    <label for="validationEmail" class="form-label mb-0" style="font-size: 12px;">EMAIL ADDRESS</label>
                                     <div class="input-group has-validation">
-                                        <input type="text" class="form-control " id="validationCustomUsername" aria-describedby="inputGroupPrepend" value="lmrana00027@usep.edu.ph" style="font-size: 10px;" required>
+                                        <input type="email" class="form-control" id="validationEmail" aria-describedby="inputGroupPrepend" placeholder="juan001@usep.edu.ph" style="font-size: 10px;" required>
+                                        <div class="invalid-feedback" style="font-size: 8px;">
+                                            Not a valid email address!
+                                        </div>
+                                    </div>
+                                </div>
 
+                                <div class="col-md-4 mt-3">
+                                    <label for="validationPhoneNumber" class="form-label mb-0" style="font-size: 12px;">PHONE NUMBER</label>
+                                    <input type="tel" class="form-control" id="validationPhoneNumber" pattern="[0-9]{11}" placeholder="091234567890" style="font-size: 10px;" required>
+                                    <div class="invalid-feedback" style="font-size: 8px">
+                                        Not a valid phone number with 11 digits!
+                                    </div>
+                                </div>
+
+                                <div class="col-md-8 mt-2">
+                                    <label for="validationAddress" class="form-label mb-0" style="font-size: 12px; ">ADDRESS</label>
+                                    <input type="text" class="form-control" id="validationAddress" style="font-size: 10px; text-transform: capitalize !important;" placeholder="Purok, Baranggay, City/Municipality, Province" required>
+                                    <div class="invalid-feedback" style="font-size: 8px">
+                                        Not a valid address!
                                     </div>
                                 </div>
 
                                 <div class="col-md-4 mt-2">
-                                    <label for="validationCustom01" class="form-label mb-0" style="font-size: 12px;">PHONE NUMBER</label>
-                                    <input type="number" class="form-control" id="validationCustom01" value="091234567890" style="font-size: 10px;" required>
-
+                                    <label for="validationTelNumber" class="form-label mb-0" style="font-size: 12px;">TELEPHONE NUMBER</label>
+                                    <input type="tel" class="form-control" id="validationTelNumber" pattern="[0-9]{2}-[0-9]{4}-[0-9]{4}" placeholder="02-1234-5678" style="font-size: 10px;" required>
+                                    <div class="invalid-feedback" style="font-size: 8px">
+                                        Not a valid tel number with 10 digits!
+                                    </div>
                                 </div>
 
-                                <div class="col-md-8 mt-2">
-                                    <label for="validationCustom03" class="form-label mb-0" style="font-size: 12px; ">ADDRESS</label>
-                                    <input type="text" class="form-control" id="validationCustom03" style="font-size: 10px; text-transform: capitalize !important;" value="Prk. 3-C Sabina Homes Apokon Tagum City Davao Del Norte">
-
-                                </div>
-                                <div class="col-md-4 mt-2">
-                                    <label for="validationCustom03" class="form-label mb-0" style="font-size: 12px; ">TELEPHONE</label>
-                                    <input type="text" class="form-control" id="validationCustom03" style="font-size: 10px; text-transform: capitalize !important;" value="02-8123-4567">
-
-                                </div>
-                            </div>
-                            <div class="row">
                                 <div class="col col-md-5 mt-3">
-                                    <label for="validationCustomUsername" class="form-label mb-0" style="font-size: 12px;">OFFICE ADDRESS</label>
+                                    <label for="validationOfficeAdd" class="form-label mb-0" style="font-size: 12px;">OFFICE ADDRESS</label>
                                     <div class="input-group has-validation">
-                                        <input type="text" class="form-control " id="validationCustomUsername" aria-describedby="inputGroupPrepend" value="lmrana00027@usep.edu.ph" style="font-size: 10px;" required>
-
+                                        <input type="text" class="form-control " id="validationOfficeAdd" aria-describedby="inputGroupPrepend" value="lmrana00027@usep.edu.ph" style="font-size: 10px;" readonly>
                                     </div>
                                 </div>
 
                                 <div class=" col col-md-3 mt-3">
-                                    <label for="validationCustomUsername" class="form-label mb-0" style="font-size: 12px;">USERNAME</label>
+                                    <label for="validationUsername" class="form-label mb-0" style="font-size: 12px;">USERNAME</label>
                                     <div class="input-group has-validation">
-                                        <input type="text" class="form-control" id="validationCustomUsername" aria-describedby="inputGroupPrepend" value="johnjohn" style="font-size: 10px;" required>
-
+                                        <input type="text" class="form-control" id="validationUsername" aria-describedby="inputGroupPrepend" value="johnjohn" style="font-size: 10px;" readonly>
                                     </div>
                                 </div>
 
-                            </div>
-                        </form>
 
                         <div class=" wishlist-container  mt-4 mb-0 " style=" display: flex; justify-content: flex-end; width: 664px; ">
                             <button style="height: 25px; width: 100px" type="button" class="clear shadow " onclick="clearPhoto()">CLEAR</button>
-                            <button style="height: 25px; width: 100px" type="button" class="add shadow" onclick="addStudent()">ADD</button>
+                            <button style="height: 25px; width: 100px" type="submit" class="add shadow" >SAVE</button>
                         </div>
+                     </form>
                     </div>
                 </div>
             </div>
         </div>
-
     </div>
+</div>
+
 
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -304,6 +385,7 @@
     <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <script src='../js/logout_script.js'></script>
+    <script src='../js/student.js'></script>
 
     <script>
         $(document).ready(function() {

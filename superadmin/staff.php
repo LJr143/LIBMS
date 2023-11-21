@@ -16,7 +16,8 @@ $userAuth = new UserAuthentication($database);
 $bookData = new BookData($database);
 $superAdminData = new SuperAdminData($database);
 
-if($userAuth->isAuthenticated()) {
+
+if ($userAuth->isAuthenticated()) {
 } else {
     header('Location: ../index_admin.php');
     exit();
@@ -29,8 +30,8 @@ if (isset($_POST['logout'])) {
 }
 if (isset($_SESSION['user'])) {
     $adminUsername = $_SESSION['user'];
+
     $adminID = $superAdminData->getSuperadminIdByUsername($adminUsername);
-    $_SESSION['loggedAdminID'] = $adminID;
     if (!empty($adminID)) {
         $admin = $superAdminData->getSuperadminById($adminID);
 
@@ -43,7 +44,9 @@ if (isset($_SESSION['user'])) {
         echo 'Invalid admin ID.';
     }
 }
+
 ?>
+
 <!doctype html>
 <html lang="en">
 
@@ -57,21 +60,21 @@ if (isset($_SESSION['user'])) {
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10/dist/sweetalert2.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
     <link rel="stylesheet" href="../css/superadmin_staff.css">
+
 </head>
+<body style="">
+    <div>
+        <?php include 'header.php' ?>
+        <div class="main-content d-flex">
+            <div class="col col-md-2 side_bar">
+                <div class="profile_section">
+                    <div>
+                        <img style="border: 3px solid white; width: 60px; border-radius: 60px;" src="../img/<?= $loggedAdmin['img'] ?>" alt="">
+                        <div style="position: absolute; top: 55px; right: 72px; background:#01d501; height: 15px; width: 15px; border-radius: 60px;"></div>
+                    </div>
+                    <div style="display: block; text-align: center; color: white; height: 20px;">
 
-<body>
-<div>
-    <?php include 'header.php'?>
-    <div class="main-content d-flex">
-        <div class="col col-md-2 side_bar">
-            <div class="profile_section">
-                <div>
-                    <img style="border: 3px solid white; width: 60px; border-radius: 60px;" src="../img/<?= $loggedAdmin['img'] ?>" alt="">
-                    <div style="position: absolute; top: 55px; right: 72px; background:#01d501; height: 15px; width: 15px; border-radius: 60px;"></div>
-                </div>
-                <div style="display: block; text-align: center; color: white; height: 20px;">
-
-                </div>
+                    </div>
             </div>
             <div>
                 <ul class="menu_icon">
@@ -82,12 +85,11 @@ if (isset($_SESSION['user'])) {
                     <li><img class="custom_menu_icon" src="../icons/feedback_icon_dashboard.png" alt=""><span><a href="feedback.php">Feedback</a></span></li>
                 </ul>
             </div>
-
-        </div>
-        <div class="col" style=" width: 100%; height: 100vh; ">
+            </div>
+        <div class="col" style=" width: 100%; height: 100vh;">
             <div style="background-color: white; width: 95%; height: 45px; margin: 15px; border-radius: 5px;display: flex; box-shadow: 0px 4px 8px rgba(0,0,0,0.27); align-content: center; align-items: center">
                 <div style="width: 90%">
-                    <p style="font-size: 10px; font-weight: 700; margin: 14px">HOME | STAFF</p>
+                    <p style="font-size: 10px; font-weight: 700; margin: 14px">HOME | SYSTEM LOGS</p>
                 </div>
                 <div class=" d-flex justify-content-end align-items-center" style="height: 50px; width: 10%; margin-right: 20px ">
                     <div class="dropdown" style=" margin-right: 0px; position: absolute">
@@ -108,25 +110,27 @@ if (isset($_SESSION['user'])) {
                     </div>
                 </div>
             </div>
-
-            <div style="display: flex; justify-content: center; ">
-                <div style="background-color: white; width: 95%; height: 55px; margin: 15px; border-radius: 5px;display: flex; box-shadow: 0px 4px 8px rgba(0,0,0,0.27); align-items: center">
-                    <div class="col col-md-10">
-                        <select name="" id="" style="width: 150px; padding: 0px 10px; margin-left: 10px; border-radius: 5px;  height: 30px; font-size: 12px;">
-                            <option value="">Search By</option>
-                            <option value="">Part Time</option>
-                            <option value="">Full Time</option>
-                            <option value="">Staff</option>
-                            <option value="">Faculty</option>
-
-                        </select>
-                    </div>
-                    <div class="col col-md-2">
-                        <button style="width: 30px; border: none; background: transparent;"><img style="width: 25px; margin-right: 20px;" src="../icons/download_icon.png" alt=""></button>
-                        <button id="addStaffBtn" style="font-size: 12px; width: 150px; height: 30px; border-radius: 5px; background-color: rgb(128,0,0); color: white; border: none">ADD STAFF</button>
+                <div style="display: flex; justify-content: center; ">
+                    <div style="background-color: white; width: 95%; height: 55px; margin: 15px; border-radius: 5px;display: flex; box-shadow: 0px 4px 8px rgba(0,0,0,0.27); align-items: center">
+                        <div class="col col-md-10" style="display: flex; align-items: center;">
+                            <select id="searchBy" name="search" style="width: 150px; padding: 0px 10px; margin-left: 10px; border-radius: 5px;  height: 30px; font-size: 12px;">
+                                <option value="" hidden>Search By</option>
+                                <option value="Part-Time">Part Time</option>
+                                <option value="Full-Time">Full Time</option>
+                                <option value="Staff">Staff</option>
+                                <option value="Faculty">Faculty</option>
+                            </select>
+                            <div class="input_search-wrapper" style="margin-left: 20px;">
+                                <input type="search" id="search-input" placeholder="Search" style="border: none; border-bottom: 1px solid #ccc; border-radius: 0; padding: 5px 10px; outline: none; font-size: 12px;">
+                            </div>
+                            <button onclick="search()" style="margin-left: 20px; width: 30px; border: none; background: transparent;"><img style="width: 20px; margin-right: 20px;" src="../icons/search.png" alt=""></button>
+                        </div>
+                        <div class="col col-md-2">
+                            <button style="width: 30px; border: none; background: transparent;"><img style="width: 25px; margin-right: 20px;" src="../icons/download_icon.png" alt=""></button>
+                            <button id="addStaffBtn" style="font-size: 12px; width: 150px; height: 30px; border-radius: 5px; background-color: rgb(128,0,0); color: white; border: none">ADD STAFF</button>
+                        </div>
                     </div>
                 </div>
-            </div>
 
             <div style="display: flex; justify-content: center; ">
                 <div style="font-size: 12px; background-color: white; width: 95%; max-height: 550px; box-shadow: 0px 4px 8px rgba(0,0,0,0.27);">
@@ -140,7 +144,6 @@ if (isset($_SESSION['user'])) {
                                 <th>Role</th>
                                 <th>Status</th>
                                 <th>Manage</th>
-
                             </tr>
                             </thead>
                             <tbody>
@@ -168,7 +171,6 @@ if (isset($_SESSION['user'])) {
                             <?php } ?>
                             </tbody>
                         </table>
-
                     </div>
                     <div style="width: 100%; display: flex; justify-content: center; margin: 20px 0px">
                         <div class="row" style="width: 98%;">
@@ -298,6 +300,7 @@ if (isset($_SESSION['user'])) {
                                     <input type="text" class="form-control" id="addStaffUsername" name="addUsername" aria-describedby="inputGroupPrepend" placeholder="juandlz" style="font-size: 10px;" required>
 
                                 </div>
+
                             </div>
 
                             <div class="col col-md-4 mt-3">
@@ -307,7 +310,6 @@ if (isset($_SESSION['user'])) {
 
                                 </div>
                             </div>
-
                         </div>
 
                         <div class=" wishlist-container  mt-4 mb-0 " style=" display: flex; justify-content: flex-end; width: 664px; ">
@@ -591,8 +593,6 @@ if (isset($_SESSION['user'])) {
         });
     }
 </script>
-
-
 <script>
     $(document).ready(function() {
         $('.editStudentProfile').click(function(e) {
@@ -680,8 +680,6 @@ if (isset($_SESSION['user'])) {
 </script>
 <script src="../js/update_staff.js"></script>
 <script src="../js/delete_staff.js"></script>
-
-
 </body>
 
 </html>
