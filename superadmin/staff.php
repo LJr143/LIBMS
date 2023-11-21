@@ -15,6 +15,9 @@ $database = new Database();
 $userAuth = new UserAuthentication($database);
 $bookData = new BookData($database);
 $superAdminData = new SuperAdminData($database);
+$staffData = new StaffData($database);
+$staffList = $staffData->getAllStaff();
+
 
 if($userAuth->isAuthenticated()) {
 } else {

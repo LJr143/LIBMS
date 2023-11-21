@@ -130,19 +130,7 @@ class StaffData
 
 
 }
-$database = new Database();
-$staffData = new StaffData($database);
 
-// Call the getAllStaff method to retrieve all staff data
-$staffList = $staffData->getAllStaff();
-//
-//// Check if there are staff members
-//if (!empty($staffList)) {
-//    foreach ($staffList as $staff) {
-//        // Access staff data fields
-//        $adminId = $staff['admin_id'];
-//        $username = $staff['username'];
-//    }
-//}
+
 
 

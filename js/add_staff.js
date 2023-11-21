@@ -1,3 +1,4 @@
+
 function addStaff() {
     var formData = new FormData();
     var profileFileInput = $('#addStaffinput-file')[0];
@@ -29,10 +30,11 @@ function addStaff() {
         processData: false,
         success: function (response) {
             try {
-                var result = JSON.parse(response);
+                var result = typeof response === 'string' ? JSON.parse(response) : response;
                 if (result.success) {
                     alert('Staff member added successfully!');
                     location.reload();
+
                 } else {
                     alert('Failed to add staff member: ' + result.error);
                 }
