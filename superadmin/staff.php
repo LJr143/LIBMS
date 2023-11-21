@@ -102,7 +102,7 @@ if (isset($_SESSION['user'])) {
                             <form action="" method="post" style="margin-left: 20px;">
 
                                 <label for="logout"><img src="../icons/plug.png" style="width: 20px; " alt=""></label>
-                                <input style="font-size: 12px; color: white; background: none; border: none;" name="logout" type="submit" value="Logout">
+                                <input style="font-size: 12px; color: white; background: none; border: none;" name="logout" id="logout" type="submit" value="Logout">
                             </form>
                             </ul>
                         </div>
@@ -226,17 +226,17 @@ if (isset($_SESSION['user'])) {
 
                             <div class="row" style="margin-left: 30px; width: 80%; height: 65%;">
                                 <div class="col-md-5 firstname">
-                                    <label for="validationCustom01" class="form-label mb-0" style="font-size: 12px;">FIRST NAME</label>
+                                    <label for="addStaffFname" class="form-label mb-0" style="font-size: 12px;">FIRST NAME</label>
                                     <input type="text" class="form-control" placeholder="Juan" id="addStaffFname" name="addStaffFname" style="font-size: 10px; text-transform: capitalize !important;" required>
 
                                 </div>
                                 <div class="col-md-5">
-                                    <label for="validationCustom02" class="form-label mb-0" style="font-size: 12px;">LAST NAME</label>
+                                    <label for="addStaffLname" class="form-label mb-0" style="font-size: 12px;">LAST NAME</label>
                                     <input type="text" class="form-control" placeholder="Dela Cruz" id="addStaffLname" name="addStaffLname"  style="font-size: 10px; text-transform: capitalize !important;" required>
 
                                 </div>
                                 <div class="col-md-2">
-                                    <label for="validationCustom02" class="form-label mb-0" style="font-size: 12px;">M.I.</label>
+                                    <label for="addStaffInitial" class="form-label mb-0" style="font-size: 12px;">M.I.</label>
                                     <input type="text" class="form-control mb-0" placeholder="I" id="addStaffInitial" name="addStaffInitial"  style="font-size: 10px; text-transform: capitalize !important;" required>
                                     <div class="invalid-feedback">
                                         Please type the middle initial .
@@ -244,13 +244,13 @@ if (isset($_SESSION['user'])) {
                                 </div>
 
                                 <div class="col-md-3 mt-2">
-                                    <label for="validationCustom01" class="form-label mb-0" style="font-size: 12px;">STAFF ID</label>
+                                    <label for="addStaffID" class="form-label mb-0" style="font-size: 12px;">STAFF ID</label>
                                     <input type="text" class="form-control" id="addStaffID" name="addStaffID"  placeholder="2021-00565" style="font-size: 10px;" required>
 
                                 </div>
 
                                 <div class="col-md-5 mt-2">
-                                    <label for="validationCustomUsername" class="form-label mb-0" style="font-size: 12px;">EMAIL ADDRESS</label>
+                                    <label for="addStaffPemail" class="form-label mb-0" style="font-size: 12px;">EMAIL ADDRESS</label>
                                     <div class="input-group has-validation">
                                         <input type="text" class="form-control " id="addStaffPemail" name="addStaffPemail"  aria-describedby="inputGroupPrepend" placeholder="@usep.edu.ph" style="font-size: 10px;" required>
 
@@ -258,12 +258,12 @@ if (isset($_SESSION['user'])) {
                                 </div>
 
                                 <div class="col-md-4 mt-2">
-                                    <label for="validationCustom01" class="form-label mb-0" style="font-size: 12px;">PHONE NUMBER</label>
-                                    <input type="tex" class="form-control" id="addStaffPnumber" name="addStaffPnumber"  placeholder="091234567890" style="font-size: 10px;" required>
+                                    <label for="addStaffPnumber" class="form-label mb-0" style="font-size: 12px;">PHONE NUMBER</label>
+                                    <input type="text" class="form-control" id="addStaffPnumber" name="addStaffPnumber"  placeholder="091234567890" style="font-size: 10px;" required>
 
                                 </div>
                                 <div class="col-md-4 mt-2">
-                                    <label for="validationCustom01" class="form-label mb-0" style="font-size: 12px;">TELEPHONE NUMBER</label>
+                                    <label for="addStaffTnumber" class="form-label mb-0" style="font-size: 12px;">TELEPHONE NUMBER</label>
                                     <input type="text" class="form-control" id="addStaffTnumber" name="addStaffTnumber"  placeholder="291-3281-919" style="font-size: 10px;" required>
 
                                 </div>
@@ -272,12 +272,12 @@ if (isset($_SESSION['user'])) {
 
 
                                 <div class="col-md-8 mt-2">
-                                    <label for="validationCustom03" class="form-label mb-0" style="font-size: 12px; ">ADDRESS</label>
+                                    <label for="addStaffAddress" class="form-label mb-0" style="font-size: 12px; ">ADDRESS</label>
                                     <input type="text" class="form-control" id="addStaffAddress" name="addStaffAddress"  style="font-size: 10px; text-transform: capitalize !important;" placeholder="Purok, Baranggay, City/Municipality, Province">
 
                                 </div>
                                 <div class="col-md-4 mt-2">
-                                    <label for="validationCustom03" class="form-label mb-0" style="font-size: 12px; ">ROLE</label>
+                                    <label for="addStaffRole" class="form-label mb-0" style="font-size: 12px; ">ROLE</label>
                                     <input type="text" class="form-control" id="addStaffRole" name="addStaffRole" style="font-size: 10px; text-transform: capitalize !important;" placeholder="Librarian">
 
                                 </div>
@@ -285,7 +285,7 @@ if (isset($_SESSION['user'])) {
                             </div>
                             <div class="row">
                                 <div class="col col-md-5 mt-3">
-                                    <label for="validationCustomUsername" class="form-label mb-0" style="font-size: 12px;">EMAIL ADDRESS</label>
+                                    <label for="addStaffOemail" class="form-label mb-0" style="font-size: 12px;">EMAIL ADDRESS</label>
                                     <div class="input-group has-validation">
                                         <input type="text" class="form-control " id="addStaffOemail" name="addStaffOemail" aria-describedby="inputGroupPrepend" placeholder="@usep.edu.ph" style="font-size: 10px;" required>
 
@@ -293,7 +293,7 @@ if (isset($_SESSION['user'])) {
                                 </div>
 
                                 <div class=" col col-md-3 mt-3">
-                                    <label for="validationCustomUsername" class="form-label mb-0" style="font-size: 12px;">USERNAME</label>
+                                    <label for="addStaffUsername" class="form-label mb-0" style="font-size: 12px;">USERNAME</label>
                                     <div class="input-group has-validation">
                                         <input type="text" class="form-control" id="addStaffUsername" name="addUsername" aria-describedby="inputGroupPrepend" placeholder="juandlz" style="font-size: 10px;" required>
 
@@ -301,7 +301,7 @@ if (isset($_SESSION['user'])) {
                                 </div>
 
                                 <div class="col col-md-4 mt-3">
-                                    <label for="validationCustomUsername" class="form-label mb-0" style="font-size: 12px;">PASSWORD</label>
+                                    <label for="psw" class="form-label mb-0" style="font-size: 12px;">PASSWORD</label>
                                     <div class="input-group has-validation">
                                         <input type="password" class="form-control" placeholder="Password123." id="psw" name="psw" style="font-size: 10px;" aria-describedby="inputGroupPrepend" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" required>
 
@@ -350,17 +350,17 @@ if (isset($_SESSION['user'])) {
 
                                 <div class="row" style="margin-left: 30px; width: 80%; height: 65%;">
                                     <div class="col-md-5 firstname">
-                                        <label for="validationCustom01" class="form-label mb-0" style="font-size: 12px;">FIRST NAME</label>
+                                        <label for="EditStaffFname" class="form-label mb-0" style="font-size: 12px;">FIRST NAME</label>
                                         <input type="text" class="form-control" placeholder="Juan" id="EditStaffFname" name="EditStaffFname" style="font-size: 10px; text-transform: capitalize !important;" required>
 
                                     </div>
                                     <div class="col-md-5">
-                                        <label for="validationCustom02" class="form-label mb-0" style="font-size: 12px;">LAST NAME</label>
+                                        <label for="EditStaffLname" class="form-label mb-0" style="font-size: 12px;">LAST NAME</label>
                                         <input type="text" class="form-control" placeholder="Dela Cruz" id="EditStaffLname" name="EditStaffLname"  style="font-size: 10px; text-transform: capitalize !important;" required>
 
                                     </div>
                                     <div class="col-md-2">
-                                        <label for="validationCustom02" class="form-label mb-0" style="font-size: 12px;">M.I.</label>
+                                        <label for="EditStaffInitial" class="form-label mb-0" style="font-size: 12px;">M.I.</label>
                                         <input type="text" class="form-control mb-0" placeholder="I" id="EditStaffInitial" name="EditStaffInitial"  style="font-size: 10px; text-transform: capitalize !important;" required>
                                         <div class="invalid-feedback">
                                             Please type the middle initial .
@@ -368,13 +368,13 @@ if (isset($_SESSION['user'])) {
                                     </div>
 
                                     <div class="col-md-3 mt-2">
-                                        <label for="validationCustom01" class="form-label mb-0" style="font-size: 12px;">STAFF ID</label>
+                                        <label for="EditStaffID" class="form-label mb-0" style="font-size: 12px;">STAFF ID</label>
                                         <input type="text" class="form-control" id="EditStaffID" name="EditStaffID"  placeholder="2021-00565" style="font-size: 10px;" required>
 
                                     </div>
 
                                     <div class="col-md-5 mt-2">
-                                        <label for="validationCustomUsername" class="form-label mb-0" style="font-size: 12px;">EMAIL ADDRESS</label>
+                                        <label for="EditStaffPemail" class="form-label mb-0" style="font-size: 12px;">EMAIL ADDRESS</label>
                                         <div class="input-group has-validation">
                                             <input type="text" class="form-control " id="EditStaffPemail" name="EditStaffPemail"  aria-describedby="inputGroupPrepend" placeholder="@usep.edu.ph" style="font-size: 10px;" required>
 
@@ -382,12 +382,12 @@ if (isset($_SESSION['user'])) {
                                     </div>
 
                                     <div class="col-md-4 mt-2">
-                                        <label for="validationCustom01" class="form-label mb-0" style="font-size: 12px;">PHONE NUMBER</label>
-                                        <input type="tex" class="form-control" id="EditStaffPnumber" name="EditStaffPnumber"  placeholder="091234567890" style="font-size: 10px;" required>
+                                        <label for="EditStaffPnumber" class="form-label mb-0" style="font-size: 12px;">PHONE NUMBER</label>
+                                        <input type="text" class="form-control" id="EditStaffPnumber" name="EditStaffPnumber"  placeholder="091234567890" style="font-size: 10px;" required>
 
                                     </div>
                                     <div class="col-md-4 mt-2">
-                                        <label for="validationCustom01" class="form-label mb-0" style="font-size: 12px;">TELEPHONE NUMBER</label>
+                                        <label for="EditStaffTnumber" class="form-label mb-0" style="font-size: 12px;">TELEPHONE NUMBER</label>
                                         <input type="text" class="form-control" id="EditStaffTnumber" name="EditStaffTnumber"  placeholder="291-3281-919" style="font-size: 10px;" required>
 
                                     </div>
@@ -396,12 +396,12 @@ if (isset($_SESSION['user'])) {
 
 
                                     <div class="col-md-8 mt-2">
-                                        <label for="validationCustom03" class="form-label mb-0" style="font-size: 12px; ">ADDRESS</label>
+                                        <label for="EditStaffAddress" class="form-label mb-0" style="font-size: 12px; ">ADDRESS</label>
                                         <input type="text" class="form-control" id="EditStaffAddress" name="EditStaffAddress"  style="font-size: 10px; text-transform: capitalize !important;" placeholder="Purok, Baranggay, City/Municipality, Province">
 
                                     </div>
                                     <div class="col-md-4 mt-2">
-                                        <label for="validationCustom03" class="form-label mb-0" style="font-size: 12px; ">ROLE</label>
+                                        <label for="EditStaffRole" class="form-label mb-0" style="font-size: 12px; ">ROLE</label>
                                         <input type="text" class="form-control" id="EditStaffRole" name="EditStaffRole" style="font-size: 10px; text-transform: capitalize !important;" placeholder="Librarian">
 
                                     </div>
@@ -409,7 +409,7 @@ if (isset($_SESSION['user'])) {
                                 </div>
                                 <div class="row">
                                     <div class="col col-md-5 mt-3">
-                                        <label for="validationCustomUsername" class="form-label mb-0" style="font-size: 12px;">EMAIL ADDRESS</label>
+                                        <label for="EditStaffOemail" class="form-label mb-0" style="font-size: 12px;">EMAIL ADDRESS</label>
                                         <div class="input-group has-validation">
                                             <input type="text" class="form-control " id="EditStaffOemail" name="EditStaffOemail" aria-describedby="inputGroupPrepend" placeholder="@usep.edu.ph" style="font-size: 10px;" required>
 
@@ -417,7 +417,7 @@ if (isset($_SESSION['user'])) {
                                     </div>
 
                                     <div class=" col col-md-3 mt-3">
-                                        <label for="validationCustomUsername" class="form-label mb-0" style="font-size: 12px;">USERNAME</label>
+                                        <label for="EditStaffUsername" class="form-label mb-0" style="font-size: 12px;">USERNAME</label>
                                         <div class="input-group has-validation">
                                             <input type="text" class="form-control" id="EditStaffUsername" name="EditUsername" aria-describedby="inputGroupPrepend" placeholder="juandlz" style="font-size: 10px;" required>
 
@@ -425,7 +425,7 @@ if (isset($_SESSION['user'])) {
                                     </div>
 
                                     <div class="col col-md-4 mt-3">
-                                        <label for="validationCustomUsername" class="form-label mb-0" style="font-size: 12px;">PASSWORD</label>
+                                        <label for="Editpsw" class="form-label mb-0" style="font-size: 12px;">PASSWORD</label>
                                         <div class="input-group has-validation">
                                             <input type="password" class="form-control" placeholder="Password123." id="Editpsw" name="Editpsw" style="font-size: 10px;" aria-describedby="inputGroupPrepend" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" required>
 
@@ -592,55 +592,6 @@ if (isset($_SESSION['user'])) {
         }
     </script>
     <script>
-            function addStaff() {
-                var formData = new FormData();
-                var profileFileInput = $('#addStaffinput-file')[0];
-                if (profileFileInput.files.length > 0) {
-                    formData.append('profile', profileFileInput.files[0]);
-                }
-                formData.append('first_name', $('#addStaffFname').val());
-                formData.append('last_name', $('#addStaffLname').val());
-                formData.append('mi', $('#addStaffInitial').val());
-                formData.append('staffID', $('#addStaffID').val());
-                formData.append('officeEmail', $('#addStaffOemail').val());
-                formData.append('PhoneNumber', $('#addStaffPnumber').val());
-                formData.append('Telephone', $('#addStaffTnumber').val());
-                formData.append('address', $('#addStaffAddress').val());
-                formData.append('role', $('#addStaffRole').val());
-                formData.append('personalEmail', $('#addStaffPemail').val());
-                formData.append('username', $('#addStaffUsername').val());
-                formData.append('password', $('#psw').val());
-
-                for (var pair of formData.entries()) {
-                    console.log(pair[0] + ', ' + pair[1]);
-                }
-
-                $.ajax({
-                    url: '../operations/add_staff.php',
-                    type: 'POST',
-                    data: formData,
-                    contentType: false,
-                    processData: false,
-                    success: function (response) {
-                        try {
-                            var result = JSON.parse(response);
-                            if (result.success) {
-                                alert('Staff member added successfully!');
-                                location.reload();
-                            } else {
-                                alert('Failed to add staff member: ' + result.error);
-                            }
-                        } catch (e) {
-                            console.error('Failed to parse JSON response:', response);
-                        }
-                    },
-                    error: function () {
-                        alert('AJAX request failed.');
-                    }
-                });
-            }
-        </script>
-    <script>
         $(document).ready(function() {
             $('.editStudentProfile').click(function(e) {
                 e.preventDefault();
@@ -725,6 +676,7 @@ if (isset($_SESSION['user'])) {
 
 
     </script>
+    <script src="../js/add_staff.js"></script>
     <script src="../js/update_staff.js"></script>
     <script src="../js/delete_staff.js"></script>
 
