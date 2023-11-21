@@ -1,10 +1,8 @@
 <?php
 date_default_timezone_set('Asia/Manila');
 require_once 'C:\wamp64\www\LIBMS\db_config\config.php';
-//error_reporting(E_ALL);
-//ini_set('display_errors', 1);
-
-error_reporting(0);
+    error_reporting(E_ALL);
+    ini_set('display_errors', 1);
 
 class Logs
 {
@@ -17,7 +15,7 @@ class Logs
 
     public function getAllLogs(): array
     {
-        $sql = "SELECT * FROM vw_logs";
+        $sql = "SELECT * FROM tbl_logs";
         $stmt = $this->database->query($sql);
 
         if ($stmt) {

@@ -135,16 +135,16 @@ if (isset($_SESSION['user'])) {
 
             <div style="display: flex; justify-content: center; ">
                 <div style="background-color: white; width: 95%; height: 60px; margin: 0px; border-radius: 5px;display: flex; box-shadow: 0px 4px 8px rgba(0,0,0,0.27); align-items: center; align-content: center">
-                   <div style=" width: 90%; display: flex">
-                       <select name="" id="" style="width: 180px; height: 30px; font-size: 12px; border-radius: 5px;font-weight: 600; margin-left: 10px; padding: 0 5px;">
-                           <option value="">Select Time Frame</option>
-                           <option value="">Today</option>
-                           <option value="">Yesterday</option>
-                       </select>
-                       <div class="input_search-wrapper" style="margin-left: 20px;">
-                           <input type="search" class="search-input" placeholder="Search Book">
-                       </div>
-                   </div>
+                    <div style=" width: 90%; display: flex">
+                        <select name="" id="" style="width: 180px; height: 30px; font-size: 12px; border-radius: 5px;font-weight: 600; margin-left: 10px; padding: 0 5px;">
+                            <option value="">Select Time Frame</option>
+                            <option value="">Today</option>
+                            <option value="">Yesterday</option>
+                        </select>
+                        <div class="input_search-wrapper" style="margin-left: 20px;">
+                            <input type="search" class="search-input" placeholder="Search Book">
+                        </div>
+                    </div>
                     <div style=" display: flex; justify-content: space-around; width: 100px;">
                         <button style="border: none; background: transparent"><img  style="width: 20px" src="../icons/logs_btn_idk.png" alt=""></button>
                         <button style="border: none; background: transparent"><img  style="width: 20px" src="../icons/export_icon.png" alt=""></button>
@@ -155,44 +155,44 @@ if (isset($_SESSION['user'])) {
             </div>
             <div style="display: flex; justify-content: center; margin-top: 20px; ">
                 <div style="background-color: white; width: 95%; min-height: 80vh; margin: 0px; border-radius: 5px;display: flex; box-shadow: 0px 4px 8px rgba(0,0,0,0.27); justify-content: center">
-                        <table style="width: 95%; height: 50px; margin-top: 10px; text-align: center ">
-                                <thead >
-                                <tr style="width: 80px; background: #F6F6F6; height: 40px; position: relative; border-radius: 5px; font-size: 12px; border: 1px solid rgba(0,0,0,0.28); box-shadow: 0px 2px 4px rgba(0,0,0,0.2)">
-                                    <th >DATE & TIME</th>
-                                    <th>USER</th>
-                                    <th>USER TYPE</th>
-                                    <th>ACTION</th>
-                                </tr>
-                                </thead>
-                    <tbody>
-                    <?php foreach ($logsList as $logs){ ?>
-                    <tr style="height: 20px">
+                    <table style="width: 95%; height: 50px; margin-top: 10px; text-align: center ">
+                        <thead >
+                        <tr style="width: 80px; background: #F6F6F6; height: 40px; position: relative; border-radius: 5px; font-size: 12px; border: 1px solid rgba(0,0,0,0.28); box-shadow: 0px 2px 4px rgba(0,0,0,0.2)">
+                            <th >DATE & TIME</th>
+                            <th>USER ID</th>
+                            <th>USER TYPE</th>
+                            <th>ACTION</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <?php foreach ($logsList as $logs){ ?>
+                            <tr style="height: 20px">
 
-                    </tr>
-                    <tr style=" font-size: 12px; height: 30px; border-bottom: 1px solid rgba(0,0,0,0.14)">
-                        <td><?php echo $logs['date'];?></td>
-                        <td><?php echo $logs['fname'] . $logs['lname'];?></td>
-                        <td><?php echo $logs['admin_role'];?></td>
-                        <td><?php echo $logs['action'];?></td>
+                            </tr>
+                            <tr style=" font-size: 12px; height: 30px; border-bottom: 1px solid rgba(0,0,0,0.14)">
+                                <td><?php echo $logs['date'];?></td>
+                                <td><?php echo $logs['admin_id']?></td>
+                                <td></td>
+                                <td><?php echo $logs['action'];?></td>
 
-                    </tr>
-                    <?php } ?>
-
-
+                            </tr>
+                        <?php } ?>
 
 
-                    </tbody>
+
+
+                        </tbody>
                     </table>
-                    </div>
-                    </div>
                 </div>
-
-
             </div>
-
-
         </div>
+
+
     </div>
+
+
+</div>
+</div>
 </div>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>

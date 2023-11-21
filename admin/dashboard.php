@@ -4,38 +4,62 @@ require_once 'C:\wamp64\www\LIBMS\db_config\config.php';
 include 'C:\wamp64\www\LIBMS\operations\authentication.php';
 include 'C:\wamp64\www\LIBMS\includes\fetch_user_data.php';
 include 'C:\wamp64\www\LIBMS\includes\fetch_books_data.php';
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
+include 'C:\wamp64\www\LIBMS\includes\fetch_staff_data.php';
+include 'C:\wamp64\www\LIBMS\includes\fetch_superadmin_data.php';
+
 
 $loggedAdmin ='';
 
 $database = new Database();
 $userAuth = new UserAuthentication($database);
+$bookData = new BookData($database);
 $userData = new UserData($database);
-$booksData = new BookData($database);
-$books = $booksData->getAllBook();
-$numberBooks = $booksData->getNumberOfBooks();
+$adminData = new StaffData($database);
+$superAdminData = new SuperAdminData($database);
 
-if ($userAuth->isAuthenticated()) {
+
+$numberOfBooks = $bookData->getNumberOfBooks();
+$numberOfUsers = $userData->getNumberOfUser();
+
+//Authenticate
+if($userAuth->isAuthenticated()) {
 } else {
     header('Location: ../index_admin.php');
     exit();
 }
-
+//Logout
+if (isset($_POST['logout'])) {
+    $userAuth->logout();
+    header('Location: ../index_admin.php');
+    exit();
+}
+//Check if the user logs and checks the access type
 if (isset($_SESSION['user'])) {
     $adminUsername = $_SESSION['user'];
 
-    $adminID = $userData->getAdminIdByUsername($adminUsername);
-    if (!empty($adminID)) {
-        $admin = $userData->getAdminById($adminID);
-
-        if (!empty($admin)) {
-            $loggedAdmin = $admin[0];
-        } else {
-            echo 'Admin data not found.';
+    if(isset($_SESSION['admin_role'])){
+        $accessType = $_SESSION['admin_role'];
+        if($accessType == 'Librarian'){
+            $adminID =$superAdminData->getSuperadminIdByUsername($adminUsername);
+            if(!empty($adminID)){
+                $admin = $superAdminData->getSuperadminById($adminID);
+                $loggedAdmin = $admin[0];
+            }
+            else {
+                echo 'SuperAdmin data not found.';
+            }
         }
-    } else {
-        echo 'Invalid admin ID.';
+        else if($accessType == 'Staff'){
+            $adminID =$adminData->getStaffIdByUsername($adminUsername);
+            if(!empty($adminID)){
+                $admin = $adminData->getStaffById($adminID);
+                $loggedAdmin = $admin[0];
+            }
+            else {
+                echo 'SuperAdmin data not found.';
+            }
+
+        }
     }
 
 }
@@ -140,7 +164,7 @@ if (isset($_SESSION['user'])) {
                 <div class="card" style="width: 18rem; height: 140px; box-shadow: 0px 3px 6px rgba(0,0,0,0.26)">
                     <div class="card-body">
                         <h6 class="card-title">Total No. of Books</h6>
-                        <h5><?php echo $numberBooks ?></h5>
+                        <h5><?php echo $numberOfBooks ?></h5>
                         <div style="width: 100%; display: flex; justify-content: flex-end; margin-top: -40px; ">
 
                         </div>
@@ -162,7 +186,7 @@ if (isset($_SESSION['user'])) {
                 <div class="card" style="width: 18rem; height: 140px; box-shadow: 0px 3px 6px rgba(0,0,0,0.26)">
                     <div class="card-body">
                         <h6 class="card-title">Total No. of Users</h6>
-                        <h5>...</h5>
+                        <h5><?php echo $numberOfUsers  ?></h5>
                         <div style="width: 100%; display: flex; justify-content: flex-end; margin-top: -40px; ">
 
                         </div>

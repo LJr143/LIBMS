@@ -1,7 +1,7 @@
 <?php
 require_once 'C:\wamp64\www\LIBMS\db_config\config.php';
-//error_reporting(E_ALL);
-//ini_set('display_errors', 1);
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
 
 
 class StaffData
@@ -135,14 +135,14 @@ $staffData = new StaffData($database);
 
 // Call the getAllStaff method to retrieve all staff data
 $staffList = $staffData->getAllStaff();
-
-// Check if there are staff members
-if (!empty($staffList)) {
-    foreach ($staffList as $staff) {
-        // Access staff data fields
-        $adminId = $staff['admin_id'];
-        $username = $staff['username'];
-    }
-}
+//
+//// Check if there are staff members
+//if (!empty($staffList)) {
+//    foreach ($staffList as $staff) {
+//        // Access staff data fields
+//        $adminId = $staff['admin_id'];
+//        $username = $staff['username'];
+//    }
+//}
 
 
