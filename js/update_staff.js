@@ -31,11 +31,31 @@ function updateStudent() {
             try {
                 var result = JSON.parse(response);
                 if (result.success) {
-                    alert('Staff member Edited successfully!');
-                    location.reload();
+                    $("#editStudentModal").modal("hide");
+                    Swal.fire({
+                        title: 'UPDATED!',
+                        text: 'SUCCESSFULLY UPDATED!',
+                        icon: 'success',
+                        customClass: {
+                            popup: 'my-swal-popup',
+                            title: 'swal-title',
+                            content: 'my-swal-content',
+                            confirmButton: 'my-confirm-button'
+                        }
+                    }).then((result) => {
+                        // Check if the user clicked "OK"
+                        if (result.isConfirmed) {
+                            // Reload the page
+                            location.reload();
+                        }
+                    });
+
                 } else {
-                    alert('Failed to Edit staff member: ' + result.error);
-                    location.reload();
+                    Swal.fire({
+                        title: 'Error!',
+                        text: 'Failed to delete the student. Please try again.',
+                        icon: 'error'
+                    });
                 }
             } catch (e) {
                 console.error('Failed to parse JSON response:', response);

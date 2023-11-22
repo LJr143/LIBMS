@@ -56,7 +56,7 @@ if (isset($_SESSION['user'])) {
                 $loggedAdmin = $admin[0];
             }
             else {
-                echo 'SuperAdmin data not found.';
+                echo 'Admin data not found.';
             }
 
         }

@@ -1,22 +1,21 @@
 <?php
-error_reporting(0);
-require_once 'C:\wamp64\www\LIBMS\db_config\config.php';
+require_once '..\db_config\config.php';
 include '../includes/fetch_staff_data.php';
 include '..\includes\logs_operation.php';
 
 $database = new Database();
-$log = new Logs($database);
-
-$database = new Database();
 $staffData = new StaffData($database);
+$log = new Logs($database);
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Get the admin_id from the POST request
     $adminId = $_POST['admin_id'];
+    $staffName = $_POST['staffName'];
 
-    // Delete the staff member
-    $success = $staffData->deleteStaff($adminId);
-
+    // Suspend the staff member
+    $success = $staffData->suspendStaff($adminId);
+//    $deleteStaff = $staffName;
+//    $addLog = $log->suspendAddLogs($_SESSION['loggedAdminID'], $_SESSION['user'], $deleteStaff);
 
     // Send a JSON response indicating success or failure
     header('Content-Type: application/json');

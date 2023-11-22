@@ -1,5 +1,5 @@
 
-function addStaff() {
+function addStudent() {
     var formData = new FormData();
     var profileFileInput = $('#addStaffinput-file')[0];
     if (profileFileInput.files.length > 0) {
@@ -23,7 +23,7 @@ function addStaff() {
     }
 
     $.ajax({
-        url: '../operations/add_staff.php',
+        url: '../operations/add_student.php',
         type: 'POST',
         data: formData,
         contentType: false,

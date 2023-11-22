@@ -15,7 +15,7 @@ class Logs
 
     public function getAllLogs(): array
     {
-        $sql = "SELECT * FROM tbl_logs";
+        $sql = "SELECT * FROM vw_logs";
         $stmt = $this->database->query($sql);
 
         if ($stmt) {
@@ -71,6 +71,38 @@ class Logs
 
         return $stmt->execute();
     }
+    public function suspendAddLogs($userID, $user, $name): bool
+    {
+        $admin_id = $userID;
+        $action = "{$user} suspend {$name}";
+        $timestamp = date("Y-m-d H:i:s");
+
+        $sql = "INSERT INTO tbl_logs (admin_id, action, date) VALUES (:admin_id, :action, :timestamp)";
+        $stmt = $this->database->prepare($sql);
+
+        $stmt->bindParam(':admin_id', $admin_id, PDO::PARAM_STR);
+        $stmt->bindParam(':action', $action, PDO::PARAM_STR);
+        $stmt->bindParam(':timestamp', $timestamp, PDO::PARAM_STR);
+
+        return $stmt->execute();
+    }
+
+    public function activateAddLogs($userID, $user, $name): bool
+    {
+        $admin_id = $userID;
+        $action = "{$user} activate {$name}";
+        $timestamp = date("Y-m-d H:i:s");
+
+        $sql = "INSERT INTO tbl_logs (admin_id, action, date) VALUES (:admin_id, :action, :timestamp)";
+        $stmt = $this->database->prepare($sql);
+
+        $stmt->bindParam(':admin_id', $admin_id, PDO::PARAM_STR);
+        $stmt->bindParam(':action', $action, PDO::PARAM_STR);
+        $stmt->bindParam(':timestamp', $timestamp, PDO::PARAM_STR);
+
+        return $stmt->execute();
+    }
+
 
 
 

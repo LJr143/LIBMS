@@ -153,18 +153,29 @@ if (isset($_SESSION['user'])) {
                                         <td></td>
                                         <td><?php echo $staff['fname'] ?>&nbsp;<?php echo $staff['lname']; ?></td>
                                         <td><?php echo $staff['admin_role'] ?></td>
-                                        <td><?php echo $staff['status']; ?></td>
+                                        <td class="<?php echo ($staff['status'] == 'Active') ? 'active-status' : 'inactive-status'; ?>">
+                                            <?php echo $staff['status']; ?>
+                                        </td>
                                         <td style="padding: 1px;">
                                             <div class="btn-group" role="group">
                                                 <a href="#" class="btn custom-btn editStudentProfile" data-admin-id="<?php echo $staff['admin_id']; ?>">
                                                     <i class="bi bi-pencil-square"></i>
                                                 </a>
-                                                <a href="#" class="btn custom-btn deleteStudent" data-admin-id="<?php echo $staff['admin_id']; ?>" data-staff-name="<?php echo $staff['fname'] . " " . $staff['lname']; ?>" >
+                                                <a href="#" class="btn custom-btn deleteStudent" data-admin-id="<?php echo $staff['admin_id']; ?>" data-staff-name="<?php echo $staff['fname'] . " " . $staff['lname']; ?>">
                                                     <i class="bi bi-trash"></i>
                                                 </a>
-                                                <a href="#" class="btn custom-btn" id="<?php echo $staff['admin_id']; ?>">
-                                                    <i class="bi bi-exclamation-octagon"></i>
-                                                </a>
+
+                                                <?php if ($staff['status'] == 'Active') { ?>
+                                                    <!-- Show "Suspend" button when status is Active -->
+                                                    <a href="#" class="btn custom-btn suspend_staff" data-admin-id="<?php echo $staff['admin_id']; ?>" data-staff-name="<?php echo $staff['fname'] . " " . $staff['lname']; ?>">
+                                                        <i class="bi bi-exclamation-octagon"></i>
+                                                    </a>
+                                                <?php } else { ?>
+                                                    <!-- Show "Activate" button when status is Suspended -->
+                                                    <a href="#" class="btn custom-btn activate_staff" data-admin-id="<?php echo $staff['admin_id']; ?>" data-staff-name="<?php echo $staff['fname'] . " " . $staff['lname']; ?>">
+                                                        <i class="bi bi-check"></i>
+                                                    </a>
+                                                <?php } ?>
                                             </div>
                                         </td>
                                     </tr>
@@ -682,6 +693,7 @@ if (isset($_SESSION['user'])) {
     <script src="../js/add_staff.js"></script>
     <script src="../js/update_staff.js"></script>
     <script src="../js/delete_staff.js"></script>
+    <script src="../js/suspend_staff.js"></script>
 
 
 </body>

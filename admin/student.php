@@ -3,6 +3,8 @@ session_start();
 require_once 'C:\wamp64\www\LIBMS\db_config\config.php';
 include 'C:\wamp64\www\LIBMS\operations\authentication.php';
 include 'C:\wamp64\www\LIBMS\includes\fetch_user_data.php';
+
+include 'C:\wamp64\www\LIBMS\includes\fetch_staff_data.php';
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
@@ -10,7 +12,9 @@ $loggedAdmin ='';
 
 $database = new Database();
 $userAuth = new UserAuthentication($database);
+$adminData = new StaffData($database);
 $userData = new UserData($database);
+$userList = $userData->getAllUsers();
 
 if ($userAuth->isAuthenticated()) {
 } else {
@@ -26,9 +30,9 @@ if (isset($_POST['logout'])) {
 if (isset($_SESSION['user'])) {
     $adminUsername = $_SESSION['user'];
 
-    $adminID = $userData->getAdminIdByUsername($adminUsername);
+    $adminID = $adminData->getStaffIdByUsername($adminUsername);
     if (!empty($adminID)) {
-        $admin = $userData->getAdminById($adminID);
+        $admin = $adminData->getStaffById($adminID);
 
         if (!empty($admin)) {
             $loggedAdmin = $admin[0];
@@ -56,6 +60,8 @@ if (isset($_SESSION['user'])) {
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
     <link rel="stylesheet" href="../css/admin_student.css">
     <link rel="stylesheet" href="../css/logout.css">
+
+
 </head>
 <body style="">
 <div>
@@ -161,27 +167,47 @@ if (isset($_SESSION['user'])) {
                                 <th>Gender</th>
                                 <th>Course</th>
                                 <th>Year Level</th>
+                                <th>Status</th>
                                 <th>Manage</th>
 
                             </tr>
                             </thead>
                             <tbody>
+
+
+                            <?php foreach ($userList as $user) { ?>
+
                             <tr style="height: 10px">
 
                             </tr>
                             <tr style=" height: 40px; background-color: rgb(246,246,246); margin-bottom: 10px; border: 1px solid rgba(0,0,0,0.25);">
                                 <td><input type="checkbox"></td>
-                                <td>Sheena Marie Pagas</td>
-                                <td>880423897-57838</td>
-                                <td>IT</td>
-                                <td>Stephen King</td>
-                                <td>7 hours</td>
+                                <td><img src="../img/<?= $user['img'] ?>" alt="" width="35px" style="border-radius: 60px; border: 1px solid #4d0202"></td>
+                                <td><?php echo $user['fname'].$user['lname']?></td>
+                                <td><?php echo $user['sex']?></td>
+                                <td></td>
+                                <td></td>
+                                <td><?php echo $user['status']?></td>
                                 <td style="padding: 1px;">
                                     <div class="btn-group" role="group">
-                                        <a href="#" class="btn custom-btn editStudentProfile"> <i class="bi bi-pencil-square"></i>
+                                        <a href="#" class="btn custom-btn editStudentProfile" data-admin-id="<?php echo $user['user_id']; ?>">
+                                            <i class="bi bi-pencil-square"></i>
                                         </a>
-                                        <a href="#" class="btn custom-btn" id="deleteUser1"> <i class="bi bi-trash"></i> </a>
-                                        <a href="#" class="btn custom-btn" id="suspendUser1"> <i class="bi bi-exclamation-octagon"></i> </a>
+                                        <a href="#" class="btn custom-btn deleteStudent" data-admin-id="<?php echo $user['user_id']; ?>" data-staff-name="<?php echo $user['fname'] . " " . $user['lname']; ?>">
+                                            <i class="bi bi-trash"></i>
+                                        </a>
+
+                                        <?php if ($user['status'] == 'Active') { ?>
+                                            <!-- Show "Suspend" button when status is Active -->
+                                            <a href="#" class="btn custom-btn suspend_staff" data-admin-id="<?php echo $user['user_id']; ?>" data-staff-name="<?php echo $user['fname'] . " " . $user['lname']; ?>">
+                                                <i class="bi bi-exclamation-octagon"></i>
+                                            </a>
+                                        <?php } else { ?>
+                                            <!-- Show "Activate" button when status is Suspended -->
+                                            <a href="#" class="btn custom-btn activate_staff" data-admin-id="<?php echo $user['user_id']; ?>" data-staff-name="<?php echo $user['fname'] . " " . $user['lname']; ?>">
+                                                <i class="bi bi-check"></i>
+                                            </a>
+                                        <?php } ?>
                                     </div>
                                 </td>
 
@@ -190,72 +216,7 @@ if (isset($_SESSION['user'])) {
                             <tr style="height: 10px">
 
                             </tr>
-                            <tr style=" height: 40px;background-color: rgb(246,246,246); margin-bottom: 10px; border: 1px solid rgba(0,0,0,0.25); border-radius: 5px;">
-
-                                <td><input type="checkbox"></td>
-                                <td>Lorjohn M. Raña</td>
-                                <td>880423897-57838</td>
-                                <td>IT</td>
-                                <td>Stephen King</td>
-                                <td>7 hours</td>
-                                <td style="padding: 1px;">
-                                    <div class="btn-group" role="group">
-                                        <a href="#" class="btn custom-btn editStudentProfile"> <i class="bi bi-pencil-square"></i>
-                                        </a>
-                                        <a href="#" class="btn custom-btn" id="deleteUser2"> <i class="bi bi-trash"></i> </a>
-                                        <a href="#" class="btn custom-btn" id="suspendUser2"> <i class="bi bi-exclamation-octagon"></i> </a>
-                                    </div>
-                                </td>
-
-
-
-                            </tr>
-                            <tr style="height: 10px">
-
-                            </tr>
-                            <tr style=" height: 40px; background-color: rgb(246,246,246); margin-bottom: 10px;border: 1px solid rgba(0,0,0,0.25);">
-                                <td><input type="checkbox"></td>
-                                <td>Sheena Marie Pagas</td>
-                                <td>880423897-57838</td>
-                                <td>IT</td>
-                                <td>Stephen King</td>
-                                <td>7 hours</td>
-                                <td style="padding: 1px;">
-                                    <div class="btn-group" role="group">
-                                        <a href="#" class="btn custom-btn editStudentProfile"> <i class="bi bi-pencil-square"></i>
-                                        </a>
-                                        <a href="#" class="btn custom-btn" id="deleteUser3"> <i class="bi bi-trash"></i> </a>
-                                        <a href="#" class="btn custom-btn" id="suspendUser3"> <i class="bi bi-exclamation-octagon"></i> </a>
-                                    </div>
-                                </td>
-
-
-                            </tr>
-                            <tr style="height: 10px">
-
-                            </tr>
-                            <tr style=" height: 40px; background-color: rgb(246,246,246); margin-bottom: 10px; border: 1px solid rgba(0,0,0,0.25);">
-                                <td><input type="checkbox"></td>
-                                <td>Sheena Marie Pagas</td>
-                                <td>880423897-57838</td>
-                                <td>IT</td>
-                                <td>Stephen King</td>
-                                <td>7 hours</td>
-                                <td style="padding: 1px;">
-                                    <div class="btn-group" role="group">
-                                        <a href="#" class="btn custom-btn editStudentProfile"> <i class="bi bi-pencil-square"></i>
-                                        </a>
-                                        <a href="#" class="btn custom-btn" id="deleteUser4"> <i class="bi bi-trash"></i> </a>
-                                        <a href="#" class="btn custom-btn" id="suspendUser4"> <i class="bi bi-exclamation-octagon"></i> </a>
-                                    </div>
-                                </td>
-
-
-                            </tr>
-                            <tr style="height: 10px">
-
-                            </tr>
-
+                            <?php } ?>
                             </tbody>
                         </table>
 
@@ -495,14 +456,14 @@ if (isset($_SESSION['user'])) {
                         <form class="row needs-validation"  style="margin-left: 30px; width: 80%; height: 65%; "  novalidate >
                             <div class="col-md-5 firstname">
                                 <label for="validationCustom01" class="form-label mb-0" style="font-size: 12px;">FIRST NAME</label>
-                                <input type="text" class="form-control" placeholder="Juan" id="validationCustom01" style="font-size: 10px; text-transform: capitalize !important;" required pattern="[A-Za-z]+" required>
+                                <input type="text" class="form-control" placeholder="Juan" id="editStudentFname" style="font-size: 10px; text-transform: capitalize !important;" required pattern="[A-Za-z]+" required>
                                 <div class="invalid-feedback" style="font-size: 8px">
                                     Not a valid first name!
                                 </div>
                             </div>
                             <div class="col-md-5">
                                 <label for="validationCustom02" class="form-label mb-0" style="font-size: 12px;">LAST NAME</label>
-                                <input type="text" class="form-control" placeholder="Dela Cruz" id="validationCustom02" style="font-size: 10px; text-transform: capitalize !important;" required pattern="[A-Za-z]+" required>
+                                <input type="text" class="form-control" placeholder="Dela Cruz" id="editStudentLname" style="font-size: 10px; text-transform: capitalize !important;" required pattern="[A-Za-z]+" required>
                                 <div class="invalid-feedback" style="font-size: 8px">
                                     Not a valid last name!
                                 </div>
@@ -696,22 +657,62 @@ if (isset($_SESSION['user'])) {
         $("#studentModal").modal("hide");
     }
 </script>
-
 <script>
     $(document).ready(function() {
-        // Attach a click event to all elements with the class "editStudentProfile"
-        $(".editStudentProfile").click(function() {
-            // Show the student modal
-            $("#editStudentModal").modal("show");
+        $('.editStudentProfile').click(function(e) {
+            e.preventDefault();
+
+            // Get the user_id from the data attribute
+            var adminId = $(this).data('admin-id');
+
+            // Make an AJAX request to fetch Student data
+            $.ajax({
+                url: '../operations/fetch_student.php', // Replace with your backend endpoint
+                type: 'POST',
+                data: { adminId: adminId },
+                dataType: 'json',
+                success: function(response) {
+                    // Log the response to inspect the structure
+                    console.log(response);
+
+                    // Handle the response and populate your modal with data
+                    populateModal(response);
+                },
+                error: function() {
+                    // Handle errors
+                    console.error('Error fetching Student data.');
+                }
+            });
         });
 
-        // Handle the file input change event
-        $("#profilePictureInput").change(function() {
-            readURL(this);
-        });
+        function populateModal(data) {
+            // Log the data to inspect the structure
+            console.log(data);
+
+            // Populate the modal fields with data received from the server
+            $('#EditStudentFname').val(data[0].fname);
+            $('#EditStudentLname').val(data[0].lname);
+            $('#EditStudentInitial').val(data[0].initial);
+            $('#EditStudentID').val(data[0].admin_id);
+            $('#EditStudentPemail').val(data[0].personal_email);
+            $('#EditStudentPnumber').val(data[0].phone_number);
+            $('#EditStudentTnumber').val(data[0].tele_number);
+            $('#EditStudentAddress').val(data[0].address);
+            $('#EditStudentRole').val(data[0].admin_role);
+            $('#Editpsw').val(data[0].password);
+            $('#EditStudentUsername').val(data[0].username);
+            $('#EditStudentOemail').val(data[0].email);
+
+            var imagePath = '../img/' + data[0].img;
+            $('#ProfilePic').attr('src', imagePath);
+
+            // Show the modal
+            $('#editStudentModal').modal('show');
+        }
     });
 
-    // Function to handle adding a student (you can replace this with your actual logic)
+
+    // Function to handle adding a student
     function addStudent() {
         // Add your logic here
         $("#editStudentModal").modal("hide");
@@ -738,8 +739,9 @@ if (isset($_SESSION['user'])) {
             reader.readAsDataURL(input.files[0]);
         }
     }
-</script>
 
+
+</script>
 <script>
     for (let i = 1; i <= 8; i++) {
         const deleteButton = document.getElementById(`deleteUser${i}`);
@@ -798,7 +800,7 @@ if (isset($_SESSION['user'])) {
         const suspendButton = document.getElementById(`suspendUser${i}`);
         if (suspendButton) {
             suspendButton.addEventListener('click', function() {
-                showSuspendConfirmation(1); // Pass a unique identifier
+                showSuspendConfirmation(1);
             });
         }
     }
@@ -846,6 +848,7 @@ if (isset($_SESSION['user'])) {
         });
     }
 </script>
+<script src="../js/add_student.js"></script>
 
 
 

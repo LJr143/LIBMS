@@ -82,8 +82,26 @@ if (isset($_SESSION['user'])) {
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.32/dist/sweetalert2.min.css">
     <link rel="stylesheet" href="../css/superadmin_logs.css">
+
+    <style>
+        table {
+            width: 95%;
+            margin-top: 10px;
+            text-align: center;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            border: 1px solid #dddddd;
+            padding: 2px;
+        }
+
+        tbody {
+            overflow-y: auto;
+        }
+    </style>
 </head>
-<body style="">
+<body>
 <div>
     <?php include 'header.php'?>
     <div class="main-content d-flex" >
@@ -154,8 +172,8 @@ if (isset($_SESSION['user'])) {
                 </div>
             </div>
             <div style="display: flex; justify-content: center; margin-top: 20px; ">
-                <div style="background-color: white; width: 95%; min-height: 80vh; margin: 0px; border-radius: 5px;display: flex; box-shadow: 0px 4px 8px rgba(0,0,0,0.27); justify-content: center">
-                    <table style="width: 95%; height: 50px; margin-top: 10px; text-align: center ">
+                <div style="overflow-y: auto;background-color: white; width: 95%; max-height: 80vh; min-height: 80vh; margin: 0px; border-radius: 5px;display: flex; box-shadow: 0px 4px 8px rgba(0,0,0,0.27); justify-content: center">
+                    <table style="width: 95%; margin-top: 10px; text-align: center; ">
                         <thead >
                         <tr style="width: 80px; background: #F6F6F6; height: 40px; position: relative; border-radius: 5px; font-size: 12px; border: 1px solid rgba(0,0,0,0.28); box-shadow: 0px 2px 4px rgba(0,0,0,0.2)">
                             <th >DATE & TIME</th>
@@ -169,10 +187,10 @@ if (isset($_SESSION['user'])) {
                             <tr style="height: 20px">
 
                             </tr>
-                            <tr style=" font-size: 12px; height: 30px; border-bottom: 1px solid rgba(0,0,0,0.14)">
+                            <tr style=" font-size: 12px; border-bottom: 1px solid rgba(0,0,0,0.14); ">
                                 <td><?php echo $logs['date'];?></td>
                                 <td><?php echo $logs['admin_id']?></td>
-                                <td></td>
+                                <td><?php echo $logs['admin_role']?></td>
                                 <td><?php echo $logs['action'];?></td>
 
                             </tr>

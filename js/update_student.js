@@ -1,41 +1,40 @@
-
-function addStaff() {
+function updateStudent() {
     var formData = new FormData();
-    var profileFileInput = $('#addStaffinput-file')[0];
+    var profileFileInput = $('#profilePictureInput')[0];
     if (profileFileInput.files.length > 0) {
         formData.append('profile', profileFileInput.files[0]);
     }
-    formData.append('first_name', $('#addStaffFname').val());
-    formData.append('last_name', $('#addStaffLname').val());
-    formData.append('mi', $('#addStaffInitial').val());
-    formData.append('staffID', $('#addStaffID').val());
-    formData.append('officeEmail', $('#addStaffOemail').val());
-    formData.append('PhoneNumber', $('#addStaffPnumber').val());
-    formData.append('Telephone', $('#addStaffTnumber').val());
-    formData.append('address', $('#addStaffAddress').val());
-    formData.append('role', $('#addStaffRole').val());
-    formData.append('personalEmail', $('#addStaffPemail').val());
-    formData.append('username', $('#addStaffUsername').val());
-    formData.append('password', $('#psw').val());
+    formData.append('first_name', $('#EditStudentFname').val());
+    formData.append('last_name', $('#EditStudentLname').val());
+    formData.append('mi', $('#EditStudentInitial').val());
+    formData.append('StudentID', $('#EditStudentID').val());
+    formData.append('officeEmail', $('#EditStudentOemail').val());
+    formData.append('PhoneNumber', $('#EditStudentPnumber').val());
+    formData.append('Telephone', $('#EditStudentTnumber').val());
+    formData.append('Address', $('#EditStudentAddress').val());
+    formData.append('role', $('#EditStudentRole').val());
+    formData.append('personalEmail', $('#EditStudentPemail').val());
+    formData.append('username', $('#EditStudentUsername').val());
+    formData.append('password', $('#Editpsw').val());
 
     for (var pair of formData.entries()) {
         console.log(pair[0] + ', ' + pair[1]);
     }
 
     $.ajax({
-        url: '../operations/add_staff.php',
+        url: '../operations/update_student.php',
         type: 'POST',
         data: formData,
         contentType: false,
         processData: false,
         success: function (response) {
             try {
-                var result = typeof response === 'string' ? JSON.parse(response) : response;
+                var result = JSON.parse(response);
                 if (result.success) {
                     $("#staffModal").modal("hide");
                     Swal.fire({
-                        title: 'ADDED!',
-                        text: 'SUCCESSFULLY ADDED!',
+                        title: 'UPDATED!',
+                        text: 'SUCCESSFULLY UPDATED!',
                         icon: 'success',
                         customClass: {
                             popup: 'my-swal-popup',
@@ -67,3 +66,10 @@ function addStaff() {
         }
     });
 }
+
+// Attach the updateStudent function to the Save button click event
+$('#saveButton').click(function() {
+    // Disable the button to prevent multiple clicks
+    $(this).prop('disabled', true);
+    updateStudent();
+});

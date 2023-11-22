@@ -26,12 +26,28 @@ function deleteStudent(adminId) {
         success: function(response) {
             console.log(response);
             // Handle the response, e.g., update the UI or remove the row from the table
-            alert('Staff member deleted successfully!');
-            location.reload();
+            Swal.fire({
+                title: 'DELETED!',
+                text: 'SUCCESSFULLY DELETED!',
+                icon: 'success',
+                customClass: {
+                    popup: 'my-swal-popup',
+                    title: 'swal-title',
+                    content: 'my-swal-content',
+                    confirmButton: 'my-confirm-button'
+                }
+            }).then((result) => {
+                // Check if the user clicked "OK"
+                if (result.isConfirmed) {
+                    // Reload the page
+                    location.reload();
+                }
+            });
         },
         error: function() {
-            console.error('Error deleting staff member.');
-            alert('Error deleting staff member. Please try again.');
+            console.error('Error Deleting staff member.');
+            alert('Error Deleting staff member. Please try again.');
+            location.reload();
         }
     });
 }
@@ -57,6 +73,7 @@ function showDeleteConfirmation(staffMemberName) {
     }).then((result) => {
         if (result.isConfirmed) {
             deleteStudent(adminId);
+
         }
     });
 }

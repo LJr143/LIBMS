@@ -50,9 +50,9 @@ class UserData
         }
     }
 
-    public function getAdminById($userId): array
+    public function getUserById($userId): array
     {
-        $sql = "SELECT * FROM tbl_admin WHERE admin_id = :userId";
+        $sql = "SELECT * FROM tbl_user WHERE user_id = :userId";
         $stmt = $this->database->prepare($sql);
         $stmt->bindParam(':userId', $userId, PDO::PARAM_STR);
 

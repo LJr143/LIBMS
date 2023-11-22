@@ -127,6 +127,68 @@ class StaffData
 
         return $stmt->execute();
     }
+    public function suspendStaff($adminId) {
+        $status = "Suspended";
+        $sql = "UPDATE tbl_admin SET status = :status WHERE admin_id = :admin_id";
+
+        $stmt = $this->database->prepare($sql);
+        $stmt->bindParam(':status', $status, PDO::PARAM_STR);
+        $stmt->bindParam(':admin_id', $adminId, PDO::PARAM_INT);
+
+        // Execute the query
+        $stmt->execute();
+
+        // Check for success
+        if ($stmt->rowCount() > 0) {
+            // The update was successful
+            return true;
+        } else {
+            // No records were updated, or an error occurred
+            return false;
+        }
+    }
+    public function activateStaff($adminId) {
+        $status = "Active";
+        $sql = "UPDATE tbl_admin SET status = :status WHERE admin_id = :admin_id";
+
+        $stmt = $this->database->prepare($sql);
+        $stmt->bindParam(':status', $status, PDO::PARAM_STR);
+        $stmt->bindParam(':admin_id', $adminId, PDO::PARAM_INT);
+
+        // Execute the query
+        $stmt->execute();
+
+        // Check for success
+        if ($stmt->rowCount() > 0) {
+            // The update was successful
+            return true;
+        } else {
+            // No records were updated, or an error occurred
+            return false;
+        }
+    }
+
+    public function deleteAllStaff($adminId) {
+        $status = "Active";
+        $sql = "TRUNCATE TABLE tbl_admin";
+
+        $stmt = $this->database->prepare($sql);
+        $stmt->bindParam(':status', $status, PDO::PARAM_STR);
+        $stmt->bindParam(':admin_id', $adminId, PDO::PARAM_INT);
+
+        // Execute the query
+        $stmt->execute();
+
+        // Check for success
+        if ($stmt->rowCount() > 0) {
+            // The update was successful
+            return true;
+        } else {
+            // No records were updated, or an error occurred
+            return false;
+        }
+    }
+
 
 
 }
