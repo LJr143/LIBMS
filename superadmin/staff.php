@@ -56,9 +56,9 @@ if (isset($_SESSION['user'])) {
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>USeP | LMS</title>
     <link rel="icon" href="../icons/usep-logo.png">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10/dist/sweetalert2.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link href="../node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../node_modules/sweetalert2/dist/sweetalert2.min.js">
+    <link rel="stylesheet" href="../node_modules/bootstrap-icons/font/bootstrap-icons.css">
     <link rel="stylesheet" href="../css/superadmin_staff.css">
 </head>
 
@@ -461,10 +461,11 @@ if (isset($_SESSION['user'])) {
 
         </div>
 
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
-    <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
+    <script src="../node_modules/jquery/dist/jquery.min.js"></script>
+    <script src="../node_modules/sweetalert2/dist/sweetalert2.all.min.js"></script>
+    <script src="../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../node_modules/swiper/swiper-bundle.min.js"></script>
+    <script src="../node_modules/sweetalert2/dist/sweetalert2.all.js"></script>
     <script>
         const listItems = document.querySelectorAll('li');
         listItems.forEach((listItem) => {
@@ -654,6 +655,13 @@ if (isset($_SESSION['user'])) {
                 var imagePath = '../img/' + data[0].img;
                 $('#ProfilePic').attr('src', imagePath);
 
+                if (data[0].img) {
+                    var imagePath = '../img/' + data[0].img;
+                    $('#ProfilePic').attr('src', imagePath);
+                } else {
+                    // Display the default 'user.png' if there is no photo
+                    $('#ProfilePic').attr('src', '../icons/user.png');
+                }
                 // Show the modal
                 $('#editStudentModal').modal('show');
             }
@@ -668,23 +676,31 @@ if (isset($_SESSION['user'])) {
 
         // Function to clear the displayed photo
         function clearPhoto() {
-            $('#ProfilePic').attr('src', '../img/me_sample_profile.jpg');
+            $('#ProfilePic').attr('src', '../icons/user.png');
             $(".AddImageCon i").show();
         }
 
         // Function to update the profile picture
         function updateProfilePicture(event) {
             const input = event.target;
+            const profilePic = document.getElementById('ProfilePic');
+            const icon = $(".AddImageCon i");
+
             if (input.files && input.files[0]) {
                 const reader = new FileReader();
                 reader.onload = function(e) {
-                    const profilePic = document.getElementById('ProfilePic');
                     profilePic.src = e.target.result;
 
                     // Hide the icon when a new image is selected
-                    $(".AddImageCon i").hide();
+                    icon.hide();
                 };
                 reader.readAsDataURL(input.files[0]);
+            } else {
+                // If no new file is selected, use the default 'user.png'
+                profilePic.src = '../img/user.png';
+
+                // Hide the icon when no new image is selected
+                icon.hide();
             }
         }
 
