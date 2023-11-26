@@ -1,5 +1,6 @@
 
 function addStaff() {
+
     var formData = new FormData();
     var profileFileInput = $('#addStaffinput-file')[0];
     if (profileFileInput.files.length > 0) {
@@ -32,7 +33,10 @@ function addStaff() {
             try {
                 var result = typeof response === 'string' ? JSON.parse(response) : response;
                 if (result.success) {
+                    // Close the modal
                     $("#staffModal").modal("hide");
+
+                    // Display a success message
                     Swal.fire({
                         title: 'ADDED!',
                         text: 'SUCCESSFULLY ADDED!',
@@ -50,11 +54,10 @@ function addStaff() {
                             location.reload();
                         }
                     });
-
                 } else {
                     Swal.fire({
                         title: 'Error!',
-                        text: 'Failed to delete the student. Please try again.',
+                        text: 'Failed to add the staff. Please fill out all the fields.',
                         icon: 'error'
                     });
                 }
@@ -67,3 +70,6 @@ function addStaff() {
         }
     });
 }
+
+
+
