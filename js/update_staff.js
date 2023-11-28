@@ -1,6 +1,6 @@
-function updateStudent() {
+function updateStaff() {
     var formData = new FormData();
-    var profileFileInput = $('#profilePictureInput')[0];
+    var profileFileInput = $('#EditprofilePictureInput')[0];
     if (profileFileInput.files.length > 0) {
         formData.append('profile', profileFileInput.files[0]);
     }
@@ -31,7 +31,7 @@ function updateStudent() {
             try {
                 var result = JSON.parse(response);
                 if (result.success) {
-                    $("#editStudentModal").modal("hide");
+                    $("#editStaffModal").modal("hide");
                     Swal.fire({
                         title: 'UPDATED!',
                         text: 'SUCCESSFULLY UPDATED!',
@@ -67,8 +67,23 @@ function updateStudent() {
     });
 }
 
-$('#saveButton').click(function() {
-    // Disable the button to prevent multiple clicks
-    $(this).prop('disabled', true);
-    updateStudent();
+
+$('#saveButton').click(function (event) {
+    // Prevent the default form submission
+    event.preventDefault();
+
+    // Enable HTML5 form validation
+    var form = document.getElementById('editStaffForm');
+    if (form.checkValidity() === false) {
+        event.stopPropagation();
+    }
+
+    form.classList.add('was-validated');
+
+    // Check if the form is valid before calling updateStudent
+    if (form.checkValidity()) {
+        // Disable the button to prevent multiple clicks
+        $(this).prop('disabled', true);
+        updateStaff();
+    }
 });
