@@ -1,6 +1,6 @@
-function updateStudent() {
+function updateStaff() {
     var formData = new FormData();
-    var profileFileInput = $('#profilePictureInput')[0];
+    var profileFileInput = $('#EditprofilePictureInput')[0];
     if (profileFileInput.files.length > 0) {
         formData.append('profile', profileFileInput.files[0]);
     }
@@ -31,7 +31,7 @@ function updateStudent() {
             try {
                 var result = JSON.parse(response);
                 if (result.success) {
-                    $("#editStudentModal").modal("hide");
+                    $("#editStaffModal").modal("hide");
                     Swal.fire({
                         title: 'UPDATED!',
                         text: 'SUCCESSFULLY UPDATED!',
@@ -71,5 +71,5 @@ function updateStudent() {
 $('#saveButton').click(function() {
     // Disable the button to prevent multiple clicks
     $(this).prop('disabled', true);
-    updateStudent();
+    updateStaff();
 });

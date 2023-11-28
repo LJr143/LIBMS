@@ -57,7 +57,6 @@ if (isset($_SESSION['user'])) {
     <title>USeP | LMS</title>
     <link rel="icon" href="../icons/usep-logo.png">
     <link href="../node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="../node_modules/sweetalert2/dist/sweetalert2.min.js">
     <link rel="stylesheet" href="../node_modules/bootstrap-icons/font/bootstrap-icons.css">
     <link rel="stylesheet" href="../css/superadmin_staff.css">
 </head>
@@ -130,7 +129,6 @@ if (isset($_SESSION['user'])) {
                         </div>
                     </div>
                 </div>
-
                 <div style="display: flex; justify-content: center; ">
                     <div style="font-size: 12px; background-color: white; width: 95%; max-height: 550px; box-shadow: 0px 4px 8px rgba(0,0,0,0.27);">
                         <div style="width: 100%; display: flex; justify-content: center; border-radius: 5px">
@@ -336,8 +334,8 @@ if (isset($_SESSION['user'])) {
 
     </div>
     </div>
-    <!-- Edit Student Modal -->
-    <div class="modal fade" id="editStudentModal" tabindex="-1" role="dialog" aria-labelledby="editStudentModalLabel" aria-hidden="true">
+    <!-- Edit Staff Modal -->
+    <div class="modal fade" id="editStaffModal" tabindex="-1" role="dialog" aria-labelledby="editStaffModalLabel" aria-hidden="true">
             <div class="modal-dialog  modal-dialog-centered" role="document" style="max-width: 800px;">
                 <div class="modal-content">
                     <div class="modal-header" style="height: 15px;">
@@ -355,11 +353,11 @@ if (isset($_SESSION['user'])) {
 
                                 <!-- uploading image -->
                                 <div style="width: 100px; height: 100px; overflow: hidden; border: 1px solid maroon; border-radius: 50%; margin: 0 auto; margin-top:40px;">
-                                    <label for="profilePictureInput" class="AddImageCon" style="display: flex; justify-content: center; align-items: center; width: 100%; height: 100%;">
+                                    <label for="EditprofilePictureInput" class="AddImageCon" style="display: flex; justify-content: center; align-items: center; width: 100%; height: 100%;">
 
-                                        <img src="" width="220px" height="100px" id="ProfilePic" style="display: block;">
+                                        <img src="" width="220px" height="100px" id="EditProfilePic" style="display: block;">
                                     </label>
-                                    <input type="file" accept="image/jpeg, image/png, image/jpg" id="profilePictureInput" class="visually-hidden mb-0" accept="image/*" onchange="updateProfilePicture(event)">
+                                    <input type="file" accept="image/jpeg, image/png, image/jpg" id="EditprofilePictureInput" class="visually-hidden mb-0" accept="image/*" onchange="updateProfilePicture(event)">
                                 </div>
 
                                 <div class="row" style="margin-left: 30px; width: 80%; height: 65%;">
@@ -489,6 +487,97 @@ if (isset($_SESSION['user'])) {
         });
     </script>
     <script>
+        $(document).ready(function () {
+            $('.editStudentProfile').click(function (e) {
+                e.preventDefault();
+
+                // Get the admin_id from the data attribute
+                var adminId = $(this).data('admin-id');
+
+                // Make an AJAX request to fetch staff data
+                $.ajax({
+                    url: '../operations/fetch_staff.php',
+                    type: 'POST',
+                    data: { adminId: adminId },
+                    dataType: 'json',
+                    success: function (response) {
+                        // Log the response to inspect the structure
+                        console.log(response);
+
+                        // Handle the response and populate your modal with data
+                        populateModal(response);
+                    },
+                    error: function () {
+                        // Handle errors
+                        console.error('Error fetching staff data.');
+                    }
+                });
+            });
+
+            function populateModal(data) {
+                // Log the data to inspect the structure
+                console.log(data);
+
+                // Populate the modal fields with data received from the server
+                $('#EditStaffFname').val(data[0].fname);
+                $('#EditStaffLname').val(data[0].lname);
+                $('#EditStaffInitial').val(data[0].initial);
+                $('#EditStaffID').val(data[0].admin_id);
+                $('#EditStaffPemail').val(data[0].personal_email);
+                $('#EditStaffPnumber').val(data[0].phone_number);
+                $('#EditStaffTnumber').val(data[0].tele_number);
+                $('#EditStaffAddress').val(data[0].address);
+                $('#EditStaffRole').val(data[0].admin_role);
+                $('#Editpsw').val(data[0].password);
+                $('#EditStaffUsername').val(data[0].username);
+                $('#EditStaffOemail').val(data[0].email);
+
+                var imagePath = '../img/' + data[0].img;
+                $('#EditProfilePic').attr('src', imagePath);
+
+                // Show the modal
+                $('#editStaffModal').modal('show');
+            }
+        });
+
+        // Function to handle adding a student
+        function addStaff() {
+            // Add your logic here
+            $("#editStaffModal").modal("hide");
+        }
+
+        // Function to clear the displayed photo
+        function clearPhoto() {
+            $('#EditProfilePic').attr('src', '');
+            $(".AddImageCon i").show();
+        }
+
+        // Function to update the profile picture
+        function updateProfilePicture(event) {
+            const input = event.target;
+            const profilePic = document.getElementById('EditProfilePic');
+            const icon = $(".AddImageCon i");
+
+            if (input.files && input.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    profilePic.src = e.target.result;
+
+                    // Hide the icon when a new image is selected
+                    icon.hide();
+                };
+                reader.readAsDataURL(input.files[0]);
+            } else {
+                // If no new file is selected, keep the existing image source
+                profilePic.src = profilePic.src;
+
+                // Hide the icon when no new image is selected
+                icon.hide();
+            }
+        }
+
+    </script>
+    <script>
         $(document).ready(function() {
             // Attach a click event to the "ADD STAFF" button
             $("#addStaffBtn").click(function() {
@@ -606,106 +695,7 @@ if (isset($_SESSION['user'])) {
             });
         }
     </script>
-    <script>
-        $(document).ready(function() {
-            $('.editStudentProfile').click(function(e) {
-                e.preventDefault();
 
-                // Get the admin_id from the data attribute
-                var adminId = $(this).data('admin-id');
-
-                // Make an AJAX request to fetch staff data
-                $.ajax({
-                    url: '../operations/fetch_staff.php', // Replace with your backend endpoint
-                    type: 'POST',
-                    data: { adminId: adminId },
-                    dataType: 'json',
-                    success: function(response) {
-                        // Log the response to inspect the structure
-                        console.log(response);
-
-                        // Handle the response and populate your modal with data
-                        populateModal(response);
-                    },
-                    error: function() {
-                        // Handle errors
-                        console.error('Error fetching staff data.');
-                    }
-                });
-            });
-
-            function populateModal(data) {
-                // Log the data to inspect the structure
-                console.log(data);
-
-                // Populate the modal fields with data received from the server
-                $('#EditStaffFname').val(data[0].fname);
-                $('#EditStaffLname').val(data[0].lname);
-                $('#EditStaffInitial').val(data[0].initial);
-                $('#EditStaffID').val(data[0].admin_id);
-                $('#EditStaffPemail').val(data[0].personal_email);
-                $('#EditStaffPnumber').val(data[0].phone_number);
-                $('#EditStaffTnumber').val(data[0].tele_number);
-                $('#EditStaffAddress').val(data[0].address);
-                $('#EditStaffRole').val(data[0].admin_role);
-                $('#Editpsw').val(data[0].password);
-                $('#EditStaffUsername').val(data[0].username);
-                $('#EditStaffOemail').val(data[0].email);
-
-                var imagePath = '../img/' + data[0].img;
-                $('#ProfilePic').attr('src', imagePath);
-
-                if (data[0].img) {
-                    var imagePath = '../img/' + data[0].img;
-                    $('#ProfilePic').attr('src', imagePath);
-                } else {
-                    // Display the default 'user.png' if there is no photo
-                    $('#ProfilePic').attr('src', '../icons/user.png');
-                }
-                // Show the modal
-                $('#editStudentModal').modal('show');
-            }
-        });
-
-
-        // Function to handle adding a student
-        function addStudent() {
-            // Add your logic here
-            $("#editStudentModal").modal("hide");
-        }
-
-        // Function to clear the displayed photo
-        function clearPhoto() {
-            $('#ProfilePic').attr('src', '../icons/user.png');
-            $(".AddImageCon i").show();
-        }
-
-        // Function to update the profile picture
-        function updateProfilePicture(event) {
-            const input = event.target;
-            const profilePic = document.getElementById('ProfilePic');
-            const icon = $(".AddImageCon i");
-
-            if (input.files && input.files[0]) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    profilePic.src = e.target.result;
-
-                    // Hide the icon when a new image is selected
-                    icon.hide();
-                };
-                reader.readAsDataURL(input.files[0]);
-            } else {
-                // If no new file is selected, use the default 'user.png'
-                profilePic.src = '../img/user.png';
-
-                // Hide the icon when no new image is selected
-                icon.hide();
-            }
-        }
-
-
-    </script>
     <script src="../js/add_staff.js"></script>
     <script src="../js/update_staff.js"></script>
     <script src="../js/delete_staff.js"></script>
