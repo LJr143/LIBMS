@@ -67,9 +67,32 @@ function updateStaff() {
     });
 }
 
+
 // Attach the updateStudent function to the Save button click event
+<<<<<<< HEAD
 $('#saveButton').click(function() {
     // Disable the button to prevent multiple clicks
     $(this).prop('disabled', true);
     updateStaff();
 });
+=======
+$('#saveButton').click(function (event) {
+    // Prevent the default form submission
+    event.preventDefault();
+
+    // Enable HTML5 form validation
+    var form = document.getElementById('editStudentForm');
+    if (form.checkValidity() === false) {
+        event.stopPropagation();
+    }
+
+    form.classList.add('was-validated');
+
+    // Check if the form is valid before calling updateStudent
+    if (form.checkValidity()) {
+        // Disable the button to prevent multiple clicks
+        $(this).prop('disabled', true);
+        updateStudent();
+    }
+});
+>>>>>>> db722d8c07d64f82feb26957f05f4bb930706242
