@@ -88,52 +88,75 @@ class StaffData
         // Execute the query
         return $stmt->execute();
     }
-    // Inside the StaffData class
-    public function updateStaff($userId, $firstName, $lastName, $mi, $Pemail, $Oemail, $phoneNumber, $telephoneNumber, $address, $admin_role, $username, $password, $img) {
-        // SQL query without the img column
-        $sql = "UPDATE tbl_admin 
-        SET fname = :fname, lname = :lname, initial = :initial, 
-            email = :email, personal_email = :personal_email, 
-            phone_number = :phone_number, tele_number = :tele_number, 
-            address = :address, admin_role = :admin_role, 
-            username = :username, password = :password
-        WHERE admin_id = :userId";
-
-        // If $img is not null, include it in the SQL query and bind the parameter
-        if ($img !== null) {
+    public function updateStaff($userId, $firstName, $lastName, $mi, $Pemail, $Oemail, $phoneNumber, $telephoneNumber, $address, $admin_role, $username, $password, $profile): bool
+    {
+        // Check if a new profile picture is provided
+        if ($profile !== null) {
+            // If provided, update the profile picture in the database
             $sql = "UPDATE tbl_admin 
             SET fname = :fname, lname = :lname, initial = :initial, 
                 email = :email, personal_email = :personal_email, 
                 phone_number = :phone_number, tele_number = :tele_number, 
                 address = :address, admin_role = :admin_role, 
-                username = :username, password = :password,
-                img = :img
+                username = :username, password = :password, img = :img 
             WHERE admin_id = :userId";
+
+            $stmt = $this->database->prepare($sql);
+
+            // Bind parameters
+            $stmt->bindParam(':fname', $firstName, PDO::PARAM_STR);
+            $stmt->bindParam(':lname', $lastName, PDO::PARAM_STR);
+            $stmt->bindParam(':initial', $mi, PDO::PARAM_STR);
+            $stmt->bindParam(':userId', $userId, PDO::PARAM_STR);
+            $stmt->bindParam(':email', $Pemail, PDO::PARAM_STR);
+            $stmt->bindParam(':personal_email', $Oemail, PDO::PARAM_STR);
+            $stmt->bindParam(':phone_number', $phoneNumber, PDO::PARAM_STR);
+            $stmt->bindParam(':tele_number', $telephoneNumber, PDO::PARAM_STR);
+            $stmt->bindParam(':address', $address, PDO::PARAM_STR);
+            $stmt->bindParam(':admin_role', $admin_role, PDO::PARAM_STR);
+            $stmt->bindParam(':username', $username, PDO::PARAM_STR);
+            $stmt->bindParam(':password', $password, PDO::PARAM_STR);
+            $stmt->bindParam(':img', $profile, PDO::PARAM_STR);
+
+            // Execute the query
+            return $stmt->execute();
+        } else {
+            // If not provided, skip the profile picture update
+            $sql = "UPDATE tbl_admin 
+    SET fname = :fname, lname = :lname, initial = :initial, 
+        email = :email, personal_email = :personal_email, 
+        phone_number = :phone_number, tele_number = :tele_number, 
+        address = :address, admin_role = :admin_role, 
+        username = :username, password = :password,
+        img = :img
+    WHERE admin_id = :userId";
+
+
+            $stmt = $this->database->prepare($sql);
+
+            // Bind parameters (excluding the profile picture)
+            $stmt->bindParam(':fname', $firstName, PDO::PARAM_STR);
+            $stmt->bindParam(':lname', $lastName, PDO::PARAM_STR);
+            $stmt->bindParam(':initial', $mi, PDO::PARAM_STR);
+            $stmt->bindParam(':userId', $userId, PDO::PARAM_STR);
+            $stmt->bindParam(':email', $Pemail, PDO::PARAM_STR);
+            $stmt->bindParam(':personal_email', $Oemail, PDO::PARAM_STR);
+            $stmt->bindParam(':phone_number', $phoneNumber, PDO::PARAM_STR);
+            $stmt->bindParam(':tele_number', $telephoneNumber, PDO::PARAM_STR);
+            $stmt->bindParam(':address', $address, PDO::PARAM_STR);
+            $stmt->bindParam(':admin_role', $admin_role, PDO::PARAM_STR);
+            $stmt->bindParam(':username', $username, PDO::PARAM_STR);
+            $stmt->bindParam(':password', $password, PDO::PARAM_STR);
+            // If $profile is null, set the default image name 'user.png'
+            $defaultImg =  'user.png';
+            $stmt->bindParam(':img', $defaultImg, PDO::PARAM_STR);
+
+
+
+
+            // Execute the query
+            return $stmt->execute();
         }
-
-        $stmt = $this->database->prepare($sql);
-
-        // Bind parameters (excluding the img parameter if $img is null)
-        $stmt->bindParam(':fname', $firstName, PDO::PARAM_STR);
-        $stmt->bindParam(':lname', $lastName, PDO::PARAM_STR);
-        $stmt->bindParam(':initial', $mi, PDO::PARAM_STR);
-        $stmt->bindParam(':userId', $userId, PDO::PARAM_STR);
-        $stmt->bindParam(':email', $Pemail, PDO::PARAM_STR);
-        $stmt->bindParam(':personal_email', $Oemail, PDO::PARAM_STR);
-        $stmt->bindParam(':phone_number', $phoneNumber, PDO::PARAM_STR);
-        $stmt->bindParam(':tele_number', $telephoneNumber, PDO::PARAM_STR);
-        $stmt->bindParam(':address', $address, PDO::PARAM_STR);
-        $stmt->bindParam(':admin_role', $admin_role, PDO::PARAM_STR);
-        $stmt->bindParam(':username', $username, PDO::PARAM_STR);
-        $stmt->bindParam(':password', $password, PDO::PARAM_STR);
-
-        // Bind the img parameter if $img is not null
-        if ($img !== null) {
-            $stmt->bindParam(':img', $img, PDO::PARAM_STR);
-        }
-
-        // Execute the query
-        return $stmt->execute();
     }
 
 

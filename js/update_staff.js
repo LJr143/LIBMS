@@ -1,6 +1,6 @@
-function updateStaff() {
+function updateStudent() {
     var formData = new FormData();
-    var profileFileInput = $('#EditprofilePictureInput')[0];
+    var profileFileInput = $('#profilePictureInput')[0];
     if (profileFileInput.files.length > 0) {
         formData.append('profile', profileFileInput.files[0]);
     }
@@ -31,7 +31,7 @@ function updateStaff() {
             try {
                 var result = JSON.parse(response);
                 if (result.success) {
-                    $("#editStaffModal").modal("hide");
+                    $("#editStudentModal").modal("hide");
                     Swal.fire({
                         title: 'UPDATED!',
                         text: 'SUCCESSFULLY UPDATED!',
@@ -95,5 +95,9 @@ $('#saveButton').click(function() {
     // Disable the button to prevent multiple clicks
     $(this).prop('disabled', true);
     updateStudent();
+<<<<<<< HEAD
 });
 >>>>>>> parent of db722d8 (odify input validation SA-AddStaff)
+=======
+});
+>>>>>>> parent of 734767f (fix edit bug)

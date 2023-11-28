@@ -50,6 +50,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Update the staff data
     $result = $staff->updateStaff($staffID, $firstName, $lastName, $mi, $personalEmail, $officeEmail, $PhoneNumber, $Telephone, $address, $role, $username, $password, $profile);
 
+
     // Send a JSON response indicating success or failure
     if ($result) {
         $addedStaff = $firstName . " " . $lastName;
@@ -59,3 +60,4 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         echo json_encode(['success' => false, 'error' => 'Failed to add staff member.']);
     }
 }
+
