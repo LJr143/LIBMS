@@ -59,7 +59,6 @@ if (isset($_SESSION['user'])) {
     <link href="../node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="../node_modules/bootstrap-icons/font/bootstrap-icons.css">
     <link rel="stylesheet" href="../css/superadmin_staff.css">
-    <link rel="stylesheet" href="../css/logout.css">
 </head>
 
 <body style="">
@@ -105,7 +104,7 @@ if (isset($_SESSION['user'])) {
                             <form action="" method="post" style="margin-left: 20px;">
 
                                 <label for="logout"><img src="../icons/plug.png" style="width: 20px; " alt=""></label>
-                                <input id="logoutButton" style="font-size: 12px; color: white; background: none; border: none;" name="logout" type="submit" value="Logout">
+                                <input style="font-size: 12px; color: white; background: none; border: none;" name="logout" id="logout" type="submit" value="Logout">
                             </form>
                             </ul>
                         </div>
@@ -232,140 +231,119 @@ if (isset($_SESSION['user'])) {
                                     </div>
                                     <form action="" method="post" name="addStaffForm" enctype="multipart/form-data">
                                         <input type="file" accept="image/jpeg, image/png, image/jpg" id="addStaffinput-file" name="profileAdd" class="visually-hidden mb-0">
-                                    </form>
                                 </div>
                             </div>
 
 
-                           <form class="row needs-validation"  style="margin-left: 30px; width: 80%; height: 65%; "  novalidate >
+
+                            <div class="row" style="margin-left: 30px; width: 80%; height: 65%;">
                                 <div class="col-md-5 firstname">
                                     <label for="addStaffFname" class="form-label mb-0" style="font-size: 12px;">FIRST NAME</label>
                                     <input type="text" class="form-control" placeholder="Juan" id="addStaffFname" name="addStaffFname" style="font-size: 10px; text-transform: capitalize !important;" required>
-                                    <div class="invalid-feedback" style="font-size: 8px">
-                                        Not a valid first name!
-                                    </div>
-                                </div>
 
+                                </div>
                                 <div class="col-md-5">
                                     <label for="addStaffLname" class="form-label mb-0" style="font-size: 12px;">LAST NAME</label>
                                     <input type="text" class="form-control" placeholder="Dela Cruz" id="addStaffLname" name="addStaffLname"  style="font-size: 10px; text-transform: capitalize !important;" required>
-                                    <div class="invalid-feedback" style="font-size: 8px">
-                                        Not a valid last name!
+
+                                </div>
+                                <div class="col-md-2">
+                                    <label for="addStaffInitial" class="form-label mb-0" style="font-size: 12px;">M.I.</label>
+                                    <input type="text" class="form-control mb-0" placeholder="I" id="addStaffInitial" name="addStaffInitial"  style="font-size: 10px; text-transform: capitalize !important;" required>
+                                    <div class="invalid-feedback">
+                                        Please type the middle initial .
                                     </div>
                                 </div>
 
-                               <div class="col-md-2">
-                                   <label for="addStaffInitial" class="form-label mb-0" style="font-size: 12px;">M.I.</label>
-                                   <input type="text" class="form-control mb-0" placeholder="I" id="addStaffInitial" pattern="[A-Za-z]{1}" name="addStaffInitial" style="font-size: 10px; text-transform: capitalize !important;" required>
-                                   <div class="invalid-feedback" style="font-size: 8px">
-                                       Not a valid M.I.!
-                                   </div>
-                               </div>
-
-
-                               <div class="col-md-3 mt-2">
+                                <div class="col-md-3 mt-2">
                                     <label for="addStaffID" class="form-label mb-0" style="font-size: 12px;">STAFF ID</label>
-                                    <input type="text" class="form-control" id="addStaffID" name="addStaffID"  placeholder="2021-00565" pattern="[0-9]{4}-[0-9]{5}" style="font-size: 10px;" required>
-                                    <div class="invalid-feedback" style="font-size: 8px">
-                                        Not a valid student ID!
-                                    </div>
+                                    <input type="text" class="form-control" id="addStaffID" name="addStaffID"  placeholder="2021-00565" style="font-size: 10px;" required>
+
                                 </div>
 
                                 <div class="col-md-5 mt-2">
-                                    <label for="addStaffPemail" class="form-label mb-0" style="font-size: 12px;">PERSONAL EMAIL ADDRESS</label>
+                                    <label for="addStaffPemail" class="form-label mb-0" style="font-size: 12px;">EMAIL ADDRESS</label>
                                     <div class="input-group has-validation">
-                                        <input type="email" class="form-control " id="addStaffPemail" name="addStaffPemail"  aria-describedby="inputGroupPrepend"  placeholder="juan001@gmail.com" style="font-size: 10px;" required>
-                                        <div class="invalid-feedback" style="font-size: 8px">
-                                            Not a valid email address!
-                                        </div>
+                                        <input type="text" class="form-control " id="addStaffPemail" name="addStaffPemail"  aria-describedby="inputGroupPrepend" placeholder="@usep.edu.ph" style="font-size: 10px;" required>
+
                                     </div>
                                 </div>
 
                                 <div class="col-md-4 mt-2">
                                     <label for="addStaffPnumber" class="form-label mb-0" style="font-size: 12px;">PHONE NUMBER</label>
-                                    <input type="text" class="form-control" id="addStaffPnumber" name="addStaffPnumber"
-                                           pattern="[0-9]{11}" placeholder="091234567890" style="font-size: 10px;" required>
-                                    <div class="invalid-feedback"  style="font-size: 8px">
-                                        Not a valid phone number with 11 digits!
-                                    </div>
-                                </div>
+                                    <input type="text" class="form-control" id="addStaffPnumber" name="addStaffPnumber"  placeholder="091234567890" style="font-size: 10px;" required>
 
+                                </div>
                                 <div class="col-md-4 mt-2">
                                     <label for="addStaffTnumber" class="form-label mb-0" style="font-size: 12px;">TELEPHONE NUMBER</label>
-                                    <input type="text" class="form-control" id="addStaffTnumber" name="addStaffTnumber"  placeholder="291-3281-919" pattern="[0-9]{3}-[0-9]{4}-[0-9]{3}" style="font-size: 10px;" required>
-                                    <div class="invalid-feedback" style="font-size: 8px">
-                                        Not a valid tel number with 10 digits!
-                                    </div>
+                                    <input type="text" class="form-control" id="addStaffTnumber" name="addStaffTnumber"  placeholder="291-3281-919" style="font-size: 10px;" required>
+
                                 </div>
 
 
-                                <div class="col-md-5 mt-2">
+
+
+                                <div class="col-md-8 mt-2">
                                     <label for="addStaffAddress" class="form-label mb-0" style="font-size: 12px; ">ADDRESS</label>
-                                    <input type="text" class="form-control" id="addStaffAddress" name="addStaffAddress"  style="font-size: 10px; text-transform: capitalize !important;" placeholder="Purok, Baranggay, City/Municipality, Province" required>
-                                    <div class="invalid-feedback" style="font-size: 8px">
-                                        Not a valid address!
-                                    </div>
-                                </div>
+                                    <input type="text" class="form-control" id="addStaffAddress" name="addStaffAddress"  style="font-size: 10px; text-transform: capitalize !important;" placeholder="Purok, Baranggay, City/Municipality, Province">
 
-                                <div class="col-md-3 mt-2">
+                                </div>
+                                <div class="col-md-4 mt-2">
                                     <label for="addStaffRole" class="form-label mb-0" style="font-size: 12px; ">ROLE</label>
-                                    <select class="form-select" id="addStaffRole" style="font-size: 10px; " required>
-                                        <option value="" disabled selected>Select Role</option>
-                                        <option value="Staff">Staff</option>
+                                    <input type="text" class="form-control" id="addStaffRole" name="addStaffRole" style="font-size: 10px; text-transform: capitalize !important;" placeholder="Librarian">
 
-                                    </select>
                                 </div>
 
-
+                            </div>
+                            <div class="row">
                                 <div class="col col-md-5 mt-3">
                                     <label for="addStaffOemail" class="form-label mb-0" style="font-size: 12px;">EMAIL ADDRESS</label>
                                     <div class="input-group has-validation">
-                                        <input type="email" class="form-control " id="addStaffOemail" name="addStaffOemail" aria-describedby="inputGroupPrepend" placeholder="juan001@usep.edu.ph" style="font-size: 10px;" required>
-                                        <div class="invalid-feedback"  style="font-size: 8px;">
-                                            Not a valid email address!
-                                        </div>
+                                        <input type="text" class="form-control " id="addStaffOemail" name="addStaffOemail" aria-describedby="inputGroupPrepend" placeholder="@usep.edu.ph" style="font-size: 10px;" required>
+
                                     </div>
                                 </div>
 
                                 <div class=" col col-md-3 mt-3">
                                     <label for="addStaffUsername" class="form-label mb-0" style="font-size: 12px;">USERNAME</label>
                                     <div class="input-group has-validation">
-                                        <input type="text" class="form-control" id="addStaffUsername" name="addUsername" aria-describedby="inputGroupPrepend" placeholder="juandlz" style="font-size: 10px;" required minlength="6">
-                                        <div class="invalid-feedback" style="font-size: 8px">
-                                            Not valid, at least 6 characters!
-                                        </div>
+                                        <input type="text" class="form-control" id="addStaffUsername" name="addUsername" aria-describedby="inputGroupPrepend" placeholder="juandlz" style="font-size: 10px;" required>
+
                                     </div>
                                 </div>
 
                                 <div class="col col-md-4 mt-3">
                                     <label for="psw" class="form-label mb-0" style="font-size: 12px;">PASSWORD</label>
                                     <div class="input-group has-validation">
-                                        <input type="password" class="form-control" placeholder="Password_123" id="psw" name="psw" style="font-size: 10px;" aria-describedby="inputGroupPrepend"
-                                               pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@_]).{8,}"
-                                               title="Must contain at least one number, one uppercase and lowercase letter, one symbol, and at least 8 or more characters"
-                                               required>
-                                        <div class="invalid-feedback" id="passwordRequirements" style="font-size: 8px; display: none;">
-                                            Not a valid password!
-                                        </div>
+                                        <input type="password" class="form-control" placeholder="Password123." id="psw" name="psw" style="font-size: 10px;" aria-describedby="inputGroupPrepend" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" required>
+
                                     </div>
                                 </div>
 
+                        </div>
 
-                               <div class=" wishlist-container  mt-4 mb-0 " style=" display: flex; justify-content: flex-end; width: 664px; ">
-                                   <button style="height: 25px; width: 100px" type="button" class="clear shadow " onclick="clearPhoto()">CLEAR</button>
-                                   <button style="height: 25px; width: 100px" type="submit" class="add shadow" onclick="addStaff()">ADD</button>
-                               </div>
+                        <div class=" wishlist-container  mt-4 mb-0 " style=" display: flex; justify-content: flex-end; width: 664px; ">
+                            <button style="height: 25px; width: 100px; border-radius: 5px; border: 1px solid #800000; background: #FFFEFB; color: #740000; box-shadow: 0px 4px 7px 0px rgba(0, 0, 0, 0.25); margin-right: 10px; " type="button" class="clear shadow " onclick="clearPhoto()">CLEAR</button>
+                            <button style="height: 25px; width: 100px; border-radius: 5px; border: 1px solid #800000; background: #740000; color: white ; box-shadow: 0px 4px 7px 0px rgba(0, 0, 0, 0.25);" type="button" class="add shadow" onclick="addStaff()">ADD</button>
+                        </div>
                         </form>
                     </div>
                 </div>
             </div>
         </div>
+
     </div>
+    </div>
+<<<<<<< HEAD
 </div>
 
 
     <!-- Edit Staff Modal -->
     <div class="modal fade" id="editStaffModal" tabindex="-1" role="dialog" aria-labelledby="editStaffModalLabel" aria-hidden="true">
+=======
+    <!-- Edit Student Modal -->
+    <div class="modal fade" id="editStudentModal" tabindex="-1" role="dialog" aria-labelledby="editStudentModalLabel" aria-hidden="true">
+>>>>>>> parent of db722d8 (odify input validation SA-AddStaff)
             <div class="modal-dialog  modal-dialog-centered" role="document" style="max-width: 800px;">
                 <div class="modal-content">
                     <div class="modal-header" style="height: 15px;">
@@ -379,127 +357,110 @@ if (isset($_SESSION['user'])) {
                     </div>
                     <div class="modal-body">
                         <div class="container-fluid " style="padding-left: 40px ; padding-right: 40px">
-                            <div class="row">
+                            <form  id="editStudentForm" class="row" method="post" enctype="multipart/form-data">
+
                                 <!-- uploading image -->
                                 <div style="width: 100px; height: 100px; overflow: hidden; border: 1px solid maroon; border-radius: 50%; margin: 0 auto; margin-top:40px;">
                                     <label for="EditprofilePictureInput" class="AddImageCon" style="display: flex; justify-content: center; align-items: center; width: 100%; height: 100%;">
 
                                         <img src="" width="220px" height="100px" id="EditProfilePic" style="display: block;">
                                     </label>
+<<<<<<< HEAD
 
                                     <form  id="editStudentForm" method="post" enctype="multipart/form-data">
                                         <input type="file" accept="image/jpeg, image/png, image/jpg" id="profilePictureInput" class="visually-hidden mb-0" accept="image/*" onchange="updateProfilePicture(event)">
                                     </form>
 
+=======
+                                    <input type="file" accept="image/jpeg, image/png, image/jpg" id="profilePictureInput" class="visually-hidden mb-0" accept="image/*" onchange="updateProfilePicture(event)">
+>>>>>>> parent of db722d8 (odify input validation SA-AddStaff)
                                 </div>
 
-
-                            <form class="row needs-validation"  style="margin-left: 30px; width: 80%; height: 65%; ">
+                                <div class="row" style="margin-left: 30px; width: 80%; height: 65%;">
                                     <div class="col-md-5 firstname">
                                         <label for="EditStaffFname" class="form-label mb-0" style="font-size: 12px;">FIRST NAME</label>
                                         <input type="text" class="form-control" placeholder="Juan" id="EditStaffFname" name="EditStaffFname" style="font-size: 10px; text-transform: capitalize !important;" required>
-                                        <div class="invalid-feedback" style="font-size: 8px">
-                                            Not a valid first name!
-                                        </div>
+
                                     </div>
                                     <div class="col-md-5">
                                         <label for="EditStaffLname" class="form-label mb-0" style="font-size: 12px;">LAST NAME</label>
                                         <input type="text" class="form-control" placeholder="Dela Cruz" id="EditStaffLname" name="EditStaffLname"  style="font-size: 10px; text-transform: capitalize !important;" required>
-                                        <div class="invalid-feedback" style="font-size: 8px">
-                                            Not a valid last name!
-                                        </div>
+
                                     </div>
                                     <div class="col-md-2">
                                         <label for="EditStaffInitial" class="form-label mb-0" style="font-size: 12px;">M.I.</label>
-                                        <input type="text" class="form-control mb-0" placeholder="I" id="EditStaffInitial" pattern="[A-Za-z]{1}" name="EditStaffInitial"  style="font-size: 10px; text-transform: capitalize !important;" required>
-                                        <div class="invalid-feedback" style="font-size: 8px">
-                                            Not a valid M.I.!
+                                        <input type="text" class="form-control mb-0" placeholder="I" id="EditStaffInitial" name="EditStaffInitial"  style="font-size: 10px; text-transform: capitalize !important;" required>
+                                        <div class="invalid-feedback">
+                                            Please type the middle initial .
                                         </div>
                                     </div>
 
                                     <div class="col-md-3 mt-2">
                                         <label for="EditStaffID" class="form-label mb-0" style="font-size: 12px;">STAFF ID</label>
-                                        <input type="text" class="form-control" id="EditStaffID" name="EditStaffID"  placeholder="2021-00565" pattern="[0-9]{4}-[0-9]{5}" style="font-size: 10px;" required>
-                                        <div class="invalid-feedback" style="font-size: 8px">
-                                            Not a valid student ID!
-                                        </div>
+                                        <input type="text" class="form-control" id="EditStaffID" name="EditStaffID"  placeholder="2021-00565" style="font-size: 10px;" required>
+
                                     </div>
 
                                     <div class="col-md-5 mt-2">
-                                        <label for="EditStaffPemail" class="form-label mb-0" style="font-size: 12px;">PERSONAL EMAIL ADDRESS</label>
+                                        <label for="EditStaffPemail" class="form-label mb-0" style="font-size: 12px;">EMAIL ADDRESS</label>
                                         <div class="input-group has-validation">
-                                            <input type="email" class="form-control " id="EditStaffPemail" name="EditStaffPemail"  aria-describedby="inputGroupPrepend" placeholder="juancruz@gmail.com" style="font-size: 10px;" required>
-                                            <div class="invalid-feedback" style="font-size: 8px">
-                                                Not a valid email address!
-                                            </div>
+                                            <input type="text" class="form-control " id="EditStaffPemail" name="EditStaffPemail"  aria-describedby="inputGroupPrepend" placeholder="@usep.edu.ph" style="font-size: 10px;" required>
+
                                         </div>
                                     </div>
 
                                     <div class="col-md-4 mt-2">
                                         <label for="EditStaffPnumber" class="form-label mb-0" style="font-size: 12px;">PHONE NUMBER</label>
-                                        <input type="text" class="form-control" id="EditStaffPnumber" name="EditStaffPnumber"  placeholder="091234567890" pattern="[0-9]{11}" style="font-size: 10px;" required>
-                                        <div class="invalid-feedback" style="font-size: 8px">
-                                            Not a valid phone number with 11 digits!
-                                        </div>
-                                    </div>
+                                        <input type="text" class="form-control" id="EditStaffPnumber" name="EditStaffPnumber"  placeholder="091234567890" style="font-size: 10px;" required>
 
+                                    </div>
                                     <div class="col-md-4 mt-2">
                                         <label for="EditStaffTnumber" class="form-label mb-0" style="font-size: 12px;">TELEPHONE NUMBER</label>
-                                        <input type="text" class="form-control" id="EditStaffTnumber" name="EditStaffTnumber"  placeholder="291-3281-919" pattern="[0-9]{3}-[0-9]{4}-[0-9]{3}" style="font-size: 10px;" required>
-                                        <div class="invalid-feedback" style="font-size: 8px">
-                                            Not a valid tel number with 10 digits!
-                                        </div>
+                                        <input type="text" class="form-control" id="EditStaffTnumber" name="EditStaffTnumber"  placeholder="291-3281-919" style="font-size: 10px;" required>
+
                                     </div>
 
 
-                                    <div class="col-md-5 mt-2">
+
+
+                                    <div class="col-md-8 mt-2">
                                         <label for="EditStaffAddress" class="form-label mb-0" style="font-size: 12px; ">ADDRESS</label>
                                         <input type="text" class="form-control" id="EditStaffAddress" name="EditStaffAddress"  style="font-size: 10px; text-transform: capitalize !important;" placeholder="Purok, Baranggay, City/Municipality, Province">
-                                        <div class="invalid-feedback" style="font-size: 8px">
-                                            Not a valid address!
-                                        </div>
+
                                     </div>
-                                    <div class="col-md-3 mt-2">
+                                    <div class="col-md-4 mt-2">
                                         <label for="EditStaffRole" class="form-label mb-0" style="font-size: 12px; ">ROLE</label>
-                                        <select class="form-select" id="EditStaffRole" style="font-size: 10px; " required>
-                                            <option value="" disabled selected>Select Role</option>
-                                            <option value="Staff">Staff</option>
-                                        </select>
+                                        <input type="text" class="form-control" id="EditStaffRole" name="EditStaffRole" style="font-size: 10px; text-transform: capitalize !important;" placeholder="Librarian">
+
                                     </div>
 
-
+                                </div>
+                                <div class="row">
                                     <div class="col col-md-5 mt-3">
                                         <label for="EditStaffOemail" class="form-label mb-0" style="font-size: 12px;">EMAIL ADDRESS</label>
                                         <div class="input-group has-validation">
-                                            <input type="email" class="form-control " id="EditStaffOemail" name="EditStaffOemail" aria-describedby="inputGroupPrepend" placeholder="@usep.edu.ph" style="font-size: 10px;" readonly>
-                                            <div class="invalid-feedback"  style="font-size: 8px;">
-                                                Not a valid email address!
-                                            </div>
+                                            <input type="text" class="form-control " id="EditStaffOemail" name="EditStaffOemail" aria-describedby="inputGroupPrepend" placeholder="@usep.edu.ph" style="font-size: 10px;" required>
+
                                         </div>
                                     </div>
 
                                     <div class=" col col-md-3 mt-3">
                                         <label for="EditStaffUsername" class="form-label mb-0" style="font-size: 12px;">USERNAME</label>
                                         <div class="input-group has-validation">
-                                            <input type="text" class="form-control" id="EditStaffUsername" name="EditUsername" aria-describedby="inputGroupPrepend" placeholder="juandlz" style="font-size: 10px;" readonly>
-                                            <div class="invalid-feedback" style="font-size: 8px">
-                                                Not a valid username!
-                                            </div>
+                                            <input type="text" class="form-control" id="EditStaffUsername" name="EditUsername" aria-describedby="inputGroupPrepend" placeholder="juandlz" style="font-size: 10px;" required>
+
                                         </div>
                                     </div>
 
                                     <div class="col col-md-4 mt-3">
                                         <label for="Editpsw" class="form-label mb-0" style="font-size: 12px;">PASSWORD</label>
                                         <div class="input-group has-validation">
-                                            <input type="password" class="form-control" placeholder="Password_456" id="Editpsw" name="Editpsw" style="font-size: 10px;" aria-describedby="inputGroupPrepend"
-                                                   pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
-                                                   title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters"
-                                                   readonly >
-                                            <div class="invalid-feedback" id="passwordRequirements" style="font-size: 8px; display: none;">
-                                                Not a valid password!
-                                            </div>
+                                            <input type="password" class="form-control" placeholder="Password123." id="Editpsw" name="Editpsw" style="font-size: 10px;" aria-describedby="inputGroupPrepend" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" required>
+
                                         </div>
                                     </div>
+
+                                </div>
 
 
                             <div class=" wishlist-container  mt-4 mb-0 " style=" display: flex; justify-content: flex-end; width: 664px; ">
@@ -511,19 +472,14 @@ if (isset($_SESSION['user'])) {
                     </div>
                 </div>
             </div>
-    </div>
- </div>
 
-
+        </div>
 
     <script src="../node_modules/jquery/dist/jquery.min.js"></script>
     <script src="../node_modules/sweetalert2/dist/sweetalert2.all.min.js"></script>
     <script src="../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="../node_modules/swiper/swiper-bundle.min.js"></script>
     <script src="../node_modules/sweetalert2/dist/sweetalert2.all.js"></script>
-
-
-
     <script>
         const listItems = document.querySelectorAll('li');
         listItems.forEach((listItem) => {
@@ -546,7 +502,6 @@ if (isset($_SESSION['user'])) {
             });
         });
     </script>
-
     <script>
         $(document).ready(function () {
             $('.editStudentProfile').click(function (e) {
@@ -758,12 +713,53 @@ if (isset($_SESSION['user'])) {
     </script>
 
 
+<<<<<<< HEAD
+=======
+        // Function to handle adding a student
+        function addStudent() {
+            // Add your logic here
+            $("#editStudentModal").modal("hide");
+        }
+
+        // Function to clear the displayed photo
+        function clearPhoto() {
+            $('#ProfilePic').attr('src', '../icons/user.png');
+            $(".AddImageCon i").show();
+        }
+
+        // Function to update the profile picture
+        function updateProfilePicture(event) {
+            const input = event.target;
+            const profilePic = document.getElementById('ProfilePic');
+            const icon = $(".AddImageCon i");
+
+            if (input.files && input.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    profilePic.src = e.target.result;
+
+                    // Hide the icon when a new image is selected
+                    icon.hide();
+                };
+                reader.readAsDataURL(input.files[0]);
+            } else {
+                // If no new file is selected, use the default 'user.png'
+                profilePic.src = '../img/user.png';
+
+                // Hide the icon when no new image is selected
+                icon.hide();
+            }
+        }
+
+
+    </script>
+>>>>>>> parent of db722d8 (odify input validation SA-AddStaff)
     <script src="../js/add_staff.js"></script>
     <script src="../js/update_staff.js"></script>
     <script src="../js/delete_staff.js"></script>
     <script src="../js/suspend_staff.js"></script>
-    <script src="../js/logout_script.js"></script>
-    <script src="../js/student.js"></script>
+
 
 </body>
+
 </html>

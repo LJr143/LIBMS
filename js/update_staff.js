@@ -67,8 +67,8 @@ function updateStaff() {
     });
 }
 
-
 // Attach the updateStudent function to the Save button click event
+<<<<<<< HEAD
 
 $('#saveButton').click(function (event) {
     // Prevent the default form submission
@@ -90,3 +90,10 @@ $('#saveButton').click(function (event) {
     }
 });
 
+=======
+$('#saveButton').click(function() {
+    // Disable the button to prevent multiple clicks
+    $(this).prop('disabled', true);
+    updateStudent();
+});
+>>>>>>> parent of db722d8 (odify input validation SA-AddStaff)
