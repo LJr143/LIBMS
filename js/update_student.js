@@ -4,18 +4,19 @@ function updateStudent() {
     if (profileFileInput.files.length > 0) {
         formData.append('profile', profileFileInput.files[0]);
     }
-    formData.append('first_name', $('#EditStudentFname').val());
-    formData.append('last_name', $('#EditStudentLname').val());
-    formData.append('mi', $('#EditStudentInitial').val());
-    formData.append('StudentID', $('#EditStudentID').val());
-    formData.append('officeEmail', $('#EditStudentOemail').val());
-    formData.append('PhoneNumber', $('#EditStudentPnumber').val());
-    formData.append('Telephone', $('#EditStudentTnumber').val());
-    formData.append('Address', $('#EditStudentAddress').val());
-    formData.append('role', $('#EditStudentRole').val());
-    formData.append('personalEmail', $('#EditStudentPemail').val());
-    formData.append('username', $('#EditStudentUsername').val());
-    formData.append('password', $('#Editpsw').val());
+    formData.append('first_name', $('#editStudentFname').val());
+    formData.append('last_name', $('#editStudentLname').val());
+    formData.append('mi', $('#editStudentInitial').val());
+    formData.append('studentID', $('#editStudentID').val());
+    formData.append('personalEmail', $('#editStudentEmail').val());
+    formData.append('phoneNumber', $('#editStudentNumber').val());
+    formData.append('address', $('#editStudentAddress').val());
+    formData.append('year', $('#editStudentYear').val());
+    formData.append('course', $('#editStudentCourse').val());
+    formData.append('major', $('#editStudentMajor').val());
+    formData.append('usepEmail', $('#editStudentUsepEmail').val());
+    formData.append('username', $('#editStudentUsername').val());
+    formData.append('password', $('#editpsw').val());
 
     for (var pair of formData.entries()) {
         console.log(pair[0] + ', ' + pair[1]);

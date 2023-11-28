@@ -24,7 +24,7 @@
 
 
         // Get the password input element
-        var passwordInput = document.getElementById("psw");
+        var passwordInput = document.getElementById("addStudentPassword");
 
         // Add an event listener to the input to check the password requirements
         passwordInput.addEventListener("input", function () {

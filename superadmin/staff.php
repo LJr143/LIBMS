@@ -208,7 +208,6 @@ if (isset($_SESSION['user'])) {
         <div class="modal-dialog  modal-dialog-centered" role="document" style="max-width: 800px;">
             <div class="modal-content">
                 <div class="modal-header" style="height: 15px;">
-
                     <p class="modal-title" id="borrowModalLabel " style="font-size: 12px; color: #800000; font-weight: 600;">
                         <i class="bi bi-pencil-square ml-3 m-3" style="font-size: 16px; color: #800000;"></i>ADD STAFF
                     </p>
@@ -219,7 +218,6 @@ if (isset($_SESSION['user'])) {
                 <div class="modal-body">
                     <div class="container-fluid " style="padding-left: 40px ; padding-right: 40px">
                         <div class="row">
-
                             <!-- uploading image -->
                             <!-- add new photo -->
                             <div style="width: 100px; height:220px;">
@@ -227,25 +225,19 @@ if (isset($_SESSION['user'])) {
                                     <div class="AddImageContainer" style="margin-top: 60px; display: flex; justify-content: center; border: 1px solid maroon; width: 100px; height: 100px">
                                         <i class="bi bi-plus-circle" title="Add Image" style="color: grey; "></i>
                                         <img src="" width="110" height="120" id="Profile-Pic" style="margin-top: -10px;">
-
                                     </div>
                                     <form action="" method="post" name="addStaffForm" enctype="multipart/form-data">
                                         <input type="file" accept="image/jpeg, image/png, image/jpg" id="addStaffinput-file" name="profileAdd" class="visually-hidden mb-0">
                                 </div>
                             </div>
-
-
-
                             <div class="row" style="margin-left: 30px; width: 80%; height: 65%;">
                                 <div class="col-md-5 firstname">
                                     <label for="addStaffFname" class="form-label mb-0" style="font-size: 12px;">FIRST NAME</label>
                                     <input type="text" class="form-control" placeholder="Juan" id="addStaffFname" name="addStaffFname" style="font-size: 10px; text-transform: capitalize !important;" required>
-
                                 </div>
                                 <div class="col-md-5">
                                     <label for="addStaffLname" class="form-label mb-0" style="font-size: 12px;">LAST NAME</label>
                                     <input type="text" class="form-control" placeholder="Dela Cruz" id="addStaffLname" name="addStaffLname"  style="font-size: 10px; text-transform: capitalize !important;" required>
-
                                 </div>
                                 <div class="col-md-2">
                                     <label for="addStaffInitial" class="form-label mb-0" style="font-size: 12px;">M.I.</label>
@@ -254,89 +246,65 @@ if (isset($_SESSION['user'])) {
                                         Please type the middle initial .
                                     </div>
                                 </div>
-
                                 <div class="col-md-3 mt-2">
                                     <label for="addStaffID" class="form-label mb-0" style="font-size: 12px;">STAFF ID</label>
                                     <input type="text" class="form-control" id="addStaffID" name="addStaffID"  placeholder="2021-00565" style="font-size: 10px;" required>
-
                                 </div>
-
                                 <div class="col-md-5 mt-2">
                                     <label for="addStaffPemail" class="form-label mb-0" style="font-size: 12px;">EMAIL ADDRESS</label>
                                     <div class="input-group has-validation">
                                         <input type="text" class="form-control " id="addStaffPemail" name="addStaffPemail"  aria-describedby="inputGroupPrepend" placeholder="@usep.edu.ph" style="font-size: 10px;" required>
-
                                     </div>
                                 </div>
-
                                 <div class="col-md-4 mt-2">
                                     <label for="addStaffPnumber" class="form-label mb-0" style="font-size: 12px;">PHONE NUMBER</label>
                                     <input type="text" class="form-control" id="addStaffPnumber" name="addStaffPnumber"  placeholder="091234567890" style="font-size: 10px;" required>
-
                                 </div>
                                 <div class="col-md-4 mt-2">
                                     <label for="addStaffTnumber" class="form-label mb-0" style="font-size: 12px;">TELEPHONE NUMBER</label>
                                     <input type="text" class="form-control" id="addStaffTnumber" name="addStaffTnumber"  placeholder="291-3281-919" style="font-size: 10px;" required>
-
                                 </div>
-
-
-
-
                                 <div class="col-md-8 mt-2">
                                     <label for="addStaffAddress" class="form-label mb-0" style="font-size: 12px; ">ADDRESS</label>
                                     <input type="text" class="form-control" id="addStaffAddress" name="addStaffAddress"  style="font-size: 10px; text-transform: capitalize !important;" placeholder="Purok, Baranggay, City/Municipality, Province">
-
                                 </div>
                                 <div class="col-md-4 mt-2">
                                     <label for="addStaffRole" class="form-label mb-0" style="font-size: 12px; ">ROLE</label>
                                     <input type="text" class="form-control" id="addStaffRole" name="addStaffRole" style="font-size: 10px; text-transform: capitalize !important;" placeholder="Librarian">
-
                                 </div>
-
                             </div>
                             <div class="row">
                                 <div class="col col-md-5 mt-3">
                                     <label for="addStaffOemail" class="form-label mb-0" style="font-size: 12px;">EMAIL ADDRESS</label>
                                     <div class="input-group has-validation">
                                         <input type="text" class="form-control " id="addStaffOemail" name="addStaffOemail" aria-describedby="inputGroupPrepend" placeholder="@usep.edu.ph" style="font-size: 10px;" required>
-
                                     </div>
                                 </div>
-
                                 <div class=" col col-md-3 mt-3">
                                     <label for="addStaffUsername" class="form-label mb-0" style="font-size: 12px;">USERNAME</label>
                                     <div class="input-group has-validation">
                                         <input type="text" class="form-control" id="addStaffUsername" name="addUsername" aria-describedby="inputGroupPrepend" placeholder="juandlz" style="font-size: 10px;" required>
-
                                     </div>
                                 </div>
-
                                 <div class="col col-md-4 mt-3">
                                     <label for="psw" class="form-label mb-0" style="font-size: 12px;">PASSWORD</label>
                                     <div class="input-group has-validation">
                                         <input type="password" class="form-control" placeholder="Password123." id="psw" name="psw" style="font-size: 10px;" aria-describedby="inputGroupPrepend" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" required>
-
                                     </div>
                                 </div>
-
+                            </div>
+                            <div class=" wishlist-container  mt-4 mb-0 " style=" display: flex; justify-content: flex-end; width: 664px; ">
+                                <button style="height: 25px; width: 100px; border-radius: 5px; border: 1px solid #800000; background: #FFFEFB; color: #740000; box-shadow: 0px 4px 7px 0px rgba(0, 0, 0, 0.25); margin-right: 10px; " type="button" class="clear shadow " onclick="clearPhoto()">CLEAR</button>
+                                <button style="height: 25px; width: 100px; border-radius: 5px; border: 1px solid #800000; background: #740000; color: white ; box-shadow: 0px 4px 7px 0px rgba(0, 0, 0, 0.25);" type="button" class="add shadow" onclick="addStaff()">ADD</button>
+                            </div>
+                            </form>
                         </div>
-
-                        <div class=" wishlist-container  mt-4 mb-0 " style=" display: flex; justify-content: flex-end; width: 664px; ">
-                            <button style="height: 25px; width: 100px; border-radius: 5px; border: 1px solid #800000; background: #FFFEFB; color: #740000; box-shadow: 0px 4px 7px 0px rgba(0, 0, 0, 0.25); margin-right: 10px; " type="button" class="clear shadow " onclick="clearPhoto()">CLEAR</button>
-                            <button style="height: 25px; width: 100px; border-radius: 5px; border: 1px solid #800000; background: #740000; color: white ; box-shadow: 0px 4px 7px 0px rgba(0, 0, 0, 0.25);" type="button" class="add shadow" onclick="addStaff()">ADD</button>
-                        </div>
-                        </form>
                     </div>
                 </div>
             </div>
+
         </div>
-
     </div>
-    </div>
-
-
-
     <!-- Edit Staff Modal -->
     <div class="modal fade" id="editStaffModal" tabindex="-1" role="dialog" aria-labelledby="editStaffModalLabel" aria-hidden="true">
 

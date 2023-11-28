@@ -1,22 +1,23 @@
 
 function addStudent() {
     var formData = new FormData();
-    var profileFileInput = $('#addStaffinput-file')[0];
+    var profileFileInput = $('#addStudentinput-file')[0];
     if (profileFileInput.files.length > 0) {
         formData.append('profile', profileFileInput.files[0]);
     }
-    formData.append('first_name', $('#addStaffFname').val());
-    formData.append('last_name', $('#addStaffLname').val());
-    formData.append('mi', $('#addStaffInitial').val());
-    formData.append('staffID', $('#addStaffID').val());
-    formData.append('officeEmail', $('#addStaffOemail').val());
-    formData.append('PhoneNumber', $('#addStaffPnumber').val());
-    formData.append('Telephone', $('#addStaffTnumber').val());
-    formData.append('address', $('#addStaffAddress').val());
-    formData.append('role', $('#addStaffRole').val());
-    formData.append('personalEmail', $('#addStaffPemail').val());
-    formData.append('username', $('#addStaffUsername').val());
-    formData.append('password', $('#psw').val());
+    formData.append('first_name', $('#addStudentFirstName').val());
+    formData.append('last_name', $('#addStudentLastName').val());
+    formData.append('mi', $('#addStudentMI').val());
+    formData.append('studentID', $('#addStudentStudID').val());
+    formData.append('personalEmail', $('#addStudentPersonalEmail').val());
+    formData.append('phoneNumber', $('#addStudentPhoneNumber').val());
+    formData.append('address', $('#addStudentAddress').val());
+    formData.append('year', $('#addStudentSectionYear').val());
+    formData.append('course', $('#addStudentCourse').val());
+    formData.append('major', $('#addStudentMajor').val());
+    formData.append('usepEmail', $('#addStudentUsepEmail').val());
+    formData.append('username', $('#addStudentUsername').val());
+    formData.append('password', $('#addStudentPassword').val());
 
     for (var pair of formData.entries()) {
         console.log(pair[0] + ', ' + pair[1]);
@@ -32,7 +33,7 @@ function addStudent() {
             try {
                 var result = typeof response === 'string' ? JSON.parse(response) : response;
                 if (result.success) {
-                    $("#staffModal").modal("hide");
+                    $("#StudentModal").modal("hide");
                     Swal.fire({
                         title: 'ADDED!',
                         text: 'SUCCESSFULLY ADDED!',
@@ -54,7 +55,7 @@ function addStudent() {
                 } else {
                     Swal.fire({
                         title: 'Error!',
-                        text: 'Failed to delete the student. Please try again.',
+                        text: 'Failed to Add the student. Please try again.',
                         icon: 'error'
                     });
                 }

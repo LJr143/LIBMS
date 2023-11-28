@@ -124,7 +124,7 @@ if (isset($_SESSION['user'])) {
 
                         <form action="" method="post" style="margin-left: 20px;">
 
-                            <label for="logout"><img src="../icons/plug.png" style="width: 20px; " alt=""></label>
+                            <label for="logoutButton"><img src="../icons/plug.png" style="width: 20px; " alt=""></label>
                             <input id="logoutButton" style="font-size: 12px; color: white; background: none; border: none;" name="logout" type="submit" value="Logout">
                         </form>
                         </ul>
@@ -164,7 +164,7 @@ if (isset($_SESSION['user'])) {
                                 <th><input type="checkbox" id="selectAllCheckbox" style="position: absolute; margin: 2px 0px 0px -20px;">Select All</th>
                                 <th></th>
                                 <th>Name</th>
-                                <th>Gender</th>
+<!--                                <th>Gender</th>-->
                                 <th>Course</th>
                                 <th>Year Level</th>
                                 <th>Status</th>
@@ -184,27 +184,33 @@ if (isset($_SESSION['user'])) {
                                 <td><input type="checkbox"></td>
                                 <td><img src="../img/<?= $user['img'] ?>" alt="" width="35px" style="border-radius: 60px; border: 1px solid #4d0202"></td>
                                 <td><?php echo $user['fname'].$user['lname']?></td>
-                                <td><?php echo $user['sex']?></td>
-                                <td></td>
-                                <td></td>
-                                <td><?php echo $user['status']?></td>
+                                <td><?php echo $user['course']?></td>
+                                <td><?php echo $user['year']?></td>
+                                <?php if ($user['status'] == 'Active') { ?>
+                                    <!-- Show "Suspend" button when status is Active -->
+                                    <td style="color: green;"><?php echo $user['status']?></td>
+                                <?php } else { ?>
+                                    <!-- Show "Activate" button when status is Suspended -->
+                                    <td style="color: red;"><?php echo $user['status']?></td>
+                                <?php } ?>
+
                                 <td style="padding: 1px;">
                                     <div class="btn-group" role="group">
-                                        <a href="#" class="btn custom-btn editStudentProfile" data-admin-id="<?php echo $user['user_id']; ?>">
+                                        <a href="#" class="btn custom-btn editStudentProfile" data-user-id="<?php echo $user['user_id']; ?>">
                                             <i class="bi bi-pencil-square"></i>
                                         </a>
-                                        <a href="#" class="btn custom-btn deleteStudent" data-admin-id="<?php echo $user['user_id']; ?>" data-staff-name="<?php echo $user['fname'] . " " . $user['lname']; ?>">
+                                        <a href="#" class="btn custom-btn deleteStudent" data-user-id="<?php echo $user['user_id']; ?>" data-student-name="<?php echo $user['fname'] . " " . $user['lname']; ?>">
                                             <i class="bi bi-trash"></i>
                                         </a>
 
                                         <?php if ($user['status'] == 'Active') { ?>
                                             <!-- Show "Suspend" button when status is Active -->
-                                            <a href="#" class="btn custom-btn suspend_staff" data-admin-id="<?php echo $user['user_id']; ?>" data-staff-name="<?php echo $user['fname'] . " " . $user['lname']; ?>">
+                                            <a href="#" style="color: red" class="btn custom-btn suspend_student" data-user-id="<?php echo $user['user_id']; ?>" data-student-name="<?php echo $user['fname'] . " " . $user['lname']; ?>">
                                                 <i class="bi bi-exclamation-octagon"></i>
                                             </a>
                                         <?php } else { ?>
                                             <!-- Show "Activate" button when status is Suspended -->
-                                            <a href="#" class="btn custom-btn activate_staff" data-admin-id="<?php echo $user['user_id']; ?>" data-staff-name="<?php echo $user['fname'] . " " . $user['lname']; ?>">
+                                            <a href="#"  style="color:green" class="btn custom-btn activate_student" data-user-id="<?php echo $user['user_id']; ?>" data-student-name="<?php echo $user['fname'] . " " . $user['lname']; ?>">
                                                 <i class="bi bi-check"></i>
                                             </a>
                                         <?php } ?>
@@ -242,6 +248,7 @@ if (isset($_SESSION['user'])) {
     </div>
 </div>
 
+<!-- Add Student Modal-->
 <div class="modal fade" id="studentModal" tabindex="-1" role="dialog" aria-labelledby="studentModalLabel" aria-hidden="true">
     <div class="modal-dialog  modal-dialog-centered" role="document" style="max-width: 800px;">
         <div class="modal-content">
@@ -267,29 +274,29 @@ if (isset($_SESSION['user'])) {
                                     <img src="" width="110" height="120" id="Profile-Pic" style="margin-top: -10px;">
 
                                 </div>
-                                <input type="file" accept="image/jpeg, image/png, image/jpg" id="input-file" class="visually-hidden mb-0">
+                                <input type="file" accept="image/jpeg, image/png, image/jpg" id="addStudentinput-file" class="visually-hidden mb-0">
                             </div>
                         </div>
 
 
                         <form class="row needs-validation"  style="margin-left: 30px; width: 80%; height: 65%; "  novalidate >
                             <div class="col-md-5 firstname">
-                                <label for="validationFirstName" class="form-label mb-0" style="font-size: 12px;">FIRST NAME</label>
-                                <input type="text" class="form-control" placeholder="Juan" id="validationFirstName" style="font-size: 10px; text-transform: capitalize !important;" required pattern="[A-Za-z]+" required>
+                                <label for="addStudentFirstName" class="form-label mb-0" style="font-size: 12px;">FIRST NAME</label>
+                                <input type="text" class="form-control" placeholder="Juan" id="addStudentFirstName" style="font-size: 10px; text-transform: capitalize !important;" required pattern="[A-Za-z]+" required>
                                 <div class="invalid-feedback" style="font-size: 8px">
                                     Not a valid first name!
                                 </div>
                             </div>
                             <div class="col-md-5">
-                                <label for="validationLastName" class="form-label mb-0" style="font-size: 12px;">LAST NAME</label>
-                                <input type="text" class="form-control" placeholder="Dela Cruz" id="validationLastName" style="font-size: 10px; text-transform: capitalize !important;" required pattern="[A-Za-z]+" required>
+                                <label for="addStudentLastName" class="form-label mb-0" style="font-size: 12px;">LAST NAME</label>
+                                <input type="text" class="form-control" placeholder="Dela Cruz" id="addStudentLastName" style="font-size: 10px; text-transform: capitalize !important;" required pattern="[A-Za-z]+" required>
                                 <div class="invalid-feedback" style="font-size: 8px">
                                     Not a valid last name!
                                 </div>
                             </div>
                             <div class="col-md-2">
-                                <label for="validationMI" class="form-label mb-0" style="font-size: 12px;">M.I.</label>
-                                <input type="text" class="form-control mb-0" placeholder="I" id="validationMI" style="font-size: 10px; text-transform: uppercase !important;" required pattern="[A-Za-z]{1}">
+                                <label for="addStudentMI" class="form-label mb-0" style="font-size: 12px;">M.I.</label>
+                                <input type="text" class="form-control mb-0" placeholder="I" id="addStudentMI" style="font-size: 10px; text-transform: uppercase !important;" required pattern="[A-Za-z]{1}">
                                 <div class="invalid-feedback" style="font-size:8px">
                                     Not a valid M.I. !
                                 </div>
@@ -297,8 +304,8 @@ if (isset($_SESSION['user'])) {
 
 
                             <div class="col-md-3 mt-2">
-                                <label for="validationStudID" class="form-label mb-0" style="font-size: 12px;">STUDENT ID</label>
-                                <input type="text" class="form-control" id="validationStudID" pattern="[0-9]{4}-[0-9]{5}" placeholder="2021-00565" style="font-size: 10px;" required>
+                                <label for="addStudentStudID" class="form-label mb-0" style="font-size: 12px;">STUDENT ID</label>
+                                <input type="text" class="form-control" id="addStudentStudID" pattern="[0-9]{4}-[0-9]{5}" placeholder="2021-00565" style="font-size: 10px;" required>
                                 <div class="invalid-feedback" style="font-size: 8px">
                                     Not a valid student ID!
                                 </div>
@@ -306,9 +313,9 @@ if (isset($_SESSION['user'])) {
 
 
                             <div class="col-md-5 mt-2">
-                                <label for="validationEmail" class="form-label mb-0" style="font-size: 12px;">EMAIL ADDRESS</label>
+                                <label for="addStudentPersonalEmail" class="form-label mb-0" style="font-size: 12px;">EMAIL ADDRESS</label>
                                 <div class="input-group has-validation">
-                                    <input type="email" class="form-control" id="validationEmail" aria-describedby="inputGroupPrepend" placeholder="juan001@usep.edu.ph" style="font-size: 10px;" required>
+                                    <input type="email" class="form-control" id="addStudentPersonalEmail" aria-describedby="inputGroupPrepend" placeholder="juan001@usep.edu.ph" style="font-size: 10px;" required>
                                     <div class="invalid-feedback" style="font-size: 8px">
                                         Not a valid email address!
                                     </div>
@@ -317,8 +324,8 @@ if (isset($_SESSION['user'])) {
 
 
                             <div class="col-md-4 mt-2">
-                                <label for="validationPhoneNumber" class="form-label mb-0" style="font-size: 12px;">PHONE NUMBER</label>
-                                <input type="tel" class="form-control" id="validationPhoneNumber" pattern="[0-9]{11}" placeholder="091234567890" style="font-size: 10px;" required>
+                                <label for="addStudentPhoneNumber" class="form-label mb-0" style="font-size: 12px;">PHONE NUMBER</label>
+                                <input type="tel" class="form-control" id="addStudentPhoneNumber" pattern="[0-9]{11}" placeholder="091234567890" style="font-size: 10px;" required>
                                 <div class="invalid-feedback" style="font-size: 8px">
                                     Not a valid phone number with 11 digits!
                                 </div>
@@ -326,16 +333,16 @@ if (isset($_SESSION['user'])) {
 
 
                             <div class="col-md-8 mt-2">
-                                <label for="validationAddress" class="form-label mb-0" style="font-size: 12px; ">ADDRESS</label>
-                                <input type="text" class="form-control" id="validationAddress" style="font-size: 10px; text-transform: capitalize !important;" placeholder="Purok, Baranggay, City/Municipality, Province" required>
+                                <label for="addStudentAddress" class="form-label mb-0" style="font-size: 12px; ">ADDRESS</label>
+                                <input type="text" class="form-control" id="addStudentAddress" style="font-size: 10px; text-transform: capitalize !important;" placeholder="Purok, Baranggay, City/Municipality, Province" required>
                                 <div class="invalid-feedback" style="font-size: 8px">
                                     Not a valid address!
                                 </div>
                             </div>
 
                             <div class="col-md-4 mt-2">
-                                <label for="validationSectionYear" class="form-label mb-0" style="font-size: 12px; ">SECTION/YEAR</label>
-                                <select class="form-select" id="validationSectionYear" style="font-size: 10px; text-transform: capitalize !important;" required>
+                                <label for="addStudentSectionYear" class="form-label mb-0" style="font-size: 12px; ">SECTION/YEAR</label>
+                                <select class="form-select" id="addStudentSectionYear" style="font-size: 10px; text-transform: capitalize !important;" required>
                                     <option value="" disabled selected>Select Section/Year</option>
                                     <option value="1st">1st</option>
                                     <option value="2nd">2nd</option>
@@ -349,8 +356,8 @@ if (isset($_SESSION['user'])) {
                             </div>
 
                             <div class="col-md-8 mt-2">
-                                <label for="validationCourse" class="form-label mb-0" style="font-size: 12px; ">COURSE</label>
-                                <select class="form-select" id="validationCourse" style="font-size: 10px; text-transform: uppercase !important;" required>
+                                <label for="addStudentCourse" class="form-label mb-0" style="font-size: 12px; ">COURSE</label>
+                                <select class="form-select" id="addStudentCourse" style="font-size: 10px; text-transform: uppercase !important;" required>
                                     <option value="" disabled selected>Select Course</option>
                                     <option value="BSIT">BSIT</option>
                                     <option value="BTVTED">BTVTED</option>
@@ -366,8 +373,8 @@ if (isset($_SESSION['user'])) {
                             </div>
 
                             <div class="col-md-4 mt-2">
-                                <label for="validationMajor" class="form-label mb-0" style="font-size: 12px; ">MAJOR</label>
-                                <select class="form-select" id="validationMajor" style="font-size: 10px; " required>
+                                <label for="addStudentMajor" class="form-label mb-0" style="font-size: 12px; ">MAJOR</label>
+                                <select class="form-select" id="addStudentMajor" style="font-size: 10px; " required>
                                     <option value="" disabled selected>Select Major</option>
                                     <option value="Information Security">Information Security</option>
                                     <option value="English">English</option>
@@ -381,9 +388,9 @@ if (isset($_SESSION['user'])) {
 
 
                             <div class="col-md-5 mt-3">
-                                <label for="validationEmail" class="form-label mb-0" style="font-size: 12px;">EMAIL ADDRESS</label>
+                                <label for="addStudentUsepEmail" class="form-label mb-0" style="font-size: 12px;">EMAIL ADDRESS</label>
                                 <div class="input-group has-validation">
-                                    <input type="email" class="form-control" id="validationEmail" aria-describedby="inputGroupPrepend" placeholder="juan001@usep.edu.ph" style="font-size: 10px;" required>
+                                    <input type="email" class="form-control" id="addStudentUsepEmail" aria-describedby="inputGroupPrepend" placeholder="juan001@usep.edu.ph" style="font-size: 10px;" required>
                                     <div class="invalid-feedback" style="font-size: 8px;">
                                         Not a valid email address!
                                     </div>
@@ -391,9 +398,9 @@ if (isset($_SESSION['user'])) {
                             </div>
 
                             <div class=" col col-md-3 mt-3">
-                                <label for="validationUsername" class="form-label mb-0" style="font-size: 12px;">USERNAME</label>
+                                <label for="addStudentUsername" class="form-label mb-0" style="font-size: 12px;">USERNAME</label>
                                 <div class="input-group has-validation">
-                                    <input type="text" class="form-control" id="validationUsername" aria-describedby="inputGroupPrepend" placeholder="juandlz" style="font-size: 10px;" required>
+                                    <input type="text" class="form-control" id="addStudentUsername" aria-describedby="inputGroupPrepend" placeholder="juandlz" style="font-size: 10px;" required>
                                     <div class="invalid-feedback" style="font-size: 8px">
                                         Not a valid username!
                                     </div>
@@ -401,9 +408,9 @@ if (isset($_SESSION['user'])) {
                             </div>
 
                             <div class="col col-md-4 mt-3">
-                                <label for="validationPassword" class="form-label mb-0" style="font-size: 12px;">PASSWORD</label>
+                                <label for="addStudentPassword" class="form-label mb-0" style="font-size: 12px;">PASSWORD</label>
                                 <div class="input-group has-validation">
-                                    <input type="password" class="form-control" placeholder="Password_123" id="validationPassword" style="font-size: 10px;" aria-describedby="inputGroupPrepend"
+                                    <input type="password" class="form-control" placeholder="Password_123" id="addStudentPassword" style="font-size: 10px;" aria-describedby="inputGroupPrepend"
                                            pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@_]).{8,}"
                                            title="Must contain at least one number, one uppercase and lowercase letter, one symbol, and at least 8 or more characters"
                                            required>
@@ -426,7 +433,6 @@ if (isset($_SESSION['user'])) {
     </div>
 </div>
 
-
 <!-- Edit Student Modal -->
 <div class="modal fade" id="editStudentModal" tabindex="-1" role="dialog" aria-labelledby="editStudentModalLabel" aria-hidden="true">
     <div class="modal-dialog  modal-dialog-centered" role="document" style="max-width: 800px;">
@@ -446,6 +452,7 @@ if (isset($_SESSION['user'])) {
 
                         <!-- uploading image -->
                         <div style="width: 100px; height: 100px; overflow: hidden; border: 1px solid maroon; border-radius: 50%; margin: 0 auto; margin-top:40px;">
+
                             <label for="profilePictureInput" class="AddImageCon" style="display: flex; justify-content: center; align-items: center; width: 100%; height: 100%;">
                                 <i class="bi bi-plus-circle" title="Add Image" style="color: grey;"></i>
                                 <img src="../img/me_sample_profile.jpg" width="250px" height="100px" id="ProfilePic" style="display: block; margin-left: -4px;">
@@ -455,22 +462,22 @@ if (isset($_SESSION['user'])) {
 
                         <form class="row needs-validation"  style="margin-left: 30px; width: 80%; height: 65%; "  novalidate >
                             <div class="col-md-5 firstname">
-                                <label for="validationCustom01" class="form-label mb-0" style="font-size: 12px;">FIRST NAME</label>
+                                <label for="editStudentFname" class="form-label mb-0" style="font-size: 12px;">FIRST NAME</label>
                                 <input type="text" class="form-control" placeholder="Juan" id="editStudentFname" style="font-size: 10px; text-transform: capitalize !important;" required pattern="[A-Za-z]+" required>
                                 <div class="invalid-feedback" style="font-size: 8px">
                                     Not a valid first name!
                                 </div>
                             </div>
                             <div class="col-md-5">
-                                <label for="validationCustom02" class="form-label mb-0" style="font-size: 12px;">LAST NAME</label>
+                                <label for="editStudentLname" class="form-label mb-0" style="font-size: 12px;">LAST NAME</label>
                                 <input type="text" class="form-control" placeholder="Dela Cruz" id="editStudentLname" style="font-size: 10px; text-transform: capitalize !important;" required pattern="[A-Za-z]+" required>
                                 <div class="invalid-feedback" style="font-size: 8px">
                                     Not a valid last name!
                                 </div>
                             </div>
                             <div class="col-md-2">
-                                <label for="validationCustom02" class="form-label mb-0" style="font-size: 12px;">M.I.</label>
-                                <input type="text" class="form-control mb-0" placeholder="I" id="validationCustom02" style="font-size: 10px; text-transform: uppercase !important;" required pattern="[A-Za-z]{1}">
+                                <label for="editStudentInitial" class="form-label mb-0" style="font-size: 12px;">M.I.</label>
+                                <input type="text" class="form-control mb-0" placeholder="I" id="editStudentInitial" style="font-size: 10px; text-transform: uppercase !important;" required pattern="[A-Za-z]{1}">
                                 <div class="invalid-feedback" style="font-size:8px">
                                     Not a valid M.I. !
                                 </div>
@@ -478,8 +485,8 @@ if (isset($_SESSION['user'])) {
 
 
                             <div class="col-md-3 mt-2">
-                                <label for="validationCustom01" class="form-label mb-0" style="font-size: 12px;">STUDENT ID</label>
-                                <input type="text" class="form-control" id="validationCustom01" pattern="[0-9]{4}-[0-9]{5}" placeholder="2021-00565" style="font-size: 10px;" required>
+                                <label for="editStudentID" class="form-label mb-0" style="font-size: 12px;">STUDENT ID</label>
+                                <input type="text" class="form-control" id="editStudentID" pattern="[0-9]{4}-[0-9]{5}" placeholder="2021-00565" style="font-size: 10px;" required>
                                 <div class="invalid-feedback" style="font-size: 8px">
                                     Not a valid student ID!
                                 </div>
@@ -487,9 +494,9 @@ if (isset($_SESSION['user'])) {
 
 
                             <div class="col-md-5 mt-2">
-                                <label for="validationCustomUsername" class="form-label mb-0" style="font-size: 12px;">EMAIL ADDRESS</label>
+                                <label for="editStudentEmail" class="form-label mb-0" style="font-size: 12px;">EMAIL ADDRESS</label>
                                 <div class="input-group has-validation">
-                                    <input type="email" class="form-control" id="validationCustomUsername" aria-describedby="inputGroupPrepend" placeholder="juan001@usep.edu.ph" style="font-size: 10px;" required>
+                                    <input type="email" class="form-control" id="editStudentEmail" aria-describedby="inputGroupPrepend" placeholder="juan001@usep.edu.ph" style="font-size: 10px;" required>
                                     <div class="invalid-feedback" style="font-size: 8px">
                                         Not a valid email address!
                                     </div>
@@ -498,8 +505,8 @@ if (isset($_SESSION['user'])) {
 
 
                             <div class="col-md-4 mt-2">
-                                <label for="validationCustom01" class="form-label mb-0" style="font-size: 12px;">PHONE NUMBER</label>
-                                <input type="tel" class="form-control" id="validationCustom01" pattern="[0-9]{11}" placeholder="091234567890" style="font-size: 10px;" required>
+                                <label for="editStudentNumber" class="form-label mb-0" style="font-size: 12px;">PHONE NUMBER</label>
+                                <input type="tel" class="form-control" id="editStudentNumber" pattern="[0-9]{11}" placeholder="091234567890" style="font-size: 10px;" required>
                                 <div class="invalid-feedback" style="font-size: 8px">
                                     Not a valid phone number with 11 digits!
                                 </div>
@@ -507,15 +514,15 @@ if (isset($_SESSION['user'])) {
 
 
                             <div class="col-md-8 mt-2">
-                                <label for="validationCustom03" class="form-label mb-0" style="font-size: 12px; ">ADDRESS</label>
-                                <input type="text" class="form-control" id="validationCustom03" style="font-size: 10px; text-transform: capitalize !important;" placeholder="Purok, Baranggay, City/Municipality, Province" required>
+                                <label for="editStudentAddress" class="form-label mb-0" style="font-size: 12px; ">ADDRESS</label>
+                                <input type="text" class="form-control" id="editStudentAddress" style="font-size: 10px; text-transform: capitalize !important;" placeholder="Purok, Baranggay, City/Municipality, Province" required>
                                 <div class="invalid-feedback" style="font-size: 8px">
                                     Not a valid address!
                                 </div>
                             </div>
                             <div class="col-md-4 mt-2">
-                                <label for="validationCustom03" class="form-label mb-0" style="font-size: 12px; ">SECTION/YEAR</label>
-                                <select class="form-select" id="validationCustom03" style="font-size: 10px; text-transform: capitalize !important;" required>
+                                <label for="editStudentYear" class="form-label mb-0" style="font-size: 12px; ">SECTION/YEAR</label>
+                                <select class="form-select" id="editStudentYear" style="font-size: 10px; text-transform: capitalize !important;" required>
                                     <option value="" disabled selected>Select Section/Year</option>
                                     <option value="1st">1st</option>
                                     <option value="2nd">2nd</option>
@@ -529,8 +536,8 @@ if (isset($_SESSION['user'])) {
                             </div>
 
                             <div class="col-md-8 mt-2">
-                                <label for="validationCustom03" class="form-label mb-0" style="font-size: 12px; ">COURSE</label>
-                                <select class="form-select" id="validationCustom03" style="font-size: 10px; text-transform: uppercase !important;" required>
+                                <label for="editStudentCourse" class="form-label mb-0" style="font-size: 12px; ">COURSE</label>
+                                <select class="form-select" id="editStudentCourse" style="font-size: 10px; text-transform: uppercase !important;" required>
                                     <option value="" disabled selected>Select Course</option>
                                     <option value="BSIT">BSIT</option>
                                     <option value="BTVTED">BTVTED</option>
@@ -546,8 +553,8 @@ if (isset($_SESSION['user'])) {
                             </div>
 
                             <div class="col-md-4 mt-2">
-                                <label for="validationCustom03" class="form-label mb-0" style="font-size: 12px; ">MAJOR</label>
-                                <select class="form-select" id="validationCustom03" style="font-size: 10px; " required>
+                                <label for="editStudentMajor" class="form-label mb-0" style="font-size: 12px; ">MAJOR</label>
+                                <select class="form-select" id="editStudentMajor" style="font-size: 10px; " required>
                                     <option value="" disabled selected>Select Major</option>
                                     <option value="Information Security">Information Security</option>
                                     <option value="English">English</option>
@@ -561,24 +568,24 @@ if (isset($_SESSION['user'])) {
 
 
                             <div class="col-md-5 mt-3">
-                                <label for="validationCustomEmail" class="form-label mb-0" style="font-size: 12px;">EMAIL ADDRESS</label>
+                                <label for="editStudentUsepEmail" class="form-label mb-0" style="font-size: 12px;">EMAIL ADDRESS</label>
                                 <div class="input-group has-validation">
-                                    <input type="email" class="form-control" id="validationCustomEmail" aria-describedby="inputGroupPrepend" placeholder="juan001@usep.edu.ph" style="font-size: 10px;" readonly>
+                                    <input type="email" class="form-control" id="editStudentUsepEmail" aria-describedby="inputGroupPrepend" placeholder="juan001@usep.edu.ph" style="font-size: 10px;" readonly>
 
                                 </div>
                             </div>
 
                             <div class=" col col-md-3 mt-3">
-                                <label for="validationCustomUsername" class="form-label mb-0" style="font-size: 12px;">USERNAME</label>
+                                <label for="editStudentUsername" class="form-label mb-0" style="font-size: 12px;">USERNAME</label>
                                 <div class="input-group has-validation">
-                                    <input type="text" class="form-control" id="validationCustomUsername" aria-describedby="inputGroupPrepend" placeholder="juandlz" style="font-size: 10px;" readonly>
+                                    <input type="text" class="form-control" id="editStudentUsername" aria-describedby="inputGroupPrepend" placeholder="juandlz" style="font-size: 10px;" readonly>
                                 </div>
                             </div>
 
                             <div class="col col-md-4 mt-3">
-                                <label for="validationCustomUsername" class="form-label mb-0" style="font-size: 12px;">PASSWORD</label>
+                                <label for="editpsw" class="form-label mb-0" style="font-size: 12px;">PASSWORD</label>
                                 <div class="input-group has-validation">
-                                    <input type="password" class="form-control" placeholder="Password_123" id="psw" style="font-size: 10px;" aria-describedby="inputGroupPrepend"
+                                    <input type="password" class="form-control" placeholder="Password_123" id="editpsw" style="font-size: 10px;" aria-describedby="inputGroupPrepend"
                                            readonly>
 
                                 </div>
@@ -587,7 +594,7 @@ if (isset($_SESSION['user'])) {
 
                             <div class="wishlist-container mt-4 mb-0" style="display: flex; justify-content: flex-end; width: 664px;">
                                 <button style="height: 25px; width: 100px" type="submit" class="clear shadow" onclick="clearPhoto()">CLEAR</button>
-                                <button style="height: 25px; width: 100px" type="submit" class="add shadow" onclick="saveStudent()">SAVE</button>
+                                <button style="height: 25px; width: 100px" type="submit" class="add shadow"  id="saveButton">SAVE</button>
                             </div>
 
                         </form>
@@ -599,10 +606,11 @@ if (isset($_SESSION['user'])) {
 </div>
 
 
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
-<script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
+<script src="../node_modules/jquery/dist/jquery.min.js"></script>
+<script src="../node_modules/sweetalert2/dist/sweetalert2.all.min.js"></script>
+<script src="../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="../node_modules/swiper/swiper-bundle.min.js"></script>
+<script src="../node_modules/sweetalert2/dist/sweetalert2.all.js"></script>
 <script src='../js/logout_script.js'></script>
 <script src="../js/navbar_select.js"></script>
 <script src="../js/student.js"></script>
@@ -616,13 +624,13 @@ if (isset($_SESSION['user'])) {
         });
 
         // Handle the file input change event
-        $("#input-file").change(function() {
+        $("#addStudentinput-file").change(function() {
             readURL(this);
         });
 
         // Handle click event on the Add Image icon
         $(".AddImageContainer i").click(function() {
-            $("#input-file").click();
+            $("#addStudentinput-file").click();
         });
     });
 
@@ -642,7 +650,7 @@ if (isset($_SESSION['user'])) {
 
     // Function to change the displayed photo
     function changePhoto() {
-        $("#input-file").click();
+        $("#addStudentinput-file").click();
     }
 
     // Function to clear the displayed photo
@@ -663,13 +671,13 @@ if (isset($_SESSION['user'])) {
             e.preventDefault();
 
             // Get the user_id from the data attribute
-            var adminId = $(this).data('admin-id');
+            var userId = $(this).data('user-id');
 
             // Make an AJAX request to fetch Student data
             $.ajax({
                 url: '../operations/fetch_student.php', // Replace with your backend endpoint
                 type: 'POST',
-                data: { adminId: adminId },
+                data: { userId: userId },
                 dataType: 'json',
                 success: function(response) {
                     // Log the response to inspect the structure
@@ -690,18 +698,19 @@ if (isset($_SESSION['user'])) {
             console.log(data);
 
             // Populate the modal fields with data received from the server
-            $('#EditStudentFname').val(data[0].fname);
-            $('#EditStudentLname').val(data[0].lname);
-            $('#EditStudentInitial').val(data[0].initial);
-            $('#EditStudentID').val(data[0].admin_id);
-            $('#EditStudentPemail').val(data[0].personal_email);
-            $('#EditStudentPnumber').val(data[0].phone_number);
-            $('#EditStudentTnumber').val(data[0].tele_number);
-            $('#EditStudentAddress').val(data[0].address);
-            $('#EditStudentRole').val(data[0].admin_role);
-            $('#Editpsw').val(data[0].password);
-            $('#EditStudentUsername').val(data[0].username);
-            $('#EditStudentOemail').val(data[0].email);
+            $('#editStudentFname').val(data[0].fname);
+            $('#editStudentLname').val(data[0].lname);
+            $('#editStudentInitial').val(data[0].initial);
+            $('#editStudentID').val(data[0].user_id);
+            $('#editStudentEmail').val(data[0].email);
+            $('#editStudentNumber').val(data[0].phone_number);
+            $('#editStudentAddress').val(data[0].address);
+            $('#editStudentYear').val(data[0].year);
+            $('#editStudentCourse').val(data[0].course);
+            $('#editStudentMajor').val(data[0].major);
+            $('#editpsw').val(data[0].password);
+            $('#editStudentUsername').val(data[0].username);
+            $('#editStudentUsepEmail').val(data[0].email);
 
             var imagePath = '../img/' + data[0].img;
             $('#ProfilePic').attr('src', imagePath);
@@ -743,15 +752,6 @@ if (isset($_SESSION['user'])) {
 
 </script>
 <script>
-    for (let i = 1; i <= 8; i++) {
-        const deleteButton = document.getElementById(`deleteUser${i}`);
-        if (deleteButton) {
-            deleteButton.addEventListener('click', function() {
-                showDeleteConfirmation(1); // Pass a unique identifier
-            });
-        }
-    }
-
     // The deleteAllBook button
     const deleteAllButton = document.getElementById('deleteAllUser');
     if (deleteAllButton) {
@@ -796,14 +796,6 @@ if (isset($_SESSION['user'])) {
     }
 </script>
 <script>
-    for (let i = 1; i <= 8; i++) {
-        const suspendButton = document.getElementById(`suspendUser${i}`);
-        if (suspendButton) {
-            suspendButton.addEventListener('click', function() {
-                showSuspendConfirmation(1);
-            });
-        }
-    }
 
     // The SUSPENDAllBook button
     const suspendAllButton = document.getElementById('suspendAll');
@@ -849,6 +841,9 @@ if (isset($_SESSION['user'])) {
     }
 </script>
 <script src="../js/add_student.js"></script>
+<script src="../js/delete_student.js"></script>
+<script src="../js/suspend_student.js"></script>
+<script src="../js/update_student.js"></script>
 
 
 
