@@ -47,8 +47,10 @@ function addStudent() {
                     }).then((result) => {
                         // Check if the user clicked "OK"
                         if (result.isConfirmed) {
-                            // Reload the page
-                            location.reload();
+                            setTimeout(function () {
+                                // Reload the page
+                                location.reload();
+                            }, 2000);
                         }
                     });
 

@@ -22,11 +22,11 @@ $numberOfBooks = $bookData->getNumberOfBooks();
 $numberOfUsers = $userData->getNumberOfUser();
 
 //Authenticate
- if($userAuth->isAuthenticated()) {
-} else {
-    header('Location: ../index_admin.php');
-    exit();
-}
+// if($userAuth->isAuthenticated()) {
+//} else {
+//    header('Location: ../index_admin.php');
+//    exit();
+//}
  //Logout
 if (isset($_POST['logout'])) {
     $userAuth->logout();

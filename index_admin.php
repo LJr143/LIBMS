@@ -7,31 +7,7 @@ ini_set('display_errors', 1);
 $db = new Database();
 $userAuth = new UserAuthentication($db);
 
-if($userAuth->isAuthenticated()) {
-    if($_SESSION['admin_role'] == 'Staff'){
-        header('Location: admin/dashboard.php');
-    }else if ($_SESSION['admin_role'] == 'Librarian'){
-        header('Location: superadmin/dashboard.php');
-    }else {
-        echo 'eRROr';
-    }
-}
 
-if (isset($_POST['form_submit_btn'])) {
-    $username = $_POST['username'];
-    $password = $_POST['password'];
-    $role = $_POST['admin_role'];
-
-    if ($userAuth->loginAdmin($username, $password, $role)) {
-        header('Location: admin/dashboard.php');
-            exit();
-    } elseif ($userAuth->loginSuperAdmin($username, $password, $role)){
-
-        header('Location: superadmin/dashboard.php');
-    }else {
-        header('Location: index_admin.php');
-    }
-}
 
 
 ?>
@@ -52,7 +28,7 @@ if (isset($_POST['form_submit_btn'])) {
     <?php include 'header.php'?>
     <div class="main-content">
         <div class="form-box">
-            <form action="" method="post" enctype="multipart/form-data">
+            <form id="loginForm">
                 <div class="form-content">
                     <div style="margin-top: 30px"> <img src="icons/usep-logo.png" alt="" style="width: 70px"></div>
 
@@ -82,7 +58,7 @@ if (isset($_POST['form_submit_btn'])) {
                                 <a href="" style="font-size: 8px">forgot password?</a>
                             </div>
                         </div>
-                        <input name="form_submit_btn" type="submit" value="LOGIN" id="form_submit_btn">
+                        <input name="form_submit_btn" type="button" value="LOGIN" id="form_submit_btn">
                     </div>
 
                     <div class="google-button">
@@ -110,6 +86,45 @@ if (isset($_POST['form_submit_btn'])) {
             passwordInput.type = "password";
         }
     }
+</script>
+<script>
+    $(document).ready(function() {
+        $("#form_submit_btn").click(function(e) {
+            e.preventDefault();
+
+            var username = $("#user_username").val();
+            var password = $("#user_password").val();
+            var role = $("#admin_role").val();
+
+            console.log(username);
+            console.log(password);
+            console.log(role);
+
+            $.ajax({
+                type: "POST",
+                url: "operations/login.php", // Replace with the actual path to your PHP script
+                data: {
+                    username: username,
+                    password: password,
+                    admin_role: role,
+                    form_submit_btn: 1
+                },
+                dataType: 'json',
+                success: function(response) {
+                    console.log(response);
+                    if (response.status === "admin_success") {
+                        window.location.href = "admin/dashboard.php";
+                    }
+                    else if (response.status === "superadmin_success"){
+                        window.location.href = "superadmin/dashboard.php";
+                    }
+                    else {
+                        alert("Login failed. " + response.message);
+                    }
+                }
+            });
+        });
+    });
 </script>
 
 </body>

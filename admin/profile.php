@@ -85,12 +85,11 @@ if (isset($_SESSION['user'])) {
             <div class="col col-md-2 side_bar">
                 <div class="profile_section">
                     <div>
-                        <img style="width: 60px; border-radius: 60px;" src="../img/me_sample_profile.jpg" alt="">
+                        <img style="border: 3px solid white; width: 60px; border-radius: 60px;" src="../img/<?= $loggedAdmin['img'] ?>" alt="">
+                        <div style="position: absolute; top: 55px; right: 72px; background:#01d501; height: 15px; width: 15px; border-radius: 60px;"></div>
                     </div>
                     <div style="display: block; text-align: center; color: white; height: 20px;">
-                        <ul style="margin-right: 36px;">
-                            <li style="font-size: 12px; color: #0cb90c; font-weight: 600">Active</li>
-                        </ul>
+
                     </div>
                 </div>
                 <div>

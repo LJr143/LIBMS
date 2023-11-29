@@ -38,6 +38,7 @@ class BookData
     }
 
 
+
     public function getBookById($bookId): array
     {
         $sql = "SELECT * FROM tbl_book WHERE book_id = :bookId";

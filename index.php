@@ -44,6 +44,7 @@ if (isset($_POST['form_submit_btn'])) {
                     </div>
 
                     <div style="display: inline;">
+                        <input type="text" id="userType" value="Student" style="display: none">
                         <label for="user_username">Username</label>
                         <br>
                         <input name="username" type="text" id="user_username" autofocus>
@@ -90,6 +91,43 @@ if (isset($_POST['form_submit_btn'])) {
         }
     }
 </script>
+<script>
+    $(document).ready(function() {
+        $("#form_submit_btn").click(function(e) {
+            e.preventDefault();
+
+            var username = $("#user_username").val();
+            var password = $("#user_password").val();
+            var role = $("#userType").val();
+
+            console.log(username);
+            console.log(password);
+            console.log(role);
+
+            $.ajax({
+                type: "POST",
+                url: "operations/login.php", // Replace with the actual path to your PHP script
+                data: {
+                    username: username,
+                    password: password,
+                    admin_role: role,
+                    form_submit_btn: 1
+                },
+                dataType: 'json',
+                success: function(response) {
+                    console.log(response);
+                    if (response.status === "success") {
+                        window.location.href = "user/home.php";
+                    }
+                    else {
+                        alert("Login failed. " + response.message);
+                    }
+                }
+            });
+        });
+    });
+</script>
+
 <!--<script>-->
 <!--    $(document).ready(function(){-->
 <!--        $("#loginForm").submit(function (event) {-->
