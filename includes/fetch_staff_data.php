@@ -206,11 +206,29 @@ class StaffData
             return false;
         }
     }
+    
+    public function getAllUserStarCounts(): array
+    {
+        $userStarCounts = array();
 
+        // Fetch star counts for all users
+        $result = $this->database->query("SELECT user_id, star_count FROM tbl_feedback");
 
+        if ($result) {
+            while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
+                $user_id = $row['user_id'];
+                $starCount = (int) $row['star_count'];
+                $userStarCounts[$user_id] = $starCount;
+            }
+        }
 
+        return $userStarCounts;
+    }
 }
 
+$database = new Database(); // Assuming you have a Database class
+$staffData = new StaffData($database);
 
-
-
+// Get star counts for all users
+$userStarCounts = $staffData->getAllUserStarCounts();
+?>

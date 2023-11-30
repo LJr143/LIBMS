@@ -304,3 +304,8 @@ nav .right-side > .right-side-text {
 .inactive-status {
     color: red;
 }
+
+/* Add a style for filled stars */
+.star.filled {
+    color: gold; 
+}
