@@ -231,4 +231,19 @@ $staffData = new StaffData($database);
 
 // Get star counts for all users
 $userStarCounts = $staffData->getAllUserStarCounts();
+
+// Call the getAllStaff method to retrieve all staff data
+$staffList = $staffData->getAllStaff();
+
+// Check if there are staff members
+if (!empty($staffList)) {
+    foreach ($staffList as $staff) {
+        // Access staff data fields
+        $adminId = $staff['admin_id'];
+        $username = $staff['username'];
+    }
+} else {
+    // No staff members found
+    echo "No staff members found.";
+}
 ?>
