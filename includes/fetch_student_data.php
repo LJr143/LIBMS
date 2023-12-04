@@ -63,10 +63,13 @@ class StudentData
             return array();
         }
     }
-    public function addStudent($firstName, $lastName, $mi, $StudentId, $Pemail,$Uemail, $phoneNumber, $address, $year, $course, $major, $username, $password,$profile): bool
+    public function addStudent($firstName, $lastName, $mi, $StudentId, $Pemail, $Uemail, $phoneNumber, $address, $year, $course, $major, $username, $password, $profile): bool
     {
-        $sql = "INSERT INTO tbl_user (fname, lname, initial,user_id, email,usep_email, phone_number, address,year, course, major, username, password, img)
-                VALUES (:fname, :lname, :initial, :student_id, :email, :usep_email, :phone_number, :address, :year, :course, :major, :username, :password, :img)";
+        // Hash the password
+        $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+
+        $sql = "INSERT INTO tbl_user (fname, lname, initial, user_id, email, usep_email, phone_number, address, year, course, major, username, password, img)
+            VALUES (:fname, :lname, :initial, :student_id, :email, :usep_email, :phone_number, :address, :year, :course, :major, :username, :password, :img)";
         $stmt = $this->database->prepare($sql);
 
         // Bind parameters
@@ -82,13 +85,13 @@ class StudentData
         $stmt->bindParam(':course', $course, PDO::PARAM_STR);
         $stmt->bindParam(':major', $major, PDO::PARAM_STR);
         $stmt->bindParam(':username', $username, PDO::PARAM_STR);
-        $stmt->bindParam(':password', $password, PDO::PARAM_STR);
+        $stmt->bindParam(':password', $hashedPassword, PDO::PARAM_STR); // Use hashed password
         $stmt->bindParam(':img', $profile, PDO::PARAM_STR);
-
 
         // Execute the query
         return $stmt->execute();
     }
+
     // Inside the StudentData class
     public function updateStudent($firstName, $lastName, $mi, $StudentId, $Pemail,$Uemail, $phoneNumber, $address, $year, $course, $major, $username, $password,$profile) {
         // SQL query without the img column

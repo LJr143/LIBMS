@@ -5,17 +5,7 @@ include "operations/authentication.php";
 $db = new Database();
 $userAuth = new UserAuthentication($db);
 
-if (isset($_POST['form_submit_btn'])) {
-    $username = $_POST['username'];
-    $password = $_POST['password'];
 
-    if ($userAuth->login($username, $password)) {
-        header('Location: user/home.php');
-        exit();
-    } else {
-        $loginError = 'Invalid username or password';
-    }
-}
 ?>
 
 <!doctype html>

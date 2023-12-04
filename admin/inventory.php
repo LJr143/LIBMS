@@ -398,10 +398,10 @@ if (isset($_SESSION['user'])) {
         <div class="modal-dialog modal-lg modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header" style="height: 15px;">
-                    <p class="modal-title" id="borrowModalLabel " style="font-size: 16px; color: #800000; font-weight: 600;">
-                        <i class="bi bi-pencil-square ml-3 m-3" style="font-size: 20px; color: #800000;"></i>ADD BOOK
+                    <p class="modal-title" id="borrowModalLabel " style="font-size: 12px; color: #800000; font-weight: 600;">
+                        <i class="bi bi-pencil-square ml-3 m-3" style="font-size: 16px; color: #800000;"></i>ADD BOOK
                     </p>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <button style="font-size: 12px;" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <div class="container-fluid " style="padding-left: 40px ; padding-right: 40px">
@@ -421,7 +421,7 @@ if (isset($_SESSION['user'])) {
 
 
                             <!-- input details -->
-                           <form class="row needs-validation" style="margin-left: 0px; margin: top -600%; width: 70%; height: 65%;" novalidate>
+                           <form class="row needs-validation" style="width: 70%; height: 65%;" novalidate>
                                 <div class="col-md-3 firstname">
                                     <label for="validationBookID" class="form-label mb-0" style="font-size: 12px;">BOOK ID</label>
                                     <input type="text" class="form-control" placeholder="1234-56789" pattern="[0-9]{4}-[0-9]{5}" id="validationBookID" style="font-size: 10px; text-transform: capitalize !important;" required>

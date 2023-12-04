@@ -13,6 +13,7 @@ class UserAuthentication
 
     public function login($username, $password)
     {
+        // Validate the user with the original password
         $response = $this->validateUser($username, $password);
 
         if ($response['status'] === 'success') {
@@ -23,6 +24,7 @@ class UserAuthentication
 
         return $response;
     }
+
 
     public function loginAdmin($username, $password, $role)
     {
@@ -74,10 +76,10 @@ class UserAuthentication
 
         if ($user) {
             // Check if the user is active
-            if ($user['status'] == 'Active' && $password == $user['password']) {
+            if ($user['status'] == 'Active' && password_verify($password, $user['password'])) {
                 return ['status' => 'success', 'message' => 'Login successful'];
             } else {
-                return ['status' => 'error', 'message' => 'User is not active or password is incorrect'];
+                return ['status' => 'error', 'message' => 'User is not active or password is incorrect', 'password' => $password];
             }
         }
 

@@ -211,12 +211,11 @@ if (isset($_SESSION['user'])) {
                            <div style="display: flex; align-items: center">
                               <div style="margin-right: 30px">
                                 <form class="row needs-validation" style="margin-left: 30px; width: 100%; height: 65%;" novalidate>
-
                                     <div class="col col-md-4 mt-3">
                                         <div style="margin-right: 30px">
                                             <label style="font-size: 12px; font-weight: 600" for="change_password_old_pass">OLD PASSWORD</label>
                                             <br>
-                                            <input type="password" class="form-control" placeholder="Type Old Password" id="validationPassword" style="font-size: 12px;" aria-describedby="inputGroupPrepend"
+                                            <input type="password" class="form-control" placeholder="Type Old Password" id="change_password_old_pass" style="font-size: 12px;" aria-describedby="inputGroupPrepend"
                                                    pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@_]).{8,}"
                                                    title="Must contain at least one number, one uppercase and lowercase letter, one symbol, and at least 8 or more characters"
                                                    required>
@@ -230,7 +229,7 @@ if (isset($_SESSION['user'])) {
                                         <div style="margin-right: 30px">
                                             <label style="font-size: 12px;font-weight: 600" for="change_password_new_pass">NEW PASSWORD</label>
                                             <br>
-                                            <input type="password" class="form-control" placeholder="Type New Password" id="validationPassword" style="font-size: 12px;" aria-describedby="inputGroupPrepend"
+                                            <input type="password" class="form-control" placeholder="Type New Password" id="change_password_new_pass" style="font-size: 12px;" aria-describedby="inputGroupPrepend"
                                                    pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@_]).{8,}"
                                                    title="Must contain at least one number, one uppercase and lowercase letter, one symbol, and at least 8 or more characters"
                                                    required>
@@ -242,9 +241,9 @@ if (isset($_SESSION['user'])) {
 
                                     <div class="col col-md-4 mt-3">
                                         <div style="margin-right: 30px">
-                                            <label style="font-size: 12px; font-weight: 600" for="change_password_new_pass">CONFIRM NEW PASSWORD</label>
+                                            <label style="font-size: 12px; font-weight: 600" for="change_password_confirm_new_pass">CONFIRM NEW PASSWORD</label>
                                             <br>
-                                            <input type="password" class="form-control" placeholder="Confirm New Password" id="validationPassword" style="font-size: 12px;" aria-describedby="inputGroupPrepend"
+                                            <input type="password" class="form-control" placeholder="Confirm New Password" id="change_password_confirm_new_pass" style="font-size: 12px;" aria-describedby="inputGroupPrepend"
                                                    pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@_]).{8,}"
                                                    title="Must contain at least one number, one uppercase and lowercase letter, one symbol, and at least 8 or more characters"
                                                    required>
@@ -388,35 +387,6 @@ if (isset($_SESSION['user'])) {
     <script src="../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="../node_modules/swiper/swiper-bundle.min.js"></script>
     <script src="../node_modules/sweetalert2/dist/sweetalert2.all.js"></script>
-
-
-    <script>
-        // $(document).ready(function() {
-        //     // Attach a click event to the "ADD STUDENT" button
-        //     $("#editStudentBtn").click(function() {
-        //         // Show the student modal
-        //         $("#editStaffModal").modal("show");
-        //     });
-        //
-        //     // Handle the file input change event
-        //     $("#input-file").change(function() {
-        //         readURL(this);
-        //     });
-        //
-        // });
-        //
-        // // Function to handle adding a student (you can replace this with your actual logic)
-        // function addStudent() {
-        //     // Add your logic here
-        //     $("#editStaffModal").modal("hide");
-        // }
-        //
-        // // Function to clear the displayed photo
-        // function clearPhoto() {
-        //     $('#Profile-Pic').attr('src', '');
-        //     $(".AddImageContainer i").show();
-        // }
-    </script>
     <script>
         $(document).ready(function() {
             var userId = <?php echo json_encode($admin_id); ?>;
@@ -503,6 +473,7 @@ if (isset($_SESSION['user'])) {
     <script src='../js/logout_script.js'></script>
     <script src='../js/student.js'></script>
     <script src="../js/update_profile_staff.js"></script>
+    <script src="../js/update_profile_staff_login_credentials.js"></script>
 
 
 

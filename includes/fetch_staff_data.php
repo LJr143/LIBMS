@@ -63,10 +63,13 @@ class StaffData
             return array();
         }
     }
-    public function addStaff($firstName, $lastName, $mi, $staffId, $Pemail,$Oemail, $phoneNumber, $telephoneNumber, $address, $admin_role, $username, $password,$profile): bool
+    public function addStaff($firstName, $lastName, $mi, $staffId, $Pemail, $Oemail, $phoneNumber, $telephoneNumber, $address, $admin_role, $username, $password, $profile): bool
     {
-        $sql = "INSERT INTO tbl_admin (fname, lname, initial, admin_id, email,personal_email, phone_number, tele_number, address, admin_role, username, password, img)
-                VALUES (:fname, :lname, :initial, :admin_id, :email, :personal_email, :phone_number, :tele_number, :address, :admin_role, :username, :password, :img)";
+        // Hash the password
+        $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+
+        $sql = "INSERT INTO tbl_admin (fname, lname, initial, admin_id, email, personal_email, phone_number, tele_number, address, admin_role, username, password, img)
+            VALUES (:fname, :lname, :initial, :admin_id, :email, :personal_email, :phone_number, :tele_number, :address, :admin_role, :username, :password, :img)";
         $stmt = $this->database->prepare($sql);
 
         // Bind parameters
@@ -81,39 +84,43 @@ class StaffData
         $stmt->bindParam(':address', $address, PDO::PARAM_STR);
         $stmt->bindParam(':admin_role', $admin_role, PDO::PARAM_STR);
         $stmt->bindParam(':username', $username, PDO::PARAM_STR);
-        $stmt->bindParam(':password', $password, PDO::PARAM_STR);
+        $stmt->bindParam(':password', $hashedPassword, PDO::PARAM_STR); // Use hashed password
         $stmt->bindParam(':img', $profile, PDO::PARAM_STR);
-
 
         // Execute the query
         return $stmt->execute();
     }
+
     // Inside the StaffData class
     public function updateStaff($userId, $firstName, $lastName, $mi, $Pemail, $Oemail, $phoneNumber, $telephoneNumber, $address, $admin_role, $username, $password, $img) {
+        // Hash the password if it is provided
+        if (!empty($password)) {
+            $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+        }
+
         // SQL query without the img column
         $sql = "UPDATE tbl_admin 
         SET fname = :fname, lname = :lname, initial = :initial, 
             email = :email, personal_email = :personal_email, 
             phone_number = :phone_number, tele_number = :tele_number, 
             address = :address, admin_role = :admin_role, 
-            username = :username, password = :password
-        WHERE admin_id = :userId";
+            username = :username";
 
-        // If $img is not null, include it in the SQL query and bind the parameter
-        if ($img !== null) {
-            $sql = "UPDATE tbl_admin 
-            SET fname = :fname, lname = :lname, initial = :initial, 
-                email = :email, personal_email = :personal_email, 
-                phone_number = :phone_number, tele_number = :tele_number, 
-                address = :address, admin_role = :admin_role, 
-                username = :username, password = :password,
-                img = :img
-            WHERE admin_id = :userId";
+        // Include password update if provided
+        if (!empty($password)) {
+            $sql .= ", password = :password";
         }
+
+        // Include img update if provided
+        if ($img !== null) {
+            $sql .= ", img = :img";
+        }
+
+        $sql .= " WHERE admin_id = :userId";
 
         $stmt = $this->database->prepare($sql);
 
-        // Bind parameters (excluding the img parameter if $img is null)
+        // Bind parameters
         $stmt->bindParam(':fname', $firstName, PDO::PARAM_STR);
         $stmt->bindParam(':lname', $lastName, PDO::PARAM_STR);
         $stmt->bindParam(':initial', $mi, PDO::PARAM_STR);
@@ -125,8 +132,13 @@ class StaffData
         $stmt->bindParam(':userId', $userId, PDO::PARAM_STR);
         $stmt->bindParam(':personal_email', $Oemail, PDO::PARAM_STR);
         $stmt->bindParam(':admin_role', $admin_role, PDO::PARAM_STR);
-        $stmt->bindParam(':password', $password, PDO::PARAM_STR);
-        // Bind the img parameter if $img is not null
+
+        // Bind the password parameter if provided
+        if (!empty($password)) {
+            $stmt->bindParam(':password', $hashedPassword, PDO::PARAM_STR);
+        }
+
+        // Bind the img parameter if provided
         if ($img !== null) {
             $stmt->bindParam(':img', $img, PDO::PARAM_STR);
         }
@@ -134,6 +146,7 @@ class StaffData
         // Execute the query
         return $stmt->execute();
     }
+
 
     public function updateStaffProfile($userId, $firstName, $lastName, $mi, $Oemail, $phoneNumber, $telephoneNumber, $address, $img) {
         // SQL query without the img column
@@ -174,6 +187,45 @@ class StaffData
         // Execute the query
         return $stmt->execute();
     }
+    public function updateStaffLoginProfile($userId, $oldPassword, $newPassword, $confirmPassword) {
+        // Check if old password matches the user's current password
+        if (!$this->isOldPasswordCorrect($userId, $oldPassword)) {
+            return false; // Old password doesn't match, return false
+        }
+
+        // Check if the new password and confirm password match
+        if ($newPassword !== $confirmPassword) {
+            return false; // New password and confirm password don't match, return false
+        }
+
+        // Update the password
+        $sql = "UPDATE tbl_admin 
+            SET password = :newPassword
+            WHERE admin_id = :userId";
+
+        $stmt = $this->database->prepare($sql);
+
+        // Bind parameters
+        $stmt->bindParam(':newPassword', $newPassword, PDO::PARAM_STR);
+        $stmt->bindParam(':userId', $userId, PDO::PARAM_STR);
+
+        // Execute the query
+        return $stmt->execute();
+    }
+
+// Function to check if the old password matches the user's current password
+    private function isOldPasswordCorrect($userId, $oldPassword) {
+        $sql = "SELECT password FROM tbl_admin WHERE admin_id = :userId";
+        $stmt = $this->database->prepare($sql);
+        $stmt->bindParam(':userId', $userId, PDO::PARAM_STR);
+        $stmt->execute();
+
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        // Check if the old password matches
+        return password_verify($oldPassword, $result['password']);
+    }
+
 
 
     public function deleteStaff($adminId){
