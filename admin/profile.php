@@ -40,6 +40,8 @@ if (isset($_SESSION['user'])) {
         echo 'Invalid admin ID.';
     }
 
+    $admin_id = $loggedAdmin['admin_id'];
+
 }
 ?>
 
@@ -85,7 +87,7 @@ if (isset($_SESSION['user'])) {
             <div class="col col-md-2 side_bar">
                 <div class="profile_section">
                     <div>
-                        <img style="border: 3px solid white; width: 60px; border-radius: 60px;" src="../img/<?= $loggedAdmin['img'] ?>" alt="">
+                        <img style="border: 3px solid white; width: 60px; border-radius: 60px; opacity: 1" src="../img/<?= $loggedAdmin['img'] ?>" alt="">
                         <div style="position: absolute; top: 55px; right: 72px; background:#01d501; height: 15px; width: 15px; border-radius: 60px;"></div>
                     </div>
                     <div style="display: block; text-align: center; color: white; height: 20px;">
@@ -141,17 +143,17 @@ if (isset($_SESSION['user'])) {
                     <div class="row " style="width: 95%; display: flex; justify-content: space-between">
                         <div style="height: 300px; width: 20rem; box-shadow:0px 4px 8px rgba(0,0,0,0.27); margin: 20px 0px; ">
                             <div style="width: 100%; display: flex; justify-content: center; margin: 50px 0 0 0;">
-                                <img style="width: 150px; border-radius: 100px; border: 1px solid rgb(116,0,0)" src="../img/me_sample_profile.jpg" alt="">
+                                <img style="width: 150px; border-radius: 100px; border: 1px solid rgb(116,0,0)" src="../img/<?php echo $loggedAdmin['img']?>" alt="">
                             </div>
                             <div style="margin: 14px 0 0 0;">
                                 <div style="display: flex; width: 100%; justify-content: center">
-                                    <p style="font-size: 12px; color: rgb(116,0,0); font-weight: 600; font-style: italic">Lorjohn M. Raña</p>
+                                    <p style="font-size: 12px; color: rgb(116,0,0); font-weight: 600; font-style: italic"><?php echo $loggedAdmin['fname'] ."&nbsp". $loggedAdmin['initial'] . "&nbsp". $loggedAdmin['lname']?></p>
                                     <span><button style="border: none; background: transparent">
-                                            <img id="editStudentBtn" style="width: 15px; margin: -10px 0 0 5px;" src="../icons/edit_profile_icon.png" alt="">
+                                            <img id="editStaffBtn" style="width: 15px; margin: -10px 0 0 5px;" src="../icons/edit_profile_icon.png" alt="">
                                         </button></span>
                                 </div>
                                 <div style="width: 100%; display: flex; justify-content: center; margin-top: -15px">
-                                    <p style="font-size: 12px; font-weight: 700;">LIBRARIAN</p>
+                                    <p style="font-size: 12px; font-weight: 700; text-transform: uppercase;"><?php echo $loggedAdmin['admin_role']?></p>
                                 </div>
 
                             </div>
@@ -161,19 +163,19 @@ if (isset($_SESSION['user'])) {
 
                             <div style="margin: 30px 20px">
                                 <h6 style="font-size: 12px; color: rgb(116,0,0)">PERSONAL INFORMATION</h6>
-                                <p class="personal_infor_p">STAFF ID &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; 2021-0001</p>
-                                <p class="personal_infor_p">FULL NAME &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp;Lorjohn M. Raña</p>
-                                <p class="personal_infor_p">PHONE NUMBER&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;09096763912</p>
-                                <p class="personal_infor_p">TELEPHONE NUMBER&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp;&nbsp;09096763912</p>
-                                <p class="personal_infor_p">HOME ADDRESS&nbsp;&nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;Prk. 3-C Sabina Homes Apokon Tagum City Davao Del Norte</p>
+                                <p class="personal_infor_p">STAFF ID &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; <?php echo $loggedAdmin['admin_id']?></p>
+                                <p class="personal_infor_p">FULL NAME &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp;<?php echo $loggedAdmin['fname'] ."&nbsp". $loggedAdmin['initial']. "." . "&nbsp". $loggedAdmin['lname']?></p>
+                                <p class="personal_infor_p">PHONE NUMBER&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;<?php echo $loggedAdmin['phone_number']?></p>
+                                <p class="personal_infor_p">TELEPHONE NUMBER&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp;&nbsp;<?php echo $loggedAdmin['tele_number']?></p>
+                                <p class="personal_infor_p">HOME ADDRESS&nbsp;&nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;<?php echo $loggedAdmin['address']?></p>
 
                             </div>
 
                             <div style="margin: 30px 20px">
                                 <h6 style="font-size: 12px; color: rgb(116,0,0)">ACCOUNT</h6>
-                                <p class="personal_infor_p">EMAIL&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; lmrana00027@usep.edu.ph</p>
-                                <p class="personal_infor_p">USERNAME &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp;imOutOffLoveBoyah143</p>
-                                <p class="personal_infor_p">PASSWORD&nbsp;&nbsp;&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;*********</p>
+                                <p class="personal_infor_p">EMAIL&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; <?php echo $loggedAdmin['email']?></p>
+                                <p class="personal_infor_p">USERNAME &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp;<?php echo $loggedAdmin['username']?></p>
+                                <p class="personal_infor_p">PASSWORD&nbsp;&nbsp;&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;<span style="-webkit-text-security: disc !important;"><?php echo $loggedAdmin['password']?></span></p>
                             </div>
 
                         </div>
@@ -214,7 +216,7 @@ if (isset($_SESSION['user'])) {
                                         <div style="margin-right: 30px">
                                             <label style="font-size: 12px; font-weight: 600" for="change_password_old_pass">OLD PASSWORD</label>
                                             <br>
-                                            <input type="password" class="form-control" value="Newpass_1" id="validationPassword" style="font-size: 12px;" aria-describedby="inputGroupPrepend"
+                                            <input type="password" class="form-control" placeholder="Type Old Password" id="validationPassword" style="font-size: 12px;" aria-describedby="inputGroupPrepend"
                                                    pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@_]).{8,}"
                                                    title="Must contain at least one number, one uppercase and lowercase letter, one symbol, and at least 8 or more characters"
                                                    required>
@@ -268,7 +270,7 @@ if (isset($_SESSION['user'])) {
     </div>
 </div>
 
-<div class="modal fade" id="editStudentModal" tabindex="-1" role="dialog" aria-labelledby="editStudentModalLabel" aria-hidden="true">
+<div class="modal fade" id="editStaffModal" tabindex="-1" role="dialog" aria-labelledby="editStaffModalLabel" aria-hidden="true">
       <div class="modal-dialog  modal-dialog-centered" role="document" style="max-width: 800px;">
           <div class="modal-content">
                 <div class="modal-header" style="height: 15px;">
@@ -295,32 +297,33 @@ if (isset($_SESSION['user'])) {
 
 
                             <form class="row needs-validation" style="margin-left: 30px; width: 80%; height: 65%;" novalidate>
+                                <input type="text" name="userID" id="userID" value="<?php echo $admin_id ?>" style="display: none;">
                                 <div class="col-md-5 firstname">
-                                    <label for="validationFirstName" class="form-label mb-0" style="font-size: 12px;">FIRST NAME</label>
-                                    <input type="text" class="form-control" placeholder="Juan" id="validationFirstName" style="font-size: 10px; text-transform: capitalize !important;" required pattern="[A-Za-z]+" required>
+                                    <label for="editStaffFirstName" class="form-label mb-0" style="font-size: 12px;">FIRST NAME</label>
+                                    <input type="text" class="form-control" placeholder="Juan" id="editStaffFirstName" style="font-size: 10px; text-transform: capitalize !important;" required pattern="[A-Za-z]+" required>
                                     <div class="invalid-feedback" style="font-size: 8px">
                                         Not a valid first name!
                                     </div>
                                 </div>
                                 <div class="col-md-5">
-                                    <label for="validationLastName" class="form-label mb-0" style="font-size: 12px;">LAST NAME</label>
-                                    <input type="text" class="form-control" placeholder="Dela Cruz" id="validationLastName" style="font-size: 10px; text-transform: capitalize !important;" required pattern="[A-Za-z]+" required>
+                                    <label for="editStaffLastName" class="form-label mb-0" style="font-size: 12px;">LAST NAME</label>
+                                    <input type="text" class="form-control" placeholder="Dela Cruz" id="editStaffLastName" style="font-size: 10px; text-transform: capitalize !important;" required pattern="[A-Za-z]+" required>
                                     <div class="invalid-feedback" style="font-size: 8px">
                                         Not a valid last name!
                                     </div>
                                 </div>
                                 <div class="col-md-2">
-                                    <label for="validationMI" class="form-label mb-0" style="font-size: 12px;">M.I.</label>
-                                    <input type="text" class="form-control mb-0" placeholder="I" id="validationMI" style="font-size: 10px; text-transform: uppercase !important;" required pattern="[A-Za-z]{1}">
+                                    <label for="editStaffMI" class="form-label mb-0" style="font-size: 12px;">M.I.</label>
+                                    <input type="text" class="form-control mb-0" placeholder="I" id="editStaffMI" style="font-size: 10px; text-transform: uppercase !important;" required pattern="[A-Za-z]{1}">
                                     <div class="invalid-feedback" style="font-size:8px">
                                         Not a valid M.I. !
                                     </div>
                                 </div>
 
                                 <div class="col-md-5 mt-3">
-                                    <label for="validationEmail" class="form-label mb-0" style="font-size: 12px;">EMAIL ADDRESS</label>
+                                    <label for="editStaffEmail" class="form-label mb-0" style="font-size: 12px;">EMAIL ADDRESS</label>
                                     <div class="input-group has-validation">
-                                        <input type="email" class="form-control" id="validationEmail" aria-describedby="inputGroupPrepend" placeholder="juan001@usep.edu.ph" style="font-size: 10px;" required>
+                                        <input type="email" class="form-control" id="editStaffEmail" aria-describedby="inputGroupPrepend" placeholder="juan001@usep.edu.ph" style="font-size: 10px;" required>
                                         <div class="invalid-feedback" style="font-size: 8px;">
                                             Not a valid email address!
                                         </div>
@@ -328,47 +331,47 @@ if (isset($_SESSION['user'])) {
                                 </div>
 
                                 <div class="col-md-4 mt-3">
-                                    <label for="validationPhoneNumber" class="form-label mb-0" style="font-size: 12px;">PHONE NUMBER</label>
-                                    <input type="tel" class="form-control" id="validationPhoneNumber" pattern="[0-9]{11}" placeholder="091234567890" style="font-size: 10px;" required>
+                                    <label for="editStaffPhoneNumber" class="form-label mb-0" style="font-size: 12px;">PHONE NUMBER</label>
+                                    <input type="tel" class="form-control" id="editStaffPhoneNumber" pattern="[0-9]{11}" placeholder="091234567890" style="font-size: 10px;" required>
                                     <div class="invalid-feedback" style="font-size: 8px">
                                         Not a valid phone number with 11 digits!
                                     </div>
                                 </div>
 
                                 <div class="col-md-8 mt-2">
-                                    <label for="validationAddress" class="form-label mb-0" style="font-size: 12px; ">ADDRESS</label>
-                                    <input type="text" class="form-control" id="validationAddress" style="font-size: 10px; text-transform: capitalize !important;" placeholder="Purok, Baranggay, City/Municipality, Province" required>
+                                    <label for="editStaffAddress" class="form-label mb-0" style="font-size: 12px; ">ADDRESS</label>
+                                    <input type="text" class="form-control" id="editStaffAddress" style="font-size: 10px; text-transform: capitalize !important;" placeholder="Purok, Baranggay, City/Municipality, Province" required>
                                     <div class="invalid-feedback" style="font-size: 8px">
                                         Not a valid address!
                                     </div>
                                 </div>
 
                                 <div class="col-md-4 mt-2">
-                                    <label for="validationTelNumber" class="form-label mb-0" style="font-size: 12px;">TELEPHONE NUMBER</label>
-                                    <input type="tel" class="form-control" id="validationTelNumber" pattern="[0-9]{2}-[0-9]{4}-[0-9]{4}" placeholder="02-1234-5678" style="font-size: 10px;" required>
+                                    <label for="editStaffTelNumber" class="form-label mb-0" style="font-size: 12px;">TELEPHONE NUMBER</label>
+                                        <input type="tel" class="form-control" id="editStaffTelNumber" pattern="[0-9]{2}-[0-9]{4}-[0-9]{4}" placeholder="02-1234-5678" style="font-size: 10px;" required>
                                     <div class="invalid-feedback" style="font-size: 8px">
                                         Not a valid tel number with 10 digits!
                                     </div>
                                 </div>
 
                                 <div class="col col-md-5 mt-3">
-                                    <label for="validationOfficeAdd" class="form-label mb-0" style="font-size: 12px;">OFFICE ADDRESS</label>
+                                    <label for="editStaffOfficeAdd" class="form-label mb-0" style="font-size: 12px;">OFFICE ADDRESS</label>
                                     <div class="input-group has-validation">
-                                        <input type="text" class="form-control " id="validationOfficeAdd" aria-describedby="inputGroupPrepend" value="lmrana00027@usep.edu.ph" style="font-size: 10px;" readonly>
+                                        <input type="text" class="form-control " id="editStaffOfficeAdd" aria-describedby="inputGroupPrepend" value="Tagum Unit Library" style="font-size: 10px;" readonly>
                                     </div>
                                 </div>
 
                                 <div class=" col col-md-3 mt-3">
-                                    <label for="validationUsername" class="form-label mb-0" style="font-size: 12px;">USERNAME</label>
+                                    <label for="editStaffUsername" class="form-label mb-0" style="font-size: 12px;">USERNAME</label>
                                     <div class="input-group has-validation">
-                                        <input type="text" class="form-control" id="validationUsername" aria-describedby="inputGroupPrepend" value="johnjohn" style="font-size: 10px;" readonly>
+                                        <input type="text" class="form-control" id="editStaffUsername" aria-describedby="inputGroupPrepend" value="johnjohn" style="font-size: 10px;" readonly>
                                     </div>
                                 </div>
 
 
                         <div class=" wishlist-container  mt-4 mb-0 " style=" display: flex; justify-content: flex-end; width: 664px; ">
                             <button style="height: 25px; width: 100px" type="button" class="clear shadow " onclick="clearPhoto()">CLEAR</button>
-                            <button style="height: 25px; width: 100px" type="submit" class="add shadow" >SAVE</button>
+                            <button style="height: 25px; width: 100px" type="submit" id="submitBtn" class="add shadow" >SAVE</button>
                         </div>
                      </form>
                     </div>
@@ -380,42 +383,106 @@ if (isset($_SESSION['user'])) {
 
 
 
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
-    <script src='../js/logout_script.js'></script>
-    <script src='../js/student.js'></script>
+    <script src="../node_modules/jquery/dist/jquery.min.js"></script>
+    <script src="../node_modules/sweetalert2/dist/sweetalert2.all.min.js"></script>
+    <script src="../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../node_modules/swiper/swiper-bundle.min.js"></script>
+    <script src="../node_modules/sweetalert2/dist/sweetalert2.all.js"></script>
+
 
     <script>
+        // $(document).ready(function() {
+        //     // Attach a click event to the "ADD STUDENT" button
+        //     $("#editStudentBtn").click(function() {
+        //         // Show the student modal
+        //         $("#editStaffModal").modal("show");
+        //     });
+        //
+        //     // Handle the file input change event
+        //     $("#input-file").change(function() {
+        //         readURL(this);
+        //     });
+        //
+        // });
+        //
+        // // Function to handle adding a student (you can replace this with your actual logic)
+        // function addStudent() {
+        //     // Add your logic here
+        //     $("#editStaffModal").modal("hide");
+        // }
+        //
+        // // Function to clear the displayed photo
+        // function clearPhoto() {
+        //     $('#Profile-Pic').attr('src', '');
+        //     $(".AddImageContainer i").show();
+        // }
+    </script>
+    <script>
         $(document).ready(function() {
-            // Attach a click event to the "ADD STUDENT" button
-            $("#editStudentBtn").click(function() {
-                // Show the student modal
-                $("#editStudentModal").modal("show");
+            var userId = <?php echo json_encode($admin_id); ?>;
+            console.log(userId);
+            $('#editStaffBtn').click(function(e) {
+                e.preventDefault();
+
+                // Get the user_id from the data attribute
+
+
+                // Make an AJAX request to fetch Student data
+                $.ajax({
+                    url: '../operations/fetch_staff.php', // Replace with your backend endpoint
+                    type: 'POST',
+                    data: { adminId: userId },
+                    dataType: 'json',
+                    success: function(response) {
+                        // Log the response to inspect the structure
+                        console.log(response);
+
+                        // Handle the response and populate your modal with data
+                        populateModal(response);
+                    },
+                    error: function() {
+                        // Handle errors
+                        console.error('Error fetching Student data.');
+                    }
+                });
             });
 
-            // Handle the file input change event
-            $("#input-file").change(function() {
-                readURL(this);
-            });
+            function populateModal(data) {
+                // Log the data to inspect the structure
+                console.log(data);
 
+                // Populate the modal fields with data received from the server
+                $('#editStaffFirstName').val(data[0].fname);
+                $('#editStaffLastName').val(data[0].lname);
+                $('#editStaffMI').val(data[0].initial);
+                $('#editStaffEmail').val(data[0].email);
+                $('#editStaffPhoneNumber').val(data[0].phone_number);
+                $('#editStaffAddress').val(data[0].address);
+                $('#editStaffTelNumber').val(data[0].tele_number);
+                $('#editStaffUsername').val(data[0].username);
+
+                var imagePath = '../img/' + data[0].img;
+                $('#Profile-Pic').attr('src', imagePath);
+
+                // Show the modal
+                $('#editStaffModal').modal('show');
+            }
         });
 
-        // Function to handle adding a student (you can replace this with your actual logic)
+
+        // Function to handle adding a student
         function addStudent() {
             // Add your logic here
-            $("#editStudentModal").modal("hide");
+            $("#editStaffModal").modal("hide");
         }
 
         // Function to clear the displayed photo
         function clearPhoto() {
-            $('#Profile-Pic').attr('src', '');
-            $(".AddImageContainer i").show();
+            $('#ProfilePic').attr('src', '../img/me_sample_profile.jpg');
+            $(".AddImageCon i").show();
         }
-    </script>
 
-    <script>
+        // Function to update the profile picture
         function updateProfilePicture(event) {
             const input = event.target;
             if (input.files && input.files[0]) {
@@ -423,11 +490,20 @@ if (isset($_SESSION['user'])) {
                 reader.onload = function(e) {
                     const profilePic = document.getElementById('Profile-Pic');
                     profilePic.src = e.target.result;
+
+                    // Hide the icon when a new image is selected
+                    $(".AddImageCon i").hide();
                 };
                 reader.readAsDataURL(input.files[0]);
             }
         }
+
+
     </script>
+    <script src='../js/logout_script.js'></script>
+    <script src='../js/student.js'></script>
+    <script src="../js/update_profile_staff.js"></script>
+
 
 
 </body>
