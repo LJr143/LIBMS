@@ -144,7 +144,8 @@ if (isset($_SESSION['user'])) {
 
                         </select>
                         <div class="input_search-wrapper" style="margin-left: 20px;">
-                            <input type="search" class="search-input" placeholder="Search Book">
+                            <input type="search" class="search-input" id="studentSearch" placeholder="Search Student">
+
                         </div>
                     </div>
 
@@ -182,8 +183,8 @@ if (isset($_SESSION['user'])) {
                             </tr>
                             <tr style=" height: 40px; background-color: rgb(246,246,246); margin-bottom: 10px; border: 1px solid rgba(0,0,0,0.25);">
                                 <td><input type="checkbox"></td>
-                                <td><img src="../img/<?= $user['img'] ?>" alt="" width="35px" style="border-radius: 60px; border: 1px solid #4d0202"></td>
-                                <td><?php echo $user['fname'].$user['lname']?></td>
+                                <td><img src="../img/<?= $user['img'] ?>" alt="" width="35px" height="35px" style="border-radius: 60px; border: 1px solid #4d0202"></td>
+                                <td><?php echo $user['fname'] . ' ' . $user['initial'] . '. ' . $user['lname']; ?></td>
                                 <td><?php echo $user['course']?></td>
                                 <td><?php echo $user['year']?></td>
                                 <?php if ($user['status'] == 'Active') { ?>
@@ -274,32 +275,35 @@ if (isset($_SESSION['user'])) {
                                     <img src="" width="110" height="120" id="Profile-Pic" style="margin-top: -10px;">
 
                                 </div>
-                                <input type="file" accept="image/jpeg, image/png, image/jpg" id="addStudentinput-file" class="visually-hidden mb-0">
+                                <input type="file" accept="image/jpeg, image/png, image/jpg" id="addStudentinput-file" class="visually-hidden mb-0" required>
                             </div>
                         </div>
 
 
-                        <form class="row needs-validation"  style="margin-left: 30px; width: 80%; height: 65%; "  novalidate >
+                        <form class="row needs-validation was-validated"  style="margin-left: 30px; width: 80%; height: 65%; "  novalidate >
                             <div class="col-md-5 firstname">
                                 <label for="addStudentFirstName" class="form-label mb-0" style="font-size: 12px;">FIRST NAME</label>
-                                <input type="text" class="form-control" placeholder="Juan" id="addStudentFirstName" style="font-size: 10px; text-transform: capitalize !important;" required pattern="[A-Za-z]+" required>
+                                <input type="text" class="form-control" placeholder="Juan" id="addStudentFirstName" style="font-size: 10px; text-transform: capitalize !important;" pattern="[A-Za-z]+" required>
                                 <div class="invalid-feedback" style="font-size: 8px">
                                     Not a valid first name!
                                 </div>
+                                <div class="valid-feedback" style="font-size: 8px">Looks good!</div>
+
                             </div>
                             <div class="col-md-5">
                                 <label for="addStudentLastName" class="form-label mb-0" style="font-size: 12px;">LAST NAME</label>
-                                <input type="text" class="form-control" placeholder="Dela Cruz" id="addStudentLastName" style="font-size: 10px; text-transform: capitalize !important;" required pattern="[A-Za-z]+" required>
+                                <input type="text" class="form-control" placeholder="Dela Cruz" id="addStudentLastName" style="font-size: 10px; text-transform: capitalize !important;" pattern="[A-Za-z]+" required>
                                 <div class="invalid-feedback" style="font-size: 8px">
                                     Not a valid last name!
                                 </div>
+                                <div class="valid-feedback" style="font-size: 8px">Looks good!</div>
+
                             </div>
                             <div class="col-md-2">
                                 <label for="addStudentMI" class="form-label mb-0" style="font-size: 12px;">M.I.</label>
                                 <input type="text" class="form-control mb-0" placeholder="I" id="addStudentMI" style="font-size: 10px; text-transform: uppercase !important;" required pattern="[A-Za-z]{1}">
-                                <div class="invalid-feedback" style="font-size:8px">
-                                    Not a valid M.I. !
-                                </div>
+                                <div class="valid-feedback" style="font-size: 8px">Looks good!</div>
+
                             </div>
 
 
@@ -309,6 +313,7 @@ if (isset($_SESSION['user'])) {
                                 <div class="invalid-feedback" style="font-size: 8px">
                                     Not a valid student ID!
                                 </div>
+                                <div class="valid-feedback" style="font-size: 8px">Looks good!</div>
                             </div>
 
 
@@ -319,6 +324,8 @@ if (isset($_SESSION['user'])) {
                                     <div class="invalid-feedback" style="font-size: 8px">
                                         Not a valid email address!
                                     </div>
+                                    <div class="valid-feedback" style="font-size: 8px">Looks good!</div>
+
                                 </div>
                             </div>
 
@@ -329,6 +336,8 @@ if (isset($_SESSION['user'])) {
                                 <div class="invalid-feedback" style="font-size: 8px">
                                     Not a valid phone number with 11 digits!
                                 </div>
+                                <div class="valid-feedback" style="font-size: 8px">Looks good!</div>
+
                             </div>
 
 
@@ -338,6 +347,8 @@ if (isset($_SESSION['user'])) {
                                 <div class="invalid-feedback" style="font-size: 8px">
                                     Not a valid address!
                                 </div>
+                                <div class="valid-feedback" style="font-size: 8px">Looks good!</div>
+
                             </div>
 
                             <div class="col-md-4 mt-2">
@@ -353,6 +364,8 @@ if (isset($_SESSION['user'])) {
                                 <div class="invalid-feedback" style="font-size: 8px">
                                     Not a valid section/year!
                                 </div>
+                                <div class="valid-feedback" style="font-size: 8px">Looks good!</div>
+
                             </div>
 
                             <div class="col-md-8 mt-2">
@@ -370,6 +383,8 @@ if (isset($_SESSION['user'])) {
                                 <div class="invalid-feedback" style="font-size: 8px">
                                     Not a valid course!
                                 </div>
+                                <div class="valid-feedback" style="font-size: 8px">Looks good!</div>
+
                             </div>
 
                             <div class="col-md-4 mt-2">
@@ -384,6 +399,8 @@ if (isset($_SESSION['user'])) {
                                 <div class="invalid-feedback" style="font-size: 8px">
                                     Not a valid major!
                                 </div>
+                                <div class="valid-feedback" style="font-size: 8px">Looks good!</div>
+
                             </div>
 
 
@@ -394,6 +411,8 @@ if (isset($_SESSION['user'])) {
                                     <div class="invalid-feedback" style="font-size: 8px;">
                                         Not a valid email address!
                                     </div>
+                                    <div class="valid-feedback" style="font-size: 8px">Looks good!</div>
+
                                 </div>
                             </div>
 
@@ -404,6 +423,8 @@ if (isset($_SESSION['user'])) {
                                     <div class="invalid-feedback" style="font-size: 8px">
                                         Not a valid username!
                                     </div>
+                                    <div class="valid-feedback" style="font-size: 8px">Looks good!</div>
+
                                 </div>
                             </div>
 
@@ -417,6 +438,8 @@ if (isset($_SESSION['user'])) {
                                     <div class="invalid-feedback" id="passwordRequirements" style="font-size: 8px; display: none;">
                                         Not a valid password!
                                     </div>
+                                    <div class="valid-feedback" style="font-size: 8px">Looks good!</div>
+
                                 </div>
                             </div>
 
@@ -605,7 +628,7 @@ if (isset($_SESSION['user'])) {
 </div>
 </div>
 
-
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 <script src="../node_modules/jquery/dist/jquery.min.js"></script>
 <script src="../node_modules/sweetalert2/dist/sweetalert2.all.min.js"></script>
 <script src="../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
@@ -614,6 +637,32 @@ if (isset($_SESSION['user'])) {
 <script src='../js/logout_script.js'></script>
 <script src="../js/navbar_select.js"></script>
 <script src="../js/student.js"></script>
+
+
+
+//search student
+<script>
+    $(document).ready(function() {
+        // Event listener for the search input
+        $('#studentSearch').on('input', function() {
+            var searchTerm = $(this).val().toLowerCase();
+
+            // Loop through each row in the table body
+            $('tbody tr').each(function() {
+                var rowText = $(this).text().toLowerCase();
+
+                // Check if the row contains the search term
+                if (rowText.includes(searchTerm)) {
+                    $(this).show();
+                } else {
+                    $(this).hide();
+                }
+            });
+        });
+    });
+</script>
+
+
 
 <script>
     $(document).ready(function() {
@@ -659,11 +708,6 @@ if (isset($_SESSION['user'])) {
         $(".AddImageContainer i").show();
     }
 
-    // Function to handle adding a student (you can replace this with your actual logic)
-    function addStudent() {
-        // Add your logic here
-        $("#studentModal").modal("hide");
-    }
 </script>
 <script>
     $(document).ready(function() {

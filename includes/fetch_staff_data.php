@@ -245,11 +245,44 @@ class StaffData
             return false;
         }
     }
+    
+    public function getAllUserStarCounts(): array
+    {
+        $userStarCounts = array();
 
+        // Fetch star counts for all users
+        $result = $this->database->query("SELECT user_id, star_count FROM tbl_feedback");
 
+        if ($result) {
+            while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
+                $user_id = $row['user_id'];
+                $starCount = (int) $row['star_count'];
+                $userStarCounts[$user_id] = $starCount;
+            }
+        }
 
+        return $userStarCounts;
+    }
 }
 
+$database = new Database(); // Assuming you have a Database class
+$staffData = new StaffData($database);
 
+// Get star counts for all users
+$userStarCounts = $staffData->getAllUserStarCounts();
 
+// Call the getAllStaff method to retrieve all staff data
+$staffList = $staffData->getAllStaff();
 
+// Check if there are staff members
+if (!empty($staffList)) {
+    foreach ($staffList as $staff) {
+        // Access staff data fields
+        $adminId = $staff['admin_id'];
+        $username = $staff['username'];
+    }
+} else {
+    // No staff members found
+    echo "No staff members found.";
+}
+?>
