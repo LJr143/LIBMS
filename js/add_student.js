@@ -1,10 +1,21 @@
+$(document).ready(function() {
+    // Add click event listener to the "ADD" button
+    $('#addStdntBtn').on('click', function(e) {
+        e.preventDefault(); // Prevent the default form submission
+
+        // Call the addStudent function when the button is clicked
+        addStudent();
+    });
+});
 
 function addStudent() {
     var formData = new FormData();
-    var profileFileInput = $('#addStudentinput-file')[0];
+    var profileFileInput = $('#addStudentinput-file')[0]; // Consistent naming
     if (profileFileInput.files.length > 0) {
         formData.append('profile', profileFileInput.files[0]);
     }
+
+    // Append form data
     formData.append('first_name', $('#addStudentFirstName').val());
     formData.append('last_name', $('#addStudentLastName').val());
     formData.append('mi', $('#addStudentMI').val());
@@ -19,17 +30,14 @@ function addStudent() {
     formData.append('username', $('#addStudentUsername').val());
     formData.append('password', $('#addStudentPassword').val());
 
-    for (var pair of formData.entries()) {
-        console.log(pair[0] + ', ' + pair[1]);
-    }
-
+    // AJAX request
     $.ajax({
         url: '../operations/add_student.php',
         type: 'POST',
         data: formData,
         contentType: false,
         processData: false,
-        success: function (response) {
+        success: function(response) {
             try {
                 var result = typeof response === 'string' ? JSON.parse(response) : response;
                 if (result.success) {
@@ -47,26 +55,31 @@ function addStudent() {
                     }).then((result) => {
                         // Check if the user clicked "OK"
                         if (result.isConfirmed) {
-                            setTimeout(function () {
-                                // Reload the page
+                            // Reload the page after a short delay
+                            setTimeout(function() {
                                 location.reload();
-                            }, 2000);
+                            });
                         }
                     });
 
                 } else {
                     Swal.fire({
                         title: 'Error!',
-                        text: 'Failed to Add the student. Please try again.',
+                        text: 'Failed to add the student. Please try again.',
                         icon: 'error'
                     });
                 }
             } catch (e) {
                 console.error('Failed to parse JSON response:', response);
+                Swal.fire({
+                    title: 'Error!',
+                    text: 'Failed to process the server response.',
+                    icon: 'error'
+                });
             }
         },
-        error: function () {
-            alert('AJAX request failed.');
+        error: function() {
+            alert('AJAX request failed.'); // Consider improving the user experience
         }
     });
 }

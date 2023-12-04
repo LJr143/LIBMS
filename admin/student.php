@@ -201,7 +201,6 @@ if (isset($_SESSION['user'])) {
                                         </div>
                                     </td>
                                 </tr>
-                                <tr style="height: 10px"></tr>
                             <?php endforeach; ?>
 
                             </tbody>
@@ -427,7 +426,7 @@ if (isset($_SESSION['user'])) {
 
                             <div class=" wishlist-container  mt-4 mb-0 " style=" display: flex; justify-content: flex-end; width: 664px; ">
                                 <button style="height: 25px; width: 100px" type="button" class="clear shadow " onclick="clearPhoto()">CLEAR</button>
-                                <button style="height: 25px; width: 100px" type="submit" class="add shadow" onclick="addStudent()">ADD</button>
+                                <button style="height: 25px; width: 100px" type="submit" id="addStdntBtn" class="add shadow">ADD</button>
                             </div>
                         </form>
                     </div>
@@ -642,8 +641,6 @@ if (isset($_SESSION['user'])) {
         });
     });
 </script>
-
-
 
 <script>
     $(document).ready(function() {
