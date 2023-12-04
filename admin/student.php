@@ -159,73 +159,54 @@ if (isset($_SESSION['user'])) {
             <div style="display: flex; justify-content: center; ">
                 <div style="font-size: 12px; background-color: white; width: 95%; max-height: 550px; box-shadow: 0px 4px 8px rgba(0,0,0,0.27);">
                     <div style="width: 100%; display: flex; justify-content: center; border-radius: 5px">
-                        <table style="width: 98%; " class=" table text-center">
+                        <table class="table text-center" style="width: 98%;">
                             <thead>
                             <tr>
                                 <th><input type="checkbox" id="selectAllCheckbox" style="position: absolute; margin: 2px 0px 0px -20px;">Select All</th>
                                 <th></th>
                                 <th>Name</th>
-<!--                                <th>Gender</th>-->
                                 <th>Course</th>
                                 <th>Year Level</th>
                                 <th>Status</th>
                                 <th>Manage</th>
-
                             </tr>
                             </thead>
                             <tbody>
-
-
-                            <?php foreach ($userList as $user) { ?>
-
-                            <tr style="height: 10px">
-
-                            </tr>
-                            <tr style=" height: 40px; background-color: rgb(246,246,246); margin-bottom: 10px; border: 1px solid rgba(0,0,0,0.25);">
-                                <td><input type="checkbox"></td>
-                                <td><img src="../img/<?= $user['img'] ?>" alt="" width="35px" height="35px" style="border-radius: 60px; border: 1px solid #4d0202"></td>
-                                <td><?php echo $user['fname'] . ' ' . $user['initial'] . '. ' . $user['lname']; ?></td>
-                                <td><?php echo $user['course']?></td>
-                                <td><?php echo $user['year']?></td>
-                                <?php if ($user['status'] == 'Active') { ?>
-                                    <!-- Show "Suspend" button when status is Active -->
-                                    <td style="color: green;"><?php echo $user['status']?></td>
-                                <?php } else { ?>
-                                    <!-- Show "Activate" button when status is Suspended -->
-                                    <td style="color: red;"><?php echo $user['status']?></td>
-                                <?php } ?>
-
-                                <td style="padding: 1px;">
-                                    <div class="btn-group" role="group">
-                                        <a href="#" class="btn custom-btn editStudentProfile" data-user-id="<?php echo $user['user_id']; ?>">
-                                            <i class="bi bi-pencil-square"></i>
-                                        </a>
-                                        <a href="#" class="btn custom-btn deleteStudent" data-user-id="<?php echo $user['user_id']; ?>" data-student-name="<?php echo $user['fname'] . " " . $user['lname']; ?>">
-                                            <i class="bi bi-trash"></i>
-                                        </a>
-
-                                        <?php if ($user['status'] == 'Active') { ?>
-                                            <!-- Show "Suspend" button when status is Active -->
-                                            <a href="#" style="color: red" class="btn custom-btn suspend_student" data-user-id="<?php echo $user['user_id']; ?>" data-student-name="<?php echo $user['fname'] . " " . $user['lname']; ?>">
-                                                <i class="bi bi-exclamation-octagon"></i>
+                            <?php foreach ($userList as $user) : ?>
+                                <tr style="height: 10px"></tr>
+                                <tr style="height: 40px; background-color: rgb(246, 246, 246); margin-bottom: 10px; border: 1px solid rgba(0, 0, 0, 0.25);">
+                                    <td><input type="checkbox"></td>
+                                    <td><img src="../img/<?= $user['img'] ?>" alt="" width="35px" height="35px" style="border-radius: 60px; border: 1px solid #4d0202"></td>
+                                    <td><?= $user['fname'] . ' ' . $user['initial'] . '. ' . $user['lname']; ?></td>
+                                    <td><?= $user['course'] ?></td>
+                                    <td><?= $user['year'] ?></td>
+                                    <td style="color: <?= ($user['status'] == 'Active') ? 'green' : 'red'; ?>;"><?= $user['status'] ?></td>
+                                    <td style="padding: 1px;">
+                                        <div class="btn-group" role="group">
+                                            <a href="#" class="btn custom-btn editStudentProfile" data-user-id="<?= $user['user_id']; ?>">
+                                                <i class="bi bi-pencil-square"></i>
                                             </a>
-                                        <?php } else { ?>
-                                            <!-- Show "Activate" button when status is Suspended -->
-                                            <a href="#"  style="color:green" class="btn custom-btn activate_student" data-user-id="<?php echo $user['user_id']; ?>" data-student-name="<?php echo $user['fname'] . " " . $user['lname']; ?>">
-                                                <i class="bi bi-check"></i>
+                                            <a href="#" class="btn custom-btn deleteStudent" data-user-id="<?= $user['user_id']; ?>" data-student-name="<?= $user['fname'] . ' ' . $user['lname']; ?>">
+                                                <i class="bi bi-trash"></i>
                                             </a>
-                                        <?php } ?>
-                                    </div>
-                                </td>
+                                            <?php if ($user['status'] == 'Active') : ?>
+                                                <a href="#" style="color: red" class="btn custom-btn suspend_student" data-user-id="<?= $user['id']; ?>" data-student-name="<?= $user['fname'] . ' ' . $user['lname']; ?>">
+                                                    <i class="bi bi-exclamation-octagon"></i>
+                                                </a>
+                                            <?php else : ?>
+                                                <a href="#" style="color: green" class="btn custom-btn activate_student" data-user-id="<?= $user['id']; ?>" data-student-name="<?= $user['fname'] . ' ' . $user['lname']; ?>">
+                                                    <i class="bi bi-check"></i>
+                                                </a>
+                                            <?php endif; ?>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr style="height: 10px"></tr>
+                            <?php endforeach; ?>
 
-
-                            </tr>
-                            <tr style="height: 10px">
-
-                            </tr>
-                            <?php } ?>
                             </tbody>
                         </table>
+
 
                     </div>
                     <div style="width: 100%; display: flex; justify-content: center; margin: 20px 0px">

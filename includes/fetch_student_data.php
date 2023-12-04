@@ -149,7 +149,7 @@ class StudentData
     }
     public function suspendStudent($userId) {
         $status = "Suspended";
-        $sql = "UPDATE tbl_user SET status = :status WHERE user_id = :user_id";
+        $sql = "UPDATE tbl_user SET status = :status WHERE id = :user_id";
 
         $stmt = $this->database->prepare($sql);
         $stmt->bindParam(':status', $status, PDO::PARAM_STR);
@@ -169,7 +169,7 @@ class StudentData
     }
     public function activateStudent($userId) {
         $status = "Active";
-        $sql = "UPDATE tbl_user SET status = :status WHERE user_id = :user_id";
+        $sql = "UPDATE tbl_user SET status = :status WHERE id = :user_id";
 
         $stmt = $this->database->prepare($sql);
         $stmt->bindParam(':status', $status, PDO::PARAM_STR);

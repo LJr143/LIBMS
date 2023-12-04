@@ -1,151 +1,82 @@
-var userId;
-var studentMemberName;
-$(document).ready(function() {
-    // Attach click event to delete buttons
-    $('.suspend_student').on('click', function(e) {
+$(document).ready(function () {
+    $('.suspend_student, .activate_student').on('click', function (e) {
         e.preventDefault();
-        userId = $(this).data('user-id');
+        var userId = $(this).data('user-id');
+        var studentMemberName = $(this).data('student-name');
 
-        // Get student member's name for the confirmation message
-        studentMemberName = $(this).data('student-name');
-
-        // Call your delete function or AJAX request here with the userId
-        showSuspendConfirmation(studentMemberName);
-    });
-
-    $('.activate_student').on('click', function(e) {
-        e.preventDefault();
-        userId = $(this).data('user-id');
-
-        // Get student member's name for the confirmation message
-        studentMemberName = $(this).data('student-name');
-
-        // Call your delete function or AJAX request here with the userId
-        showActivateConfirmation(studentMemberName);
+        if ($(this).hasClass('suspend_student')) {
+            showConfirmation('SUSPEND', 'suspended', userId, studentMemberName);
+        } else {
+            showConfirmation('ACTIVATE', 'activated', userId, studentMemberName);
+        }
     });
 });
 
-function suspendstudent(userId) {
-    console.log(userId);
-
+function performAction(actionType, userId, studentMemberName) {
     $.ajax({
-        url: '../operations/suspend_student.php',
+        url: `../operations/${actionType.toLowerCase()}_student.php`,
         type: 'POST',
-        data: { user_id: userId,
-            studentName: studentMemberName,},
+        data: { user_id: userId, studentName: studentMemberName },
         dataType: 'json',
-        success: function(response) {
-            console.log(response);
-            // Handle the response, e.g., update the UI or remove the row from the table
-            Swal.fire({
-                title: 'SUSPENDED!',
-                text: 'SUCCESSFULLY SUSPENDED!',
-                icon: 'success',
-                customClass: {
-                    popup: 'my-swal-popup',
-                    title: 'swal-title',
-                    content: 'my-swal-content',
-                    confirmButton: 'my-confirm-button'
-                }
-            }).then((result) => {
-                // Check if the user clicked "OK"
-                if (result.isConfirmed) {
-                    // Reload the page
-                    location.reload();
-                }
-            });
+        success: function (response) {
+            handleSuccess(response, actionType);
         },
-        error: function() {
-            console.error('Error suspending student member.');
-            alert('Error suspending student member. Please try again.');
+        error: function () {
+            handleError(actionType);
         }
     });
 }
 
-function activatestudent(userId) {
-    console.log(userId);
+function handleSuccess(response, actionType) {
+    console.log(response);
 
-    $.ajax({
-        url: '../operations/activate_student.php',
-        type: 'POST',
-        data: { user_id: userId,
-            studentName: studentMemberName,},
-        dataType: 'json',
-        success: function(response) {
-            console.log(response);
-            // Handle the response, e.g., update the UI or remove the row from the table
-            Swal.fire({
-                title: 'ACTIVATED!',
-                text: 'SUCCESSFULLY ACTIVATED!',
-                icon: 'success',
-                customClass: {
-                    popup: 'my-swal-popup',
-                    title: 'swal-title',
-                    content: 'my-swal-content',
-                    confirmButton: 'my-confirm-button'
-                }
-            }).then((result) => {
-                // Check if the user clicked "OK"
-                if (result.isConfirmed) {
-                    // Reload the page
-                    location.reload();
-                }
-            });
-        },
-        error: function() {
-            console.error('Error activating student member.');
-            alert('Error activating student member. Please try again.');
-        }
-    });
-}
-
-function showSuspendConfirmation(studentMemberName) {
     Swal.fire({
-        title: 'ARE YOU SURE?',
-        text: 'Do you really want to suspend ' + studentMemberName + '?',
-        icon: 'error', // Set the icon as 'error'
-        iconHtml: '<div style="background-color: white; display: inline-block; padding: 20px; border-radius: 5px;"><i class="bi bi-exclamation-triangle" style="font-size: 50px; color: #711717; "></i></div>',
-        showCancelButton: true,
-        confirmButtonColor: '#711717',
-        confirmButtonText: 'SUSPEND',
-        cancelButtonText: 'CANCEL',
-        cancelButtonColor: '#e3e6e9',
-        customClass: {
-            popup: 'my-swal-popup',
-            content: 'my-swal-content',
-            title: 'swal-title',
-            cancelButton: 'my-cancel-button',
-            confirmButton: 'my-confirm-button'
-        }
+        title: `${actionType.toUpperCase()}ED!`,
+        text: `SUCCESSFULLY ${actionType.toUpperCase()}ED!`,
+        icon: 'success',
+        customClass: getSwalCustomClasses()
     }).then((result) => {
         if (result.isConfirmed) {
-            suspendstudent(userId);
-
+            location.reload();
         }
     });
 }
-function showActivateConfirmation(studentMemberName) {
+
+function handleError(actionType) {
+    console.error(`Error ${actionType.toLowerCase()}ing student member.`);
+    alert(`Error ${actionType.toLowerCase()}ing student member. Please try again.`);
+}
+
+function showConfirmation(actionType, pastTense, userId, studentMemberName) {
     Swal.fire({
-        title: 'ARE YOU SURE?',
-        text: 'Do you really want to Activate ' + studentMemberName + '?',
-        icon: 'error', // Set the icon as 'error'
-        iconHtml: '<div style="background-color: white; display: inline-block; padding: 20px; border-radius: 5px;"><i class="bi bi-exclamation-triangle" style="font-size: 50px; color: #711717; "></i></div>',
+        title: `ARE YOU SURE?`,
+        text: `Do you really want to ${actionType.toLowerCase()} ${studentMemberName}?`,
+        icon: 'error',
+        iconHtml: getSwalIconHtml(),
         showCancelButton: true,
         confirmButtonColor: '#711717',
-        confirmButtonText: 'ACTIVATE',
+        confirmButtonText: `${actionType.toUpperCase()}`,
         cancelButtonText: 'CANCEL',
         cancelButtonColor: '#e3e6e9',
-        customClass: {
-            popup: 'my-swal-popup',
-            content: 'my-swal-content',
-            title: 'swal-title',
-            cancelButton: 'my-cancel-button',
-            confirmButton: 'my-confirm-button'
-        }
+        customClass: getSwalCustomClasses()
     }).then((result) => {
         if (result.isConfirmed) {
-            activatestudent(userId);
-
+            performAction(actionType.toLowerCase(), userId, studentMemberName);
         }
     });
+}
+
+function getSwalIconHtml() {
+    return '<div style="background-color: white; display: inline-block; padding: 20px; border-radius: 5px;">' +
+        '<i class="bi bi-exclamation-triangle" style="font-size: 50px; color: #711717;"></i></div>';
+}
+
+function getSwalCustomClasses() {
+    return {
+        popup: 'my-swal-popup',
+        content: 'my-swal-content',
+        title: 'swal-title',
+        cancelButton: 'my-cancel-button',
+        confirmButton: 'my-confirm-button'
+    };
 }
