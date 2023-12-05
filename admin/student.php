@@ -263,13 +263,14 @@ if (isset($_SESSION['user'])) {
                         <form id="AddStudentModal" class="row needs-validation "  style="margin-left: 30px; width: 80%; height: 65%; "  novalidate >
                             <div class="col-md-5 firstname">
                                 <label for="addStudentFirstName" class="form-label mb-0" style="font-size: 12px;">FIRST NAME</label>
-                                <input type="text" class="form-control" placeholder="Juan" id="addStudentFirstName" style="font-size: 10px; text-transform: capitalize !important;" pattern="[A-Za-z]+" required>
+                                <input type="text" class="form-control" placeholder="Juan" id="addStudentFirstName" style="font-size: 10px; text-transform: capitalize !important;" pattern="[A-Za-z]+(?: [A-Za-z]+)?" required>
                                 <div class="invalid-feedback" style="font-size: 8px">
                                     Not a valid first name!
                                 </div>
                                 <div class="valid-feedback" style="font-size: 8px">Looks good!</div>
-
                             </div>
+
+
                             <div class="col-md-5">
                                 <label for="addStudentLastName" class="form-label mb-0" style="font-size: 12px;">LAST NAME</label>
                                 <input type="text" class="form-control" placeholder="Dela Cruz" id="addStudentLastName" style="font-size: 10px; text-transform: capitalize !important;" pattern="[A-Za-z]+" required>
@@ -298,9 +299,9 @@ if (isset($_SESSION['user'])) {
 
 
                             <div class="col-md-5 mt-2">
-                                <label for="addStudentPersonalEmail" class="form-label mb-0" style="font-size: 12px;">EMAIL ADDRESS</label>
+                                <label for="addStudentPersonalEmail" class="form-label mb-0" style="font-size: 12px;">PERSONAL EMAIL ADDRESS</label>
                                 <div class="input-group has-validation">
-                                    <input type="email" class="form-control" id="addStudentPersonalEmail" aria-describedby="inputGroupPrepend" placeholder="juan001@usep.edu.ph" style="font-size: 10px;" required>
+                                    <input type="email" class="form-control" id="addStudentPersonalEmail" aria-describedby="inputGroupPrepend" placeholder="juan001@gmail.com" style="font-size: 10px;" required>
                                     <div class="invalid-feedback" style="font-size: 8px">
                                         Not a valid email address!
                                     </div>
@@ -396,17 +397,17 @@ if (isset($_SESSION['user'])) {
                                 </div>
                             </div>
 
-                            <div class=" col col-md-3 mt-3">
+                            <div class="col col-md-3 mt-3">
                                 <label for="addStudentUsername" class="form-label mb-0" style="font-size: 12px;">USERNAME</label>
                                 <div class="input-group has-validation">
-                                    <input type="text" class="form-control" id="addStudentUsername" aria-describedby="inputGroupPrepend" placeholder="juandlz" style="font-size: 10px;" required>
+                                    <input type="text" class="form-control" id="addStudentUsername" aria-describedby="inputGroupPrepend" placeholder="juandlz" style="font-size: 10px;" required pattern="^(?=.*[A-Za-z0-9])[A-Za-z0-9]{6,}$">
                                     <div class="invalid-feedback" style="font-size: 8px">
-                                        Not a valid username!
+                                        Not a valid username! Follow the format.
                                     </div>
                                     <div class="valid-feedback" style="font-size: 8px">Looks good!</div>
-
                                 </div>
                             </div>
+
 
                             <div class="col col-md-4 mt-3">
                                 <label for="addStudentPassword" class="form-label mb-0" style="font-size: 12px;">PASSWORD</label>
@@ -604,9 +605,9 @@ if (isset($_SESSION['user'])) {
                         </form>
                     </div>
                 </div>
+            </div>
         </div>
     </div>
-</div>
 </div>
 
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
@@ -643,6 +644,11 @@ if (isset($_SESSION['user'])) {
             });
         });
     });
+</script>
+
+
+
+</script>
 </script>
 
 <script>

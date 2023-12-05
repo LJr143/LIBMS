@@ -1,14 +1,17 @@
 <?php
-require_once 'C:\wamp64\www\LIBMS\db_config\config.php'; 
+require_once 'C:\wamp64\www\LIBMS\db_config\config.php';
 
-class BorrowData {
+class BorrowData
+{
     private $database;
 
-    public function __construct($database) {
+    public function __construct($database)
+    {
         $this->database = $database;
     }
 
-    public function getBookTitle($bookId) {
+    public function getBookTitle($bookId)
+    {
         try {
             // Your SQL query to fetch the book title from tbl_book
             $sql = "SELECT book_title FROM tbl_book WHERE book_id = :book_id";
@@ -48,11 +51,11 @@ class BorrowData {
         }
     }
 }
-
 $database = new Database(); // Assuming you have a Database class for handling database connections
 $borrowData = new BorrowData($database);
 
-// Encode the data as JSON and echo it for AJAX requests
-echo json_encode($borrowData->fetchBorrowData());
-
-?>
+// Check if it's an AJAX request and return data as JSON
+if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['ajax'])) {
+    echo json_encode($borrowData->fetchBorrowData());
+    exit();
+}

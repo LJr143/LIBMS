@@ -1,104 +1,51 @@
 <?php
+require_once 'C:\wamp64\www\LIBMS\db_config\config.php';
 
-
-
-// Database credentials
-$host = 'localhost'; // e.g., 'localhost'
-$dbname = 'lms_db';
-$username = 'root';
-$password = ' ';
-
-// Establish a database connection using PDO
-try {
-    $pdo = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8", $username, $password);
-    // Set PDO to throw exceptions on errors
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-} catch (PDOException $e) {
-    // Handle connection errors
-    echo "Connection failed: " . $e->getMessage();
-    // Optionally, log the error or take other actions
-    die();
-}
-
-
-// Get the borrowId from the POST request
-$borrowId = $_POST['borrowId'];
-
-// Assuming you have a function to fetch detailed borrow information
-// Replace this with your actual database query
-$borrowDetails = fetchBorrowDetails($borrowId);
-
-// Check if details are found
-if ($borrowDetails) {
-    // Output the details as JSON (you can customize this based on your needs)
-    echo json_encode($borrowDetails);
-} else {
-    // Output an error message or handle as needed
-    echo json_encode(['error' => 'Borrow details not found']);
-}
-
-// Function to fetch detailed borrow information
-function fetchBorrowDetails($borrowId)
+class BorrowDetails
 {
-    global $pdo; // Assuming $pdo is your established PDO connection
+    private $database;
 
-    // Your SQL query
-    $query = "SELECT
-                u.fname,
-                u.initial,
-                u.lname,
-                u.year,
-                u.course,
-                u.major,
-                u.user_id,
-                b.book_img,
-                b.book_title,
-                b.shelf,
-                b.Author_id,
-                b.publisher,
-                bor.date_borrowed,
-                bor.date_return
-            FROM
-                tbl_user u
-            JOIN
-                tbl_borrow bor ON u.user_id = bor.user_id
-            JOIN
-                tbl_book b ON bor.book_id = b.book_id
-            WHERE
-                bor.borrow_id = :borrowId";
+    public function __construct($database)
+    {
+        $this->database = $database;
+    }
 
+    function fetchBorrowDetails()
+{
+    error_log('Fetching borrow details...');
     try {
-        // Prepare the SQL statement
-        $stmt = $pdo->prepare($query);
+        // Connect to your database (modify the connection details accordingly)
+        $pdo = new PDO("mysql:host=localhost;dbname=lms_db", "root", "");
 
-        // Bind parameters
-        $stmt->bindParam(':borrowId', $borrowId, PDO::PARAM_INT);
+        // Check if 'borrowId' is set in the POST data
+        if (isset($_POST['borrowId'])) {
+            $borrowId = $_POST['borrowId'];
 
-        // Execute the query
-        $stmt->execute();
+            // Your SQL query to fetch data from the view
+            $sql = "SELECT * FROM vw_modal_return_data WHERE borrow_id = :borrowId";
+            $stmt = $pdo->prepare($sql);
+            $stmt->bindParam(':borrowId', $borrowId, PDO::PARAM_INT);
+            $stmt->execute();
 
-        // Fetch the result as an associative array
-        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+            // Fetch data as an associative array
+            $borrowData = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        // Return the result
-        return $result;
+            return $borrowData;
+        } else {
+            // Handle case where 'borrowId' is not set
+            return [];
+        }
     } catch (PDOException $e) {
-        // Handle any errors (e.g., log the error)
-        echo "Error: " . $e->getMessage();
-        return false;
+        // Log the error
+        error_log('Error fetching data: ' . $e->getMessage());
+
+        // Handle database connection or query errors here
+        return [];
     }
 }
 
-// Example usage:
-$borrowId = 123; // Replace with the actual borrowId you want to fetch
-$result = fetchBorrowDetails($borrowId);
-
-// Check if the result is not false (indicating success)
-if ($result !== false) {
-    print_r($result); // Output the fetched details
-} else {
-    // Handle the case where the details couldn't be fetched
-    echo "Failed to fetch borrow details.";
 }
+$database = new Database(); // Assuming you have a Database class for handling database connections
+$borrowDetails = new BorrowDetails($database);
 
 ?>

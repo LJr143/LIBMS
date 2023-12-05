@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Nov 29, 2023 at 01:27 PM
+-- Generation Time: Dec 05, 2023 at 04:19 PM
 -- Server version: 8.0.31
--- PHP Version: 7.4.33
+-- PHP Version: 8.0.26
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -30,18 +30,18 @@ SET time_zone = "+00:00";
 DROP TABLE IF EXISTS `tbl_admin`;
 CREATE TABLE IF NOT EXISTS `tbl_admin` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `admin_id` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
-  `lname` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
-  `fname` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
-  `initial` varchar(5) COLLATE utf8mb4_general_ci NOT NULL,
-  `admin_role` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
-  `email` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
-  `personal_email` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
-  `phone_number` varchar(15) COLLATE utf8mb4_general_ci NOT NULL,
-  `tele_number` varchar(15) COLLATE utf8mb4_general_ci NOT NULL,
-  `address` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
+  `admin_id` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `lname` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `fname` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `initial` varchar(5) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `admin_role` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `email` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `personal_email` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `phone_number` varchar(15) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `tele_number` varchar(15) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `address` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `status` varchar(25) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT 'Active',
-  `username` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
+  `username` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `password` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `img` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   PRIMARY KEY (`id`),
@@ -65,20 +65,20 @@ INSERT INTO `tbl_admin` (`id`, `admin_id`, `lname`, `fname`, `initial`, `admin_r
 
 DROP TABLE IF EXISTS `tbl_book`;
 CREATE TABLE IF NOT EXISTS `tbl_book` (
-  `book_id` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
-  `book_title` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
-  `ISBN` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
+  `book_id` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `book_title` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `ISBN` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `Author_id` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `pub_date` date NOT NULL,
-  `publisher` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
-  `genre` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
-  `category` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
-  `edition` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
-  `language` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
-  `description` longtext COLLATE utf8mb4_general_ci NOT NULL,
-  `shelf` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
-  `status` varchar(25) COLLATE utf8mb4_general_ci NOT NULL,
-  `book_img` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
+  `publisher` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `genre` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `category` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `edition` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `language` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `description` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `shelf` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `status` varchar(25) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `book_img` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   PRIMARY KEY (`book_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -108,13 +108,21 @@ DROP TABLE IF EXISTS `tbl_borrow`;
 CREATE TABLE IF NOT EXISTS `tbl_borrow` (
   `borrow_id` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `user_id` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `book_id` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
+  `book_id` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `date_barrowed` date NOT NULL,
-  `status` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
+  `date_return` date DEFAULT NULL,
   PRIMARY KEY (`borrow_id`),
   KEY `borrow_book_id_fk` (`book_id`),
   KEY `user_id` (`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `tbl_borrow`
+--
+
+INSERT INTO `tbl_borrow` (`borrow_id`, `user_id`, `book_id`, `date_barrowed`, `date_return`) VALUES
+('0111', '2021-00027', '2', '2023-12-06', '2023-12-14'),
+('0112', '2021-00027', '4', '2023-11-08', '2023-11-10');
 
 -- --------------------------------------------------------
 
@@ -125,10 +133,10 @@ CREATE TABLE IF NOT EXISTS `tbl_borrow` (
 DROP TABLE IF EXISTS `tbl_copy`;
 CREATE TABLE IF NOT EXISTS `tbl_copy` (
   `copy_id` int NOT NULL,
-  `status` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
+  `status` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `book_id` int NOT NULL,
-  `location` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
-  `copy_condition` varchar(100) COLLATE utf8mb4_general_ci NOT NULL
+  `location` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `copy_condition` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -163,7 +171,6 @@ INSERT INTO `tbl_feedback` (`feedback_id`, `user_id`, `fname`, `lname`, `initial
 
 -- --------------------------------------------------------
 
-
 --
 -- Table structure for table `tbl_logs`
 --
@@ -171,9 +178,9 @@ INSERT INTO `tbl_feedback` (`feedback_id`, `user_id`, `fname`, `lname`, `initial
 DROP TABLE IF EXISTS `tbl_logs`;
 CREATE TABLE IF NOT EXISTS `tbl_logs` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `admin_id` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
+  `admin_id` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `date` timestamp NOT NULL,
-  `action` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
+  `action` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   PRIMARY KEY (`id`),
   KEY `admin_id_log_FK` (`admin_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=222 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -335,9 +342,9 @@ INSERT INTO `tbl_logs` (`id`, `admin_id`, `date`, `action`) VALUES
 DROP TABLE IF EXISTS `tbl_penalties`;
 CREATE TABLE IF NOT EXISTS `tbl_penalties` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `user_id` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
-  `book_id` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
-  `borrow_id` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
+  `user_id` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `book_id` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `borrow_id` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `Amount` int NOT NULL,
   PRIMARY KEY (`id`),
   KEY `user_id_fk_penalty` (`user_id`),
@@ -354,10 +361,10 @@ CREATE TABLE IF NOT EXISTS `tbl_penalties` (
 DROP TABLE IF EXISTS `tbl_record`;
 CREATE TABLE IF NOT EXISTS `tbl_record` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `user_id` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
-  `activity` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
+  `user_id` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `activity` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `date` timestamp NOT NULL,
-  `status` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
+  `status` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   PRIMARY KEY (`id`),
   KEY `user` (`user_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -371,9 +378,9 @@ CREATE TABLE IF NOT EXISTS `tbl_record` (
 DROP TABLE IF EXISTS `tbl_reserve`;
 CREATE TABLE IF NOT EXISTS `tbl_reserve` (
   `reserve_id` int NOT NULL,
-  `book_id` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
+  `book_id` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `reserve_date` date NOT NULL,
-  `status` varchar(25) COLLATE utf8mb4_general_ci NOT NULL,
+  `status` varchar(25) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   PRIMARY KEY (`reserve_id`),
   KEY `book_id` (`book_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -394,15 +401,15 @@ INSERT INTO `tbl_reserve` (`reserve_id`, `book_id`, `reserve_date`, `status`) VA
 DROP TABLE IF EXISTS `tbl_superadmin`;
 CREATE TABLE IF NOT EXISTS `tbl_superadmin` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `admin_id` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
-  `fname` varchar(25) COLLATE utf8mb4_general_ci NOT NULL,
-  `lname` varchar(25) COLLATE utf8mb4_general_ci NOT NULL,
-  `initial` varchar(5) COLLATE utf8mb4_general_ci NOT NULL,
-  `admin_role` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
-  `email` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
-  `username` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
-  `password` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
-  `img` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
+  `admin_id` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `fname` varchar(25) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `lname` varchar(25) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `initial` varchar(5) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `admin_role` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `email` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `username` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `password` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `img` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -423,21 +430,21 @@ DROP TABLE IF EXISTS `tbl_user`;
 CREATE TABLE IF NOT EXISTS `tbl_user` (
   `id` int NOT NULL AUTO_INCREMENT,
   `user_id` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `fname` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
-  `lname` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
-  `initial` char(5) COLLATE utf8mb4_general_ci NOT NULL,
-  `year` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
-  `course` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
-  `major` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
-  `username` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
-  `password` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
+  `fname` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `lname` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `initial` char(5) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `year` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `course` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `major` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `username` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `password` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `status` varchar(25) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT 'Active',
   `user_type` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT 'Student',
-  `email` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
-  `usep_email` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
-  `phone_number` varchar(25) COLLATE utf8mb4_general_ci NOT NULL,
-  `address` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
-  `img` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
+  `email` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `usep_email` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `phone_number` varchar(25) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `address` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `img` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   PRIMARY KEY (`user_id`),
   UNIQUE KEY `user_id` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -457,14 +464,14 @@ INSERT INTO `tbl_user` (`id`, `user_id`, `fname`, `lname`, `initial`, `year`, `c
 
 DROP TABLE IF EXISTS `tbl_wishlist`;
 CREATE TABLE IF NOT EXISTS `tbl_wishlist` (
-  `id` varchar(25) COLLATE utf8mb4_general_ci NOT NULL,
-  `book_title` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
-  `author` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
+  `id` varchar(25) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `book_title` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `author` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `pub_year` date NOT NULL,
   `date_wished` date NOT NULL,
   `edition` int NOT NULL,
-  `img` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
-  `status` varchar(25) COLLATE utf8mb4_general_ci NOT NULL,
+  `img` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `status` varchar(25) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -512,18 +519,19 @@ INSERT INTO `users` (`id`, `email`, `first_name`, `last_name`, `gender`, `full_n
 -- --------------------------------------------------------
 
 --
--- Stand-in structure for view `vw_borrowed_books`
+-- Stand-in structure for view `vw_borrow_data`
 -- (See below for the actual view)
 --
-DROP VIEW IF EXISTS `vw_borrowed_books`;
-CREATE TABLE IF NOT EXISTS `vw_borrowed_books` (
-`borrow_id` varchar(100)
-,`date_barrowed` date
-,`status` varchar(100)
-,`user_id` varchar(100)
+DROP VIEW IF EXISTS `vw_borrow_data`;
+CREATE TABLE IF NOT EXISTS `vw_borrow_data` (
+`user_id` varchar(50)
+,`fname` varchar(50)
+,`initial` char(5)
+,`lname` varchar(50)
+,`book_id` varchar(100)
 ,`book_title` varchar(100)
-,`book_author` varchar(100)
-,`book_img` varchar(100)
+,`date_barrowed` date
+,`date_return` date
 );
 
 -- --------------------------------------------------------
@@ -538,6 +546,29 @@ CREATE TABLE IF NOT EXISTS `vw_logs` (
 ,`admin_id` varchar(50)
 ,`action` varchar(50)
 ,`admin_role` varchar(50)
+);
+
+-- --------------------------------------------------------
+
+--
+-- Stand-in structure for view `vw_modal_return_data`
+-- (See below for the actual view)
+--
+DROP VIEW IF EXISTS `vw_modal_return_data`;
+CREATE TABLE IF NOT EXISTS `vw_modal_return_data` (
+`book_id` varchar(100)
+,`book_title` varchar(100)
+,`shelf` varchar(100)
+,`Author_id` varchar(100)
+,`publisher` varchar(100)
+,`user_id` varchar(50)
+,`full_name` varchar(107)
+,`year` varchar(50)
+,`course` varchar(100)
+,`major` varchar(100)
+,`date_barrowed` date
+,`borrow_id` varchar(100)
+,`date_return` date
 );
 
 -- --------------------------------------------------------
@@ -569,7 +600,6 @@ CREATE TABLE IF NOT EXISTS `vw_user_penalty` (
 ,`Author_id` varchar(100)
 ,`book_img` varchar(100)
 ,`date_barrowed` date
-,`status` varchar(100)
 );
 
 -- --------------------------------------------------------
@@ -594,12 +624,12 @@ CREATE TABLE IF NOT EXISTS `vw_user_record` (
 -- --------------------------------------------------------
 
 --
--- Structure for view `vw_borrowed_books`
+-- Structure for view `vw_borrow_data`
 --
-DROP TABLE IF EXISTS `vw_borrowed_books`;
+DROP TABLE IF EXISTS `vw_borrow_data`;
 
-DROP VIEW IF EXISTS `vw_borrowed_books`;
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vw_borrowed_books`  AS SELECT `tbl_borrow`.`borrow_id` AS `borrow_id`, `tbl_borrow`.`date_barrowed` AS `date_barrowed`, `tbl_borrow`.`status` AS `status`, `tbl_borrow`.`user_id` AS `user_id`, `tbl_book`.`book_title` AS `book_title`, `tbl_book`.`Author_id` AS `book_author`, `tbl_book`.`book_img` AS `book_img` FROM (`tbl_borrow` left join `tbl_book` on((`tbl_borrow`.`book_id` = `tbl_book`.`book_id`)))  ;
+DROP VIEW IF EXISTS `vw_borrow_data`;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vw_borrow_data`  AS SELECT `u`.`user_id` AS `user_id`, `u`.`fname` AS `fname`, `u`.`initial` AS `initial`, `u`.`lname` AS `lname`, `b`.`book_id` AS `book_id`, `b`.`book_title` AS `book_title`, `br`.`date_barrowed` AS `date_barrowed`, `br`.`date_return` AS `date_return` FROM ((`tbl_user` `u` join `tbl_borrow` `br` on((`u`.`user_id` = `br`.`user_id`))) join `tbl_book` `b` on((`br`.`book_id` = `b`.`book_id`)))  ;
 
 -- --------------------------------------------------------
 
@@ -609,7 +639,29 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 DROP TABLE IF EXISTS `vw_logs`;
 
 DROP VIEW IF EXISTS `vw_logs`;
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vw_logs`  AS SELECT `tbl_logs`.`date` AS `date`, `tbl_logs`.`admin_id` AS `admin_id`, `tbl_logs`.`action` AS `action`, `tbl_superadmin`.`admin_role` AS `admin_role` FROM (`tbl_logs` join `tbl_superadmin` on((`tbl_logs`.`admin_id` = `tbl_superadmin`.`admin_id`))) ORDER BY `tbl_logs`.`date` AS `DESCdesc` ASC  ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vw_logs` AS
+SELECT 
+    `tbl_logs`.`date` AS `date`, 
+    `tbl_logs`.`admin_id` AS `admin_id`, 
+    `tbl_logs`.`action` AS `action`, 
+    `tbl_superadmin`.`admin_role` AS `admin_role`
+FROM 
+    `tbl_logs` 
+JOIN 
+    `tbl_superadmin` ON `tbl_logs`.`admin_id` = `tbl_superadmin`.`admin_id`
+ORDER BY 
+    `tbl_logs`.`date` DESC;
+
+
+-- --------------------------------------------------------
+
+--
+-- Structure for view `vw_modal_return_data`
+--
+DROP TABLE IF EXISTS `vw_modal_return_data`;
+
+DROP VIEW IF EXISTS `vw_modal_return_data`;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vw_modal_return_data`  AS SELECT `b`.`book_id` AS `book_id`, `b`.`book_title` AS `book_title`, `b`.`shelf` AS `shelf`, `b`.`Author_id` AS `Author_id`, `b`.`publisher` AS `publisher`, `s`.`user_id` AS `user_id`, concat(`s`.`fname`,' ',`s`.`initial`,' ',`s`.`lname`) AS `full_name`, `s`.`year` AS `year`, `s`.`course` AS `course`, `s`.`major` AS `major`, `bd`.`date_barrowed` AS `date_barrowed`, `bd`.`borrow_id` AS `borrow_id`, `bd`.`date_return` AS `date_return` FROM ((`tbl_book` `b` join `tbl_borrow` `bd` on((`b`.`book_id` = `bd`.`book_id`))) join `tbl_user` `s` on((`bd`.`user_id` = `s`.`user_id`)))  ;
 
 -- --------------------------------------------------------
 
@@ -629,7 +681,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 DROP TABLE IF EXISTS `vw_user_penalty`;
 
 DROP VIEW IF EXISTS `vw_user_penalty`;
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vw_user_penalty`  AS SELECT `tbl_penalties`.`user_id` AS `user_id`, `tbl_penalties`.`borrow_id` AS `borrow_id`, `tbl_book`.`book_title` AS `book_title`, `tbl_book`.`Author_id` AS `Author_id`, `tbl_book`.`book_img` AS `book_img`, `tbl_borrow`.`date_barrowed` AS `date_barrowed`, `tbl_borrow`.`status` AS `status` FROM ((`tbl_penalties` left join `tbl_book` on((`tbl_penalties`.`book_id` = `tbl_book`.`book_id`))) left join `tbl_borrow` on((`tbl_penalties`.`borrow_id` = `tbl_borrow`.`borrow_id`)))  ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vw_user_penalty`  AS SELECT `tbl_penalties`.`user_id` AS `user_id`, `tbl_penalties`.`borrow_id` AS `borrow_id`, `tbl_book`.`book_title` AS `book_title`, `tbl_book`.`Author_id` AS `Author_id`, `tbl_book`.`book_img` AS `book_img`, `tbl_borrow`.`date_barrowed` AS `date_barrowed` FROM ((`tbl_penalties` left join `tbl_book` on((`tbl_penalties`.`book_id` = `tbl_book`.`book_id`))) left join `tbl_borrow` on((`tbl_penalties`.`borrow_id` = `tbl_borrow`.`borrow_id`)))  ;
 
 -- --------------------------------------------------------
 
