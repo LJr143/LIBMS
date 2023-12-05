@@ -259,7 +259,7 @@ if (isset($_SESSION['user'])) {
                     <p class="modal-title" id="borrowModalLabel " style="font-size: 12px; color: #800000; font-weight: 600;">
                         <i class="bi bi-pencil-square ml-3 m-3" style="font-size: 16px; color: #800000;"></i>ADD BOOK
                     </p>
-                    <button style="font-size: 12px;" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <button style="font-size: 8px;" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <div class="container-fluid " style="padding-left: 40px ; padding-right: 40px">
@@ -404,7 +404,7 @@ if (isset($_SESSION['user'])) {
                     <p class="modal-title" id="borrowModalLabel " style="font-size: 12px; color: #800000; font-weight: 600;">
                         <i class="bi bi-pencil-square ml-3 m-3" style="font-size: 16px; color: #800000;"></i>EDIT BOOK
                     </p>
-                    <button style="font-size: 12px;" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <button style="font-size: 8px;" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <div class="container-fluid " style="padding-left: 40px ; padding-right: 40px">
