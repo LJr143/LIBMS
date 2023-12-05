@@ -1,53 +1,72 @@
-$(document).ready(function () {
-    $('#addBookBtn').on('click', function (e) {
-        e.preventDefault();
+$(document).ready(function() {
+    // Add click event listener to the "ADD" button
+    $('#addBookBtn').on('click', function(e) {
+        e.preventDefault(); // Prevent the default form submission
+
+        // Call the addBook function when the button is clicked
         addBook();
     });
 });
 
 function addBook() {
+    // Validate the form fields before proceeding
     if (!validateForm()) {
-        return;
+        return; // Exit if validation fails
     }
 
+    // Prepare form data
     var formData = prepareFormData();
 
+    // AJAX request
     $.ajax({
         url: '../operations/add_book.php',
         type: 'POST',
         data: formData,
         contentType: false,
         processData: false,
-        success: handleAjaxSuccess,
-        error: handleAjaxError
+        success: function(response) {
+            handleAjaxSuccess(response);
+        },
+        error: function() {
+            handleAjaxError();
+        }
     });
 }
 
 function validateForm() {
+    // Add validation logic for each required field
     var requiredFields = [
-        '#bookBookID', '#bookBookTitle', '#bookBookAuthor', '#bookISBN',
-        '#bookCopies', '#bookShelf', '#bookPublishers', '#bookSummary'
+        '#bookBookID',
+        '#bookBookTitle',
+        '#bookBookAuthor',
+        '#bookISBN',
+        '#bookCopies',
+        '#bookShelf',
+        '#bookPublishers',
+        '#bookSummary',
     ];
 
     for (let i = 0; i < requiredFields.length; i++) {
         const field = $(requiredFields[i]);
-        console.log('Field:', field);
-        console.log('Field Value:', field.val());
+        console.log('Field:', field);  // Log the field to the console
+        console.log('Field Value:', field.val());  // Log the field value to the console
 
         if (field.val().trim() === '') {
             showValidationError('Please fill in all required fields.');
-            return false;
+            return false; // Validation failed
         }
     }
 
+    // Validate the file input (if applicable)
     var profileFileInput = $('#profilePictureInput')[0];
     if (profileFileInput.files.length === 0) {
         showValidationError('Please select a book image.');
-        return false;
+        return false; // Validation failed
     }
 
-    return true;
+    return true; // Validation succeeded
 }
+
 
 function prepareFormData() {
     var formData = new FormData();
@@ -56,20 +75,22 @@ function prepareFormData() {
         formData.append('profile', profileFileInput.files[0]);
     }
 
-    var formFields = [
-        'bookID', 'bookTitle', 'bookGenre', 'bookAuthor', 'bookISBN',
-        'bookCopies', 'bookShelf', 'bookPublisher', 'bookCategory', 'bookSummary'
-    ];
-
-    formFields.forEach(function (field) {
-        formData.append(field, $('#' + field).val());
-    });
+    // Append form data
+    formData.append('bookID', $('#bookBookID').val());
+    formData.append('bookTitle', $('#bookBookTitle').val());
+    formData.append('bookGenre', $('#bookGenre').val());
+    formData.append('bookAuthor', $('#bookBookAuthor').val());
+    formData.append('bookISBN', $('#bookISBN').val());
+    formData.append('bookCopies', $('#bookCopies').val());
+    formData.append('bookShelf', $('#bookShelf').val());
+    formData.append('bookPublisher', $('#bookPublishers').val());
+    formData.append('bookCategory', $('#bookCategory').val());
+    formData.append('bookSummary', $('#bookSummary').val());
 
     return formData;
 }
 
 function handleAjaxSuccess(response) {
-    console.log(response);
     try {
         var result = typeof response === 'string' ? JSON.parse(response) : response;
         if (result.success) {
@@ -95,9 +116,11 @@ function handleSuccessConfirmation() {
             content: 'my-swal-content',
             confirmButton: 'my-confirm-button'
         }
-    }).then(function (result) {
+    }).then((result) => {
+        // Check if the user clicked "OK"
         if (result.isConfirmed) {
-            setTimeout(function () {
+            // Reload the page after a short delay
+            setTimeout(function() {
                 location.reload();
             });
         }
@@ -105,7 +128,7 @@ function handleSuccessConfirmation() {
 }
 
 function handleAjaxError() {
-    showError('AJAX request failed.');
+    showError('AJAX request failed.'); // Consider improving the user experience
 }
 
 function showError(message) {
@@ -119,3 +142,5 @@ function showError(message) {
 function showValidationError(message) {
     showError(message);
 }
+
+

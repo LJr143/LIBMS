@@ -2,7 +2,8 @@
 session_start();
 require_once 'C:\wamp64\www\LIBMS\db_config\config.php';
 include 'C:\wamp64\www\LIBMS\operations\authentication.php';
-include 'C:\wamp64\www\LIBMS\includes\fetch_user_data.php';
+include 'C:\wamp64\www\LIBMS\includes\fetch_staff_data.php';
+include 'C:\wamp64\www\LIBMS\includes\fetch_books_data.php';
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
@@ -10,9 +11,12 @@ $loggedAdmin ='';
 
 $database = new Database();
 $userAuth = new UserAuthentication($database);
-$userData = new UserData($database);
+$userData = new StaffData($database);
+$booksData = new BookData($database);
 
-if ($userAuth->isAuthenticated()) {
+
+
+if($userAuth->isAuthenticated()) {
 } else {
     header('Location: ../index_admin.php');
     exit();
@@ -26,9 +30,9 @@ if (isset($_POST['logout'])) {
 if (isset($_SESSION['user'])) {
     $adminUsername = $_SESSION['user'];
 
-    $adminID = $userData->getAdminIdByUsername($adminUsername);
+    $adminID = $userData->getStaffIdByUsername($adminUsername);
     if (!empty($adminID)) {
-        $admin = $userData->getAdminById($adminID);
+        $admin = $userData->getStaffById($adminID);
 
         if (!empty($admin)) {
             $loggedAdmin = $admin[0];

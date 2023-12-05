@@ -3,18 +3,20 @@ session_start();
 require_once 'C:\wamp64\www\LIBMS\db_config\config.php';
 include 'C:\wamp64\www\LIBMS\operations\authentication.php';
 include 'C:\wamp64\www\LIBMS\includes\fetch_staff_data.php';
-include 'C:\wamp64\www\LIBMS\includes\fetch_borrow_data.php';
+include 'C:\wamp64\www\LIBMS\includes\fetch_books_data.php';
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
-$loggedAdmin = '';
+$loggedAdmin ='';
 
 $database = new Database();
 $userAuth = new UserAuthentication($database);
 $userData = new StaffData($database);
-$borrowData = new BorrowData($database);
+$booksData = new BookData($database);
 
-if ($userAuth->isAuthenticated()) {
+
+
+if($userAuth->isAuthenticated()) {
 } else {
     header('Location: ../index_admin.php');
     exit();
@@ -40,6 +42,7 @@ if (isset($_SESSION['user'])) {
     } else {
         echo 'Invalid admin ID.';
     }
+
 }
 ?>
 <!doctype html>

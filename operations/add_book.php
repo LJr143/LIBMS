@@ -25,7 +25,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if (!empty($_FILES['profile']['name'])) {
             $profile = $_FILES['profile']['name'];
 
-            $uploadFolder = '../img/' . DIRECTORY_SEPARATOR;
+            $uploadFolder = '../book_img/' . DIRECTORY_SEPARATOR;
 
             if (!file_exists($uploadFolder)) {
                 mkdir($uploadFolder, 0777, true);

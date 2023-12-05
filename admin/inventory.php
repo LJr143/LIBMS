@@ -208,11 +208,11 @@ if (isset($_SESSION['user'])) {
 
                                     </div>
                                     <div style="width: 96px; height: 18px; display: flex; justify-content: center; padding: 2px 0px 0px 0px;">
-                                        <p style="font-size: 10px; font-weight: 600">Copies Left: 3</p>
+                                        <p style="font-size: 10px; font-weight: 600">Copies Left: <?php echo $book['copy']?></p>
                                     </div>
                                     <div style="display: flex; justify-content: flex-end;">
-                                        <button data-bs-toggle="modal" data-bs-target="#editBookModal" style="border: none; background: transparent; margin-right: 15px;"><img style="width: 17px" src="../icons/edit_profile_icon.png" alt=""></button>
-                                        <button style="border: none; background: transparent"><img id="deleteBook1" style="width: 20px" src="../icons/delete_book_inventory.png" alt=""></button>
+                                        <button data-bs-toggle="modal" data-bs-target="#editBookModal" data-book-id="<?= $book['book_id']; ?>" style="border: none; background: transparent; margin-right: 15px;"><img style="width: 17px" src="../icons/edit_profile_icon.png" alt=""></button>
+                                        <button style="border: none; background: transparent"; data-book-id="<?= $book['book_id']; ?>"><img id="deleteBook1" style="width: 20px" src="../icons/delete_book_inventory.png" alt=""></button>
                                     </div>
                                 </div>
                             </div>
@@ -224,10 +224,6 @@ if (isset($_SESSION['user'])) {
                             <?php
                         }
                         ?>
-
-
-
-
                         <div style="margin-top: 30px; display: flex; width: 100%;">
                             <div style="width: 200px;">
                                 <ul class="pagination">
@@ -549,7 +545,7 @@ if (isset($_SESSION['user'])) {
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 
-<script>
+    <script>
         function updateProfilePicture(event) {
             const profilePic = document.getElementById('Book-Pic');
             const selectedFile = event.target.files[0];
@@ -564,7 +560,7 @@ if (isset($_SESSION['user'])) {
                 reader.readAsDataURL(selectedFile);
             }
         }
-    </script>
+</script>
     <script>
         function updateProfilePicture(event) {
             const input = event.target;
