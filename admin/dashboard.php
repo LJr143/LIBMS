@@ -118,10 +118,6 @@ if (isset($_SESSION['user'])) {
                     <li><img class="custom_menu_icon" src="../icons/reports_icon.png" alt=""><span><a href="report.php">Reports</a></span></li>
                     <li><img class="custom_menu_icon" src="../icons/logs_icon.png" alt=""><span><a href="logs.php">Logs</a></span></li>
                     <li><img class="custom_menu_icon" src="../icons/admin_inventory_menu.png" alt=""><span><a href="inventory.php">Inventory</a></span></li>
-                    <li>
-                            <i class="bi bi-book custom_menu_icon" style="color: white; font-size:120%;"></i>
-                            <span><a href="report_book_return_inventory.php">Books Borrowed</a></span>
-                    </li>
                 </ul>
             </div>
 

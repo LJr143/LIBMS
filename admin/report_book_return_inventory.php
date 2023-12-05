@@ -3,20 +3,19 @@ session_start();
 require_once 'C:\wamp64\www\LIBMS\db_config\config.php';
 include 'C:\wamp64\www\LIBMS\operations\authentication.php';
 include 'C:\wamp64\www\LIBMS\includes\fetch_staff_data.php';
-include 'C:\wamp64\www\LIBMS\includes\fetch_books_data.php';
+
+
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
-$loggedAdmin ='';
+$loggedAdmin = '';
 
 $database = new Database();
 $userAuth = new UserAuthentication($database);
 $userData = new StaffData($database);
-$booksData = new BookData($database);
 
 
-
-if($userAuth->isAuthenticated()) {
+if ($userAuth->isAuthenticated()) {
 } else {
     header('Location: ../index_admin.php');
     exit();
@@ -42,8 +41,10 @@ if (isset($_SESSION['user'])) {
     } else {
         echo 'Invalid admin ID.';
     }
-
 }
+
+include 'C:\wamp64\www\LIBMS\includes\fetch_borrow_data.php';
+include 'C:\wamp64\www\LIBMS\includes\fetch_borrow_details.php';
 ?>
 <!doctype html>
 <html lang="en">
@@ -101,10 +102,6 @@ if (isset($_SESSION['user'])) {
                         <li><img class="custom_menu_icon" src="../icons/reports_icon.png" alt=""><span><a href="report.php">Reports</a></span></li>
                         <li><img class="custom_menu_icon" src="../icons/logs_icon.png" alt=""><span><a href="logs.php">Logs</a></span></li>
                         <li><img class="custom_menu_icon" src="../icons/admin_inventory_menu.png" alt=""><span><a href="inventory.php">Inventory</a></span></li>
-                        <li class=" active">
-                            <i class="bi bi-book" style="color: white; font-size:120%;"></i>
-                            <span><a href="report_book_return_inventory.php">Books Borrowed</a></span>
-                        </li>
 
                 </div>
 
@@ -135,6 +132,20 @@ if (isset($_SESSION['user'])) {
                         </div>
                     </div>
                 </div>
+                <div style="display: flex; justify-content: center; ">
+                    <div style="background-color: white; width: 95%; height: 40px; margin: 0px; border-radius: 5px;display: flex;  align-items: center; align-content: center;">
+                        <div style="width: 100%; display: flex; justify-content: space-between">
+                            <button id="bookInventoryButton" style="background-color: white; font-size: 12px; width: 170px; height: 35px; border-radius: 5px; border: none; box-shadow: 0px 4px 8px rgba(0,0,0,0.27);"><img style="width: 20px;" src="../icons/book_inventory_report_icon.png" alt=""><span style="margin-left: 10px;">Book Inventory</span></button>
+                            <button id="categoriesButton" style="background-color: white; font-size: 12px; width: 170px; height: 35px; border-radius: 5px; border: none; box-shadow: 0px 4px 8px rgba(0,0,0,0.27);"><img style="width: 20px;" src="../icons/categories_report_icon.png" alt=""><span style="margin-left: 10px;">Categories</span></button>
+                            <button id="newUsersButton" style="background-color: white; font-size: 12px; width: 170px; height: 35px; border-radius: 5px; border: none; box-shadow: 0px 4px 8px rgba(0,0,0,0.27);"><img style="width: 20px;" src="../icons/newuser_report_icon.png" alt=""><span style="margin-left: 10px;">New Users/Visitors</span></button>
+                            <button id="bookStatusButton" style="background-color: white; font-size: 12px; width: 170px; height: 35px; border-radius: 5px; border: none; box-shadow: 0px 4px 8px rgba(0,0,0,0.27);"><img style="width: 20px;" src="../icons/book_status_icon.png" alt=""><span style="margin-left: 10px;">Book Status</span></button>
+                            <button id="bookBorrowButton" style="font-size: 12px; width: 170px; height: 35px; border-radius: 5px; border: none; box-shadow: 0px 4px 8px rgba(0,0,0,0.27);"><i class="bi bi-book custom_menu_icon" style="font-size: 20px;"></i><span style="margin-left: 10px;">Borrowed Books</span></button>
+                        </div>
+                        <div style="width: 40%; display: flex; justify-content: flex-end; align-items: center; height: 35px;">
+                            <div style="margin-right: 50px;"> <button style="border: none; background-color: transparent;"><img style="width: 20px;" src="../icons/export_icon.png" alt=""></button></div>
+                        </div>
+                    </div>
+                </div>
                 <div style="display: flex; justify-content: center; width: 100%; height: 70px;">
                     <div style="width: 95%; height: 50px; margin: 10px 0 0 0; border-radius: 5px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.27);">
                         <div style="display: flex; align-items: center; justify-content: space-between; padding: 0 20px;">
@@ -144,18 +155,18 @@ if (isset($_SESSION['user'])) {
                             <form class="row g-2 mt-1" id="dateRangeForm">
                                 <div class="col-auto">
                                     <div class="d-flex align-items-center">
-                                        <label for="fromDate" class="form-label" style="margin-right: 10px;">From:</label>
-                                        <input type="date" class="form-control" id="fromDate" style="height: 32px;" required>
+                                        <label for="fromDate" class="form-label" style="margin-right: 10px; font-size: 13px;">From:</label>
+                                        <input type="date" class="form-control" id="fromDate" style="height: 32px; font-size: 13px;" required>
                                     </div>
                                 </div>
                                 <div class="col-auto">
                                     <div class="d-flex align-items-center">
-                                        <label for="toDate" class="form-label" style="margin-right: 10px;">To:</label>
-                                        <input type="date" class="form-control" id="toDate" style="height: 32px;" required>
+                                        <label for="toDate" class="form-label" style="margin-right: 10px; font-size: 13px;">To:</label>
+                                        <input type="date" class="form-control" id="toDate" style="height: 32px; font-size: 13px;" required>
                                     </div>
                                 </div>
                                 <div class="col-auto">
-                                    <button type="button" class="btn btn-custom" onclick="checkDateRange()" style="background-color: #740000; color: #fff; width: 80px; height: 33px;">APPLY</button>
+                                    <button type="button" class="btn btn-custom" onclick="checkDateRange()" style="background-color: #740000; color: #fff; width: 80px; height: 33px; font-size: 13px;">APPLY</button>
 
                                 </div>
                             </form>
@@ -168,7 +179,7 @@ if (isset($_SESSION['user'])) {
                     <div style="width: 95%; border-radius: 5px; margin-top: 10px; font-size: 12px; box-shadow: 0px 4px 8px rgba(0,0,0,0.13)">
                         <table style="width: 95%;" class="table text-center mx-auto" cellpadding="0">
                             <thead>
-                                <tr>
+                                <tr style=" font-size: 12px;">
                                     <th>BOOK ID</th>
                                     <th>TITLE</th>
                                     <th>ISSUED TO</th>
@@ -177,11 +188,10 @@ if (isset($_SESSION['user'])) {
                                     <th></th>
                                 </tr>
                             </thead>
-                            <tbody cellspacing="6">
+                            <tbody cellspacing="6" style=" font-size: 12px;">
                                 <?php foreach ($borrowData->fetchBorrowData() as $borrow) : ?>
                                     <?php
                                     $book_id = $borrow['book_id'];
-                                    $borrow_id = $borrow['borrow_id'];
                                     $title = $borrow['book_title'];
                                     $issued_to = $borrow['fname'] . ' ' . $borrow['initial'] . ' ' . $borrow['lname'];
                                     $date_barrowed = $borrow['date_barrowed'];
@@ -193,7 +203,9 @@ if (isset($_SESSION['user'])) {
                                         <td style="padding: 5px;"><?= $issued_to; ?></td>
                                         <td style="padding: 5px;"><?= $date_barrowed; ?></td>
                                         <td style="padding: 5px;"><?= $date_return; ?></td>
-                                        <td style="padding: 5px;"><button class="returnBtn" data-borrow-id="<?= $borrow_id; ?>" id="bookReturnBtn" data-bs-toggle="modal" data-bs-target="#returnModal" style="font-size: 12px; width: 150px; height: 25px; border-radius: 5px; background-color: #1FBA05; color: white; border: none">RETURN</button></td>
+                                        <td style="padding: 5px;"> <button class="returnBtn" data-bs-toggle="modal" data-bs-target="#returnModal" data-book-id="<?= $book_id ?>" data-title="<?= $title ?>" data-issued-to="<?= $issued_to ?>" data-date-barrowed="<?= $date_barrowed ?>" data-date-return="<?= $date_return ?>" style="font-size: 12px; width: 150px; height: 25px; border-radius: 5px; background-color: #1FBA05; color: white; border: none">
+                                                RETURN
+                                            </button></td>
                                     </tr>
                                 <?php endforeach; ?>
                             </tbody>
@@ -284,28 +296,6 @@ if (isset($_SESSION['user'])) {
         </div>
     </div>
 
-    <?php foreach ($borrowData->fetchBorrowData() as $borrow) : ?>
-        <?php
-        $book_id = $borrow['book_id'];
-        $borrow_id = $borrow['borrow_id'];
-        $title = $borrow['book_title'];
-        $issued_to = $borrow['fname'] . ' ' . $borrow['initial'] . ' ' . $borrow['lname'];
-        $date_borrowed = $borrow['date_borrowed'];
-        $date_return = $borrow['date_return'];
-        ?>
-
-        <tr class="mb-3 me-auto" style="margin-top: 20px; background-color: rgb(246,246,246); border: 1px solid rgba(0,0,0,0.25);">
-            <td style="padding: 5px;"><?= $book_id; ?></td>
-            <td style="padding: 5px;"><?= $title; ?></td>
-            <td style="padding: 5px;"><?= $issued_to; ?></td>
-            <td style="padding: 5px;"><?= $date_borrowed; ?></td>
-            <td style="padding: 5px;"><?= $date_return; ?></td>
-            <td style="padding: 5px;">
-                <button class="returnBtn" data-borrow-id="<?= $borrow_id; ?>" onclick="showBorrowDetails(this)" style="font-size: 12px; width: 150px; height: 25px; border-radius: 5px; background-color: #1FBA05; color: white; border: none">RETURN</button>
-            </td>
-        </tr>
-    <?php endforeach; ?>
-
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
@@ -315,69 +305,13 @@ if (isset($_SESSION['user'])) {
     <script src="https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-datalabels/2.2.0/chartjs-plugin-datalabels.min.js" integrity="sha512-JPcRR8yFa8mmCsfrw4TNte1ZvF1e3+1SdGMslZvmrzDYxS69J7J49vkFL8u6u8PlPJK+H3voElBtUCzaXj+6ig==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://unpkg.com/chart.js-plugin-labels-dv/dist/chartjs-plugin-labels.min.js"></script>
     <script src='../js/logout_script.js'></script>
-    <script>
-        function showBorrowDetails(button) {
-            // Fetch data using AJAX based on the borrow_id
-            var borrowId = button.getAttribute("data-borrow-id");
-
-            // Perform an AJAX request to fetch data
-            $.ajax({
-                url: 'http://localhost/LIBMS/includes/fetch_borrow_details.php', // Replace with the actual PHP script path
-                type: 'POST',
-                data: {
-                    borrowId: borrowId
-                },
-                dataType: 'json',
-                success: function(response) {
-                    console.log(response);
-                    // Populate the modal body with the fetched data
-                    populateModal(response);
-
-                    // Show the modal
-                    $("#showModalBtn").click();
-                },
-                error: function(error) {
-                    console.log(error);
-                }
-            });
-        }
-
-        function populateModal(data) {
-            // Example: Set the content of modal elements based on the fetched data
-            $("#modalBody").html(`
-        <p>Student ID: ${data.user_id}</p>
-        <p>Name: ${data.fname} ${data.initial} ${data.lname}</p>
-        <p>Year: ${data.year}</p>
-        <p>Course: ${data.course}</p>
-        <p>Major: ${data.major}</p>
-        <img src="${data.book_image}" alt="Book Picture">
-        <p>Book Title: ${data.book_title}</p>
-        <p>Shelf: ${data.shelf}</p>
-        <p>Author: ${data.Author_id}</p>
-        <p>Publisher: ${data.publisher}</p>
-        <p>Borrow Date: ${data.date_borrowed}</p>
-        <p>Due Date: ${data.date_return}</p>
-        <!-- Add more elements as needed -->
-    `);
-        }
-
-        function confirmBorrow() {
-            // Add logic to handle confirming the borrow
-            // You can send another AJAX request to update the database
-            // with the returned date, book status, etc.
-            // ...
-
-            // Close the modal
-            $("showModalBtn").modal("hide");
-        }
-    </script>
 
     <script>
         // Wait for the document to be ready
         $(document).ready(function() {
             // Fetch data using AJAX
             $.ajax({
-                url: 'http://localhost/LIBMS/includes/fetch_borrow_data.php',
+                url: 'http://localhost/LIBMS/includes/fetch_borrow_data.php?ajax=1',
                 type: 'GET',
                 dataType: 'json',
                 success: function(response) {
@@ -386,6 +320,9 @@ if (isset($_SESSION['user'])) {
                     // Process the fetched data
                     if (response && response.length > 0) {
                         console.log('Data received:', response);
+
+                        // Clear existing content in the container
+                        $('#borrowDataContainer').empty();
 
                         // Iterate through the fetched data and append to the table
                         $.each(response, function(index, borrow) {
@@ -420,7 +357,7 @@ if (isset($_SESSION['user'])) {
             var toDate = $('#toDate').val();
 
             $.ajax({
-                url: 'C:/wamp64/www/LIBMS/includes/fetch_borrow_data.php',
+                url: 'http://localhost/LIBMS/includes/fetch_borrow_details.php',
                 type: 'POST',
                 data: {
                     fromDate: fromDate,
@@ -435,6 +372,91 @@ if (isset($_SESSION['user'])) {
             });
         }
     </script>
+
+
+
+    <script>
+        // Get the buttons by their IDs
+        const bookInventoryButton = document.getElementById('bookInventoryButton');
+        const categoriesButton = document.getElementById('categoriesButton');
+        const newUsersButton = document.getElementById('newUsersButton');
+        const bookStatusButton = document.getElementById('bookStatusButton');
+
+        // Define the page URLs for each button
+        const pageUrls = {
+            bookInventoryButton: 'report.php',
+            categoriesButton: 'report_categories_inventory.php',
+            newUsersButton: 'report_users_inventory.php',
+            bookStatusButton: 'report_book_status_inventory.php',
+            bookBorrowButton: 'report_book_return_inventory.php',
+        };
+
+        // Attach click event listeners to the buttons
+        bookInventoryButton.addEventListener('click', () => {
+            window.location.href = pageUrls.bookInventoryButton;
+        });
+
+        categoriesButton.addEventListener('click', () => {
+            window.location.href = pageUrls.categoriesButton;
+        });
+
+        newUsersButton.addEventListener('click', () => {
+            window.location.href = pageUrls.newUsersButton;
+        });
+
+        bookStatusButton.addEventListener('click', () => {
+            window.location.href = pageUrls.bookStatusButton;
+        });
+
+        bookBorrowButton.addEventListener('click', () => {
+            window.location.href = pageUrls.bookBorrowButton;
+        });
+    </script>
+
+    <script>
+        $(document).ready(function() {
+            // Event listener for RETURN buttons
+            $('.returnBtn').on('click', function() {
+                // Extract data attributes
+                var borrowId = $(this).data('borrow-id');
+
+                // AJAX call to fetch data
+                $.ajax({
+                    url: 'http://localhost/LIBMS/includes/fetch_borrow_details.php',
+                    method: 'POST',
+                    data: {
+                        borrowId: borrowId
+                    },
+                    dataType: 'json',
+                    success: function(data) {
+                        // Populate modal content with data from the fetched record
+                        $('#studentId').text(data.user_id);
+                        $('#studentName').text(data.full_name);
+                        $('#studentCourse').text(data.course);
+                        $('#studentYear').text(data.year);
+                        $('#studentMajor').text(data.major);
+
+                        $('#bookTitle').text(data.book_title);
+                        $('#author').text(data.Author_id);
+                        $('#borrowDate').text(data.date_barrowed);
+                        $('#shelf').text(data.shelf);
+                        $('#publisher').text(data.publisher);
+                        $('#dueDate').text(data.date_return);
+                        $('#bookStatus').val(data.status);
+
+                        // Show the modal
+                        $('#returnModal').modal('show');
+                    },
+                    error: function() {
+                        console.error('Error fetching data');
+                        // Handle error, show an alert, etc.
+                    }
+                });
+            });
+        });
+    </script>
+
+
 </body>
 
 </html>
