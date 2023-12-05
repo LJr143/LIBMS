@@ -131,12 +131,12 @@ if (isset($_SESSION['user'])) {
                 </div>
                 <div style="display: flex; justify-content: center; ">
                     <div style="background-color: white; width: 95%; height: 40px; margin: 0px; border-radius: 5px;display: flex;  align-items: center; align-content: center;">
-                        <div style="width: 60%; display: flex; justify-content: space-between">
+                        <div style="width: 100%; display: flex; justify-content: space-between">
                             <button id="bookInventoryButton" style="background-color: white; font-size: 12px; width: 170px; height: 35px; border-radius: 5px; border: none; box-shadow: 0px 4px 8px rgba(0,0,0,0.27);"><img style="width: 20px;" src="../icons/book_inventory_report_icon.png" alt=""><span style="margin-left: 10px;">Book Inventory</span></button>
                             <button id="categoriesButton" style="background-color: #EFEFEF; font-size: 12px; width: 170px; height: 35px; border-radius: 5px; border: none; box-shadow: 0px 4px 8px rgba(0,0,0,0.27);"><img style="width: 20px;" src="../icons/categories_report_icon.png" alt=""><span style="margin-left: 10px;">Categories</span></button>
                             <button id="newUsersButton" style="background-color: white; font-size: 12px; width: 170px; height: 35px; border-radius: 5px; border: none; box-shadow: 0px 4px 8px rgba(0,0,0,0.27);"><img style="width: 20px;" src="../icons/newuser_report_icon.png" alt=""><span style="margin-left: 10px;">New Users/Visitors</span></button>
                             <button id="bookStatusButton" style="background-color: white; font-size: 12px; width: 170px; height: 35px; border-radius: 5px; border: none; box-shadow: 0px 4px 8px rgba(0,0,0,0.27);"><img style="width: 20px;" src="../icons/book_status_icon.png" alt=""><span style="margin-left: 10px;">Book Status</span></button>
-
+                            <button id="bookBorrowButton" style="background-color: white; font-size: 12px; width: 170px; height: 35px; border-radius: 5px; border: none; box-shadow: 0px 4px 8px rgba(0,0,0,0.27);"><i class="bi bi-book custom_menu_icon" style="font-size: 20px;"></i><span style="margin-left: 10px;">Borrowed Books</span></button>
                         </div>
                         <div style="width: 40%; display: flex; justify-content: flex-end; align-items: center; height: 35px;">
                             <div style="margin-right: 50px;"> <button style="border: none; background-color: transparent;"><img style="width: 20px;" src="../icons/export_icon.png" alt=""></button></div>
@@ -348,6 +348,7 @@ if (isset($_SESSION['user'])) {
         const categoriesButton = document.getElementById('categoriesButton');
         const newUsersButton = document.getElementById('newUsersButton');
         const bookStatusButton = document.getElementById('bookStatusButton');
+        const bookBorrowButton = document.getElementById('bookBorrowButton');
 
         // Define the page URLs for each button
         const pageUrls = {
@@ -355,6 +356,7 @@ if (isset($_SESSION['user'])) {
             categoriesButton: 'report_categories_inventory.php',
             newUsersButton: 'report_users_inventory.php',
             bookStatusButton: 'report_book_status_inventory.php',
+            bookBorrowButton: 'report_book_return_inventory.php'
         };
 
         // Attach click event listeners to the buttons
@@ -372,6 +374,10 @@ if (isset($_SESSION['user'])) {
 
         bookStatusButton.addEventListener('click', () => {
             window.location.href = pageUrls.bookStatusButton;
+        });
+
+        bookBorrowButton.addEventListener('click', () => {
+            window.location.href = pageUrls.bookBorrowButton;
         });
     </script>
 
