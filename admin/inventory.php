@@ -211,7 +211,7 @@ if (isset($_SESSION['user'])) {
                                         <p style="font-size: 10px; font-weight: 600">Copies Left: <?php echo $book['copy']?></p>
                                     </div>
                                     <div style="display: flex; justify-content: flex-end;">
-                                        <button class="editBook" data-bs-toggle="modal" data-bs-target="#editBookModal" data-book-id="<?= $book['book_id']; ?>" data-book-name="<?= $book['book_title'];?>" style="border: none; background: transparent; margin-right: 15px;"><img style="width: 17px" src="../icons/edit_profile_icon.png" alt=""></button>
+                                        <button class="editBook"  data-book-id="<?= $book['book_id']; ?>" data-book-name="<?= $book['book_title'];?>" style="border: none; background: transparent; margin-right: 15px;"><img style="width: 17px" src="../icons/edit_profile_icon.png" alt=""></button>
                                         <button class="deleteBook" style="border: none; background: transparent"; data-book-id="<?= $book['book_id']; ?>" data-book-name="<?= $book['book_title'];?>"><img  style="width: 20px" src="../icons/delete_book_inventory.png" alt=""></button>
                                     </div>
                                 </div>
@@ -401,10 +401,10 @@ if (isset($_SESSION['user'])) {
         <div class="modal-dialog modal-lg modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header" style="height: 15px;">
-                    <p class="modal-title" id="borrowModalLabel " style="font-size: 16px; color: #800000; font-weight: 600;">
-                        <i class="bi bi-pencil-square ml-3 m-3" style="font-size: 20px; color: #800000;"></i>EDIT BOOK
+                    <p class="modal-title" id="borrowModalLabel " style="font-size: 12px; color: #800000; font-weight: 600;">
+                        <i class="bi bi-pencil-square ml-3 m-3" style="font-size: 16px; color: #800000;"></i>EDIT BOOK
                     </p>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <button style="font-size: 12px;" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <div class="container-fluid " style="padding-left: 40px ; padding-right: 40px">
@@ -413,34 +413,34 @@ if (isset($_SESSION['user'])) {
                             <!-- uploading image -->
                             <div style="width:190px;">
                                 <div class="col-md-2" style="margin-bottom: 0px; ">
-                                    <label for="profilePictureInput" style="display: block; cursor: pointer; text-decoration: underline; margin-top: 5px;">
-                                        <img id="Book-Pic" src="../book_img/1984.jpg" width="150px" height="230px" id="Book-Pic" style="margin-left: -5px; margin-top: 0px;">
+                                    <label for="editprofilePictureInput" style="display: block; cursor: pointer; text-decoration: underline; margin-top: 5px;">
+                                        <img id="Book-Pic" src="" width="150px" height="230px" id="Book-Pic" style="margin-left: -5px; margin-top: 0px;">
                                     </label>
-                                    <input type="file" id="profilePictureInput" style="display: none;" accept="image/*" onchange="updateProfilePicture(event)">
+                                    <input type="file" id="editprofilePictureInput" style="display: none;" accept="image/*" onchange="updateProfilePicture(event)">
                                 </div>
                             </div>
 
                             <!-- input details -->
                             <form class="row needs-validation" style="width: 70%; height: 65%;" novalidate>
                                 <div class="col-md-3 firstname">
-                                    <label for="bookBookID" class="form-label mb-0" style="font-size: 12px;">BOOK ID</label>
-                                    <input type="text" class="form-control" placeholder="1234-56789" pattern="[0-9]{4}-[0-9]{5}" id="bookBookID" style="font-size: 10px; text-transform: capitalize !important;" required>
+                                    <label for="editBookID" class="form-label mb-0" style="font-size: 12px;">BOOK ID</label>
+                                    <input type="text" class="form-control" placeholder="1234-56789" pattern="[0-9]{4}-[0-9]{5}" id="editBookID" style="font-size: 10px; text-transform: capitalize !important;" required>
                                     <div class="invalid-feedback" style="font-size: 8px">
                                         Not a valid book ID!
                                     </div>
                                 </div>
 
                                 <div class="col-md-6">
-                                    <label for="bookBookTitle" class="form-label mb-0" style="font-size: 12px;">BOOK TITLE</label>
-                                    <input type="text" class="form-control" placeholder="Programming 1" id="bookBookTitle"  style="font-size: 10px; text-transform: capitalize !important;" required>
+                                    <label for="editBookTitle" class="form-label mb-0" style="font-size: 12px;">BOOK TITLE</label>
+                                    <input type="text" class="form-control" placeholder="Programming 1" id="editBookTitle"  style="font-size: 10px; text-transform: capitalize !important;" required>
                                     <div class="invalid-feedback" style="font-size: 8px">
                                         Not a valid book title!
                                     </div>
                                 </div>
 
                                 <div class="col-md-3">
-                                    <label for="bookGenre" class="form-label mb-0" style="font-size: 12px;">GENRE</label>
-                                    <select class="form-select" id="bookGenre" style="font-size: 10px; text-transform: capitalize !important;" required>
+                                    <label for="editBookGenre" class="form-label mb-0" style="font-size: 12px;">GENRE</label>
+                                    <select class="form-select" id="editBookGenre" style="font-size: 10px; text-transform: capitalize !important;" required>
                                         <option value="" disabled selected>Select Genre</option>
                                         <option value="Fiction">Fiction</option>
                                         <option value="Non-Fiction">Non-Fiction</option>
@@ -452,32 +452,32 @@ if (isset($_SESSION['user'])) {
 
 
                                 <div class="col-md-6 mt-2">
-                                    <label for="bookBookAuthor" class="form-label mb-0" style="font-size: 12px;">BOOK AUTHOR</label>
-                                    <input type="text" class="form-control" placeholder="Programming 1" id="bookBookAuthor"  style="font-size: 10px; text-transform: capitalize !important;" required>
+                                    <label for="editBookAuthor" class="form-label mb-0" style="font-size: 12px;">BOOK AUTHOR</label>
+                                    <input type="text" class="form-control" placeholder="Programming 1" id="editBookAuthor"  style="font-size: 10px; text-transform: capitalize !important;" required>
                                     <div class="invalid-feedback" style="font-size: 8px">
                                         Not a valid book author!
                                     </div>
                                 </div>
 
                                 <div class="col-md-3 mt-2">
-                                    <label for="bookISBN" class="form-label mb-0" style="font-size: 12px;">ISBN</label>
-                                    <input type="text" class="form-control" placeholder="1234567891111" pattern="[0-9]{13}" id="bookISBN" style="font-size: 10px; text-transform: capitalize !important;" required>
+                                    <label for="editBookISBN" class="form-label mb-0" style="font-size: 12px;">ISBN</label>
+                                    <input type="text" class="form-control" placeholder="1234567891111" pattern="[0-9]{13}" id="editBookISBN" style="font-size: 10px; text-transform: capitalize !important;" required>
                                     <div class="invalid-feedback" style="font-size: 8px">
                                         Not a valid format of 13 digits!
                                     </div>
                                 </div>
 
                                 <div class="col-md-3 mt-2">
-                                    <label for="bookCopies" class="form-label mb-0" style="font-size: 12px;">COPIES</label>
-                                    <input type="text" class="form-control" id="bookCopies" pattern="[0-9]{3}" placeholder="010" style="font-size: 10px;" required>
+                                    <label for="editBookCopies" class="form-label mb-0" style="font-size: 12px;">COPIES</label>
+                                    <input type="text" class="form-control" id="editBookCopies" pattern="[0-9]{3}" placeholder="010" style="font-size: 10px;" required>
                                     <div class="invalid-feedback" style="font-size: 8px">
                                         Not a valid format 010!
                                     </div>
                                 </div>
 
                                 <div class="col-md-4 mt-2">
-                                    <label for="bookShelf" class="form-label mb-0" style="font-size: 12px; ">SHELF</label>
-                                    <input type="text" class="form-control" placeholder="Circulation Module" id="bookShelf"  style="font-size: 10px; text-transform: capitalize !important;" required>
+                                    <label for="editBookShelf" class="form-label mb-0" style="font-size: 12px; ">SHELF</label>
+                                    <input type="text" class="form-control" placeholder="Circulation Module" id="editBookShelf"  style="font-size: 10px; text-transform: capitalize !important;" required>
                                     <div class="invalid-feedback" style="font-size: 8px">
                                         Not a valid shelf!
                                     </div>
@@ -485,9 +485,9 @@ if (isset($_SESSION['user'])) {
 
 
                                 <div class="col-md-4 mt-2">
-                                    <label for="bookPublishers" class="form-label mb-0" style="font-size: 12px;">PUBLISHERS</label>
+                                    <label for="editBookPublishers" class="form-label mb-0" style="font-size: 12px;">PUBLISHERS</label>
                                     <div class="input-group has-validation">
-                                        <input type="text" class="form-control" placeholder="SITS Corp." id="bookPublishers"  style="font-size: 10px; text-transform: capitalize !important;" required>
+                                        <input type="text" class="form-control" placeholder="SITS Corp." id="editBookPublishers"  style="font-size: 10px; text-transform: capitalize !important;" required>
                                         <div class="invalid-feedback" style="font-size: 8px">
                                             Not a valid publishers!
                                         </div>
@@ -495,9 +495,9 @@ if (isset($_SESSION['user'])) {
                                 </div>
 
                                 <div class="col-md-3 mt-2">
-                                    <label for="bookCategory" class="form-label mb-0" style="font-size: 12px;">CATEGORY</label>
+                                    <label for="editBookCategory" class="form-label mb-0" style="font-size: 12px;">CATEGORY</label>
                                     <div class="input-group has-validation">
-                                        <select name="" id="" style="font-size: 10px; width: 130px; height: 28px; padding: 2px 5px; border-radius: 5px" required>
+                                        <select name="" id="editBookCategory" style="font-size: 10px; width: 130px; height: 28px; padding: 2px 5px; border-radius: 5px" required>
                                             <option value="" disabled selected> Select Category</option>
                                             <option value="option">Environment and Forestry</option>
                                             <option value="option">Agriculture and Agriculture Engineering</option>
@@ -517,9 +517,9 @@ if (isset($_SESSION['user'])) {
 
 
                                 <div class="col-md-12 mt-2">
-                                    <label for="bookSummary" class="form-label mb-0" style="font-size: 12px;">SUMMARY</label>
+                                    <label for="editBookSummary" class="form-label mb-0" style="font-size: 12px;">SUMMARY</label>
                                     <div class="input-group has-validation">
-                                        <textarea type="text" rows="7" class="form-control" id="bookSummary" aria-describedby="inputGroupPrepend"  style="font-size: 10px; resize: none;" required>
+                                        <textarea type="text" rows="7" class="form-control" id="editBookSummary" aria-describedby="inputGroupPrepend"  style="font-size: 10px; resize: none;" required>
                                     </textarea>
                                         <div class="invalid-feedback" style="font-size: 8px">
                                             Not a valid summary!
@@ -622,6 +622,89 @@ if (isset($_SESSION['user'])) {
                 }
             });
         }
+    </script>
+    <script>
+        $(document).ready(function() {
+            $('.editBook').click(function(e) {
+                e.preventDefault();
+
+                // Get the book_id from the data attribute
+                var bookId = $(this).data('book-id');
+                // Make an AJAX request to fetch Book data
+                $.ajax({
+                    url: '../operations/fetch_book.php', // Replace with your backend endpoint
+                    type: 'POST',
+                    data: { bookId: bookId },
+                    dataType: 'json',
+                    success: function(response) {
+                        // Log the response to inspect the structure
+                        console.log(response);
+
+                        // Handle the response and populate your modal with data
+                        populateModal(response);
+                    },
+                    error: function() {
+                        // Handle errors
+                        console.error('Error fetching Book data.');
+                    }
+                });
+            });
+
+            function populateModal(data) {
+                // Log the data to inspect the structure
+                console.log(data);
+
+                // Populate the modal fields with data received from the server
+                $('#editBookID').val(data[0].book_id);
+                $('#editBookTitle').val(data[0].book_title);
+                $('#editBookGenre').val(data[0].genre);
+                $('#editBookAuthor').val(data[0].Author_id);
+                $('#editBookISBN').val(data[0].ISBN);
+                $('#editBookCopies').val(data[0].copy);
+                $('#editBookShelf').val(data[0].shelf);
+                $('#editBookPublishers').val(data[0].publisher);
+                $('#editBookCategory').val(data[0].category);
+                $('#editBookSummary').val(data[0].description);
+
+
+                var imagePath = '../book_img/' + data[0].book_img;
+                $('#Book-Pic').attr('src', imagePath);
+
+                // Show the modal
+                $('#editBookModal').modal('show');
+            }
+        });
+
+
+        // Function to handle adding a student
+        function addBook() {
+            // Add your logic here
+            $("#editStudentModal").modal("hide");
+        }
+
+        // Function to clear the displayed photo
+        function clearPhoto() {
+            $('#ProfilePic').attr('src', '../img/me_sample_profile.jpg');
+            $(".AddImageCon i").show();
+        }
+
+        // Function to update the profile picture
+        function updateProfilePicture(event) {
+            const input = event.target;
+            if (input.files && input.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const profilePic = document.getElementById('ProfilePic');
+                    profilePic.src = e.target.result;
+
+                    // Hide the icon when a new image is selected
+                    $(".AddImageCon i").hide();
+                };
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+
     </script>
     <script src='../js/logout_script.js'></script>
     <script src="../js/navbar_select.js"></script>
