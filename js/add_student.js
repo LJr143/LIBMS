@@ -34,11 +34,24 @@ function addStudent() {
 }
 
 function validateForm() {
+    // Trigger form validation manually
+    var form = $('#AddStudentModal')[0]; // Replace 'yourFormId' with the actual ID of your form
+    form.classList.add('was-validated');
+
     // Add validation logic for each required field
     var requiredFields = [
         '#addStudentFirstName',
         '#addStudentLastName',
-        // ... Add other required fields ...
+        '#addStudentMI',
+        '#addStudentStudID',
+        '#addStudentPersonalEmail',
+        '#addStudentPhoneNumber',
+        '#addStudentAddress',
+        '#addStudentSectionYear',
+        '#addStudentCourse',
+        '#addStudentMajor',
+        '#addStudentUsepEmail',
+        '#addStudentUsername',
         '#addStudentPassword'
     ];
 
@@ -50,16 +63,17 @@ function validateForm() {
         }
     }
 
-    // Validate the file input (if applicable)
+    // Validate the file input
     var profileFileInput = $('#addStudentinput-file')[0];
-    if (profileFileInput.files.length === 0) {
+    var profileFile = profileFileInput.files[0];
+
+    if (!profileFile) {
         showValidationError('Please select a profile image.');
         return false; // Validation failed
     }
 
     return true; // Validation succeeded
 }
-
 function prepareFormData() {
     var formData = new FormData();
     var profileFileInput = $('#addStudentinput-file')[0];
