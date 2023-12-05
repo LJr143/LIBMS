@@ -71,9 +71,36 @@ function validateForm() {
         showValidationError('Please select a profile image.');
         return false; // Validation failed
     }
+// Validate patterns for specific fields
+    var patterns = {
+        '#addStudentFirstName': /^[A-Za-z]+(?: [A-Za-z]+)?$/,
+        '#addStudentLastName': /^[A-Za-z]+$/,
+        '#addStudentMI': /^[A-Za-z]{1}$/,
+        '#addStudentStudID': /^[0-9]{4}-[0-9]{5}$/,
+        '#addStudentPersonalEmail': /^[^\s@]+@gmail\.com$/,
+        '#addStudentPhoneNumber': /^09[0-9]{9}$/,
+        '#addStudentAddress': /^[A-Za-z0-9,.\s]+$/,
+        '#addStudentUsepEmail': /^[^\s@]+@usep\.edu\.ph$/,
+        // Add more patterns as needed for other fields
+        '#addStudentUsername': /^(?=.*[A-Za-z0-9])[A-Za-z0-9]{6,}$/,
+        '#addStudentPassword': /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@_]).{8,}$/
+    };
+
+    for (var fieldId in patterns) {
+        var field = $(fieldId);
+        var pattern = patterns[fieldId];
+
+        console.log('Field:', fieldId, 'Value:', field.val());
+
+        if (!pattern.test(field.val())) {
+            showValidationError('Follow the format correctly! Invalid input for ' + field.attr('placeholder') + '.');
+            return false; // Validation failed
+        }
+    }
 
     return true; // Validation succeeded
 }
+
 function prepareFormData() {
     var formData = new FormData();
     var profileFileInput = $('#addStudentinput-file')[0];
