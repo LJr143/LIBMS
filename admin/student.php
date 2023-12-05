@@ -260,7 +260,7 @@ if (isset($_SESSION['user'])) {
                         </div>
 
 
-                        <form class="row needs-validation was-validated"  style="margin-left: 30px; width: 80%; height: 65%; "  novalidate >
+                        <form class="row needs-validation "  style="margin-left: 30px; width: 80%; height: 65%; "  novalidate >
                             <div class="col-md-5 firstname">
                                 <label for="addStudentFirstName" class="form-label mb-0" style="font-size: 12px;">FIRST NAME</label>
                                 <input type="text" class="form-control" placeholder="Juan" id="addStudentFirstName" style="font-size: 10px; text-transform: capitalize !important;" pattern="[A-Za-z]+" required>
