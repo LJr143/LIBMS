@@ -75,5 +75,14 @@ class BookData
         return $stmt->execute();
     }
 
+    public function deleteBook($bookId){
+        $sql = "DELETE FROM tbl_book WHERE book_id = :book_ID";
+
+        $stmt = $this->database->prepare($sql);
+        $stmt->bindParam(':book_ID', $bookId, PDO::PARAM_STR);
+
+        return $stmt->execute();
+    }
+
 }
 

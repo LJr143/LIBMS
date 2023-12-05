@@ -645,11 +645,6 @@ if (isset($_SESSION['user'])) {
     });
 </script>
 
-
-
-</script>
-</script>
-
 <script>
     $(document).ready(function() {
         // Attach a click event to the "ADD STUDENT" button

@@ -211,8 +211,8 @@ if (isset($_SESSION['user'])) {
                                         <p style="font-size: 10px; font-weight: 600">Copies Left: <?php echo $book['copy']?></p>
                                     </div>
                                     <div style="display: flex; justify-content: flex-end;">
-                                        <button data-bs-toggle="modal" data-bs-target="#editBookModal" data-book-id="<?= $book['book_id']; ?>" style="border: none; background: transparent; margin-right: 15px;"><img style="width: 17px" src="../icons/edit_profile_icon.png" alt=""></button>
-                                        <button style="border: none; background: transparent"; data-book-id="<?= $book['book_id']; ?>"><img id="deleteBook1" style="width: 20px" src="../icons/delete_book_inventory.png" alt=""></button>
+                                        <button class="editBook" data-bs-toggle="modal" data-bs-target="#editBookModal" data-book-id="<?= $book['book_id']; ?>" data-book-name="<?= $book['book_title'];?>" style="border: none; background: transparent; margin-right: 15px;"><img style="width: 17px" src="../icons/edit_profile_icon.png" alt=""></button>
+                                        <button class="deleteBook" style="border: none; background: transparent"; data-book-id="<?= $book['book_id']; ?>" data-book-name="<?= $book['book_title'];?>"><img  style="width: 20px" src="../icons/delete_book_inventory.png" alt=""></button>
                                     </div>
                                 </div>
                             </div>
@@ -580,15 +580,6 @@ if (isset($_SESSION['user'])) {
         }
     </script>
     <script>
-        for (let i = 1; i <= 9; i++) {
-            const deleteButton = document.getElementById(`deleteBook${i}`);
-            if (deleteButton) {
-                deleteButton.addEventListener('click', function() {
-                    showDeleteConfirmation(1); // Pass a unique identifier
-                });
-            }
-        }
-
         // The deleteAllBook button
         const deleteAllButton = document.getElementById('deleteAllBook');
         if (deleteAllButton) {
@@ -635,5 +626,6 @@ if (isset($_SESSION['user'])) {
     <script src='../js/logout_script.js'></script>
     <script src="../js/navbar_select.js"></script>
     <script src="../js/add_book.js"></script>
+    <script src="../js/delete_book.js"></script>
 </body>
 </html>
