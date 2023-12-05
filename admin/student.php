@@ -260,7 +260,7 @@ if (isset($_SESSION['user'])) {
                         </div>
 
 
-                        <form class="row needs-validation "  style="margin-left: 30px; width: 80%; height: 65%; "  novalidate >
+                        <form id="AddStudentModal" class="row needs-validation "  style="margin-left: 30px; width: 80%; height: 65%; "  novalidate >
                             <div class="col-md-5 firstname">
                                 <label for="addStudentFirstName" class="form-label mb-0" style="font-size: 12px;">FIRST NAME</label>
                                 <input type="text" class="form-control" placeholder="Juan" id="addStudentFirstName" style="font-size: 10px; text-transform: capitalize !important;" pattern="[A-Za-z]+" required>
@@ -424,10 +424,11 @@ if (isset($_SESSION['user'])) {
                             </div>
 
 
-                            <div class=" wishlist-container  mt-4 mb-0 " style=" display: flex; justify-content: flex-end; width: 664px; ">
-                                <button style="height: 25px; width: 100px" type="button" class="clear shadow " onclick="clearPhoto()">CLEAR</button>
+                            <div class="wishlist-container mt-4 mb-0" style="display: flex; justify-content: flex-end; width: 664px;">
+                                <button style="height: 25px; width: 100px" type="button" class="clear shadow" onclick="clearForm()">CLEAR</button>
                                 <button style="height: 25px; width: 100px" type="submit" id="addStdntBtn" class="add shadow">ADD</button>
                             </div>
+
                         </form>
                     </div>
                 </div>
@@ -617,6 +618,8 @@ if (isset($_SESSION['user'])) {
 <script src='../js/logout_script.js'></script>
 <script src="../js/navbar_select.js"></script>
 <script src="../js/student.js"></script>
+<script src="../js/add_student_clear.js"></script>
+
 
 
 
@@ -640,6 +643,11 @@ if (isset($_SESSION['user'])) {
             });
         });
     });
+</script>
+
+
+
+</script>
 </script>
 
 <script>
