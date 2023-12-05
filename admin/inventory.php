@@ -15,25 +15,19 @@ $userData = new StaffData($database);
 $booksData = new BookData($database);
 $books = $booksData->getAllBook();
 $numberBooks = $booksData->getNumberOfBooks();
-// Get the total number of books
+
 $totalBooks = count($books);
-
-// Define how many books to display per page
-$booksPerPage = 3;
-
-// Calculate the total number of pages needed
+$booksPerPage = 9;
+$currentPage = isset($_GET['page']) ? (int)$_GET['page'] : 1;
 $totalPages = ceil($totalBooks / $booksPerPage);
 
-// Set the current page number
-$currentPage = isset($_GET['page']) ? (int)$_GET['page'] : 1;
-
-// Calculate the starting index for the books to display
 $startIndex = ($currentPage - 1) * $booksPerPage;
-
-// Calculate the ending index
 $endIndex = min($startIndex + $booksPerPage - 1, $totalBooks - 1);
 
-if ($userAuth->isAuthenticated()) {
+$rowCount = min(3, ceil($booksPerPage / 3));
+$colCount = min(3, ceil($booksPerPage / $rowCount));
+
+if($userAuth->isAuthenticated()) {
 } else {
     header('Location: ../index_admin.php');
     exit();
@@ -138,7 +132,7 @@ if (isset($_SESSION['user'])) {
 
                             <form action="" method="post" style="margin-left: 20px;">
 
-                                <label for="logout"><img src="../icons/plug.png" style="width: 20px; " alt=""></label>
+                                <label for="logoutButton"><img src="../icons/plug.png" style="width: 20px; " alt=""></label>
                                 <input id="logoutButton" style="font-size: 12px; color: white; background: none; border: none;" name="logout" type="submit" value="Logout">
                             </form>
                             </ul>
@@ -176,14 +170,17 @@ if (isset($_SESSION['user'])) {
                     </div>
                 </div>
                 <div style="display: flex; justify-content: center;">
-
                     <div style="width: 95%; min-height: 100vh; margin-top: 10px; ">
-                        <div class="col col-md-12" style="background: rgb(122,12,12); height: 38vh; border-radius: 5px; box-shadow: 0px 4px 8px rgba(0,0,0,0.2); display: flex; align-items: center; padding: 15px 5px 15px 15px; margin: 20px 0px 0px 0px;">
+                        <?php
+                        for ($row = 0; $row < $rowCount; $row++) {
+                            ?>
+                        <div class="col col-md-12" style="background: rgb(255,255,255); height: 38vh; border-radius: 5px; box-shadow: 0px 4px 8px rgba(0,0,0,0.2); display: flex; align-items: center; padding: 15px 5px 15px 15px; margin: 20px 0px 0px 0px;">
                             <?php
-                            for ($i = $startIndex; $i <= $endIndex; $i++) {
-                            $book = $books[$i];
-
-                             ?>
+                            for ($col = 0; $col < $colCount; $col++) {
+                                $bookIndex = $startIndex + ($row * $colCount) + $col;
+                                if ($bookIndex <= $endIndex) {
+                                    $book = $books[$bookIndex];
+                                    ?>
                             <div class="card" style="width: 25rem; height: 250px; box-shadow: 0px 3px 6px rgba(0,0,0,0.26); margin: 0px 10px 0px 0px;">
                                 <div class="card-body">
                                     <h6 class="card-title"><input type="checkbox"></h6>
@@ -219,17 +216,27 @@ if (isset($_SESSION['user'])) {
                                     </div>
                                 </div>
                             </div>
-                            <?php     }
-                           ?>
+                                <?php
+                            }
+                            }
+                            ?>
                         </div>
+                            <?php
+                        }
+                        ?>
+
 
 
 
                         <div style="margin-top: 30px; display: flex; width: 100%;">
                             <div style="width: 200px;">
-                               <?php for ($page = 1; $page <= $totalPages; $page++) {
-                                   echo '<a href="?page=' . $page . '">' . $page . '</a> ';
-                               } ?>
+                                <ul class="pagination">
+                                    <?php for ($page = 1; $page <= $totalPages; $page++) { ?>
+                                        <li class="page-item <?php echo ($currentPage == $page) ? 'active' : ''; ?>">
+                                            <a class="page-link" href="?page=<?php echo $page; ?>"><?php echo $page; ?></a>
+                                        </li>
+                                    <?php } ?>
+                                </ul>
                             </div>
                             <div style="display: flex; justify-content: flex-end; width: 100%; font-size: 10px;  ">
                                 <button style="color: #800000;font-weight: 700; border-radius: 5px; border: 1px solid #740000; width: 100px; height: 28px; background: transparent; margin-right: 35px;">CANCEL</button>
@@ -247,7 +254,8 @@ if (isset($_SESSION['user'])) {
 
         </div>
     </div>
-    <!-- ADD book Modal -->
+
+    <!-- Add book Modal -->
     <div class="modal fade " id="addBookModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg modal-dialog-centered">
             <div class="modal-content">
@@ -351,7 +359,7 @@ if (isset($_SESSION['user'])) {
                                 <div class="col-md-3 mt-2">
                                     <label for="bookCategory" class="form-label mb-0" style="font-size: 12px;">CATEGORY</label>
                                     <div class="input-group has-validation">
-                                        <select name="" id="" style="font-size: 10px; width: 130px; height: 28px; padding: 2px 5px; border-radius: 5px" required>
+                                        <select name="" id="bookCategory" style="font-size: 10px; width: 130px; height: 28px; padding: 2px 5px; border-radius: 5px" required>
                                             <option value="" disabled selected> Select Category</option>
                                             <option value="option">Environment and Forestry</option>
                                             <option value="option">Agriculture and Agriculture Engineering</option>
@@ -383,7 +391,7 @@ if (isset($_SESSION['user'])) {
 
                                 <div class=" wishlist-container  mt-4 mb-0 " style=" display: flex; justify-content: flex-end; width: 664px; ">
                                     <button style="height: 25px; width: 100px" type="button" class="clear shadow " onclick="clearPhoto()">CLEAR</button>
-                                    <button style="height: 25px; width: 100px" type="submit" class="add shadow" >ADD</button>
+                                    <button style="height: 25px; width: 100px" type="button" id="addBookBtn" class="add shadow" >ADD</button>
                                 </div>
                             </form>
                         </div>
@@ -392,7 +400,6 @@ if (isset($_SESSION['user'])) {
             </div>
         </div>
     </div>
-
     <!-- update book Modal -->
     <div class="modal fade " id="editBookModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg modal-dialog-centered">
@@ -542,10 +549,6 @@ if (isset($_SESSION['user'])) {
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 
-    <script src='../js/logout_script.js'></script>
-    <script src="../js/navbar_select.js"></script>
-    <script src="../js/student.js"></script>
-
 <script>
         function updateProfilePicture(event) {
             const profilePic = document.getElementById('Book-Pic');
@@ -633,6 +636,8 @@ if (isset($_SESSION['user'])) {
             });
         }
     </script>
-
+    <script src='../js/logout_script.js'></script>
+    <script src="../js/navbar_select.js"></script>
+    <script src="../js/add_book.js"></script>
 </body>
 </html>

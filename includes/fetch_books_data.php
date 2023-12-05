@@ -51,6 +51,29 @@ class BookData
             return array();
         }
     }
+    public function addBook($bookID, $bookTitle, $bookGenre, $bookAuthor, $bookISBN, $bookCopies, $bookShelf, $bookPublisher, $bookCategory, $bookSummary, $profile): bool
+    {
+
+        $sql = "INSERT INTO tbl_book (book_id, book_title, genre, Author_id, ISBN, copy, shelf, publisher, category, description, book_img)
+            VALUES (:bookID, :bookTitle, :bookGenre, :bookAuthor, :bookISBN, :bookCopies, :bookShelf, :bookPublisher, :bookCategory, :bookSummary, :img)";
+        $stmt = $this->database->prepare($sql);
+
+        // Bind parameters
+        $stmt->bindParam(':bookID', $bookID, PDO::PARAM_STR);
+        $stmt->bindParam(':bookTitle', $bookTitle, PDO::PARAM_STR);
+        $stmt->bindParam(':bookGenre', $bookGenre, PDO::PARAM_STR);
+        $stmt->bindParam(':bookAuthor', $bookAuthor, PDO::PARAM_STR);
+        $stmt->bindParam(':bookISBN', $bookISBN, PDO::PARAM_STR);
+        $stmt->bindParam(':bookCopies', $bookCopies, PDO::PARAM_STR);
+        $stmt->bindParam(':bookShelf', $bookShelf, PDO::PARAM_STR);
+        $stmt->bindParam(':bookPublisher', $bookPublisher, PDO::PARAM_STR);
+        $stmt->bindParam(':bookCategory', $bookCategory, PDO::PARAM_STR);
+        $stmt->bindParam(':bookSummary', $bookSummary, PDO::PARAM_STR);
+        $stmt->bindParam(':img', $profile, PDO::PARAM_STR);
+
+        // Execute the query
+        return $stmt->execute();
+    }
 
 }
 

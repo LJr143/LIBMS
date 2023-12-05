@@ -1,7 +1,7 @@
 <?php
 session_start();
 require_once '..\db_config\config.php';
-include '../includes/fetch_student_data.php';
+include '../includes/fetch_books_data.php';
 include '..\includes\logs_operation.php';
 
 $database = new Database();
@@ -9,21 +9,18 @@ $log = new Logs($database);
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     try {
-        $firstName = $_POST['first_name'];
-        $lastName = $_POST['last_name'];
-        $mi = $_POST['mi'];
-        $studentID = $_POST['studentID'];
-        $personalEmail = $_POST['personalEmail'];
-        $phoneNumber = $_POST['phoneNumber'];
-        $address = $_POST['address'];
-        $year = $_POST['year'];
-        $course = $_POST['course'];
-        $major = $_POST['major'];
-        $usepEmail = $_POST['usepEmail'];
-        $username = $_POST['username'];
-        $password = $_POST['password'];
+        $bookID = $_POST['bookID'];
+        $bookTitle = $_POST['bookTitle'];
+        $bookGenre = $_POST['bookGenre'];
+        $bookAuthor = $_POST['bookAuthor'];
+        $bookISBN = $_POST['bookISBN'];
+        $bookCopies = $_POST['bookCopies'];
+        $bookShelf = $_POST['bookShelf'];
+        $bookPublisher = $_POST['bookPublisher'];
+        $bookCategory = $_POST['bookCategory'];
+        $bookSummary = $_POST['bookSummary'];
 
-        $student = new studentData($database);
+        $book = new BookData($database);
 
         if (!empty($_FILES['profile']['name'])) {
             $profile = $_FILES['profile']['name'];
@@ -43,15 +40,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $profile = null;
         }
 
-        $result = $student->addStudent($firstName, $lastName, $mi, $studentID, $personalEmail, $usepEmail, $phoneNumber, $address, $year, $course, $major, $username, $password, $profile);
+        $result = $book->addBook($bookID, $bookTitle, $bookGenre, $bookAuthor, $bookISBN, $bookCopies, $bookShelf, $bookPublisher, $bookCategory, $bookSummary, $profile);
 
         if ($result) {
-//            $addedstudent = $firstName . " " . $lastName;
-//            $addLog = $log->insertAddLogs($_SESSION['loggedAdminID'], $_SESSION['user'], $addedstudent);
             header('Content-Type: application/json');
             echo json_encode(['success' => true]);
         } else {
-            throw new Exception('Failed to add student member.');
+            throw new Exception('Failed to add book.');
         }
     } catch (Exception $e) {
         header('Content-Type: application/json');
