@@ -175,7 +175,7 @@ class StaffData
         $stmt->bindParam(':phone_number', $phoneNumber, PDO::PARAM_STR);
         $stmt->bindParam(':tele_number', $telephoneNumber, PDO::PARAM_STR);
         $stmt->bindParam(':address', $address, PDO::PARAM_STR);
-        $stmt->bindParam(':email', $Pemail, PDO::PARAM_STR);
+        $stmt->bindParam(':email', $Oemail, PDO::PARAM_STR);
         $stmt->bindParam(':userId', $userId, PDO::PARAM_STR);
 
 
@@ -223,8 +223,9 @@ class StaffData
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
 
         // Check if the old password matches
-        return password_verify($oldPassword, $result['password']);
+        return $oldPassword === $result['password'];
     }
+
 
 
 

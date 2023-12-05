@@ -98,7 +98,6 @@ if (isset($_SESSION['user'])) {
                 </div>
             </div>
         </nav>
-
         <div class="main-content d-flex">
             <div class="col col-md-2 side_bar">
                 <div class="profile_section">
@@ -179,9 +178,7 @@ if (isset($_SESSION['user'])) {
                 <div style="display: flex; justify-content: center;">
 
                     <div style="width: 95%; min-height: 100vh; margin-top: 10px; ">
-
-
-                        <div class="col col-md-12" style="background: rgb(246,246,247); height: 38vh; border-radius: 5px; box-shadow: 0px 4px 8px rgba(0,0,0,0.2); display: flex; align-items: center; padding: 15px 5px 15px 15px; margin: 20px 0px 0px 0px;">
+                        <div class="col col-md-12" style="background: rgb(122,12,12); height: 38vh; border-radius: 5px; box-shadow: 0px 4px 8px rgba(0,0,0,0.2); display: flex; align-items: center; padding: 15px 5px 15px 15px; margin: 20px 0px 0px 0px;">
                             <?php
                             for ($i = $startIndex; $i <= $endIndex; $i++) {
                             $book = $books[$i];

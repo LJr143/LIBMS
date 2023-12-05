@@ -42,7 +42,7 @@ function updateLoginCredentialsStaff() {
                 } else {
                     Swal.fire({
                         title: 'Error!',
-                        text: 'Failed to delete the student. Please try again.',
+                        text: 'Failed to Update Password. Please try again.',
                         icon: 'error'
                     });
                 }
@@ -57,7 +57,7 @@ function updateLoginCredentialsStaff() {
 }
 
 
-$('#submitBtn').click(function (event) {
+$('#btnChangePass').click(function (event) {
     // Prevent the default form submission
     event.preventDefault();
 
@@ -73,6 +73,6 @@ $('#submitBtn').click(function (event) {
     // if (form.checkValidity()) {
     //     // Disable the button to prevent multiple clicks
     //     $(this).prop('disabled', true);
-        updateProfileStaff();
+    updateLoginCredentialsStaff();
     // }
 });

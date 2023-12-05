@@ -210,7 +210,7 @@ if (isset($_SESSION['user'])) {
                        <div style="margin: 30px 20px; width: 100%;">
                            <div style="display: flex; align-items: center">
                               <div style="margin-right: 30px">
-                                <form class="row needs-validation" style="margin-left: 30px; width: 100%; height: 65%;" novalidate>
+                                <form method="post" class="row needs-validation" style="margin-left: 30px; width: 100%; height: 65%;" novalidate>
                                     <div class="col col-md-4 mt-3">
                                         <div style="margin-right: 30px">
                                             <label style="font-size: 12px; font-weight: 600" for="change_password_old_pass">OLD PASSWORD</label>
@@ -256,7 +256,7 @@ if (isset($_SESSION['user'])) {
 
                                     <div style="width: 100%; display: flex; margin-top: 40px">
                                         <button class="change_pass_btn" style="margin-left: 540px; background: transparent; color: rgb(116,0,0); border: 1px solid rgb(116,0,0)">CLEAR</button>
-                                        <button class="change_pass_btn" style="margin-left: 20px">SAVE</button>
+                                        <button class="change_pass_btn" id="btnChangePass" style="margin-left: 20px">SAVE</button>
                                     </div>
                               </form>
                             </div>
@@ -370,7 +370,7 @@ if (isset($_SESSION['user'])) {
 
                         <div class=" wishlist-container  mt-4 mb-0 " style=" display: flex; justify-content: flex-end; width: 664px; ">
                             <button style="height: 25px; width: 100px" type="button" class="clear shadow " onclick="clearPhoto()">CLEAR</button>
-                            <button style="height: 25px; width: 100px" type="submit" id="submitBtn" class="add shadow" >SAVE</button>
+                            <button style="height: 25px; width: 100px" type="button" id="submitBtn" class="add shadow" >SAVE</button>
                         </div>
                      </form>
                     </div>
@@ -393,9 +393,6 @@ if (isset($_SESSION['user'])) {
             console.log(userId);
             $('#editStaffBtn').click(function(e) {
                 e.preventDefault();
-
-                // Get the user_id from the data attribute
-
 
                 // Make an AJAX request to fetch Student data
                 $.ajax({
@@ -471,7 +468,7 @@ if (isset($_SESSION['user'])) {
 
     </script>
     <script src='../js/logout_script.js'></script>
-    <script src='../js/student.js'></script>
+<!--    <script src='../js/student.js'></script>-->
     <script src="../js/update_profile_staff.js"></script>
     <script src="../js/update_profile_staff_login_credentials.js"></script>
 
