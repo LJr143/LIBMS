@@ -76,7 +76,7 @@ function validateForm() {
         '#addStudentFirstName': /^[A-Za-z]+(?: [A-Za-z]+)?$/,
         '#addStudentLastName': /^[A-Za-z]+$/,
         '#addStudentMI': /^[A-Za-z]{1}$/,
-        '#addStudentStudID': /^[0-9]{4}-[0-9]{5}$/,
+        '#addStudentStudID': /^202[0-9]{1}-[0-9]{5}$/,
         '#addStudentPersonalEmail': /^[^\s@]+@gmail\.com$/,
         '#addStudentPhoneNumber': /^09[0-9]{9}$/,
         '#addStudentAddress': /^[A-Za-z0-9,.\s]+$/,
@@ -93,10 +93,41 @@ function validateForm() {
         console.log('Field:', fieldId, 'Value:', field.val());
 
         if (!pattern.test(field.val())) {
-            showValidationError('Follow the format correctly! Invalid input for ' + field.attr('placeholder') + '.');
+            var fieldName = field.attr('placeholder');
+            var errorMessage = getCustomErrorMessage(fieldId);
+
+            showValidationError('' + errorMessage);
             return false; // Validation failed
         }
     }
+
+    function getCustomErrorMessage(fieldId) {
+        switch (fieldId) {
+            case '#addStudentFirstName':
+                return 'Invalid First Name. It should only contain letters.';
+            case '#addStudentLastName':
+                return 'Invalid Last Name. It should only contain letters.';
+            case '#addStudentMI':
+                return 'Invalid Middle Initial. It should be a single letter.';
+            case '#addStudentStudID':
+                return 'Invalid Student ID. It should be in the format 202*-*****.';
+            case '#addStudentPersonalEmail':
+                return 'Invalid Personal Email. It should be a Gmail address.';
+            case '#addStudentPhoneNumber':
+                return 'Invalid Phone Number. It should start with 09 and have 11 digits.';
+            case '#addStudentAddress':
+                return 'Invalid Address. It should only contain letters, numbers, and basic symbols.';
+            case '#addStudentUsepEmail':
+                return 'Invalid USEP Email. It should be a USEP email address.';
+            case '#addStudentUsername':
+                return 'Invalid Username. It should contain at least 6 alphanumeric characters.';
+            case '#addStudentPassword':
+                return 'Invalid Password. It should be at least 8 characters with at least one digit, one lowercase letter, one uppercase letter, and one special character (@ or _).';
+            default:
+                return 'Invalid input for ' + field.attr('placeholder') + '.';
+        }
+    }
+
 
     return true; // Validation succeeded
 }

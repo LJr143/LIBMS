@@ -177,8 +177,7 @@ if (isset($_SESSION['user'])) {
                                 <tr style="height: 40px; background-color: rgb(246, 246, 246); margin-bottom: 10px; border: 1px solid rgba(0, 0, 0, 0.25);">
                                     <td><input type="checkbox"></td>
                                     <td><img src="../img/<?= $user['img'] ?>" alt="" width="35px" height="35px" style="border-radius: 60px; border: 1px solid #4d0202"></td>
-                                    <td><?= $user['fname'] . ' ' . $user['initial'] . '. ' . $user['lname']; ?></td>
-                                    <td><?= $user['course'] ?></td>
+                                    <td><?= ucfirst($user['fname']) . ' ' . ucfirst($user['initial']) . '. ' . ucfirst($user['lname']); ?></td>                                    <td><?= $user['course'] ?></td>
                                     <td><?= $user['year'] ?></td>
                                     <td style="color: <?= ($user['status'] == 'Active') ? 'green' : 'red'; ?>;"><?= $user['status'] ?></td>
                                     <td style="padding: 1px;">
@@ -290,7 +289,7 @@ if (isset($_SESSION['user'])) {
 
                             <div class="col-md-3 mt-2">
                                 <label for="addStudentStudID" class="form-label mb-0" style="font-size: 12px;">STUDENT ID</label>
-                                <input type="text" class="form-control" id="addStudentStudID" pattern="[0-9]{4}-[0-9]{5}" placeholder="2021-00565" style="font-size: 10px;" required>
+                                <input type="text" class="form-control" id="addStudentStudID" pattern="202[0-9]{1}-[0-9]{5}" placeholder="2021-12345" style="font-size: 10px;" required>
                                 <div class="invalid-feedback" style="font-size: 8px">
                                     Not a valid student ID!
                                 </div>
