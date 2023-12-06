@@ -644,9 +644,6 @@ if (isset($_SESSION['user'])) {
         });
     });
 </script>
-
-
-
 </script>
 </script>
 

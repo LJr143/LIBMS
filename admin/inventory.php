@@ -197,7 +197,7 @@ if (isset($_SESSION['user'])) {
                                                     <p>Status: <span style="color: green; font-weight: 700"><?php echo $book['status']?></span></p>
                                                 </div>
                                                 <div style="margin-left: 20px">
-                                                    <p>Fiction</p>
+                                                    <p><?php echo $book['genre'] ?></p>
                                                     <p>Shelf: <span style="color: #711717; font-weight: 700"><?php echo $book['shelf']?></span></p>
                                                 </div>
                                             </div>
@@ -529,7 +529,7 @@ if (isset($_SESSION['user'])) {
 
                                 <div class=" wishlist-container  mt-4 mb-0 " style=" display: flex; justify-content: flex-end; width: 664px; ">
                                     <button style="height: 25px; width: 100px" type="button" class="clear shadow " onclick="clearPhoto()">CLEAR</button>
-                                    <button style="height: 25px; width: 100px"  type="submit" class="add shadow" >SAVE</button>
+                                    <button style="height: 25px; width: 100px"  type="button" id="updateBookBtn" class="add shadow" >SAVE</button>
                                 </div>
                             </form>
                         </div>
@@ -694,7 +694,7 @@ if (isset($_SESSION['user'])) {
             if (input.files && input.files[0]) {
                 const reader = new FileReader();
                 reader.onload = function(e) {
-                    const profilePic = document.getElementById('ProfilePic');
+                    const profilePic = document.getElementById('Book-Pic');
                     profilePic.src = e.target.result;
 
                     // Hide the icon when a new image is selected
@@ -710,5 +710,6 @@ if (isset($_SESSION['user'])) {
     <script src="../js/navbar_select.js"></script>
     <script src="../js/add_book.js"></script>
     <script src="../js/delete_book.js"></script>
+    <script src="../js/update_book.js"></script>
 </body>
 </html>

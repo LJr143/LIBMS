@@ -74,8 +74,44 @@ class BookData
         // Execute the query
         return $stmt->execute();
     }
+    public function updateBook($bookId, $bookTitle, $bookGenre, $bookAuthor, $bookISBN,$bookCopy, $bookShelf, $bookPublisher, $bookCategory, $bookSummary,$profile)
+    {
+        $sql = "UPDATE tbl_book 
+        SET book_id = :bookId, book_title = :bookTitle, ISBN = :bookISBN, 
+            Author_id = :bookAuthor, publisher = :bookPublisher, 
+            genre = :bookGenre,
+            category = :bookCategory, description = :bookSummary, shelf = :bookShelf, copy = :bookCopy";
 
-    public function deleteBook($bookId){
+// If $profile is not null, include the img column in the SQL query
+        if ($profile !== null) {
+            $sql .= ", book_img = :bookPicture";
+        }
+
+        $sql .= " WHERE book_id = :bookId";
+
+        $stmt = $this->database->prepare($sql);
+
+// Bind parameters (excluding the img parameter if $profile is null)
+        $stmt->bindParam(':bookId', $bookId, PDO::PARAM_STR);
+        $stmt->bindParam(':bookTitle', $bookTitle, PDO::PARAM_STR);
+        $stmt->bindParam(':bookISBN', $bookISBN, PDO::PARAM_STR);
+        $stmt->bindParam(':bookAuthor', $bookAuthor, PDO::PARAM_STR);
+        $stmt->bindParam(':bookPublisher', $bookPublisher, PDO::PARAM_STR);
+        $stmt->bindParam(':bookGenre', $bookGenre, PDO::PARAM_STR);
+        $stmt->bindParam(':bookCategory', $bookCategory, PDO::PARAM_STR);
+        $stmt->bindParam(':bookSummary', $bookSummary, PDO::PARAM_STR);
+        $stmt->bindParam(':bookShelf', $bookShelf, PDO::PARAM_STR);
+        $stmt->bindParam(':bookCopy', $bookCopy, PDO::PARAM_STR);
+
+// Bind the img parameter if $profile is not null
+        if ($profile !== null) {
+            $stmt->bindParam(':bookPicture', $profile, PDO::PARAM_STR);
+        }
+
+// Execute the query
+        return $stmt->execute();
+    }
+        public function deleteBook($bookId){
         $sql = "DELETE FROM tbl_book WHERE book_id = :book_ID";
 
         $stmt = $this->database->prepare($sql);
