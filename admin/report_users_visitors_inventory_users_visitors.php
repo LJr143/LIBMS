@@ -110,49 +110,7 @@ if (isset($_SESSION['user'])) {
                     <div style="width: 90%">
                         <p style="font-size: 10px; font-weight: 700; margin: 14px">HOME | REPORT</p>
                     </div>
-                    <!-- Notification Bell Icon -->
-                    <div class="mr-3" style="margin-left: 40px;">
-                            <a href="#" id="notificationDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                                <i class="bi bi-bell" style="font-size: 20px; color: #4d0202;"></i>
-                            </a>
-                            <ul class="dropdown-menu" aria-labelledby="notificationDropdown" style="padding: 25px; font-size: 13px; background-color: #F8F8FF;">
-                                <li><span><b>NOTIFICATION</b></span></li>
-                                <li>
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <span>Sheena Pagas has requested to borrow a book</span>
-                                        <div class="btn-group ms-4">
-                                            <button type="button" class="btn custom-btn" data-bs-toggle="modal" onclick="handleButtonClick(event)" data-bs-target="#infoModal1">
-                                                <i class="bi bi-info-circle" style="color:blue; font-size: 20px;"></i>
-                                            </button>
-                                            <button type="button" class="btn custom-btn" onclick="handleButtonClick(event)">
-                                                <i class="bi bi-check-circle" style="color:green; font-size: 20px;"></i>
-                                            </button>
-                                            <button type="button" class="btn custom-btn" onclick="handleButtonClick(event)">
-                                                <i class="bi bi-x-circle" style="color:red; font-size: 20px;"></i>
-                                            </button>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <span>Sheena Pagas has requested to borrow a book</span>
-                                        <div class="btn-group ms-4">
-                                            <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#infoModal1">
-                                                <i class="bi bi-info-circle" style="color:blue; font-size: 20px;"></i>
-                                            </button>
-                                            <button type="button" class="btn">
-                                                <i class="bi bi-check-circle" style="color:green; font-size: 20px;"></i>
-                                            </button>
-                                            <button type="button" class="btn">
-                                                <i class="bi bi-x-circle" style="color:red; font-size: 20px;"></i>
-                                            </button>
-                                        </div>
-                                    </div>
-                                </li>
-
-                            </ul>
-                        </div>
-                    <div class=" d-flex justify-content-end align-items-center" style="height: 50px; width: 6%; margin-right: 20px ">
+                    <div class=" d-flex justify-content-end align-items-center" style="height: 50px; width: 10%; margin-right: 20px ">
                         <div class="dropdown" style=" margin-right: 0px; position: absolute">
                             <button style="background: none; border: none;" class=" dropdown-toggle" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
                                 <img src="../img/<?= $loggedAdmin['img'] ?>" alt="" width="35px" style="border-radius: 60px; border: 1px solid #4d0202">
@@ -369,62 +327,6 @@ if (isset($_SESSION['user'])) {
     </div>
     </div>
     </div>
-      <!-- Information Modal -->
-      <div class="modal fade" id="infoModal1" tabindex="-1" aria-labelledby="infoModal1Label" aria-hidden="true">
-        <div class="modal-dialog  modal-dialog-centered" role="document" style="max-width: 800px;">
-            <div class="modal-content">
-                <div class="modal-header" style="height: 15px;">
-
-                    <p class="modal-title" id="borrowModalLabel " style="font-size: 12px; color: #800000; font-weight: 600;">
-                        <i class="bi bi-info-circle" style="color:#800000; font-size: 17px; margin-right: 10px;"></i>TRANSACTION DETAILS
-                    </p>
-                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close" style="background-color: transparent; border:none;">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body" style=" margin-left: 20px;">
-                    <!-- Student Information -->
-                    <div class="row" style="font-size: 12px;">
-                        <div class="col-md-5">
-                            <p>Student ID: <span id="studentId"></span></p>
-                            <p>Name: <span id="studentName"></span></p>
-                            <p>Course: <span id="studentCourse"></span></p>
-                        </div>
-                        <div class="col-md-5">
-                            <p>Year: <span id="studentYear"></span></p>
-                            <p>Major: <span id="studentMajor"></span></p>
-                        </div>
-                    </div>
-
-                    <!-- Book Information -->
-                    <div class="row" style="font-size: 12px;">
-
-                        <div class="col-md-2">
-                            <!-- Book Image -->
-                            <img src="../book_img/1984.jpg" alt="Book Image" class="img-fluid" style="max-height: 160px; max-width: 100%;">
-                        </div>
-
-                        <div class="col-md-5">
-                            <p>Book Title: <span id="bookTitle"></span></p>
-                            <p>Author: <span id="author"></span></p>
-                            <p>Borrow date: <span id="borrowDate"></span></p>
-                        </div>
-
-                        <div class="col-md-5">
-                            <p>Shelf: <span id="shelf"></span></p>
-                            <p>Publisher: <span id="publisher"></span></p>
-                            <p>Due Date: <span id="dueDate"></span></p>
-                        </div>
-                    </div>
-                    <!-- Buttons -->
-                    <button style="margin-left: 70%; background-color:white; border-color:#4d0202; color:#4d0202; height: 35px; font-size:13px" type="button" class="btn" onclick="rejectBorrow()">REJECT</button>
-                    <button style="margin-left: 10px; background-color:#740000; color:#fff; height: 35px; font-size:13px" type="button" class="btn" onclick="approveBorrow()">APPROVE</button>
-                </div>
-
-            </div>
-        </div>
-
-    </div>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
@@ -518,12 +420,7 @@ if (isset($_SESSION['user'])) {
             window.location.href = pageUrls.bookStatusButton;
         });
     </script>
-      <script>
-        // Prevent the dropdown from closing when clicking on the buttons
-        function handleButtonClick(event) {
-            event.stopPropagation();
-        }
-    </script>
+
 </body>
 
 </html>
