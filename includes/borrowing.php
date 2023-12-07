@@ -34,7 +34,7 @@ if (isset($_GET['book_id'])) {
         <div id="img_container_borrow" style="width: 100%; height: 330px; text-align: center">
             <div style="width: 100%; display: flex; justify-content: center;"><img src="../icons/confirmation.png" alt="" style="width: 80px;height: 80px"></div>
             <div style="font-size: 14px; letter-spacing: 0.2px; width: 100%; color: #711717; display: flex; justify-content: center;"><p style="font-style: italic; font-weight: 700;">Confirmation</p></div>
-            <div style="font-size: 12px; width: 100%; display: flex; justify-content: center;"><p style="font-weight: 700;">Would you like to borrow <?php echo $book['book_title'] ?> by <?php echo $book['Author_id'] ?> ?</p></div>
+            <div style="font-size: 12px; width: 100%; display: flex; justify-content: center;"><p style="font-weight: 700;">Would you like to borrow <?php echo $book['book_title'] ?> by <?php echo $book['author'] ?> ?</p></div>
 
             <div style="font-size: 12px; width: 100%; display: flex; justify-content: center;"><p style="padding: 5px 0px; font-weight: 700;">Return Date: &nbsp;&nbsp;</p><span>
                 <label for="date_borrowed_vw"></label>

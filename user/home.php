@@ -3,11 +3,13 @@ session_start();
 require_once 'C:\wamp64\www\LIBMS\db_config\config.php';
 include 'C:\wamp64\www\LIBMS\includes\fetch_books_data.php';
 include 'C:\wamp64\www\LIBMS\operations\authentication.php';
+include 'C:\wamp64\www\LIBMS\includes\fetch_student_data.php';
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 $database = new Database();
 $userAuth = new UserAuthentication($database);
 $bookData = new BookData($database);
+$userData = new StudentData($database);
 
 $book = $bookData->getAllBook();
 
@@ -20,6 +22,24 @@ if (isset($_POST['logout'])) {
     $userAuth->logout();
     header('Location: ../index.php');
     exit();
+}
+
+if (isset($_SESSION['user'])) {
+    $userUsername = $_SESSION['user'];
+
+    $userID = $userData->getStudentIdByUsername($userUsername);
+    if (!empty($userID)) {
+        $user = $userData->getStudentById($userID);
+
+        if (!empty($user)) {
+            $loggedUser = $user[0];
+        } else {
+            echo 'Admin data not found.';
+        }
+    } else {
+        echo 'Invalid admin ID.';
+    }
+
 }
 ?>
 
@@ -60,7 +80,7 @@ if (isset($_POST['logout'])) {
             <div class=" d-flex justify-content-center align-items-center" style="height: 50px; width: 60px; right: 10px; position: absolute">
                 <div class="dropdown" style=" margin-right: 0px; position: absolute">
                     <button style="background: none; border: none;" class=" dropdown-toggle" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
-                        <img src="../img/me_sample_profile.jpg ?>" alt="" width="35px" style="border-radius: 60px; border: 1px solid #4d0202">
+                        <img src="../img/<?php echo $loggedUser['img'] ?>" alt="" width="35px" style="border-radius: 60px; border: 1px solid #4d0202">
                     </button>
                     <ul class="dropdown-menu dropdown-menu-dark dropdown_menu_setting aria-labelledby="dropdownMenuButton2">
                     <li><a style="font-size: 12px; color: white;" class="dropdown-item" href="profile.php"><img src="../icons/manage_account.png" alt="" class="custom_icon"><span>Manage Account</span></a></li>
@@ -120,7 +140,7 @@ if (isset($_POST['logout'])) {
                               <img src="../book_img/<?php echo $books['book_img']; ?>" alt="" class="custom-book-img">
                               <div style="width: 100%; height: 30px; margin-top: 10px;" class="d-flex align-items-center  flex-column">
                                   <p style="font-size: 12px; text-align: center" class="custom-book-text"><?php echo $books['book_title']; ?></p>
-                                  <p style="margin-top: -20px; font-size: 8px;" class="custom-book-text"><?php echo $books['Author_id']; ?></p>
+                                  <p style="margin-top: -20px; font-size: 8px;" class="custom-book-text"><?php echo $books['author']; ?></p>
                               </div>
                               <div style="width: 100%; margin-top: 10px;" class="d-flex justify-content-center">
                                   <button  data-bs-toggle="modal" data-bs-target="#bookModal" data-book-id="<?php echo $books['book_id']; ?>" style="font-size: 10px; width: 80%; border: 1px solid black" class="btn btn-view-book">View Book</button>
@@ -144,10 +164,10 @@ if (isset($_POST['logout'])) {
                           <img src="../book_img/<?php echo $books['book_img']; ?>" alt="" class="custom-book-img" style="">
                           <div style="width: 100%; height: 30px; margin-top: 10px;" class="d-flex align-items-center  flex-column">
                               <p style="font-size: 12px" class="custom-book-text"><?php echo $books['book_title']; ?></p>
-                              <p style="margin-top: -20px; font-size: 8px;" class="custom-book-text"><?php echo $books['Author_id']; ?></p>
+                              <p style="margin-top: -20px; font-size: 8px;" class="custom-book-text"><?php echo $books['author']; ?></p>
                           </div>
                           <div style="width: 100%; margin-top: 10px;" class="d-flex justify-content-center">
-                              <button data-bs-toggle="modal" data-bs-target="#bookModal" data-book-id="<?php echo $books['book_id']; ?>" style="font-size: 10px; width: 80%; border: 1px solid black" class="btn btn-view-book">View Book</button>
+                              <button data-bs-toggle="modal" data-book-id="<?php echo $books['book_id']; ?>" style="font-size: 10px; width: 80%; border: 1px solid black" class="btn btn-view-book">View Book</button>
                           </div>
                       </div>
                   <?php } ?>
@@ -165,43 +185,114 @@ if (isset($_POST['logout'])) {
     <div class="modal-dialog modal-lg modal-dialog-centered">
         <div class="modal-content" >
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">BOOK INFORMATION</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <h5  style="font-size: 10px;" class="modal-title" id="exampleModalLabel">BOOK INFORMATION</h5>
+                <button style="font-size: 8px;" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
+                <form action="" method="post" enctype="multipart/form-data">
+                <div id="img_container_vw" style=" display: flex; align-items: center">
+                    <div id="img_container_vw_2" style="display: flex; justify-content: center; align-items: center; width: 30%; height: 300px; overflow: hidden;">
+                        <img id="book-pic" style="width: 190px;" src="../book_img/book1.jpg " alt="">
+                        </div>
+                    <div id="img_container_vw_3" style="width: 70%;height: 300px;">
+                        <div class="row" style="display: flex; flex-wrap: wrap;height: 70px">
+                            <label for="book_id"></label><input type="text" id="book_id" style="display: none">
+                            <div class="col col-md-6"  style=" height: 80px; display: flex; flex-wrap: wrap; overflow: hidden">
+                                <label style="font-size: 10px; font-weight: bold; padding: 0" for="vw_bookTitle">Book Title:</label>
+                                <input style="width: 200px; height: 17px; font-size: 10px; margin-top: -2px; padding: 0px 5px; border: none; outline: none" type="text" id="vw_bookTitle" readonly>
+                                <label style="font-size: 10px; font-weight: bold; padding: 0" for="vw_bookAuthor">Author:</label>
+                                <input style="width: 200px; height: 17px; font-size: 10px; margin-top: -2px; padding: 0px 5px; border: none; outline: none" type="text" id="vw_bookAuthor" readonly>
+                                <label style="font-size: 10px; font-weight: bold; padding: 0" for="vw_bookGenre">Genre:</label>
+                                <input style="width: 200px; height: 17px; font-size: 10px; margin-top: -2px; padding: 0px 5px; border: none; outline: none" type="text" id="vw_bookGenre" readonly>
+                            </div>
+                            <div class="col col-md-6" style="height: 80px; display: flex; flex-wrap: wrap; overflow: hidden">
+                                <label style="font-size: 10px; font-weight: bold; padding: 0" for="vw_bookShelf">Shelf:</label>
+                                <input style="width: 200px; height: 17px; font-size: 10px; margin-top: -2px; padding: 0px 5px; border: none; outline: none" type="text" id="vw_bookShelf" readonly>
+                                <label style="font-size: 10px; font-weight: bold; padding: 0" for="vw_bookPublisher">Publisher:</label>
+                                <input style="width: 200px; height: 17px; font-size: 10px; margin-top: -2px; padding: 0px 5px; border: none; outline: none" type="text" id="vw_bookPublisher" readonly>
+                                <label style="font-size: 10px; font-weight: bold; padding: 0" for="vw_bookStatus">Status:</label>
+                                <input style="width: 200px; height: 17px; font-size: 10px; margin-top: -2px; padding: 0px 5px; border: none; outline: none" type="text" id="vw_bookStatus" readonly>
+                            </div>
+                            </div>
+                        <div class="row" style="display: flex; flex-wrap: wrap;height: 200px; width: 100%; padding: 10px 15px;">
+                            <label style="font-size: 10px; font-weight: bold; padding: 0;" for="vw_bookDescription">Description:</label>
+                            <textarea style="resize: none; width: 100%; height: 100%; font-size: 10px; padding: 10px 10px; margin-bottom: 20px; border: none; outline: none" type="text" id="vw_bookDescription" readonly></textarea>
 
+                        </div>
+
+                        <div class="row vw_btns_borrow_reserve" style="display: flex; flex-wrap: wrap; height: 30px; width: 550px;">
+                            <button data-bs-toggle="modal" data-bs-target="#borrowModal" type="button"  class="btn btn-secondary borrow-button">Borrow</button>
+                            <button data-bs-toggle="modal" data-bs-target="#reserveModal"  type="button"  class="btn btn-secondary reserve-button">Reserve</button>
+                            <img src="../icons/heart.png" alt="" style="width: 20px">
+                            </div>
+                        </div>
+                    </div>
+                </form>
             </div>
 
         </div>
     </div>
 </div>
-
 <!-- Borrow Modal -->
 <div class="modal fade " id="borrowModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog  modal-dialog-centered">
         <div class="modal-content" >
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">BORROWING CREDENTIALS</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <h5 style="font-size: 10px;" class="modal-title" id="exampleModalLabel">BORROWING CREDENTIALS</h5>
+                <button style="font-size: 8px;" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
+                <form action="" method="post">
+                    <div id="img_container_borrow" style="width: 100%; height: 330px; text-align: center">
+                        <div style="width: 100%; display: flex; justify-content: center;"><img src="../icons/confirmation.png" alt="" style="width: 80px;height: 80px"></div>
+                        <div style="font-size: 14px; letter-spacing: 0.2px; width: 100%; color: #711717; display: flex; justify-content: center;"><p style="font-style: italic; font-weight: 700;">Confirmation</p></div>
+                        <div style="font-size: 12px; width: 100%; display: flex; justify-content: center;"><p style="font-weight: 700;">Would you like to borrow <span id="book_title"></span> by <span id="book_author"></span> ?</p></div>
 
+                        <div style="font-size: 12px; width: 100%; display: flex; justify-content: center;">
+                            <p style="padding: 5px 0px; font-weight: 700;">Borrowed Date: &nbsp;&nbsp;</p>
+                            <span>
+        <label for="date_borrowed_vw"></label>
+        <input name="date_for_borrow" id="date_borrowed_vw" style="padding: 2px 10px;" type="date" readonly>
+    </span>
+                        </div>
+
+                        <div style="font-size: 12px; width: 100%; display: flex; justify-content: center;">
+                            <p style="padding: 5px 0px; font-weight: 700;">Due Date: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
+                            <span>
+        <label for="date_due_vw"></label>
+        <input name="date_for_due" id="date_due_vw" style="padding: 2px 10px;" type="date" readonly>
+    </span>
+                        </div>
+                        <div style="font-size: 12px; width: 100%; display: flex; justify-content: center;"><p style="padding: 5px 0px; font-weight: 700;">
+                                <button data-bs-dismiss="modal" type="button" style="width: 100px; margin: 0px 20px; font-weight: bold; border-radius: 5px; padding: 10px; color: #711717; background-color: transparent; border: 1px solid #711717">Cancel</button>
+                                <button data-bs-toggle="modal" class="barrow_confirm_btn" type="button" style="width: 100px; font-weight: bold; border-radius: 5px; padding: 10px; color: white; background-color: #740000; border: 1px solid #711717">Confirm</button>
+                        </div>
+                    </div>
+                </form>
             </div>
 
         </div>
     </div>
 </div>
-
 <!-- Borrow Confirmation Modal -->
 <div class="modal fade " id="borrowConfirmationModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog  modal-dialog-centered">
         <div class="modal-content" >
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">BORROWING CREDENTIALS</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <h5 style="font-size: 10px;" class="modal-title" id="exampleModalLabel">BORROWING CREDENTIALS</h5>
+                <button style="font-size: 8px;" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
+                <div id="img_container_borrow" style="width: 100%; height: 330px">
+                    <div style="width: 100%; display: flex; justify-content: center;"><img src="../icons/confirmation.png" alt="" style="width: 80px;height: 80px"></div>
+                    <div style=" font-size: 14px; letter-spacing: 0.2px ;width: 100%; color: #711717;display: flex; justify-content: center;"> <p style="font-style: italic; font-weight: 700;">Confirmation</p></div>
+                    <div style="font-size: 12px; width: 100%;display: flex; justify-content: center;"> <p style=" width: 60ch; font-size: 10px;text-align:center;font-weight: 700;">Please return the book before or on MM/DD/YYYY, 5:00 PM at the Campus Library. Penalties will be given once it is overdue, including a daily late fee of Php X and a suspension of borrowing privileges until the book is returned.  Please proceed to the Library for pickup.</p></div>
+                    <div style="font-size: 12px; width: 100%;display: flex; justify-content: center;"> <p style="padding: 5px 0px; font-weight: 700;">
+                            <button data-bs-dismiss="modal" type="button" style="width: 100px; margin: 0px 20px; font-weight: bold; border-radius: 5px; padding:  10px; color: #711717; background-color: transparent; border: 1px solid #711717">Close</button>
 
+                    </div>
+
+                </div>
             </div>
 
         </div>
@@ -222,8 +313,6 @@ if (isset($_POST['logout'])) {
         </div>
     </div>
 </div>
-
-
 <!-- Borrow Success Modal -->
 <div class="modal fade " id="borrowSuccessModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog  modal-dialog-centered">
@@ -239,7 +328,6 @@ if (isset($_POST['logout'])) {
         </div>
     </div>
 </div>
-
 <!-- Reserve Success Modal -->
 <div class="modal fade " id="reserveSuccessModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog  modal-dialog-centered">
@@ -257,28 +345,66 @@ if (isset($_POST['logout'])) {
 </div>
 
 
-
-
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
 <script>
-    $('.btn-view-book').on('click', function() {
-        var bookId = $(this).data('book-id');
-        var modalBody = $('.modal-body');
-        console.log(bookId);
+    $(document).ready(function() {
+        $('.btn-view-book').click(function(e) {
+            e.preventDefault();
 
-        $.ajax({
-            url: '../includes/fetch.php?book_id=' + bookId,
-            method: 'GET',
-            success: function(data) {
-                modalBody.html(data);
-            },
-            error: function() {
-                modalBody.html('Failed to fetch book details.');
-            }
+            // Get the book_id from the data attribute
+            var bookId = $(this).data('book-id');
+
+            // Make an AJAX request to fetch Book data
+            $.ajax({
+                url: '../operations/fetch_book.php', // Replace with your backend endpoint
+                type: 'POST',
+                data: { bookId: bookId },
+                dataType: 'json',
+                success: function(response) {
+                    // Log the response to inspect the structure
+                    console.log(response);
+
+                    // Handle the response and populate your modal with data
+                    populateModal(response);
+                },
+                error: function() {
+                    // Handle errors
+                    console.error('Error fetching Book data.');
+                }
+            });
         });
+
+        function populateModal(data) {
+            // Log the data to inspect the structure
+            console.log(data);
+
+            // Populate the modal fields with data received from the server
+            $('#vw_bookTitle').val(data[0].book_title);
+            $('#vw_bookAuthor').val(data[0].Author_id);
+            $('#vw_bookGenre').val(data[0].genre);
+            $('#vw_bookShelf').val(data[0].shelf);
+            $('#vw_bookPublisher').val(data[0].publisher);
+            $('#vw_bookStatus').val(data[0].status);
+            $('#vw_bookDescription').val(data[0].description);
+            $('#book_id').val(data[0].book_id);
+
+            var imagePath = '../book_img/' + data[0].book_img;
+            $('#book-pic').attr('src', imagePath);
+
+            // Show the modal
+            $('#bookModal').modal('show');
+        }
     });
+
+
+    // Function to handle adding a student
+    function addStudent() {
+        // Add your logic here
+        $("#bookModal").modal("hide");
+    }
+
 </script>
 <script>
     const listItems = document.querySelectorAll('.user-nav .nav-item');
@@ -312,14 +438,13 @@ if (isset($_POST['logout'])) {
     });
 </script>
 <script>
-
-
     window.addEventListener('scroll', function () {
         const nav = document.querySelector('nav');
         nav.classList.toggle("sticky", window.scrollY > 0);
     });
 
 </script>
+<script src="../js/borrow_book.js"></script>
 
 
 </body>

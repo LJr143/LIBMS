@@ -54,7 +54,7 @@ class BookData
     public function addBook($bookID, $bookTitle, $bookGenre, $bookAuthor, $bookISBN, $bookCopies, $bookShelf, $bookPublisher, $bookCategory, $bookSummary, $profile): bool
     {
 
-        $sql = "INSERT INTO tbl_book (book_id, book_title, genre, Author_id, ISBN, copy, shelf, publisher, category, description, book_img)
+        $sql = "INSERT INTO tbl_book (book_id, book_title, genre, author, ISBN, copy, shelf, publisher, category, description, book_img)
             VALUES (:bookID, :bookTitle, :bookGenre, :bookAuthor, :bookISBN, :bookCopies, :bookShelf, :bookPublisher, :bookCategory, :bookSummary, :img)";
         $stmt = $this->database->prepare($sql);
 
@@ -78,7 +78,7 @@ class BookData
     {
         $sql = "UPDATE tbl_book 
         SET book_id = :bookId, book_title = :bookTitle, ISBN = :bookISBN, 
-            Author_id = :bookAuthor, publisher = :bookPublisher, 
+            author = :bookAuthor, publisher = :bookPublisher, 
             genre = :bookGenre,
             category = :bookCategory, description = :bookSummary, shelf = :bookShelf, copy = :bookCopy";
 

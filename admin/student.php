@@ -234,10 +234,10 @@ if (isset($_SESSION['user'])) {
         <div class="modal-content">
             <div class="modal-header" style="height: 15px;">
 
-                <p class="modal-title" id="borrowModalLabel " style="font-size: 12px; color: #800000; font-weight: 600;">
-                    <i class="bi bi-pencil-square ml-3 m-3" style="font-size: 16px; color: #800000;"></i>ADD STUDENT
+                <p class="modal-title" id="borrowModalLabel " style="font-size: 10px; color: #800000; font-weight: 600;">
+                    <i class="bi bi-pencil-square ml-3 m-3" style="font-size: 12px; color: #800000;"></i>ADD STUDENT
                 </p>
-                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close" style="background-color: transparent; border:none;">
+                <button  style="font-size: 16px; background-color: transparent; border:none;" type="button" class="close" data-bs-dismiss="modal" aria-label="Close" >
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
@@ -436,17 +436,16 @@ if (isset($_SESSION['user'])) {
         </div>
     </div>
 </div>
-
 <!-- Edit Student Modal -->
 <div class="modal fade" id="editStudentModal" tabindex="-1" role="dialog" aria-labelledby="editStudentModalLabel" aria-hidden="true">
     <div class="modal-dialog  modal-dialog-centered" role="document" style="max-width: 800px;">
         <div class="modal-content">
             <div class="modal-header" style="height: 15px;">
 
-                <p class="modal-title" id="borrowModalLabel " style="font-size: 12px; color: #800000; font-weight: 600;">
-                    <i class="bi bi-pencil-square ml-3 m-3" style="font-size: 16px; color: #800000;"></i>EDIT PROFILE
+                <p class="modal-title" id="borrowModalLabel " style="font-size: 10px; color: #800000; font-weight: 600;">
+                    <i class="bi bi-pencil-square ml-3 m-3" style="font-size: 12px; color: #800000;"></i>EDIT PROFILE
                 </p>
-                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close" style="background-color: transparent; border:none;">
+                <button  type="button" class="close" data-bs-dismiss="modal" aria-label="Close" style=" font-size: 16px; background-color: transparent; border:none;">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
@@ -620,10 +619,7 @@ if (isset($_SESSION['user'])) {
 <script src="../js/student.js"></script>
 <script src="../js/add_student_clear.js"></script>
 
-
-
-
-//search student
+<!--search student-->
 <script>
     $(document).ready(function() {
         // Event listener for the search input
@@ -644,9 +640,6 @@ if (isset($_SESSION['user'])) {
         });
     });
 </script>
-</script>
-</script>
-
 <script>
     $(document).ready(function() {
         // Attach a click event to the "ADD STUDENT" button

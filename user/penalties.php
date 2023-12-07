@@ -1,13 +1,46 @@
 <?php
-include 'C:\wamp64\www\LIBMS\db_config\config.php';
-include 'C:\wamp64\www\LIBMS\includes\fetch_penalty_data.php';
-include 'C:\wamp64\www\LIBMS\includes\fetch_borrowed_book.php';
+session_start();
+require_once 'C:\wamp64\www\LIBMS\db_config\config.php';
+include 'C:\wamp64\www\LIBMS\includes\fetch_books_data.php';
+include 'C:\wamp64\www\LIBMS\operations\authentication.php';
+include 'C:\wamp64\www\LIBMS\includes\fetch_student_data.php';
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
 $database = new Database();
-$penaltyData = new penaltyData($database);
-$borrowData = new BorrowDataWithStatus($database);
-$allBooks = $borrowData->getAllBooks();
-$user_penalty = $penaltyData->getAllPenalty();
+$userAuth = new UserAuthentication($database);
+$bookData = new BookData($database);
+$userData = new StudentData($database);
 
+$book = $bookData->getAllBook();
+
+if($userAuth->isAuthenticated()){
+
+} else {
+    header('Location: ../index.php');
+}
+if (isset($_POST['logout'])) {
+    $userAuth->logout();
+    header('Location: ../index.php');
+    exit();
+}
+
+if (isset($_SESSION['user'])) {
+    $userUsername = $_SESSION['user'];
+
+    $userID = $userData->getStudentIdByUsername($userUsername);
+    if (!empty($userID)) {
+        $user = $userData->getStudentById($userID);
+
+        if (!empty($user)) {
+            $loggedUser = $user[0];
+        } else {
+            echo 'Admin data not found.';
+        }
+    } else {
+        echo 'Invalid admin ID.';
+    }
+
+}
 ?>
 
 <!doctype html>

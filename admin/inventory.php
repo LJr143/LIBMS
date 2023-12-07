@@ -173,6 +173,9 @@ if (isset($_SESSION['user'])) {
                     <div style="width: 95%; min-height: 100vh; margin-top: 10px; ">
                         <?php
                         for ($row = 0; $row < $rowCount; $row++) {
+                            if($totalBooks == 0){
+                                break;
+                            }
                             ?>
                         <div class="col col-md-12" style="background: rgb(255,255,255); height: 38vh; border-radius: 5px; box-shadow: 0px 4px 8px rgba(0,0,0,0.2); display: flex; align-items: center; padding: 15px 5px 15px 15px; margin: 20px 0px 0px 0px;">
                             <?php
@@ -193,7 +196,7 @@ if (isset($_SESSION['user'])) {
                                             <div class="book_information_inventory" style="display: flex;">
                                                 <div>
                                                     <!-- book author -->
-                                                    <p><?php echo $book['Author_id']?></p>
+                                                    <p><?php echo $book['author']?></p>
                                                     <p>Status: <span style="color: green; font-weight: 700"><?php echo $book['status']?></span></p>
                                                 </div>
                                                 <div style="margin-left: 20px">
@@ -201,11 +204,10 @@ if (isset($_SESSION['user'])) {
                                                     <p>Shelf: <span style="color: #711717; font-weight: 700"><?php echo $book['shelf']?></span></p>
                                                 </div>
                                             </div>
-                                            <div style="line-height: 15px; font-size: 10px; padding: 0px 0px 0px 5px;">
+                                            <div style="line-height: 15px; font-size: 10px; padding: 0px 0px 0px 5px; overflow: hidden; height: 110px;">
                                                 <p>Description:</p>
                                                 <p style="margin-top: -15px;"><?php echo $book['description']?></div>
                                         </div>
-
                                     </div>
                                     <div style="width: 96px; height: 18px; display: flex; justify-content: center; padding: 2px 0px 0px 0px;">
                                         <p style="font-size: 10px; font-weight: 600">Copies Left: <?php echo $book['copy']?></p>
@@ -234,12 +236,15 @@ if (isset($_SESSION['user'])) {
                                     <?php } ?>
                                 </ul>
                             </div>
+                            <?php
+                            if($totalBooks != 0){
+
+                            ?>
                             <div style="display: flex; justify-content: flex-end; width: 100%; font-size: 10px;  ">
                                 <button style="color: #800000;font-weight: 700; border-radius: 5px; border: 1px solid #740000; width: 100px; height: 28px; background: transparent; margin-right: 35px;">CANCEL</button>
                                 <button id="deleteAllBook" style="color: #800000;font-weight: 700; border-radius: 5px; border: 1px solid #740000; width: 100px; height: 28px; background: transparent; ">DELETE ALL</button>
-
-
                             </div>
+                            <?php }?>
                         </div>
                     </div>
                 </div>
@@ -256,8 +261,8 @@ if (isset($_SESSION['user'])) {
         <div class="modal-dialog modal-lg modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header" style="height: 15px;">
-                    <p class="modal-title" id="borrowModalLabel " style="font-size: 12px; color: #800000; font-weight: 600;">
-                        <i class="bi bi-pencil-square ml-3 m-3" style="font-size: 16px; color: #800000;"></i>ADD BOOK
+                    <p class="modal-title" id="borrowModalLabel " style="font-size: 10px; color: #800000; font-weight: 600;">
+                        <i class="bi bi-pencil-square ml-3 m-3" style="font-size: 12px; color: #800000;"></i>ADD BOOK
                     </p>
                     <button style="font-size: 8px;" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
@@ -271,9 +276,9 @@ if (isset($_SESSION['user'])) {
                                     <label for="profilePictureInput" style="display: block; cursor: pointer; text-decoration: underline; margin-top: 5px; margin-left:35px; margin-top:50px;">
                                         <!-- Icon for adding an image -->
                                         <i class="bi bi-plus" style="font-size: 60px; color:#711717;" id="addImageIcon"></i>
-                                        <input type="file" id="profilePictureInput" style="display: none;" accept="image/*" onchange="updateProfilePicture(event)">
+                                        <input type="file" id="profilePictureInput" style="display: none;" accept="image/*" onchange="updateAddProfilePicture(event)">
                                     </label>
-                                    <img id="displayBookPicture" src="" alt="" style="max-width: 150px; max-height: 230px;">
+                                    <img id="addBook-Pic" src="" alt="" style="max-width: 150px; max-height: 230px;">
                                 </div>
                             </div>
 
@@ -401,8 +406,8 @@ if (isset($_SESSION['user'])) {
         <div class="modal-dialog modal-lg modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header" style="height: 15px;">
-                    <p class="modal-title" id="borrowModalLabel " style="font-size: 12px; color: #800000; font-weight: 600;">
-                        <i class="bi bi-pencil-square ml-3 m-3" style="font-size: 16px; color: #800000;"></i>EDIT BOOK
+                    <p class="modal-title" id="borrowModalLabel " style="font-size: 10px; color: #800000; font-weight: 600;">
+                        <i class="bi bi-pencil-square ml-3 m-3" style="font-size: 13px; color: #800000;"></i>EDIT BOOK
                     </p>
                     <button style="font-size: 8px;" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
@@ -414,7 +419,7 @@ if (isset($_SESSION['user'])) {
                             <div style="width:190px;">
                                 <div class="col-md-2" style="margin-bottom: 0px; ">
                                     <label for="editprofilePictureInput" style="display: block; cursor: pointer; text-decoration: underline; margin-top: 5px;">
-                                        <img id="Book-Pic" src="" width="150px" height="230px" id="Book-Pic" style="margin-left: -5px; margin-top: 0px;">
+                                        <img id="Book-Pic" src="" width="150px" height="230px"  style="margin-left: -5px; margin-top: 0px;">
                                     </label>
                                     <input type="file" id="editprofilePictureInput" style="display: none;" accept="image/*" onchange="updateProfilePicture(event)">
                                 </div>
@@ -546,31 +551,15 @@ if (isset($_SESSION['user'])) {
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 
     <script>
-        function updateProfilePicture(event) {
-            const profilePic = document.getElementById('Book-Pic');
-            const selectedFile = event.target.files[0];
-
-            if (selectedFile) {
-                const reader = new FileReader();
-
-                reader.onload = function(e) {
-                    profilePic.src = e.target.result;
-                };
-
-                reader.readAsDataURL(selectedFile);
-            }
-        }
-</script>
-    <script>
-        function updateProfilePicture(event) {
+        function updateAddProfilePicture(event) {
             const input = event.target;
+            const img = document.getElementById('addBook-Pic');
+            const icon = document.getElementById('addImageIcon');
+
             if (input.files && input.files[0]) {
                 const reader = new FileReader();
 
-                reader.onload = function(e) {
-                    const img = document.getElementById('displayBookPicture');
-                    const icon = document.getElementById('addImageIcon');
-
+                reader.onload = function (e) {
                     img.src = e.target.result;
                     icon.style.display = 'none'; // Hide the icon
                 };
@@ -658,7 +647,7 @@ if (isset($_SESSION['user'])) {
                 $('#editBookID').val(data[0].book_id);
                 $('#editBookTitle').val(data[0].book_title);
                 $('#editBookGenre').val(data[0].genre);
-                $('#editBookAuthor').val(data[0].Author_id);
+                $('#editBookAuthor').val(data[0].author);
                 $('#editBookISBN').val(data[0].ISBN);
                 $('#editBookCopies').val(data[0].copy);
                 $('#editBookShelf').val(data[0].shelf);

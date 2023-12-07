@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Dec 05, 2023 at 04:19 PM
+-- Generation Time: Dec 06, 2023 at 12:31 PM
 -- Server version: 8.0.31
--- PHP Version: 8.0.26
+-- PHP Version: 7.4.33
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -30,18 +30,18 @@ SET time_zone = "+00:00";
 DROP TABLE IF EXISTS `tbl_admin`;
 CREATE TABLE IF NOT EXISTS `tbl_admin` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `admin_id` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `lname` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `fname` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `initial` varchar(5) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `admin_role` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `email` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `personal_email` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `phone_number` varchar(15) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `tele_number` varchar(15) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `address` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `admin_id` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
+  `lname` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
+  `fname` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
+  `initial` varchar(5) COLLATE utf8mb4_general_ci NOT NULL,
+  `admin_role` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
+  `email` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
+  `personal_email` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
+  `phone_number` varchar(15) COLLATE utf8mb4_general_ci NOT NULL,
+  `tele_number` varchar(15) COLLATE utf8mb4_general_ci NOT NULL,
+  `address` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
   `status` varchar(25) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT 'Active',
-  `username` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `username` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
   `password` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `img` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   PRIMARY KEY (`id`),
@@ -54,8 +54,7 @@ CREATE TABLE IF NOT EXISTS `tbl_admin` (
 --
 
 INSERT INTO `tbl_admin` (`id`, `admin_id`, `lname`, `fname`, `initial`, `admin_role`, `email`, `personal_email`, `phone_number`, `tele_number`, `address`, `status`, `username`, `password`, `img`) VALUES
-(97, '2313123', 'Raña', 'Doormat', 'h', 'Staff', 'lorjohn143@gmail.com', 'lorjohn143@gmail.com', '09096763912', '09096763912', 'Sabina Homes Apokon', 'Active', 'john', 'John_123', 'Picture6.jpg'),
-(101, '2021-00027', '312ad', 'Cabinet', 'M.', '3213123', 'lmrana421ed', 'lsmadlkasdsada', '31232321321', '23123123', '23213123', 'Suspended', '1231232', '213213', 'Picture6.jpg');
+(97, '2313123', 'Raña', 'Doormat', 'M', 'Staff', 'lorjohn143@gmail.com', 'lorjohn143@gmail.com', '09096763912', '02-1234-5678', 'Purok 3-C Sabina Homes Apokon Tagum City Davao Del Norte Philippines', 'Active', 'john', 'Password_123', 'Picture6.jpg');
 
 -- --------------------------------------------------------
 
@@ -65,20 +64,21 @@ INSERT INTO `tbl_admin` (`id`, `admin_id`, `lname`, `fname`, `initial`, `admin_r
 
 DROP TABLE IF EXISTS `tbl_book`;
 CREATE TABLE IF NOT EXISTS `tbl_book` (
-  `book_id` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `book_title` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `ISBN` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `book_id` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
+  `book_title` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
+  `ISBN` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
   `Author_id` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `pub_date` date NOT NULL,
-  `publisher` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `genre` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `category` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `edition` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `language` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `description` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `shelf` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `status` varchar(25) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `book_img` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `pub_date` date DEFAULT NULL,
+  `publisher` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
+  `genre` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
+  `category` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
+  `edition` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `language` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `description` longtext COLLATE utf8mb4_general_ci NOT NULL,
+  `shelf` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
+  `copy` int NOT NULL,
+  `status` varchar(25) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT 'New',
+  `book_img` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   PRIMARY KEY (`book_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -86,17 +86,24 @@ CREATE TABLE IF NOT EXISTS `tbl_book` (
 -- Dumping data for table `tbl_book`
 --
 
-INSERT INTO `tbl_book` (`book_id`, `book_title`, `ISBN`, `Author_id`, `pub_date`, `publisher`, `genre`, `category`, `edition`, `language`, `description`, `shelf`, `status`, `book_img`) VALUES
-('1', 'Twin Peaks: Fire Walk with Me', '067212237-5', 'Lynch and Robert Engels', '2023-07-12', 'Skyvu', 'Crime|Drama|Mystery|Thriller', '', '1', 'Assamese', 'Nam ultrices, libero non mattis pulvinar, nulla pede ullamcorper augue, a suscipit nulla elit ac nulla.', '', '', 'Twin Peaks Fire Walk with Me.jpg'),
-('10', 'The Da Vinci Code', '978-0307277671', '6537b454fc13ae1070c77360', '2003-03-18', 'Anchor', 'Mystery|Thriller|Conspiracy', '', '1', 'English', 'A thriller involving the discovery of hidden messages in art and history.', '', '', 'The Da Vinci Code.jpg'),
-('2', 'To Kill a Mockingbird', '978-0061120084', '6537b454fc13ae1070c77350', '1960-07-11', 'HarperCollins', 'Classic|Fiction|Legal Drama', '', '1', 'English', 'A powerful novel addressing racial injustice and moral growth in the American South.', '', '', 'To Kill a Mockingbird.jpg'),
-('3', 'The Hobbit', '978-0618002214', '6537b454fc13ae1070c77356', '1937-09-21', 'Houghton Mifflin', 'Fantasy|Adventure', '', '1', 'English', 'The adventures of Bilbo Baggins, a hobbit who becomes an unexpected hero.', '', '', 'The Hobbit.jpg'),
-('4', '1984', '978-0451524935', '6537b454fc13ae1070c77352', '1949-06-08', 'Penguin', 'Dystopian|Science Fiction', '', '1', 'English', 'A classic portrayal of a totalitarian society where thought and freedom are suppressed.', 'CN1023', 'Available', '1984.jpg'),
-('5', 'The Great Gatsby', '978-0743273565', 'F. Scott Fitzgerald', '1925-04-10', 'Scribner', 'Classic|Fiction', '', '1', 'English', 'A story of decadence, wealth, and unfulfilled dreams in the Roaring Twenties.', '', '', 'The Great Gatsby.jpg'),
-('6', 'Pride and Prejudice', '978-0141439518', '6537b454fc13ae1070c77354', '1813-01-28', 'Penguin Classics', 'Classic|Romance', '', '1', 'English', 'A tale of love, manners, and marriage in the early 19th century.', '', '', 'Pride and Prejudice.jpg'),
-('7', 'Harry Potter and the Sorcerer\'s Stone', '978-0590353427', '6537b454fc13ae1070c7735a', '1997-06-26', 'Scholastic', 'Fantasy|Young Adult', '', '1', 'English', 'The first book in the Harry Potter series, following the adventures of a young wizard.', '', '', 'Harry Potter and the Sorcerer\'s Stone.jpg'),
-('8', 'The Alchemist', '978-0061122415', '6537b454fc13ae1070c7735c', '1988-01-20', 'HarperOne', 'Fiction|Inspirational', '', '1', 'Portuguese', 'A philosophical novel about following your dreams and destiny.', '', '', 'The Alchemist.jpg'),
-('9', 'The Road', '978-0307387899', '6537b454fc13ae1070c7735e', '2006-09-26', 'Vintage', 'Post-Apocalyptic|Dystopian', '', '1', 'English', 'A story of a father and sons journey in a post-apocalyptic world.', '', '', 'The Road.jpg');
+INSERT INTO `tbl_book` (`book_id`, `book_title`, `ISBN`, `Author_id`, `pub_date`, `publisher`, `genre`, `category`, `edition`, `language`, `description`, `shelf`, `copy`, `status`, `book_img`) VALUES
+('1', 'Twin Peaks: Fire Walk with Me', '067212237-5', 'Lynch and Robert Engels', '2023-07-12', 'Skyvu', 'Crime|Drama|Mystery|Thriller', '', '1', 'Assamese', 'Nam ultrices, libero non mattis pulvinar, nulla pede ullamcorper augue, a suscipit nulla elit ac nulla.', '', 0, '', 'Twin Peaks Fire Walk with Me.jpg'),
+('10', 'The Da Vinci Code', '978-0307277671', '6537b454fc13ae1070c77360', '2003-03-18', 'Anchor', 'null', 'null', '1', 'English', 'A thriller involving the discovery of hidden messages in art and history.', '', 10, '', 'The Da Vinci Code.jpg'),
+('2', 'To Kill a Mockingbird', '978-0061120084', '6537b454fc13ae1070c77350', '1960-07-11', 'HarperCollins', 'Classic|Fiction|Legal Drama', '', '1', 'English', 'A powerful novel addressing racial injustice and moral growth in the American South.', '', 0, '', 'To Kill a Mockingbird.jpg'),
+('3', 'The Hobbit', '978-0618002214', '6537b454fc13ae1070c77356', '1937-09-21', 'Houghton Mifflin', 'Fantasy|Adventure', '', '1', 'English', 'The adventures of Bilbo Baggins, a hobbit who becomes an unexpected hero.', '', 0, '', 'The Hobbit.jpg'),
+('4', '1984', '978-0451524935', '6537b454fc13ae1070c77352', '1949-06-08', 'Penguin', 'Dystopian|Science Fiction', '', '1', 'English', 'A classic portrayal of a totalitarian society where thought and freedom are suppressed.', 'CN1023', 0, 'Available', '1984.jpg'),
+('5', 'The Great Gatsby', '978-0743273565', 'F. Scott Fitzgerald', '1925-04-10', 'Scribner', 'Classic|Fiction', '', '1', 'English', 'A story of decadence, wealth, and unfulfilled dreams in the Roaring Twenties.', '', 0, '', 'The Great Gatsby.jpg'),
+('6', 'Pride and Prejudice', '978-0141439518', '6537b454fc13ae1070c77354', '1813-01-28', 'Penguin Classics', 'Classic|Romance', '', '1', 'English', 'A tale of love, manners, and marriage in the early 19th century.', '', 0, '', 'Pride and Prejudice.jpg'),
+('7', 'Harry Potter and the Sorcerer\'s Stone', '978-0590353427', '6537b454fc13ae1070c7735a', '1997-06-26', 'Scholastic', 'Fantasy|Young Adult', '', '1', 'English', 'The first book in the Harry Potter series, following the adventures of a young wizard.', '', 0, '', 'Harry Potter and the Sorcerer\'s Stone.jpg'),
+('8', 'The Alchemist', '978-0061122415', '6537b454fc13ae1070c7735c', '1988-01-20', 'HarperOne', 'Fiction|Inspirational', '', '1', 'Portuguese', 'A philosophical novel about following your dreams and destiny.', '', 0, '', 'The Alchemist.jpg'),
+('9', 'The Road', '978-0307387899', '6537b45', '2006-09-26', 'Vintage', 'null', 'null', '1', 'English', 'A story of a father and sons journey in a post-apocalyptic world.', 'Voluptas est totam n', 0, '', 'The Road.jpg'),
+('Ea eum officiis cumq', 'Pariatur Deserunt e', 'Quia lorem quia magn', 'Est ea', NULL, 'Est voluptate repre', 'Fiction', 'option', NULL, NULL, 'Laborum molestias in', 'Voluptas est totam n', 2, 'New', '2023-ford-mustang.jpg'),
+('Ea recusandae In ea', 'Sit sequi porro hic', 'Assumenda nemo et su', 'Aperiam sed deserunt', NULL, 'Qui sequi qui non ut', 'Fiction', 'option', NULL, NULL, 'Veniam aliquid minu', 'Omnis duis fugiat it', 12, 'New', '1431443-ford-f-150-raptor-wallpapers-2000x1333-for-ipad-2.jpg'),
+('Ea voluptatem volupt', 'Necessitatibus volup', 'Voluptas voluptate o', 'Voluptates ut tempor', NULL, 'Corrupti eos nihil', 'Non-Fiction', 'option', NULL, NULL, 'Id commodo voluptas', 'Consequatur adipisi', 15, 'New', '2022-ford-everest-reveal-01-1646117209.jpg'),
+('Ex laudantium quo l', 'Amet voluptatibus u', 'Non minima sit saepe', 'Dolor aliquid est of', NULL, 'Officiis sed quaerat', 'Fiction', 'option', NULL, NULL, 'Dicta animi cumque ', 'Est labore provident', 10, 'New', 'basic_2022-gmc-sierra-denali-ultimate-review-photo-benjamin-hunting-driving-line0020944.jpg'),
+('Ipsam in natus velit', 'Blanditiis odit susc', 'Mollitia veniam ver', 'Saepe ut temporibus ', NULL, 'Ex laborum est moles', 'Non-Fiction', 'option', NULL, NULL, 'Velit exercitation m', 'Omnis ex voluptatem ', 10, 'New', '2023-Ford-Mustang-4.webp'),
+('Pariatur Et dolorem', 'Porro aut qui ea neq', 'Ad consequatur Et i', 'Commodi eius amet o', NULL, 'Odit iure impedit c', 'Non-Fiction', 'option', NULL, NULL, 'Voluptas eaque aut h', 'Eiusmod fuga Error ', 20, 'New', '2022_ford_everest_00.jpg'),
+('undefined', 'undefined', 'Et modi ea sit volu', 'undefined', NULL, 'undefined', 'Non-Fiction', 'option', NULL, NULL, 'Dolor aut nisi et ci', 'Quia laborum Sequi ', 0, 'New', 'Picture3.jpg');
 
 -- --------------------------------------------------------
 
@@ -108,21 +115,13 @@ DROP TABLE IF EXISTS `tbl_borrow`;
 CREATE TABLE IF NOT EXISTS `tbl_borrow` (
   `borrow_id` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `user_id` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `book_id` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `book_id` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
   `date_barrowed` date NOT NULL,
-  `date_return` date DEFAULT NULL,
+  `status` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
   PRIMARY KEY (`borrow_id`),
   KEY `borrow_book_id_fk` (`book_id`),
   KEY `user_id` (`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `tbl_borrow`
---
-
-INSERT INTO `tbl_borrow` (`borrow_id`, `user_id`, `book_id`, `date_barrowed`, `date_return`) VALUES
-('0111', '2021-00027', '2', '2023-12-06', '2023-12-14'),
-('0112', '2021-00027', '4', '2023-11-08', '2023-11-10');
 
 -- --------------------------------------------------------
 
@@ -133,10 +132,10 @@ INSERT INTO `tbl_borrow` (`borrow_id`, `user_id`, `book_id`, `date_barrowed`, `d
 DROP TABLE IF EXISTS `tbl_copy`;
 CREATE TABLE IF NOT EXISTS `tbl_copy` (
   `copy_id` int NOT NULL,
-  `status` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `status` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
   `book_id` int NOT NULL,
-  `location` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `copy_condition` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL
+  `location` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
+  `copy_condition` varchar(100) COLLATE utf8mb4_general_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -164,10 +163,10 @@ CREATE TABLE IF NOT EXISTS `tbl_feedback` (
 --
 
 INSERT INTO `tbl_feedback` (`feedback_id`, `user_id`, `fname`, `lname`, `initials`, `feedback_comments`, `star_count`, `feedback_date`) VALUES
-(1, 202100412, 'Pagas', 'Sheena Mariz', 'M', ' Praesent sapien mi, tincidunt vitae elit at, condimentum consectetur metus. Duis quis lectus dapibus lacus varius efficitur. Morbi tortor odio, vestibulum et orci sed, vulputate pretium justo. Nullam in justo elit.', 4, '2023-11-30 01:33:38'),
-(2, 202100723, 'Zozobrado', 'Carla Jean', 'S', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris ipsum nulla, accumsan a leo vitae, fermentum luctus ex. Etiam at orci et sapien porta pellentesque quis malesuada ligula. Donec vitae dui congue, mollis mi vitae, elementum eros. Maecenas sit amet nisl metus. Quisque vitae pretium odio, vel dignissim nisi.', 3, '2023-11-30 01:34:13'),
-(3, 20210027, 'Rana', 'Lorjohn', 'M', 'Morbi eget enim vehicula sem bibendum cursus eu vel lorem. Integer lobortis risus eget diam tempus mattis. Etiam dictum eros in ex aliquam, quis mattis ante tempus. Curabitur tincidunt nisl dui, sit amet iaculis ex aliquet vitae. Quisque consectetur ultricies lobortis. Etiam justo eros, auctor a dictum ac, maximus a lorem.', 2, '2023-11-30 01:34:57'),
-(4, 202100748, 'Allice', 'Monte', 'E', 'Suspendisse tincidunt sodales placerat. Duis nibh velit, volutpat et quam ut, consectetur finibus purus. Nunc et nulla eu sem finibus tincidunt non vitae mauris. Pellentesque aliquam auctor lectus eget commodo. Nullam commodo ipsum at consectetur vestibulum. Donec laoreet fringilla hendrerit. Fusce dignissim maximus suscipit.', 1, '2023-11-30 01:35:58');
+(1, 202100412, 'Pagas', 'Sheena Mariz', 'M', ' Praesent sapien mi, tincidunt vitae elit at, condimentum consectetur metus. Duis quis lectus dapibus lacus varius efficitur. Morbi tortor odio, vestibulum et orci sed, vulputate pretium justo. Nullam in justo elit.', 4, '2023-11-29 17:33:38'),
+(2, 202100723, 'Zozobrado', 'Carla Jean', 'S', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris ipsum nulla, accumsan a leo vitae, fermentum luctus ex. Etiam at orci et sapien porta pellentesque quis malesuada ligula. Donec vitae dui congue, mollis mi vitae, elementum eros. Maecenas sit amet nisl metus. Quisque vitae pretium odio, vel dignissim nisi.', 3, '2023-11-29 17:34:13'),
+(3, 20210027, 'Rana', 'Lorjohn', 'M', 'Morbi eget enim vehicula sem bibendum cursus eu vel lorem. Integer lobortis risus eget diam tempus mattis. Etiam dictum eros in ex aliquam, quis mattis ante tempus. Curabitur tincidunt nisl dui, sit amet iaculis ex aliquet vitae. Quisque consectetur ultricies lobortis. Etiam justo eros, auctor a dictum ac, maximus a lorem.', 2, '2023-11-29 17:34:57'),
+(4, 202100748, 'Allice', 'Monte', 'E', 'Suspendisse tincidunt sodales placerat. Duis nibh velit, volutpat et quam ut, consectetur finibus purus. Nunc et nulla eu sem finibus tincidunt non vitae mauris. Pellentesque aliquam auctor lectus eget commodo. Nullam commodo ipsum at consectetur vestibulum. Donec laoreet fringilla hendrerit. Fusce dignissim maximus suscipit.', 1, '2023-11-29 17:35:58');
 
 -- --------------------------------------------------------
 
@@ -178,9 +177,9 @@ INSERT INTO `tbl_feedback` (`feedback_id`, `user_id`, `fname`, `lname`, `initial
 DROP TABLE IF EXISTS `tbl_logs`;
 CREATE TABLE IF NOT EXISTS `tbl_logs` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `admin_id` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `admin_id` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
   `date` timestamp NOT NULL,
-  `action` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `action` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
   PRIMARY KEY (`id`),
   KEY `admin_id_log_FK` (`admin_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=222 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -342,9 +341,9 @@ INSERT INTO `tbl_logs` (`id`, `admin_id`, `date`, `action`) VALUES
 DROP TABLE IF EXISTS `tbl_penalties`;
 CREATE TABLE IF NOT EXISTS `tbl_penalties` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `user_id` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `book_id` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `borrow_id` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `user_id` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
+  `book_id` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
+  `borrow_id` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
   `Amount` int NOT NULL,
   PRIMARY KEY (`id`),
   KEY `user_id_fk_penalty` (`user_id`),
@@ -361,10 +360,10 @@ CREATE TABLE IF NOT EXISTS `tbl_penalties` (
 DROP TABLE IF EXISTS `tbl_record`;
 CREATE TABLE IF NOT EXISTS `tbl_record` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `user_id` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `activity` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `user_id` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
+  `activity` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
   `date` timestamp NOT NULL,
-  `status` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `status` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
   PRIMARY KEY (`id`),
   KEY `user` (`user_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -378,9 +377,9 @@ CREATE TABLE IF NOT EXISTS `tbl_record` (
 DROP TABLE IF EXISTS `tbl_reserve`;
 CREATE TABLE IF NOT EXISTS `tbl_reserve` (
   `reserve_id` int NOT NULL,
-  `book_id` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `book_id` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
   `reserve_date` date NOT NULL,
-  `status` varchar(25) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `status` varchar(25) COLLATE utf8mb4_general_ci NOT NULL,
   PRIMARY KEY (`reserve_id`),
   KEY `book_id` (`book_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -401,15 +400,15 @@ INSERT INTO `tbl_reserve` (`reserve_id`, `book_id`, `reserve_date`, `status`) VA
 DROP TABLE IF EXISTS `tbl_superadmin`;
 CREATE TABLE IF NOT EXISTS `tbl_superadmin` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `admin_id` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `fname` varchar(25) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `lname` varchar(25) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `initial` varchar(5) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `admin_role` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `email` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `username` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `password` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `img` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `admin_id` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
+  `fname` varchar(25) COLLATE utf8mb4_general_ci NOT NULL,
+  `lname` varchar(25) COLLATE utf8mb4_general_ci NOT NULL,
+  `initial` varchar(5) COLLATE utf8mb4_general_ci NOT NULL,
+  `admin_role` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
+  `email` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
+  `username` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
+  `password` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
+  `img` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -430,31 +429,33 @@ DROP TABLE IF EXISTS `tbl_user`;
 CREATE TABLE IF NOT EXISTS `tbl_user` (
   `id` int NOT NULL AUTO_INCREMENT,
   `user_id` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `fname` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `lname` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `initial` char(5) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `year` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `course` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `major` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `username` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `password` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `fname` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
+  `lname` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
+  `initial` char(5) COLLATE utf8mb4_general_ci NOT NULL,
+  `year` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
+  `course` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
+  `major` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
+  `username` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
+  `password` varchar(150) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `status` varchar(25) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT 'Active',
   `user_type` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT 'Student',
-  `email` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `usep_email` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `phone_number` varchar(25) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `address` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `img` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `email` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
+  `usep_email` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
+  `phone_number` varchar(25) COLLATE utf8mb4_general_ci NOT NULL,
+  `address` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
+  `img` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
   PRIMARY KEY (`user_id`),
   UNIQUE KEY `user_id` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `tbl_user`
 --
 
 INSERT INTO `tbl_user` (`id`, `user_id`, `fname`, `lname`, `initial`, `year`, `course`, `major`, `username`, `password`, `status`, `user_type`, `email`, `usep_email`, `phone_number`, `address`, `img`) VALUES
-(6, '2021-00027', 'johnny', 'Rana', 'M', '2nd', 'BSIT', 'Information Security', 'lor', 'John_123', 'Active', 'Student', 'lmrana00027@usep.edu.ph', 'lmrana00027@usep.edu.ph', '09096763912', 'Tagum', 'Picture6.jpg');
+(20, '2021-00027', 'despenser', 'kyowa', 'M', '2nd', 'BTVTED', 'Information Security', 'John123', '$2y$10$LxFDVnSXPhqNRwGoArN9yuWuj0FTnDAgU9Er9pX6a/3Skat3zihQG', 'Active', 'Student', 'lmran0027@gmail.com', 'lmran0027@gmail.com', '09096763912', 'tagum', 'Picture6.jpg'),
+(21, '2021-00028', 'curtain', 'alfalink', 'M', '2nd', 'BECED', 'Information Security', 'John_1233', '$2y$10$Wm98a.c/2aMMezRv6jWRz.AvfPwn9Ejqc37coVzTFtBMs4596XufG', 'Active', 'Student', 'lmran0027@gmail.com', 'lmrana00027@gmail.com', '09096763912', 'tagum', 'Picture3.jpg'),
+(24, 'Accusamus a voluptas', 'Zorita', 'Ellison', 'Tempo', '4th', 'BSED', 'Mathematics', 'zufonom', '$2y$10$2ar3.C/v2/Ze4Nm1H/X92uw93FQyixKrNrmZoYdVl93SPHxJbmNkG', 'Active', 'Student', 'jojimuj@mailinator.com', 'jojimuj@mailinator.com', '+1 (766) 718-9077', 'Dolorum mollitia sed', 'Picture5.jpg');
 
 -- --------------------------------------------------------
 
@@ -464,14 +465,14 @@ INSERT INTO `tbl_user` (`id`, `user_id`, `fname`, `lname`, `initial`, `year`, `c
 
 DROP TABLE IF EXISTS `tbl_wishlist`;
 CREATE TABLE IF NOT EXISTS `tbl_wishlist` (
-  `id` varchar(25) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `book_title` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `author` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `id` varchar(25) COLLATE utf8mb4_general_ci NOT NULL,
+  `book_title` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
+  `author` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
   `pub_year` date NOT NULL,
   `date_wished` date NOT NULL,
   `edition` int NOT NULL,
-  `img` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `status` varchar(25) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `img` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
+  `status` varchar(25) COLLATE utf8mb4_general_ci NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -519,19 +520,18 @@ INSERT INTO `users` (`id`, `email`, `first_name`, `last_name`, `gender`, `full_n
 -- --------------------------------------------------------
 
 --
--- Stand-in structure for view `vw_borrow_data`
+-- Stand-in structure for view `vw_borrowed_books`
 -- (See below for the actual view)
 --
-DROP VIEW IF EXISTS `vw_borrow_data`;
-CREATE TABLE IF NOT EXISTS `vw_borrow_data` (
-`user_id` varchar(50)
-,`fname` varchar(50)
-,`initial` char(5)
-,`lname` varchar(50)
-,`book_id` varchar(100)
-,`book_title` varchar(100)
+DROP VIEW IF EXISTS `vw_borrowed_books`;
+CREATE TABLE IF NOT EXISTS `vw_borrowed_books` (
+`borrow_id` varchar(100)
 ,`date_barrowed` date
-,`date_return` date
+,`status` varchar(100)
+,`user_id` varchar(100)
+,`book_title` varchar(100)
+,`book_author` varchar(100)
+,`book_img` varchar(100)
 );
 
 -- --------------------------------------------------------
@@ -546,29 +546,6 @@ CREATE TABLE IF NOT EXISTS `vw_logs` (
 ,`admin_id` varchar(50)
 ,`action` varchar(50)
 ,`admin_role` varchar(50)
-);
-
--- --------------------------------------------------------
-
---
--- Stand-in structure for view `vw_modal_return_data`
--- (See below for the actual view)
---
-DROP VIEW IF EXISTS `vw_modal_return_data`;
-CREATE TABLE IF NOT EXISTS `vw_modal_return_data` (
-`book_id` varchar(100)
-,`book_title` varchar(100)
-,`shelf` varchar(100)
-,`Author_id` varchar(100)
-,`publisher` varchar(100)
-,`user_id` varchar(50)
-,`full_name` varchar(107)
-,`year` varchar(50)
-,`course` varchar(100)
-,`major` varchar(100)
-,`date_barrowed` date
-,`borrow_id` varchar(100)
-,`date_return` date
 );
 
 -- --------------------------------------------------------
@@ -600,6 +577,7 @@ CREATE TABLE IF NOT EXISTS `vw_user_penalty` (
 ,`Author_id` varchar(100)
 ,`book_img` varchar(100)
 ,`date_barrowed` date
+,`status` varchar(100)
 );
 
 -- --------------------------------------------------------
@@ -624,12 +602,12 @@ CREATE TABLE IF NOT EXISTS `vw_user_record` (
 -- --------------------------------------------------------
 
 --
--- Structure for view `vw_borrow_data`
+-- Structure for view `vw_borrowed_books`
 --
-DROP TABLE IF EXISTS `vw_borrow_data`;
+DROP TABLE IF EXISTS `vw_borrowed_books`;
 
-DROP VIEW IF EXISTS `vw_borrow_data`;
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vw_borrow_data`  AS SELECT `u`.`user_id` AS `user_id`, `u`.`fname` AS `fname`, `u`.`initial` AS `initial`, `u`.`lname` AS `lname`, `b`.`book_id` AS `book_id`, `b`.`book_title` AS `book_title`, `br`.`date_barrowed` AS `date_barrowed`, `br`.`date_return` AS `date_return` FROM ((`tbl_user` `u` join `tbl_borrow` `br` on((`u`.`user_id` = `br`.`user_id`))) join `tbl_book` `b` on((`br`.`book_id` = `b`.`book_id`)))  ;
+DROP VIEW IF EXISTS `vw_borrowed_books`;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vw_borrowed_books`  AS SELECT `tbl_borrow`.`borrow_id` AS `borrow_id`, `tbl_borrow`.`date_barrowed` AS `date_barrowed`, `tbl_borrow`.`status` AS `status`, `tbl_borrow`.`user_id` AS `user_id`, `tbl_book`.`book_title` AS `book_title`, `tbl_book`.`Author_id` AS `book_author`, `tbl_book`.`book_img` AS `book_img` FROM (`tbl_borrow` left join `tbl_book` on((`tbl_borrow`.`book_id` = `tbl_book`.`book_id`)))  ;
 
 -- --------------------------------------------------------
 
@@ -639,29 +617,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 DROP TABLE IF EXISTS `vw_logs`;
 
 DROP VIEW IF EXISTS `vw_logs`;
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vw_logs` AS
-SELECT 
-    `tbl_logs`.`date` AS `date`, 
-    `tbl_logs`.`admin_id` AS `admin_id`, 
-    `tbl_logs`.`action` AS `action`, 
-    `tbl_superadmin`.`admin_role` AS `admin_role`
-FROM 
-    `tbl_logs` 
-JOIN 
-    `tbl_superadmin` ON `tbl_logs`.`admin_id` = `tbl_superadmin`.`admin_id`
-ORDER BY 
-    `tbl_logs`.`date` DESC;
-
-
--- --------------------------------------------------------
-
---
--- Structure for view `vw_modal_return_data`
---
-DROP TABLE IF EXISTS `vw_modal_return_data`;
-
-DROP VIEW IF EXISTS `vw_modal_return_data`;
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vw_modal_return_data`  AS SELECT `b`.`book_id` AS `book_id`, `b`.`book_title` AS `book_title`, `b`.`shelf` AS `shelf`, `b`.`Author_id` AS `Author_id`, `b`.`publisher` AS `publisher`, `s`.`user_id` AS `user_id`, concat(`s`.`fname`,' ',`s`.`initial`,' ',`s`.`lname`) AS `full_name`, `s`.`year` AS `year`, `s`.`course` AS `course`, `s`.`major` AS `major`, `bd`.`date_barrowed` AS `date_barrowed`, `bd`.`borrow_id` AS `borrow_id`, `bd`.`date_return` AS `date_return` FROM ((`tbl_book` `b` join `tbl_borrow` `bd` on((`b`.`book_id` = `bd`.`book_id`))) join `tbl_user` `s` on((`bd`.`user_id` = `s`.`user_id`)))  ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vw_logs`  AS SELECT `tbl_logs`.`date` AS `date`, `tbl_logs`.`admin_id` AS `admin_id`, `tbl_logs`.`action` AS `action`, `tbl_superadmin`.`admin_role` AS `admin_role` FROM (`tbl_logs` join `tbl_superadmin` on((`tbl_logs`.`admin_id` = `tbl_superadmin`.`admin_id`))) ORDER BY `tbl_logs`.`date` AS `DESCdesc` ASC  ;
 
 -- --------------------------------------------------------
 
@@ -681,7 +637,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 DROP TABLE IF EXISTS `vw_user_penalty`;
 
 DROP VIEW IF EXISTS `vw_user_penalty`;
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vw_user_penalty`  AS SELECT `tbl_penalties`.`user_id` AS `user_id`, `tbl_penalties`.`borrow_id` AS `borrow_id`, `tbl_book`.`book_title` AS `book_title`, `tbl_book`.`Author_id` AS `Author_id`, `tbl_book`.`book_img` AS `book_img`, `tbl_borrow`.`date_barrowed` AS `date_barrowed` FROM ((`tbl_penalties` left join `tbl_book` on((`tbl_penalties`.`book_id` = `tbl_book`.`book_id`))) left join `tbl_borrow` on((`tbl_penalties`.`borrow_id` = `tbl_borrow`.`borrow_id`)))  ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vw_user_penalty`  AS SELECT `tbl_penalties`.`user_id` AS `user_id`, `tbl_penalties`.`borrow_id` AS `borrow_id`, `tbl_book`.`book_title` AS `book_title`, `tbl_book`.`Author_id` AS `Author_id`, `tbl_book`.`book_img` AS `book_img`, `tbl_borrow`.`date_barrowed` AS `date_barrowed`, `tbl_borrow`.`status` AS `status` FROM ((`tbl_penalties` left join `tbl_book` on((`tbl_penalties`.`book_id` = `tbl_book`.`book_id`))) left join `tbl_borrow` on((`tbl_penalties`.`borrow_id` = `tbl_borrow`.`borrow_id`)))  ;
 
 -- --------------------------------------------------------
 
