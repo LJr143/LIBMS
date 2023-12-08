@@ -266,7 +266,7 @@ if (isset($_SESSION['user'])) {
                         </div>
                         <div style="font-size: 12px; width: 100%; display: flex; justify-content: center;"><p style="padding: 5px 0px; font-weight: 700;">
                                 <button data-bs-dismiss="modal" type="button" style="width: 100px; margin: 0px 20px; font-weight: bold; border-radius: 5px; padding: 10px; color: #711717; background-color: transparent; border: 1px solid #711717">Cancel</button>
-                                <button data-bs-toggle="modal" class="barrow_confirm_btn" id="confirmBorrowBookBtn" type="button" style="width: 100px; font-weight: bold; border-radius: 5px; padding: 10px; color: white; background-color: #740000; border: 1px solid #711717">Confirm</button>
+                                <button data-bs-toggle="modal" class="barrow_confirm_btn" data-user-id="<?php echo $_SESSION['user_id']; ?>" id="confirmBorrowBookBtn" type="button" style="width: 100px; font-weight: bold; border-radius: 5px; padding: 10px; color: white; background-color: #740000; border: 1px solid #711717">Confirm</button>
                         </div>
                     </div>
                 </form>
@@ -345,9 +345,11 @@ if (isset($_SESSION['user'])) {
     </div>
 </div>
 
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
+<script src="../node_modules/jquery/dist/jquery.min.js"></script>
+<script src="../node_modules/sweetalert2/dist/sweetalert2.all.min.js"></script>
+<script src="../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="../node_modules/swiper/swiper-bundle.min.js"></script>
+<script src="../node_modules/chart.js/dist/chart.umd.js"></script>
 <script>
     $(document).ready(function() {
         $('.btn-view-book').click(function(e) {

@@ -112,23 +112,29 @@ class BookData
         return $stmt->execute();
     }
 
-    public function borrowBook($borrowredId,$user_id,$bookId, $date) {
-        $sql = "INSERT INTO tbl_borrow (borrow_id,user_id,book_id, date) VALUES (:borrowed_id,:user_id,:book_id, :date_borrowed)";
+    public function borrowBook($user_id, $bookId, $date)
+    {
+        $sql = "INSERT INTO tbl_borrow (user_id, book_id, date) VALUES (:user_id, :book_id, :date_borrowed)";
 
         try {
             $stmt = $this->database->prepare($sql);
-            $stmt->bindParam(':borrowed_id', $borrowredId, PDO::PARAM_INT);
-            $stmt->bindParam(':user_id', $user_id, PDO::PARAM_INT);
-            $stmt->bindParam(':book_id', $bookId, PDO::PARAM_INT);
+            $stmt->bindParam(':user_id', $user_id, PDO::PARAM_STR);
+            $stmt->bindParam(':book_id', $bookId, PDO::PARAM_STR);
             $stmt->bindParam(':date_borrowed', $date, PDO::PARAM_STR);
             $stmt->execute();
 
-            echo "Record inserted successfully!";
+            // Return success flag or any additional information
+            return ['success' => true, 'message' => 'Record inserted successfully'];
         } catch (PDOException $e) {
-            echo "Error: " . $e->getMessage();
+            // Log the error or handle it accordingly
+            error_log("Error: " . $e->getMessage());
+
+            // Return failure flag or any additional information
+            return ['success' => false, 'message' => 'Error inserting record'];
         }
     }
-        public function deleteBook($bookId){
+
+    public function deleteBook($bookId){
         $sql = "DELETE FROM tbl_book WHERE book_id = :book_ID";
 
         $stmt = $this->database->prepare($sql);
