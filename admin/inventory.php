@@ -465,9 +465,9 @@ if (isset($_SESSION['user'])) {
                             <div style="width:190px;">
                                 <div class="col-md-2" style="margin-bottom: 0px; ">
                                     <label for="editprofilePictureInput" style="display: block; cursor: pointer; text-decoration: underline; margin-top: 5px;">
-                                        <img id="Book-Pic" src="" width="150px" height="230px" style="margin-left: -5px; margin-top: 0px;">
+                                        <img id="edit-Book-Pic" src="" width="150px" height="230px" style="margin-left: -5px; margin-top: 0px;">
                                     </label>
-                                    <input type="file" id="editprofilePictureInput" style="display: none;" accept="image/*" onchange="updateProfilePicture(event)">
+                                    <input type="file" id="editprofilePictureInput" style="display: none;" accept="image/*" onchange="updateEditProfilePicture(event)">
                                 </div>
                             </div>
 
@@ -755,7 +755,7 @@ if (isset($_SESSION['user'])) {
 
 
                 var imagePath = '../book_img/' + data[0].book_img;
-                $('#Book-Pic').attr('src', imagePath);
+                $('#edit-Book-Pic').attr('src', imagePath);
 
                 // Show the modal
                 $('#editBookModal').modal('show');
@@ -776,12 +776,12 @@ if (isset($_SESSION['user'])) {
         }
 
         // Function to update the profile picture
-        function updateProfilePicture(event) {
+        function updateEditProfilePicture(event) {
             const input = event.target;
             if (input.files && input.files[0]) {
                 const reader = new FileReader();
                 reader.onload = function(e) {
-                    const profilePic = document.getElementById('Book-Pic');
+                    const profilePic = document.getElementById('edit-Book-Pic');
                     profilePic.src = e.target.result;
 
                     // Hide the icon when a new image is selected

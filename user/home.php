@@ -53,8 +53,9 @@ if (isset($_SESSION['user'])) {
     <meta http-equiv="X-UA-Compatible" content="ie=edvge">
     <title>USeP | LMS</title>
     <link rel="icon" href="../icons/usep-logo.png">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
+    <link href="../node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../node_modules/sweetalert2/dist/sweetalert2.min.js">
+    <link rel="stylesheet" href="../node_modules/swiper/swiper-bundle.min.css" />
     <link rel="stylesheet" href="../css/user_home.css">
 
 </head>
@@ -384,10 +385,10 @@ if (isset($_SESSION['user'])) {
 
             // Populate the modal fields with data received from the server
             $('#vw_bookTitle').val(data[0].book_title);
-            $('#vw_bookAuthor').val(data[0].Author_id);
+            $('#vw_bookAuthor').val(data[0].author);
             $('#vw_bookGenre').val(data[0].genre);
             $('#vw_bookShelf').val(data[0].shelf);
-            $('#vw_bookPublisher').val(data[0].publisher);
+            $('#vw_bookPublisher').val(data[0].publisher);``
             $('#vw_bookStatus').val(data[0].status);
             $('#vw_bookDescription').val(data[0].description);
             $('#book_id').val(data[0].book_id);
