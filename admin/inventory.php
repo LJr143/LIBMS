@@ -241,7 +241,7 @@ if (isset($_SESSION['user'])) {
                                                         <div class="book_information_inventory" style="display: flex;">
                                                             <div>
                                                                 <!-- book author -->
-                                                                <p><?php echo $book['Author_id'] ?></p>
+                                                                <p><?php echo $book['author'] ?></p>
                                                                 <p>Status: <span style="color: green; font-weight: 700"><?php echo $book['status'] ?></span></p>
                                                             </div>
                                                             <div style="margin-left: 20px">
