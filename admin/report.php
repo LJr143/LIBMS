@@ -536,6 +536,7 @@ if (isset($_SESSION['user'])) {
                 overall: 'report.php',
                 borrowed: 'report_borrowed_inventory.php',
                 reserved: 'report_reserved_inventory.php',
+                returned: 'report_returned_inventory.php',
                 'book-copies': 'report_copies_inventory.php',
             };
 
