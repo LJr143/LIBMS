@@ -569,13 +569,6 @@ if (isset($_SESSION['user'])) {
         }
     </script>
     <script>
-        // The deleteAllBook button
-        const deleteAllButton = document.getElementById('deleteAllBook');
-        if (deleteAllButton) {
-            deleteAllButton.addEventListener('click', function() {
-                showDeleteConfirmation(1); // Pass a unique identifier
-            });
-        }
 
         function showDeleteConfirmation(id) {
             Swal.fire({

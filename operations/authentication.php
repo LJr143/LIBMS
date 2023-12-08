@@ -68,7 +68,7 @@ class UserAuthentication
 
     private function validateUser($username, $password): array
     {
-        $query = "SELECT username, password, status FROM tbl_user WHERE username = :username";
+        $query = "SELECT username, password, status, user_id FROM tbl_user WHERE username = :username";
         $stmt = $this->db->prepare($query);
         $stmt->bindParam(':username', $username);
         $stmt->execute();
