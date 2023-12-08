@@ -112,7 +112,7 @@ class BookData
         return $stmt->execute();
     }
 
-    public function borrowBook($user_id, $bookId, $date)
+    public function borrowBook($user_id, $bookId, $date): array
     {
         $sql = "INSERT INTO tbl_borrow (user_id, book_id, date) VALUES (:user_id, :book_id, :date_borrowed)";
 
@@ -121,6 +121,28 @@ class BookData
             $stmt->bindParam(':user_id', $user_id, PDO::PARAM_STR);
             $stmt->bindParam(':book_id', $bookId, PDO::PARAM_STR);
             $stmt->bindParam(':date_borrowed', $date, PDO::PARAM_STR);
+            $stmt->execute();
+
+            // Return success flag or any additional information
+            return ['success' => true, 'message' => 'Record inserted successfully'];
+        } catch (PDOException $e) {
+            // Log the error or handle it accordingly
+            error_log("Error: " . $e->getMessage());
+
+            // Return failure flag or any additional information
+            return ['success' => false, 'message' => 'Error inserting record'];
+        }
+    }
+    public function reserveBook($user_id, $bookId, $date, $returnDate): array
+    {
+        $sql = "INSERT INTO tbl_reserve (user_id, book_id, reserve_date, return_date) VALUES (:user_id, :book_id, :date_borrowed,:return_date)";
+
+        try {
+            $stmt = $this->database->prepare($sql);
+            $stmt->bindParam(':user_id', $user_id, PDO::PARAM_STR);
+            $stmt->bindParam(':book_id', $bookId, PDO::PARAM_STR);
+            $stmt->bindParam(':date_borrowed', $date, PDO::PARAM_STR);
+            $stmt->bindParam(':return_date', $returnDate, PDO::PARAM_STR);
             $stmt->execute();
 
             // Return success flag or any additional information
