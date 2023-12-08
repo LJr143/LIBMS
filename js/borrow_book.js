@@ -41,7 +41,6 @@ $(document).ready(function() {
     $('.barrow_confirm_btn').on('click', function () {
         var bookId = $('#book_id').val();
         $('#borrowModal').modal('hide');
-        $('#borrowConfirmationModal').modal('show');
         console.log(bookId);
         $.ajax({
             url: '../operations/fetch_book.php',
@@ -53,11 +52,24 @@ $(document).ready(function() {
                 $('#book_title').text(response[0].book_title);
                 $('#book_author').text(response[0].author);
 
+                $.ajax({
+                    url: '../operations/borrow_book.php',
+                    type: 'POST',
+                    data: {bookId: bookId},
+                    success: function (borrowResponse) {
+                        console.log('Book borrowing processed:', borrowResponse);
+
+                    },
+                    error: function () {
+                        console.error('Error processing book borrowing.');
+                    }
+                });
             },
             error: function () {
-                // Handle errors
+                // Handle errors in fetching Book data
                 console.error('Error fetching Book data.');
             }
         });
     });
+
 });

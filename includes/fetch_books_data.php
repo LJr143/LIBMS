@@ -111,6 +111,23 @@ class BookData
 // Execute the query
         return $stmt->execute();
     }
+
+    public function borrowBook($borrowredId,$user_id,$bookId, $date) {
+        $sql = "INSERT INTO tbl_borrow (borrow_id,user_id,book_id, date) VALUES (:borrowed_id,:user_id,:book_id, :date_borrowed)";
+
+        try {
+            $stmt = $this->database->prepare($sql);
+            $stmt->bindParam(':borrowed_id', $borrowredId, PDO::PARAM_INT);
+            $stmt->bindParam(':user_id', $user_id, PDO::PARAM_INT);
+            $stmt->bindParam(':book_id', $bookId, PDO::PARAM_INT);
+            $stmt->bindParam(':date_borrowed', $date, PDO::PARAM_STR);
+            $stmt->execute();
+
+            echo "Record inserted successfully!";
+        } catch (PDOException $e) {
+            echo "Error: " . $e->getMessage();
+        }
+    }
         public function deleteBook($bookId){
         $sql = "DELETE FROM tbl_book WHERE book_id = :book_ID";
 
