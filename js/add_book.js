@@ -1,12 +1,13 @@
-$(document).ready(function() {
+$(document).ready(function () {
     // Add click event listener to the "ADD" button
-    $('#addBookBtn').on('click', function(e) {
+    $('#addBookBtn').on('click', function (e) {
         e.preventDefault(); // Prevent the default form submission
 
         // Call the addBook function when the button is clicked
         addBook();
     });
 });
+
 
 function updateProfilePicture(event) {
     var input = event.target;
@@ -44,10 +45,10 @@ function addBook() {
         data: formData,
         contentType: false,
         processData: false,
-        success: function(response) {
-            handleAjaxSuccess(response);
+        success: function (response) {
+            handleAjaxSuccess(response , 'add');
         },
-        error: function() {
+        error: function () {
             handleAjaxError();
         }
     });
@@ -71,9 +72,11 @@ function validateForm() {
     ];
 
     for (var i = 0; i < requiredFields.length; i++) {
-        var field = $(requiredFields[i]);
+        var fieldId = requiredFields[i];
+        var field = $(fieldId);
+
         if (field.val().trim() === '') {
-            showValidationError('Please fill in all required fields.');
+            showValidationError('Please input all fields.');
             return false; // Validation failed
         }
     }
@@ -101,6 +104,12 @@ function validateForm() {
 
     for (var fieldId in patterns) {
         var field = $(fieldId);
+
+        if (field.length === 0) {
+            console.error('Field not found with ID:', fieldId);
+            continue; // Skip to the next iteration if the field is not found
+        }
+
         var pattern = patterns[fieldId];
 
         if (!pattern.test(field.val())) {
@@ -113,7 +122,8 @@ function validateForm() {
     return true; // Validation succeeded
 }
 
-function prepareFormData() {
+
+    function prepareFormData() {
     var formData = new FormData();
     var profileFileInput = $('#profilePictureInput')[0];
 
@@ -136,13 +146,15 @@ function prepareFormData() {
     return formData;
 }
 
-function handleAjaxSuccess(response) {
+function handleAjaxSuccess(response, operationType) {
+    console.log(response); // Log the response for debugging
+
     try {
         var result = typeof response === 'string' ? JSON.parse(response) : response;
         if (result.success) {
-            handleSuccessConfirmation('BookModal');
+            handleSuccessConfirmation('BookModal', operationType);
         } else {
-            showError('Failed to add the book. Please try again.');
+            showError('Failed to ' + (operationType === 'add' ? 'add' : 'update') + ' the book. Please try again.');
         }
     } catch (e) {
         console.error('Failed to parse JSON response:', response);
@@ -150,12 +162,15 @@ function handleAjaxSuccess(response) {
     }
 }
 
-// Use the same handleSuccessConfirmation function for both add_book and add_student
-function handleSuccessConfirmation(modalId) {
+
+
+function handleSuccessConfirmation(modalId, operationType) {
     $("#" + modalId).modal("hide");
+    var successTitle = operationType === 'add' ? 'ADDED!' : 'UPDATED!';
+    var successText = operationType === 'add' ? 'SUCCESSFULLY ADDED!' : 'SUCCESSFULLY UPDATED!';
     Swal.fire({
-        title: 'ADDED!',
-        text: 'SUCCESSFULLY ADDED!',
+        title: successTitle,
+        text: successText,
         icon: 'success',
         customClass: {
             popup: 'my-swal-popup',
@@ -167,12 +182,13 @@ function handleSuccessConfirmation(modalId) {
         // Check if the user clicked "OK"
         if (result.isConfirmed) {
             // Reload the page after a short delay
-            setTimeout(function() {
+            setTimeout(function () {
                 location.reload();
-            }, 0); // <-- Add the missing closing parenthesis here
+            }, 0);
         }
     });
 }
+
 
 
 function handleAjaxError() {
@@ -215,56 +231,18 @@ function getCustomErrorMessage(fieldId, formType) {
 }
 
 
+function clearPhoto() {
+    // Clear the entire form
+    $('#AddBookDisplay')[0].reset();
 
-function handleAjaxSuccess(response) {
-    try {
-        var result = typeof response === 'string' ? JSON.parse(response) : response;
-        if (result.success) {
-            handleSuccessConfirmation();
-        } else {
-            showError('Failed to add the student. Please try again.');
-        }
-    } catch (e) {
-        console.error('Failed to parse JSON response:', response);
-        showError('Failed to process the server response.');
-    }
-}
+    // Reset the profile picture display
+    var defaultImageSrc = 'path_to_default_image'; // Replace with the path to your default image
+    $('#displayBookPicture').attr('src', defaultImageSrc);
 
-function handleSuccessConfirmation() {
-    $("#BookModal").modal("hide");
-    Swal.fire({
-        title: 'ADDED!',
-        text: 'SUCCESSFULLY ADDED!',
-        icon: 'success',
-        customClass: {
-            popup: 'my-swal-popup',
-            title: 'swal-title',
-            content: 'my-swal-content',
-            confirmButton: 'my-confirm-button'
-        }
-    }).then((result) => {
-        // Check if the user clicked "OK"
-        if (result.isConfirmed) {
-            // Reload the page after a short delay
-            setTimeout(function() {
-                location.reload();
-            });
-        }
-    });
-}
+    // Show the "+" sign for adding image
+    $('#addImageIcon').show();
 
-function handleAjaxError() {
-    showError('AJAX request failed.'); // Consider improving the user experience
-}
-
-function showError(message) {
-    Swal.fire({
-        title: 'Error!',
-        text: message,
-        icon: 'error'
-    });
-}
-
-function showValidationError(message) {
-    showError(message);
+    // Clear validation styling
+    var form = $('#AddBookDisplay')[0];
+    form.classList.remove('was-validated');
 }

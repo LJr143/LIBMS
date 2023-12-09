@@ -1,8 +1,9 @@
+
 <?php
 session_start();
 require_once 'C:\wamp64\www\LIBMS\db_config\config.php';
-include '../includes/fetch_books_data.php';
-include '../includes/logs_operation.php';
+include 'C:\wamp64\www\LIBMS\includes\fetch_books_data.php';
+include 'C:\wamp64\www\LIBMS\includes\logs_operation.php';
 $database = new Database();
 $log = new Logs($database);
 
@@ -19,7 +20,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $bookCategory = $_POST['bookCategory'];
     $bookSummary = $_POST['bookSummary'];
 
-    // Create an instance of the Staff class
+    // Create an instance of the book class
     $book = new BookData($database);
 
     // Check if the file is uploaded
@@ -45,13 +46,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $profile = null;
     }
 
-    // Update the staff data
+    // Update book
     $result = $book->updateBook($bookId, $bookTitle, $bookGenre, $bookAuthor, $bookISBN,$bookCopy, $bookShelf, $bookPublisher, $bookCategory, $bookSummary,$profile);
 
     // Send a JSON response indicating success or failure
     if ($result) {
         echo json_encode(['success' => true]);
     } else {
-        echo json_encode(['success' => false, 'error' => 'Failed to add staff member.']);
+        echo json_encode(['success' => false, 'error' => 'Failed to update book.']);
     }
 }

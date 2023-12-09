@@ -1,3 +1,4 @@
+
 <?php
 require_once 'C:\wamp64\www\LIBMS\db_config\config.php';
 error_reporting(E_ALL);
@@ -46,6 +47,12 @@ class BookData
         $stmt->bindParam(':bookId', $bookId, PDO::PARAM_STR);
 
         if ($stmt->execute()) {
+            $errorInfo = $stmt->errorInfo();
+            if ($errorInfo[0] !== '00000') {
+                // Log or print the error information
+                error_log("Database error: " . $errorInfo[2]);
+            }
+
             return $stmt->fetchAll(PDO::FETCH_ASSOC);
         } else {
             return array();
@@ -54,7 +61,7 @@ class BookData
     public function addBook($bookID, $bookTitle, $bookGenre, $bookAuthor, $bookISBN, $bookCopies, $bookShelf, $bookPublisher, $bookCategory, $bookSummary, $profile): bool
     {
 
-        $sql = "INSERT INTO tbl_book (book_id, book_title, genre, author, ISBN, copy, shelf, publisher, category, description, book_img)
+        $sql = "INSERT INTO tbl_book (book_id, book_title, genre, author_id, ISBN, copy, shelf, publisher, category, description, book_img)
             VALUES (:bookID, :bookTitle, :bookGenre, :bookAuthor, :bookISBN, :bookCopies, :bookShelf, :bookPublisher, :bookCategory, :bookSummary, :img)";
         $stmt = $this->database->prepare($sql);
 
@@ -78,7 +85,7 @@ class BookData
     {
         $sql = "UPDATE tbl_book 
         SET book_id = :bookId, book_title = :bookTitle, ISBN = :bookISBN, 
-            author = :bookAuthor, publisher = :bookPublisher, 
+            author_id = :bookAuthor, publisher = :bookPublisher, 
             genre = :bookGenre,
             category = :bookCategory, description = :bookSummary, shelf = :bookShelf, copy = :bookCopy";
 
@@ -111,7 +118,7 @@ class BookData
 // Execute the query
         return $stmt->execute();
     }
-        public function deleteBook($bookId){
+    public function deleteBook($bookId){
         $sql = "DELETE FROM tbl_book WHERE book_id = :book_ID";
 
         $stmt = $this->database->prepare($sql);
@@ -121,4 +128,3 @@ class BookData
     }
 
 }
-
