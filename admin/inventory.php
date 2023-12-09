@@ -241,7 +241,10 @@ if (isset($_SESSION['user'])) {
                                                         <div class="book_information_inventory" style="display: flex;">
                                                             <div>
                                                                 <!-- book author -->
-                                                                <p><?php echo ucfirst($book['Author_id']); ?></p>                                                                <p>Status: <span style="color: green; font-weight: 700"><?php echo $book['status'] ?></span></p>
+
+                                                                <p><?php echo ucfirst ($book['author'] )?></p>
+                                                                <p>Status: <span style="color: green; font-weight: 700"><?php echo $book['status'] ?></span></p>
+
                                                             </div>
                                                             <div style="margin-left: 20px">
                                                                 <p><?php echo ucfirst($book['genre']); ?></p>
@@ -467,9 +470,12 @@ if (isset($_SESSION['user'])) {
                             <div style="width:190px;">
                                 <div class="col-md-2" style="margin-bottom: 0px; ">
                                     <label for="editprofilePictureInput" style="display: block; cursor: pointer; text-decoration: underline; margin-top: 5px;">
-                                        <img id="Book-Pic" src="" width="150px" height="230px" id="Book-Pic" style="margin-left: -5px; margin-top: 0px;">
+
+
+                                        <img id="edit-Book-Pic" src="" width="150px" height="230px" style="margin-left: -5px; margin-top: 0px;">
+
                                     </label>
-                                    <input type="file" id="editprofilePictureInput" style="display: none;" accept="image/*" onchange="updateProfilePicture(event)">
+                                    <input type="file" id="editprofilePictureInput" style="display: none;" accept="image/*" onchange="updateEditProfilePicture(event)">
                                 </div>
                             </div>
 
@@ -677,13 +683,6 @@ if (isset($_SESSION['user'])) {
 
 
     <script>
-        // The deleteAllBook button
-        const deleteAllButton = document.getElementById('deleteAllBook');
-        if (deleteAllButton) {
-            deleteAllButton.addEventListener('click', function() {
-                showDeleteConfirmation(1); // Pass a unique identifier
-            });
-        }
 
         function showDeleteConfirmation(id) {
             Swal.fire({
@@ -758,7 +757,7 @@ if (isset($_SESSION['user'])) {
                 $('#editBookID').val(data[0].book_id);
                 $('#editBookTitle').val(data[0].book_title);
                 $('#editBookGenre').val(data[0].genre);
-                $('#editBookAuthor').val(data[0].Author_id);
+                $('#editBookAuthor').val(data[0].author);
                 $('#editBookISBN').val(data[0].ISBN);
                 $('#editBookCopies').val(data[0].copy);
                 $('#editBookShelf').val(data[0].shelf);
@@ -768,7 +767,7 @@ if (isset($_SESSION['user'])) {
 
 
                 var imagePath = '../book_img/' + data[0].book_img;
-                $('#Book-Pic').attr('src', imagePath);
+                $('#edit-Book-Pic').attr('src', imagePath);
 
                 // Show the modal
                 $('#editBookModal').modal('show');
@@ -789,12 +788,12 @@ if (isset($_SESSION['user'])) {
         }
 
         // Function to update the profile picture
-        function updateProfilePicture(event) {
+        function updateEditProfilePicture(event) {
             const input = event.target;
             if (input.files && input.files[0]) {
                 const reader = new FileReader();
                 reader.onload = function(e) {
-                    const profilePic = document.getElementById('Book-Pic');
+                    const profilePic = document.getElementById('edit-Book-Pic');
                     profilePic.src = e.target.result;
 
                     // Hide the icon when a new image is selected

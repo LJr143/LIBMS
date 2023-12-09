@@ -61,7 +61,7 @@ class BookData
     public function addBook($bookID, $bookTitle, $bookGenre, $bookAuthor, $bookISBN, $bookCopies, $bookShelf, $bookPublisher, $bookCategory, $bookSummary, $profile): bool
     {
 
-        $sql = "INSERT INTO tbl_book (book_id, book_title, genre, author_id, ISBN, copy, shelf, publisher, category, description, book_img)
+        $sql = "INSERT INTO tbl_book (book_id, book_title, genre, author, ISBN, copy, shelf, publisher, category, description, book_img)
             VALUES (:bookID, :bookTitle, :bookGenre, :bookAuthor, :bookISBN, :bookCopies, :bookShelf, :bookPublisher, :bookCategory, :bookSummary, :img)";
         $stmt = $this->database->prepare($sql);
 
@@ -85,7 +85,7 @@ class BookData
     {
         $sql = "UPDATE tbl_book 
         SET book_id = :bookId, book_title = :bookTitle, ISBN = :bookISBN, 
-            author_id = :bookAuthor, publisher = :bookPublisher, 
+            author = :bookAuthor, publisher = :bookPublisher, 
             genre = :bookGenre,
             category = :bookCategory, description = :bookSummary, shelf = :bookShelf, copy = :bookCopy";
 
@@ -118,6 +118,53 @@ class BookData
 // Execute the query
         return $stmt->execute();
     }
+
+
+    public function borrowBook($user_id, $bookId, $date): array
+    {
+        $sql = "INSERT INTO tbl_borrow (user_id, book_id, date) VALUES (:user_id, :book_id, :date_borrowed)";
+
+        try {
+            $stmt = $this->database->prepare($sql);
+            $stmt->bindParam(':user_id', $user_id, PDO::PARAM_STR);
+            $stmt->bindParam(':book_id', $bookId, PDO::PARAM_STR);
+            $stmt->bindParam(':date_borrowed', $date, PDO::PARAM_STR);
+            $stmt->execute();
+
+            // Return success flag or any additional information
+            return ['success' => true, 'message' => 'Record inserted successfully'];
+        } catch (PDOException $e) {
+            // Log the error or handle it accordingly
+            error_log("Error: " . $e->getMessage());
+
+            // Return failure flag or any additional information
+            return ['success' => false, 'message' => 'Error inserting record'];
+        }
+    }
+    public function reserveBook($user_id, $bookId, $date, $returnDate): array
+    {
+        $sql = "INSERT INTO tbl_reserve (user_id, book_id, reserve_date, return_date) VALUES (:user_id, :book_id, :date_borrowed,:return_date)";
+
+        try {
+            $stmt = $this->database->prepare($sql);
+            $stmt->bindParam(':user_id', $user_id, PDO::PARAM_STR);
+            $stmt->bindParam(':book_id', $bookId, PDO::PARAM_STR);
+            $stmt->bindParam(':date_borrowed', $date, PDO::PARAM_STR);
+            $stmt->bindParam(':return_date', $returnDate, PDO::PARAM_STR);
+            $stmt->execute();
+
+            // Return success flag or any additional information
+            return ['success' => true, 'message' => 'Record inserted successfully'];
+        } catch (PDOException $e) {
+            // Log the error or handle it accordingly
+            error_log("Error: " . $e->getMessage());
+
+            // Return failure flag or any additional information
+            return ['success' => false, 'message' => 'Error inserting record'];
+        }
+    }
+
+
     public function deleteBook($bookId){
         $sql = "DELETE FROM tbl_book WHERE book_id = :book_ID";
 

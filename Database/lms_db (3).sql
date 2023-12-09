@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Dec 06, 2023 at 12:31 PM
+-- Generation Time: Dec 08, 2023 at 09:45 AM
 -- Server version: 8.0.31
 -- PHP Version: 7.4.33
 
@@ -54,7 +54,7 @@ CREATE TABLE IF NOT EXISTS `tbl_admin` (
 --
 
 INSERT INTO `tbl_admin` (`id`, `admin_id`, `lname`, `fname`, `initial`, `admin_role`, `email`, `personal_email`, `phone_number`, `tele_number`, `address`, `status`, `username`, `password`, `img`) VALUES
-(97, '2313123', 'Raña', 'Doormat', 'M', 'Staff', 'lorjohn143@gmail.com', 'lorjohn143@gmail.com', '09096763912', '02-1234-5678', 'Purok 3-C Sabina Homes Apokon Tagum City Davao Del Norte Philippines', 'Active', 'john', 'Password_123', 'Picture6.jpg');
+(97, '2313123', 'Raña', 'Lorjohn', 'M', 'Staff', 'lorjohn143@gmail.com', 'lorjohn143@gmail.com', '09096763912', '02-1234-5678', 'Purok 3-C Sabina Homes Apokon Tagum City Davao Del Norte Philippines', 'Active', 'john', 'Password_123', 'me-removebg (1).png');
 
 -- --------------------------------------------------------
 
@@ -67,43 +67,26 @@ CREATE TABLE IF NOT EXISTS `tbl_book` (
   `book_id` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
   `book_title` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
   `ISBN` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
-  `Author_id` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `pub_date` date DEFAULT NULL,
+  `author` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `publisher` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
   `genre` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
   `category` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
-  `edition` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `language` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   `description` longtext COLLATE utf8mb4_general_ci NOT NULL,
   `shelf` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
   `copy` int NOT NULL,
   `status` varchar(25) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT 'New',
   `book_img` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
-  PRIMARY KEY (`book_id`)
+  PRIMARY KEY (`book_id`),
+  KEY `copy_id` (`copy`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `tbl_book`
 --
 
-INSERT INTO `tbl_book` (`book_id`, `book_title`, `ISBN`, `Author_id`, `pub_date`, `publisher`, `genre`, `category`, `edition`, `language`, `description`, `shelf`, `copy`, `status`, `book_img`) VALUES
-('1', 'Twin Peaks: Fire Walk with Me', '067212237-5', 'Lynch and Robert Engels', '2023-07-12', 'Skyvu', 'Crime|Drama|Mystery|Thriller', '', '1', 'Assamese', 'Nam ultrices, libero non mattis pulvinar, nulla pede ullamcorper augue, a suscipit nulla elit ac nulla.', '', 0, '', 'Twin Peaks Fire Walk with Me.jpg'),
-('10', 'The Da Vinci Code', '978-0307277671', '6537b454fc13ae1070c77360', '2003-03-18', 'Anchor', 'null', 'null', '1', 'English', 'A thriller involving the discovery of hidden messages in art and history.', '', 10, '', 'The Da Vinci Code.jpg'),
-('2', 'To Kill a Mockingbird', '978-0061120084', '6537b454fc13ae1070c77350', '1960-07-11', 'HarperCollins', 'Classic|Fiction|Legal Drama', '', '1', 'English', 'A powerful novel addressing racial injustice and moral growth in the American South.', '', 0, '', 'To Kill a Mockingbird.jpg'),
-('3', 'The Hobbit', '978-0618002214', '6537b454fc13ae1070c77356', '1937-09-21', 'Houghton Mifflin', 'Fantasy|Adventure', '', '1', 'English', 'The adventures of Bilbo Baggins, a hobbit who becomes an unexpected hero.', '', 0, '', 'The Hobbit.jpg'),
-('4', '1984', '978-0451524935', '6537b454fc13ae1070c77352', '1949-06-08', 'Penguin', 'Dystopian|Science Fiction', '', '1', 'English', 'A classic portrayal of a totalitarian society where thought and freedom are suppressed.', 'CN1023', 0, 'Available', '1984.jpg'),
-('5', 'The Great Gatsby', '978-0743273565', 'F. Scott Fitzgerald', '1925-04-10', 'Scribner', 'Classic|Fiction', '', '1', 'English', 'A story of decadence, wealth, and unfulfilled dreams in the Roaring Twenties.', '', 0, '', 'The Great Gatsby.jpg'),
-('6', 'Pride and Prejudice', '978-0141439518', '6537b454fc13ae1070c77354', '1813-01-28', 'Penguin Classics', 'Classic|Romance', '', '1', 'English', 'A tale of love, manners, and marriage in the early 19th century.', '', 0, '', 'Pride and Prejudice.jpg'),
-('7', 'Harry Potter and the Sorcerer\'s Stone', '978-0590353427', '6537b454fc13ae1070c7735a', '1997-06-26', 'Scholastic', 'Fantasy|Young Adult', '', '1', 'English', 'The first book in the Harry Potter series, following the adventures of a young wizard.', '', 0, '', 'Harry Potter and the Sorcerer\'s Stone.jpg'),
-('8', 'The Alchemist', '978-0061122415', '6537b454fc13ae1070c7735c', '1988-01-20', 'HarperOne', 'Fiction|Inspirational', '', '1', 'Portuguese', 'A philosophical novel about following your dreams and destiny.', '', 0, '', 'The Alchemist.jpg'),
-('9', 'The Road', '978-0307387899', '6537b45', '2006-09-26', 'Vintage', 'null', 'null', '1', 'English', 'A story of a father and sons journey in a post-apocalyptic world.', 'Voluptas est totam n', 0, '', 'The Road.jpg'),
-('Ea eum officiis cumq', 'Pariatur Deserunt e', 'Quia lorem quia magn', 'Est ea', NULL, 'Est voluptate repre', 'Fiction', 'option', NULL, NULL, 'Laborum molestias in', 'Voluptas est totam n', 2, 'New', '2023-ford-mustang.jpg'),
-('Ea recusandae In ea', 'Sit sequi porro hic', 'Assumenda nemo et su', 'Aperiam sed deserunt', NULL, 'Qui sequi qui non ut', 'Fiction', 'option', NULL, NULL, 'Veniam aliquid minu', 'Omnis duis fugiat it', 12, 'New', '1431443-ford-f-150-raptor-wallpapers-2000x1333-for-ipad-2.jpg'),
-('Ea voluptatem volupt', 'Necessitatibus volup', 'Voluptas voluptate o', 'Voluptates ut tempor', NULL, 'Corrupti eos nihil', 'Non-Fiction', 'option', NULL, NULL, 'Id commodo voluptas', 'Consequatur adipisi', 15, 'New', '2022-ford-everest-reveal-01-1646117209.jpg'),
-('Ex laudantium quo l', 'Amet voluptatibus u', 'Non minima sit saepe', 'Dolor aliquid est of', NULL, 'Officiis sed quaerat', 'Fiction', 'option', NULL, NULL, 'Dicta animi cumque ', 'Est labore provident', 10, 'New', 'basic_2022-gmc-sierra-denali-ultimate-review-photo-benjamin-hunting-driving-line0020944.jpg'),
-('Ipsam in natus velit', 'Blanditiis odit susc', 'Mollitia veniam ver', 'Saepe ut temporibus ', NULL, 'Ex laborum est moles', 'Non-Fiction', 'option', NULL, NULL, 'Velit exercitation m', 'Omnis ex voluptatem ', 10, 'New', '2023-Ford-Mustang-4.webp'),
-('Pariatur Et dolorem', 'Porro aut qui ea neq', 'Ad consequatur Et i', 'Commodi eius amet o', NULL, 'Odit iure impedit c', 'Non-Fiction', 'option', NULL, NULL, 'Voluptas eaque aut h', 'Eiusmod fuga Error ', 20, 'New', '2022_ford_everest_00.jpg'),
-('undefined', 'undefined', 'Et modi ea sit volu', 'undefined', NULL, 'undefined', 'Non-Fiction', 'option', NULL, NULL, 'Dolor aut nisi et ci', 'Quia laborum Sequi ', 0, 'New', 'Picture3.jpg');
+INSERT INTO `tbl_book` (`book_id`, `book_title`, `ISBN`, `author`, `publisher`, `genre`, `category`, `description`, `shelf`, `copy`, `status`, `book_img`) VALUES
+('2021-1234', '1984', '1234567', 'George Orwell', 'SITS', 'Fiction', 'option', 'Okieh', '201-21-123', 10, 'New', '1984.jpg'),
+('Pariatur Consequatu', 'Harry Potter Prisoner of Azkaban', 'Est amet eaque repr', 'Molestiae perspiciat', 'Aut eaque consequunt', 'Non-Fiction', 'option', 'Voluptas voluptatem', 'Duis exercitationem ', 10, 'New', 'book2.jpg');
 
 -- --------------------------------------------------------
 
@@ -116,11 +99,11 @@ CREATE TABLE IF NOT EXISTS `tbl_borrow` (
   `borrow_id` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `user_id` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `book_id` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
-  `date_barrowed` date NOT NULL,
+  `date` date NOT NULL,
   `status` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
   PRIMARY KEY (`borrow_id`),
-  KEY `borrow_book_id_fk` (`book_id`),
-  KEY `user_id` (`user_id`)
+  KEY `user_id` (`user_id`),
+  KEY `borrow_book_id_fk` (`book_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -131,11 +114,13 @@ CREATE TABLE IF NOT EXISTS `tbl_borrow` (
 
 DROP TABLE IF EXISTS `tbl_copy`;
 CREATE TABLE IF NOT EXISTS `tbl_copy` (
-  `copy_id` int NOT NULL,
-  `status` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
-  `book_id` int NOT NULL,
+  `copy_id` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
+  `book_id` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
+  `total_copy` int NOT NULL,
+  `copy_on_hand` int NOT NULL,
   `location` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
-  `copy_condition` varchar(100) COLLATE utf8mb4_general_ci NOT NULL
+  PRIMARY KEY (`copy_id`),
+  KEY `book_id` (`book_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -346,9 +331,9 @@ CREATE TABLE IF NOT EXISTS `tbl_penalties` (
   `borrow_id` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
   `Amount` int NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `user_id_fk_penalty` (`user_id`),
   KEY `book_id_fk_penalty` (`book_id`),
-  KEY `borrow_id_fk_penalty` (`borrow_id`)
+  KEY `borrow_id_fk_penalty` (`borrow_id`),
+  KEY `user_id_fk_penalty` (`user_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -446,7 +431,7 @@ CREATE TABLE IF NOT EXISTS `tbl_user` (
   `img` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
   PRIMARY KEY (`user_id`),
   UNIQUE KEY `user_id` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `tbl_user`
@@ -454,8 +439,7 @@ CREATE TABLE IF NOT EXISTS `tbl_user` (
 
 INSERT INTO `tbl_user` (`id`, `user_id`, `fname`, `lname`, `initial`, `year`, `course`, `major`, `username`, `password`, `status`, `user_type`, `email`, `usep_email`, `phone_number`, `address`, `img`) VALUES
 (20, '2021-00027', 'despenser', 'kyowa', 'M', '2nd', 'BTVTED', 'Information Security', 'John123', '$2y$10$LxFDVnSXPhqNRwGoArN9yuWuj0FTnDAgU9Er9pX6a/3Skat3zihQG', 'Active', 'Student', 'lmran0027@gmail.com', 'lmran0027@gmail.com', '09096763912', 'tagum', 'Picture6.jpg'),
-(21, '2021-00028', 'curtain', 'alfalink', 'M', '2nd', 'BECED', 'Information Security', 'John_1233', '$2y$10$Wm98a.c/2aMMezRv6jWRz.AvfPwn9Ejqc37coVzTFtBMs4596XufG', 'Active', 'Student', 'lmran0027@gmail.com', 'lmrana00027@gmail.com', '09096763912', 'tagum', 'Picture3.jpg'),
-(24, 'Accusamus a voluptas', 'Zorita', 'Ellison', 'Tempo', '4th', 'BSED', 'Mathematics', 'zufonom', '$2y$10$2ar3.C/v2/Ze4Nm1H/X92uw93FQyixKrNrmZoYdVl93SPHxJbmNkG', 'Active', 'Student', 'jojimuj@mailinator.com', 'jojimuj@mailinator.com', '+1 (766) 718-9077', 'Dolorum mollitia sed', 'Picture5.jpg');
+(27, '2021-10028', 'Lorjohn', 'Rana', 'M', '3rd', 'BSIT', 'Information Security', 'lmrana', '$2y$10$/nsDdEQV4Ow2Xp8QHOtZQ.Vx5fLd.XKpJNf/aa6is53VVpdPyYFWa', 'Active', 'Student', 'lorjohn143@gmail.com', 'lorjohn143@usep.edu.ph', '09096763912', 'Sabina Homes Apokon', 'photo1695631639-transformed.jpeg');
 
 -- --------------------------------------------------------
 
@@ -525,13 +509,6 @@ INSERT INTO `users` (`id`, `email`, `first_name`, `last_name`, `gender`, `full_n
 --
 DROP VIEW IF EXISTS `vw_borrowed_books`;
 CREATE TABLE IF NOT EXISTS `vw_borrowed_books` (
-`borrow_id` varchar(100)
-,`date_barrowed` date
-,`status` varchar(100)
-,`user_id` varchar(100)
-,`book_title` varchar(100)
-,`book_author` varchar(100)
-,`book_img` varchar(100)
 );
 
 -- --------------------------------------------------------
@@ -556,11 +533,6 @@ CREATE TABLE IF NOT EXISTS `vw_logs` (
 --
 DROP VIEW IF EXISTS `vw_reservation`;
 CREATE TABLE IF NOT EXISTS `vw_reservation` (
-`reserve_id` int
-,`book_id` varchar(100)
-,`status` varchar(25)
-,`book_title` varchar(100)
-,`Author_id` varchar(100)
 );
 
 -- --------------------------------------------------------
@@ -571,13 +543,6 @@ CREATE TABLE IF NOT EXISTS `vw_reservation` (
 --
 DROP VIEW IF EXISTS `vw_user_penalty`;
 CREATE TABLE IF NOT EXISTS `vw_user_penalty` (
-`user_id` varchar(50)
-,`borrow_id` varchar(50)
-,`book_title` varchar(100)
-,`Author_id` varchar(100)
-,`book_img` varchar(100)
-,`date_barrowed` date
-,`status` varchar(100)
 );
 
 -- --------------------------------------------------------
@@ -657,8 +622,14 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 -- Constraints for table `tbl_borrow`
 --
 ALTER TABLE `tbl_borrow`
-  ADD CONSTRAINT `borrow_book_id_fk` FOREIGN KEY (`book_id`) REFERENCES `tbl_book` (`book_id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
-  ADD CONSTRAINT `borrow_user_id` FOREIGN KEY (`user_id`) REFERENCES `tbl_user` (`user_id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+  ADD CONSTRAINT `borrow_book_id_fk` FOREIGN KEY (`book_id`) REFERENCES `tbl_book` (`book_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `borrow_user_id` FOREIGN KEY (`user_id`) REFERENCES `tbl_user` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `tbl_copy`
+--
+ALTER TABLE `tbl_copy`
+  ADD CONSTRAINT `fk_book` FOREIGN KEY (`book_id`) REFERENCES `tbl_book` (`book_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `tbl_penalties`
@@ -666,7 +637,7 @@ ALTER TABLE `tbl_borrow`
 ALTER TABLE `tbl_penalties`
   ADD CONSTRAINT `book_id_fk_penalty` FOREIGN KEY (`book_id`) REFERENCES `tbl_book` (`book_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `borrow_id_fk_penalty` FOREIGN KEY (`borrow_id`) REFERENCES `tbl_borrow` (`borrow_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `user_id_fk_penalty` FOREIGN KEY (`user_id`) REFERENCES `tbl_borrow` (`user_id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+  ADD CONSTRAINT `user_id_fk_penalty` FOREIGN KEY (`user_id`) REFERENCES `tbl_borrow` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `tbl_record`
