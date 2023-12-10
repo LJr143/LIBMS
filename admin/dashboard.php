@@ -71,8 +71,12 @@ if (isset($_SESSION['user'])) {
     <link href="../node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="../node_modules/sweetalert2/dist/sweetalert2.min.js">
     <link rel="stylesheet" href="../node_modules/bootstrap-icons/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" integrity="sha384-dB/KXVd5TzvxsvLE3FpaL3CCOOEGX9F8r+5N18CIteA6Fb6EGGo1QFJdHcMl5PW" crossorigin="anonymous">
     <link rel="stylesheet" href="../css/admin_dashboard.css">
     <link rel="stylesheet" href="../css/logout.css">
+    <style>
+
+    </style>
 </head>
 
 <body style="">
@@ -108,13 +112,13 @@ if (isset($_SESSION['user'])) {
                     </div>
                 </div>
 
-                <div class="container mt-4">
+                <div>
                     <ul class="menu_icon">
                         <li class="active"><img class="custom_menu_icon" src="../icons/dashboard_icon.png" alt=""><span><a href="dashboard.php">Dashboard</a></span></li>
                         <li class="accordion-item">
                             <div class="headermenu">
-                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#studentCollapse" aria-expanded="false" aria-controls="studentCollapse">
-                                    <img class="custom_menu_icon" src="../icons/staff_icon.png" alt="" style="margin-right: 10px"> Student
+                                <button  class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#studentCollapse" aria-expanded="false" aria-controls="studentCollapse">
+                                    <img class="custom_menu_icon" src="../icons/staff_icon.png" alt="" style="margin-right: 10px; "> Student
                                 </button>
                             </div>
                             <div id="studentCollapse" class="accordion-collapse collapse ms-4" data-bs-parent="#menuAccordion">

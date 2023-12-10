@@ -312,4 +312,74 @@ nav .right-side > .right-side-text {
         color: #ffffff !important;
         padding: 7px;
     }
+/* Custom styling for the accordion item */
+.accordion-item {
+    font-size: 14px;
+    background-color: rgba(100, 0, 0, 100%);
+    padding: 0;
+    margin-bottom: 5px;
+    border: none;
+}
 
+/* Custom styling for the accordion button */
+.accordion-button {
+    color: #f0ecec;
+    font-size: 12px;
+    background-color: transparent;
+    height: 14px;
+    margin-left: 10px;
+    padding: 0;
+    position: relative;
+}
+
+/* Remove default arrow */
+.accordion-button::after {
+    display: flex;
+    color: white;
+}
+
+/* Remove focus styles */
+.accordion-button:focus {
+    box-shadow: none;
+    border: none;
+}
+
+/* Header menu styling */
+.headermenu {
+    display: flex;
+    align-items: center;
+    height: 15px;
+    margin-left: -10px;
+    background-color: transparent;
+}
+
+/* Custom styling for the accordion body */
+.accordion-body {
+    background-color: transparent;
+    padding: 10px;
+    margin-top: 5px;
+}
+
+/* Expanded state */
+.accordion-button:not(.collapsed) {
+    background-color: transparent;
+    color: white;
+}
+
+/* Hide arrow in expanded state */
+.accordion-button:not(.collapsed)::after {
+    color: white;
+}
+
+/* Remove focus and active styles for header menu */
+.headermenu:focus,
+.headermenu:active {
+    outline: none !important;
+    border: none !important;
+}
+
+/* Styling for links inside accordion body */
+.accordion-body a {
+    display: block;
+    line-height: 0.5; /* Adjust the value as needed */
+}
