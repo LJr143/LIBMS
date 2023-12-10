@@ -12,8 +12,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $bookID = $_POST['bookId'];
     $userID = $_POST['userId'];
     $date = $_POST['date'];
+    $returnDate = $_POST['returnDate'];
 
-    $success = $bookData->borrowBook($userID,$bookID,$date);
+    $success = $bookData->reserveBook($userID,$bookID,$date, $returnDate);
 
     // Send a JSON response indicating success or failure
     header('Content-Type: application/json');

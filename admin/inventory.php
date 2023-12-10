@@ -205,7 +205,7 @@ if (isset($_SESSION['user'])) {
                                 </select>
                             </div>
                             <div class="input_search-wrapper" style="margin-left: 20px;">
-                                <input type="search" class="search-input" placeholder="Search Book">
+                                <input type="search" class="search-input"  placeholder="Search Book">
                             </div>
                         </div>
                         <div class="col col-md-2" style="display: flex; align-items: center; justify-content: flex-end;">
@@ -215,43 +215,45 @@ if (isset($_SESSION['user'])) {
                     </div>
                 </div>
                 <div style="display: flex; justify-content: center;">
-                    <div style="width: 95%; min-height: 100vh; margin-top: 10px; ">
+                    <div  style="width:95%; min-height: 100vh; margin-top: 10px; ">
                         <?php
                         for ($row = 0; $row < $rowCount; $row++) {
                             if ($totalBooks == 0) {
                                 break;
                             }
                         ?>
-                            <div class="col col-md-12" style="background: rgb(255,255,255); height: 38vh; border-radius: 5px; box-shadow: 0px 4px 8px rgba(0,0,0,0.2); display: flex; align-items: center; padding: 15px 5px 15px 15px; margin: 20px 0px 0px 0px;">
+                            <div class="col col-md-12 p-5 " style="background: rgb(255,255,255); height: 38vh; border-radius: 5px; box-shadow: 0px 4px 8px rgba(0,0,0,0.2); display: flex; align-items: center; justify-items: center; padding: 15px 5px 15px 15px; margin: 20px 0px 0px 0px;">
                                 <?php
                                 for ($col = 0; $col < $colCount; $col++) {
                                     $bookIndex = $startIndex + ($row * $colCount) + $col;
                                     if ($bookIndex <= $endIndex) {
                                         $book = $books[$bookIndex];
                                 ?>
-                                        <div class="card" style="width: 25rem; height: 250px; box-shadow: 0px 3px 6px rgba(0,0,0,0.26); margin: 0px 10px 0px 0px;">
-                                            <div class="card-body">
+                                        <div class="card"  style="width: 25rem; height: 250px; box-shadow: 0px 3px 6px rgba(0,0,0,0.26); margin: 0px 10px 0px 0px;">
+                                            <div class="card-body ">
                                                 <h6 class="card-title"><input type="checkbox"></h6>
                                                 <div style="width: 100%; height: 21vh; display: flex;">
                                                     <div style=" height: 21vh; width: 138px; overflow: hidden ">
                                                         <img style="width: 97px" src="../book_img/<?php echo $book['book_img']; ?>" alt="">
                                                     </div>
                                                     <div style="width: 100%; height: 21vh; margin-left: 15px; ">
-                                                        <h6 style="font-size: 12px; font-weight: 700; font-style: italic"><?php echo $book['book_title']; ?></h6>
+                                                        <h6 style="font-size: 12px; font-weight: 700; font-style: italic"><?php echo ucwords(strtolower($book['book_title'])); ?></h6>
                                                         <div class="book_information_inventory" style="display: flex;">
                                                             <div>
                                                                 <!-- book author -->
-                                                                <p><?php echo $book['author'] ?></p>
+
+                                                                <p><?php echo ucfirst ($book['author'] )?></p>
                                                                 <p>Status: <span style="color: green; font-weight: 700"><?php echo $book['status'] ?></span></p>
+
                                                             </div>
                                                             <div style="margin-left: 20px">
-                                                                <p><?php echo $book['genre'] ?></p>
-                                                                <p>Shelf: <span style="color: #711717; font-weight: 700"><?php echo $book['shelf'] ?></span></p>
+                                                                <p><?php echo ucfirst($book['genre']); ?></p>
+                                                                <p>Shelf: <span style="color: #711717; font-weight: 700"><?php echo ucfirst($book['shelf']) ?></span></p>
                                                             </div>
                                                         </div>
                                                         <div style="line-height: 15px; font-size: 10px; padding: 0px 0px 0px 5px; overflow: hidden; height: 110px;">
                                                             <p>Description:</p>
-                                                            <p style="margin-top: -15px;"><?php echo $book['description'] ?>
+                                                            <p style="margin-top: -15px;"><?php echo ucfirst( $book['description']); ?>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -307,8 +309,8 @@ if (isset($_SESSION['user'])) {
         <div class="modal-dialog modal-lg modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header" style="height: 15px;">
-                    <p class="modal-title" id="borrowModalLabel " style="font-size: 10px; color: #800000; font-weight: 600;">
-                        <i class="bi bi-pencil-square ml-3 m-3" style="font-size: 12px; color: #800000;"></i>ADD BOOK
+                    <p class="modal-title" id="borrowModalLabel " style="font-size: 12px; color: #800000; font-weight: 600;">
+                        <i class="bi bi-pencil-square ml-3 m-3" style="font-size: 16px; color: #800000;"></i>ADD BOOK
                     </p>
                     <button style="font-size: 8px;" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
@@ -322,15 +324,15 @@ if (isset($_SESSION['user'])) {
                                     <label for="profilePictureInput" style="display: block; cursor: pointer; text-decoration: underline; margin-top: 5px; margin-left:35px; margin-top:50px;">
                                         <!-- Icon for adding an image -->
                                         <i class="bi bi-plus" style="font-size: 60px; color:#711717;" id="addImageIcon"></i>
-                                        <input type="file" id="profilePictureInput" style="display: none;" accept="image/*" onchange="updateAddProfilePicture(event)">
+                                        <input type="file" id="profilePictureInput" style="display: none;" accept="image/*" onchange="updateProfilePicture(event)">
                                     </label>
-                                    <img id="addBook-Pic" src="" alt="" style="max-width: 150px; max-height: 230px;">
+                                    <img id="displayBookPicture" src="" alt="" style="max-width: 150px; max-height: 230px;">
                                 </div>
                             </div>
 
 
                             <!-- input details -->
-                            <form class="row needs-validation" style="width: 70%; height: 65%;" novalidate>
+                            <form id="AddBookDisplay" class="row needs-validation" style="width: 70%; height: 65%;" novalidate>
                                 <div class="col-md-3 firstname">
                                     <label for="bookBookID" class="form-label mb-0" style="font-size: 12px;">BOOK ID</label>
                                     <input type="text" class="form-control" placeholder="1234-56789" pattern="[0-9]{4}-[0-9]{5}" id="bookBookID" style="font-size: 10px; text-transform: capitalize !important;" required>
@@ -341,7 +343,7 @@ if (isset($_SESSION['user'])) {
 
                                 <div class="col-md-6">
                                     <label for="bookBookTitle" class="form-label mb-0" style="font-size: 12px;">BOOK TITLE</label>
-                                    <input type="text" class="form-control" placeholder="Programming 1" id="bookBookTitle" style="font-size: 10px; text-transform: capitalize !important;" required>
+                                    <input type="text" class="form-control" placeholder="Programming 1" id="bookBookTitle"  style="font-size: 10px; text-transform: capitalize !important;" required>
                                     <div class="invalid-feedback" style="font-size: 8px">
                                         Not a valid book title!
                                     </div>
@@ -362,7 +364,7 @@ if (isset($_SESSION['user'])) {
 
                                 <div class="col-md-6 mt-2">
                                     <label for="bookBookAuthor" class="form-label mb-0" style="font-size: 12px;">BOOK AUTHOR</label>
-                                    <input type="text" class="form-control" placeholder="Programming 1" id="bookBookAuthor" style="font-size: 10px; text-transform: capitalize !important;" required>
+                                    <input type="text" class="form-control" placeholder="Programming 1" id="bookBookAuthor"  style="font-size: 10px; text-transform: capitalize !important;" required>
                                     <div class="invalid-feedback" style="font-size: 8px">
                                         Not a valid book author!
                                     </div>
@@ -378,7 +380,7 @@ if (isset($_SESSION['user'])) {
 
                                 <div class="col-md-3 mt-2">
                                     <label for="bookCopies" class="form-label mb-0" style="font-size: 12px;">COPIES</label>
-                                    <input type="text" class="form-control" id="bookCopies" pattern="[0-9]{3}" placeholder="010" style="font-size: 10px;" required>
+                                    <input type="text" class="form-control" id="bookCopies" pattern="^[0-9]{3}$" placeholder="010" style="font-size: 10px;" required>
                                     <div class="invalid-feedback" style="font-size: 8px">
                                         Not a valid format 010!
                                     </div>
@@ -386,7 +388,7 @@ if (isset($_SESSION['user'])) {
 
                                 <div class="col-md-4 mt-2">
                                     <label for="bookShelf" class="form-label mb-0" style="font-size: 12px; ">SHELF</label>
-                                    <input type="text" class="form-control" placeholder="Circulation Module" id="bookShelf" style="font-size: 10px; text-transform: capitalize !important;" required>
+                                    <input type="text" class="form-control" placeholder="Circulation Module" id="bookShelf"  style="font-size: 10px; text-transform: capitalize !important;" required>
                                     <div class="invalid-feedback" style="font-size: 8px">
                                         Not a valid shelf!
                                     </div>
@@ -396,7 +398,7 @@ if (isset($_SESSION['user'])) {
                                 <div class="col-md-4 mt-2">
                                     <label for="bookPublishers" class="form-label mb-0" style="font-size: 12px;">PUBLISHERS</label>
                                     <div class="input-group has-validation">
-                                        <input type="text" class="form-control" placeholder="SITS Corp." id="bookPublishers" style="font-size: 10px; text-transform: capitalize !important;" required>
+                                        <input type="text" class="form-control" placeholder="SITS Corp." id="bookPublishers"  style="font-size: 10px; text-transform: capitalize !important;" required>
                                         <div class="invalid-feedback" style="font-size: 8px">
                                             Not a valid publishers!
                                         </div>
@@ -428,7 +430,7 @@ if (isset($_SESSION['user'])) {
                                 <div class="col-md-12 mt-2">
                                     <label for="bookSummary" class="form-label mb-0" style="font-size: 12px;">SUMMARY</label>
                                     <div class="input-group has-validation">
-                                        <textarea type="text" rows="7" class="form-control" id="bookSummary" aria-describedby="inputGroupPrepend" style="font-size: 10px; resize: none;" required>
+                                        <textarea type="text" rows="7" class="form-control" id="bookSummary" aria-describedby="inputGroupPrepend"  style="font-size: 10px; resize: none;" required>
                                     </textarea>
                                         <div class="invalid-feedback" style="font-size: 8px">
                                             Not a valid summary!
@@ -438,7 +440,7 @@ if (isset($_SESSION['user'])) {
 
                                 <div class=" wishlist-container  mt-4 mb-0 " style=" display: flex; justify-content: flex-end; width: 664px; ">
                                     <button style="height: 25px; width: 100px" type="button" class="clear shadow " onclick="clearPhoto()">CLEAR</button>
-                                    <button style="height: 25px; width: 100px" type="button" id="addBookBtn" class="add shadow">ADD</button>
+                                    <button style="height: 25px; width: 100px" type="button" id="addBookBtn" class="add shadow" >ADD</button>
                                 </div>
                             </form>
                         </div>
@@ -447,13 +449,16 @@ if (isset($_SESSION['user'])) {
             </div>
         </div>
     </div>
+
+
+
     <!-- update book Modal -->
     <div class="modal fade " id="editBookModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header" style="height: 15px;">
-                    <p class="modal-title" id="borrowModalLabel " style="font-size: 10px; color: #800000; font-weight: 600;">
-                        <i class="bi bi-pencil-square ml-3 m-3" style="font-size: 13px; color: #800000;"></i>EDIT BOOK
+                    <p class="modal-title" id="borrowModalLabel " style="font-size: 12px; color: #800000; font-weight: 600;">
+                        <i class="bi bi-pencil-square ml-3 m-3" style="font-size: 16px; color: #800000;"></i>EDIT BOOK
                     </p>
                     <button style="font-size: 8px;" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
@@ -465,17 +470,20 @@ if (isset($_SESSION['user'])) {
                             <div style="width:190px;">
                                 <div class="col-md-2" style="margin-bottom: 0px; ">
                                     <label for="editprofilePictureInput" style="display: block; cursor: pointer; text-decoration: underline; margin-top: 5px;">
-                                        <img id="Book-Pic" src="" width="150px" height="230px" style="margin-left: -5px; margin-top: 0px;">
+
+
+                                        <img id="edit-Book-Pic" src="" width="150px" height="230px" style="margin-left: -5px; margin-top: 0px;">
+
                                     </label>
-                                    <input type="file" id="editprofilePictureInput" style="display: none;" accept="image/*" onchange="updateProfilePicture(event)">
+                                    <input type="file" id="editprofilePictureInput" style="display: none;" accept="image/*" onchange="updateEditProfilePicture(event)">
                                 </div>
                             </div>
 
                             <!-- input details -->
-                            <form class="row needs-validation" style="width: 70%; height: 65%;" novalidate>
+                            <form id="UpdateBookDisplay" class="row needs-validation" style="width: 70%; height: 65%;" novalidate>
                                 <div class="col-md-3 firstname">
                                     <label for="editBookID" class="form-label mb-0" style="font-size: 12px;">BOOK ID</label>
-                                    <input type="text" class="form-control" placeholder="1234-56789" pattern="[0-9]{4}-[0-9]{5}" id="editBookID" style="font-size: 10px; text-transform: capitalize !important;" required>
+                                    <input type="text" class="form-control" placeholder="1234-56789" pattern="[0-9]{4}-[0-9]{5}" id="editBookID" style="font-size: 10px; text-transform: capitalize !important;" readonly>
                                     <div class="invalid-feedback" style="font-size: 8px">
                                         Not a valid book ID!
                                     </div>
@@ -483,7 +491,7 @@ if (isset($_SESSION['user'])) {
 
                                 <div class="col-md-6">
                                     <label for="editBookTitle" class="form-label mb-0" style="font-size: 12px;">BOOK TITLE</label>
-                                    <input type="text" class="form-control" placeholder="Programming 1" id="editBookTitle" style="font-size: 10px; text-transform: capitalize !important;" required>
+                                    <input type="text" class="form-control" placeholder="Programming 1" id="editBookTitle"  style="font-size: 10px; text-transform: capitalize !important;" required>
                                     <div class="invalid-feedback" style="font-size: 8px">
                                         Not a valid book title!
                                     </div>
@@ -504,7 +512,7 @@ if (isset($_SESSION['user'])) {
 
                                 <div class="col-md-6 mt-2">
                                     <label for="editBookAuthor" class="form-label mb-0" style="font-size: 12px;">BOOK AUTHOR</label>
-                                    <input type="text" class="form-control" placeholder="Programming 1" id="editBookAuthor" style="font-size: 10px; text-transform: capitalize !important;" required>
+                                    <input type="text" class="form-control" placeholder="Programming 1" id="editBookAuthor"  style="font-size: 10px; text-transform: capitalize !important;" required>
                                     <div class="invalid-feedback" style="font-size: 8px">
                                         Not a valid book author!
                                     </div>
@@ -520,7 +528,7 @@ if (isset($_SESSION['user'])) {
 
                                 <div class="col-md-3 mt-2">
                                     <label for="editBookCopies" class="form-label mb-0" style="font-size: 12px;">COPIES</label>
-                                    <input type="text" class="form-control" id="editBookCopies" pattern="[0-9]{3}" placeholder="010" style="font-size: 10px;" required>
+                                    <input type="text" class="form-control" id="editBookCopies" pattern="^[0-9]{3}$" placeholder="010" style="font-size: 10px;" required>
                                     <div class="invalid-feedback" style="font-size: 8px">
                                         Not a valid format 010!
                                     </div>
@@ -528,7 +536,7 @@ if (isset($_SESSION['user'])) {
 
                                 <div class="col-md-4 mt-2">
                                     <label for="editBookShelf" class="form-label mb-0" style="font-size: 12px; ">SHELF</label>
-                                    <input type="text" class="form-control" placeholder="Circulation Module" id="editBookShelf" style="font-size: 10px; text-transform: capitalize !important;" required>
+                                    <input type="text" class="form-control" placeholder="Circulation Module" id="editBookShelf"  style="font-size: 10px; text-transform: capitalize !important;" required>
                                     <div class="invalid-feedback" style="font-size: 8px">
                                         Not a valid shelf!
                                     </div>
@@ -538,7 +546,7 @@ if (isset($_SESSION['user'])) {
                                 <div class="col-md-4 mt-2">
                                     <label for="editBookPublishers" class="form-label mb-0" style="font-size: 12px;">PUBLISHERS</label>
                                     <div class="input-group has-validation">
-                                        <input type="text" class="form-control" placeholder="SITS Corp." id="editBookPublishers" style="font-size: 10px; text-transform: capitalize !important;" required>
+                                        <input type="text" class="form-control" placeholder="SITS Corp." id="editBookPublishers"  style="font-size: 10px; text-transform: capitalize !important;" required>
                                         <div class="invalid-feedback" style="font-size: 8px">
                                             Not a valid publishers!
                                         </div>
@@ -570,7 +578,7 @@ if (isset($_SESSION['user'])) {
                                 <div class="col-md-12 mt-2">
                                     <label for="editBookSummary" class="form-label mb-0" style="font-size: 12px;">SUMMARY</label>
                                     <div class="input-group has-validation">
-                                        <textarea type="text" rows="7" class="form-control" id="editBookSummary" aria-describedby="inputGroupPrepend" style="font-size: 10px; resize: none;" required>
+                                        <textarea type="text" rows="7" class="form-control" id="editBookSummary" aria-describedby="inputGroupPrepend"  style="font-size: 10px; resize: none;" required>
                                     </textarea>
                                         <div class="invalid-feedback" style="font-size: 8px">
                                             Not a valid summary!
@@ -579,8 +587,8 @@ if (isset($_SESSION['user'])) {
                                 </div>
 
                                 <div class=" wishlist-container  mt-4 mb-0 " style=" display: flex; justify-content: flex-end; width: 664px; ">
-                                    <button style="height: 25px; width: 100px" type="button" class="clear shadow " onclick="clearPhoto()">CLEAR</button>
-                                    <button style="height: 25px; width: 100px" type="button" id="updateBookBtn" class="add shadow">SAVE</button>
+                                    <button style="height: 25px; width: 100px" type="button" class="clear shadow" onclick="clearPhoto()">CLEAR</button>
+                                    <button style="height: 25px; width: 100px"  type="button" id="updateBookBtn" class="add shadow" >SAVE</button>
                                 </div>
                             </form>
                         </div>
@@ -652,17 +660,21 @@ if (isset($_SESSION['user'])) {
     <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+
+
+
 
     <script>
-        function updateAddProfilePicture(event) {
+        function updateBookPicture(event) {
             const input = event.target;
-            const img = document.getElementById('addBook-Pic');
-            const icon = document.getElementById('addImageIcon');
-
             if (input.files && input.files[0]) {
                 const reader = new FileReader();
+                const img = document.getElementById('displayBookPicture');
+                const icon = document.getElementById('addImageIcon');
 
-                reader.onload = function(e) {
+                reader.onload = function (e) {
                     img.src = e.target.result;
                     icon.style.display = 'none'; // Hide the icon
                 };
@@ -671,6 +683,8 @@ if (isset($_SESSION['user'])) {
             }
         }
     </script>
+
+
     <script>
 
         function showDeleteConfirmation(id) {
@@ -737,6 +751,7 @@ if (isset($_SESSION['user'])) {
                 });
             });
 
+
             function populateModal(data) {
                 // Log the data to inspect the structure
                 console.log(data);
@@ -755,7 +770,7 @@ if (isset($_SESSION['user'])) {
 
 
                 var imagePath = '../book_img/' + data[0].book_img;
-                $('#Book-Pic').attr('src', imagePath);
+                $('#edit-Book-Pic').attr('src', imagePath);
 
                 // Show the modal
                 $('#editBookModal').modal('show');
@@ -776,12 +791,12 @@ if (isset($_SESSION['user'])) {
         }
 
         // Function to update the profile picture
-        function updateProfilePicture(event) {
+        function updateEditProfilePicture(event) {
             const input = event.target;
             if (input.files && input.files[0]) {
                 const reader = new FileReader();
                 reader.onload = function(e) {
-                    const profilePic = document.getElementById('Book-Pic');
+                    const profilePic = document.getElementById('edit-Book-Pic');
                     profilePic.src = e.target.result;
 
                     // Hide the icon when a new image is selected

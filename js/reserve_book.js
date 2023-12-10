@@ -1,40 +1,32 @@
 $(document).ready(function () {
-    $('.borrow-button').on('click', function () {
-        var bookId = $('#book_id').val();
-        $('#bookModal').modal('hide');
 
-        setBorrowDateFields();
-
-        fetchBookData(bookId);
-    });
-
-    $('.barrow_confirm_btn').on('click', function () {
+    $('#reserveBookBtn').on('click', function () {
         var bookId = $('#book_id').val();
         var userId = $(this).data('user-id');
-        var date = $('#date_borrowed_vw').val();
+        $('#bookModal').modal('hide');
 
 
-        $('#borrowModal').modal('hide');
+        fetchBookData(bookId);
+
+        $('#reserveConfirmBtn').on('click', function () {
+            $('#reserveModal').modal('hide');
+            var date = $('#date_reserve_vw').val();
+            var returnDate = $('#date_return_vw').val();
+
+
+            processBookReserving(bookId, userId, date, returnDate)
+        });
 
         fetchBookData(bookId, function (response) {
             // Handle success of fetching book data
-            $('#book_title').text(response[0].book_title);
-            $('#book_author').text(response[0].author);
+            $('#reserveBookTitle').text(response[0].book_title);
+            $('#reserveBookAuthor').text(response[0].author);
+            $('#reserveBookGenre').text(response[0].genre);
+            $('#reserveBookPublisher').text(response[0].publisher);
 
-            processBookBorrowing(bookId, userId, date);
+
         });
     });
-
-    function setBorrowDateFields() {
-        var today = new Date();
-        var formattedToday = today.toISOString().split('T')[0];
-        document.getElementById("date_borrowed_vw").value = formattedToday;
-
-        var dueDate = new Date();
-        dueDate.setDate(today.getDate() + 3);
-        var formattedDueDate = dueDate.toISOString().split('T')[0];
-        document.getElementById("date_due_vw").value = formattedDueDate;
-    }
 
     function fetchBookData(bookId, successCallback) {
         $.ajax({
@@ -49,13 +41,12 @@ $(document).ready(function () {
         });
     }
 
-    function processBookBorrowing(bookId, userId, date) {
-
+    function processBookReserving(bookId, userId, date, returnDate) {
         $.ajax({
-            url: '../operations/borrow_book.php',
+            url: '../operations/reserve_book.php',
             type: 'POST',
-            data: { bookId: bookId, userId: userId, date: date },
-            success: function (borrowResponse) {
+            data: { bookId: bookId, userId: userId, date: date, returnDate: returnDate },
+            success: function (reserveResponse) {
 
                 Swal.fire({
                     title: 'SUCCESS!',
@@ -74,10 +65,10 @@ $(document).ready(function () {
                         location.reload();
                     }
                 });
-                console.log('Book borrowing processed:', borrowResponse);
+                console.log('Book reserving processed:', reserveResponse);
             },
             error: function () {
-                console.error('Error processing book borrowing.');
+                console.error('Error processing book reserving.');
             }
         });
     }

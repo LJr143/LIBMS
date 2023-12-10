@@ -1,12 +1,13 @@
-$(document).ready(function() {
+$(document).ready(function () {
     // Add click event listener to the "ADD" button
-    $('#addBookBtn').on('click', function(e) {
+    $('#addBookBtn').on('click', function (e) {
         e.preventDefault(); // Prevent the default form submission
 
         // Call the addBook function when the button is clicked
         addBook();
     });
 });
+
 
 function updateProfilePicture(event) {
     var input = event.target;
@@ -44,10 +45,10 @@ function addBook() {
         data: formData,
         contentType: false,
         processData: false,
-        success: function(response) {
-            handleAjaxSuccess(response);
+        success: function (response) {
+            handleAjaxSuccess(response , 'add');
         },
-        error: function() {
+        error: function () {
             handleAjaxError();
         }
     });
@@ -71,9 +72,11 @@ function validateForm() {
     ];
 
     for (var i = 0; i < requiredFields.length; i++) {
-        var field = $(requiredFields[i]);
+        var fieldId = requiredFields[i];
+        var field = $(fieldId);
+
         if (field.val().trim() === '') {
-            showValidationError('Please fill in all required fields.');
+            showValidationError('Please input all fields.');
             return false; // Validation failed
         }
     }
@@ -101,6 +104,12 @@ function validateForm() {
 
     for (var fieldId in patterns) {
         var field = $(fieldId);
+
+        if (field.length === 0) {
+            console.error('Field not found with ID:', fieldId);
+            continue; // Skip to the next iteration if the field is not found
+        }
+
         var pattern = patterns[fieldId];
 
         if (!pattern.test(field.val())) {
@@ -113,7 +122,8 @@ function validateForm() {
     return true; // Validation succeeded
 }
 
-function prepareFormData() {
+
+    function prepareFormData() {
     var formData = new FormData();
     var profileFileInput = $('#profilePictureInput')[0];
 
@@ -136,13 +146,15 @@ function prepareFormData() {
     return formData;
 }
 
-function handleAjaxSuccess(response) {
+function handleAjaxSuccess(response, operationType) {
+    console.log(response); // Log the response for debugging
+
     try {
         var result = typeof response === 'string' ? JSON.parse(response) : response;
         if (result.success) {
-            handleSuccessConfirmation('BookModal');
+            handleSuccessConfirmation('BookModal', operationType);
         } else {
-            showError('Failed to add the book. Please try again.');
+            showError('Failed to ' + (operationType === 'add' ? 'add' : 'update') + ' the book. Please try again.');
         }
     } catch (e) {
         console.error('Failed to parse JSON response:', response);
@@ -150,12 +162,15 @@ function handleAjaxSuccess(response) {
     }
 }
 
-// Use the same handleSuccessConfirmation function for both add_book and add_student
-function handleSuccessConfirmation(modalId) {
+
+
+function handleSuccessConfirmation(modalId, operationType) {
     $("#" + modalId).modal("hide");
+    var successTitle = operationType === 'add' ? 'ADDED!' : 'UPDATED!';
+    var successText = operationType === 'add' ? 'SUCCESSFULLY ADDED!' : 'SUCCESSFULLY UPDATED!';
     Swal.fire({
-        title: 'ADDED!',
-        text: 'SUCCESSFULLY ADDED!',
+        title: successTitle,
+        text: successText,
         icon: 'success',
         customClass: {
             popup: 'my-swal-popup',
@@ -167,12 +182,13 @@ function handleSuccessConfirmation(modalId) {
         // Check if the user clicked "OK"
         if (result.isConfirmed) {
             // Reload the page after a short delay
-            setTimeout(function() {
+            setTimeout(function () {
                 location.reload();
-            }, 0); // <-- Add the missing closing parenthesis here
+            }, 0);
         }
     });
 }
+
 
 
 function handleAjaxError() {
@@ -191,80 +207,52 @@ function showValidationError(message) {
     showError(message);
 }
 
-function getCustomErrorMessage(fieldId, formType) {
+function getCustomErrorMessage(fieldId, operationType) {
+    var prefix = operationType === 'add' ? 'Invalid input for ' : '. ';
+
+    // Use the same switch case for both add and update
     switch (fieldId) {
         case '#bookBookID':
-            return 'Invalid Book ID. It should be in a specific format ****-*****.';
+        case '#editBookID':
+            return prefix + 'Invalid input for Book ID. It should be in a specific format ****-*****.';
         case '#bookBookTitle':
-            return 'Invalid Book Title. It should only contain letters and numbers.';
+        case '#editBookTitle':
+            return prefix + 'Invalid input for Book Title. It should only contain letters and numbers.';
         case '#bookBookAuthor':
-            return 'Invalid Book Author. It should only contain letters.';
+        case '#editBookAuthor':
+            return prefix + 'Invalid input for Book Author. It should only contain letters.';
         case '#bookISBN':
-            return 'Invalid ISBN. It should contain 13 numbers.';
+        case '#editBookISBN':
+            return prefix + 'Invalid input for ISBN. It should contain 13 numbers.';
         case '#bookCopies':
-            return 'Invalid Copies. It should be a three-digit number.';
+        case '#editBookCopies':
+            return prefix + 'Invalid input for Book Copies. It should be a three-digit number.';
         case '#bookShelf':
-            return 'Invalid Shelf. It should only contain letters and numbers.';
+        case '#editBookShelf':
+            return prefix + 'Invalid input for Shelf. It should only contain letters and numbers.';
         case '#bookPublishers':
-            return 'Invalid Publishers. It should only contain letters and numbers.';
+        case '#editBookPublishers':
+            return prefix + 'Invalid input for Publishers. It should only contain letters and numbers.';
         case '#bookSummary':
-            return 'Invalid Summary. It should only contain letters, numbers, and basic symbols.';
+        case '#editBookSummary':
+            return prefix + 'Invalid input for Summary. It should only contain letters, numbers, and basic symbols.';
         default:
-            return 'Invalid input for ' + $(fieldId).attr('placeholder') + '.';
+            return prefix + $(fieldId).attr('placeholder') + '.';
     }
 }
 
+function clearPhoto() {
+    // Clear the entire form
+    $('#AddBookDisplay')[0].reset();
 
+    // Reset the profile picture display
+    var defaultImageSrc = '../img' ;
+    $('#displayBookPicture').attr('src', defaultImageSrc);
 
-function handleAjaxSuccess(response) {
-    try {
-        var result = typeof response === 'string' ? JSON.parse(response) : response;
-        if (result.success) {
-            handleSuccessConfirmation();
-        } else {
-            showError('Failed to add the student. Please try again.');
-        }
-    } catch (e) {
-        console.error('Failed to parse JSON response:', response);
-        showError('Failed to process the server response.');
-    }
-}
+    // Show the "+" sign for adding image
+    $('#addImageIcon').show();
 
-function handleSuccessConfirmation() {
-    $("#BookModal").modal("hide");
-    Swal.fire({
-        title: 'ADDED!',
-        text: 'SUCCESSFULLY ADDED!',
-        icon: 'success',
-        customClass: {
-            popup: 'my-swal-popup',
-            title: 'swal-title',
-            content: 'my-swal-content',
-            confirmButton: 'my-confirm-button'
-        }
-    }).then((result) => {
-        // Check if the user clicked "OK"
-        if (result.isConfirmed) {
-            // Reload the page after a short delay
-            setTimeout(function() {
-                location.reload();
-            });
-        }
-    });
-}
-
-function handleAjaxError() {
-    showError('AJAX request failed.'); // Consider improving the user experience
-}
-
-function showError(message) {
-    Swal.fire({
-        title: 'Error!',
-        text: message,
-        icon: 'error'
-    });
-}
-
-function showValidationError(message) {
-    showError(message);
+    // Clear validation styling
+    var form = $('#AddBookDisplay')[0];
+    form.classList.remove('was-validated');
 }
