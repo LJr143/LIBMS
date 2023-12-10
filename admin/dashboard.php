@@ -111,7 +111,6 @@ if (isset($_SESSION['user'])) {
 
                     </div>
                 </div>
-<<<<<<< HEAD
 
                 <div>
                     <ul class="menu_icon">
@@ -131,12 +130,6 @@ if (isset($_SESSION['user'])) {
                                 </div>
                             </div>
                         </li>
-=======
-                <div>
-                    <ul class="menu_icon">
-                        <li class="active"><img class="custom_menu_icon" src="../icons/dashboard_icon.png" alt=""><span><a href="dashboard.php">Dashboard</a></span></li>
-                        <li><img class="custom_menu_icon" src="../icons/staff_icon.png" alt=""><span><a href="student.php">Student</a></span></li>
->>>>>>> parent of b08d6ea (Merge branch 'main' of https://github.com/LJr143/LIBMS)
                         <li><img class="custom_menu_icon" src="../icons/reports_icon.png" alt=""><span><a href="report.php">Reports</a></span></li>
                         <li><img class="custom_menu_icon" src="../icons/logs_icon.png" alt=""><span><a href="logs.php">Logs</a></span></li>
                         <li><img class="custom_menu_icon" src="../icons/admin_inventory_menu.png" alt=""><span><a href="inventory.php">Inventory</a></span></li>
