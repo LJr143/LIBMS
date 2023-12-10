@@ -59,6 +59,7 @@ if (isset($_SESSION['user'])) {
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
     <link rel="stylesheet" href="../css/admin_student.css">
     <link rel="stylesheet" href="../css/logout.css">
+    <link rel="stylesheet" href="../css/side_bar.css">
 
 
 </head>
@@ -95,7 +96,7 @@ if (isset($_SESSION['user'])) {
 
                     </div>
                 </div>
-                <div>
+                <div class="container mt-4">
                     <ul class="menu_icon">
                         <li class="active"><img class="custom_menu_icon" src="../icons/dashboard_icon.png" alt=""><span><a href="dashboard.php">Dashboard</a></span></li>
                         <li class="accordion-item">
@@ -123,7 +124,6 @@ if (isset($_SESSION['user'])) {
 
                     </ul>
                 </div>
-
             </div>
             <div class="col" style=" width: 100%; height: 100vh; ">
                 <div style="background-color: white; width: 95%; height: 45px; margin: 15px; border-radius: 5px;display: flex; box-shadow: 0px 4px 8px rgba(0,0,0,0.27); align-content: center; align-items: center">

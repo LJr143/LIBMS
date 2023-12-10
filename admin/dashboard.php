@@ -74,6 +74,7 @@ if (isset($_SESSION['user'])) {
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" integrity="sha384-dB/KXVd5TzvxsvLE3FpaL3CCOOEGX9F8r+5N18CIteA6Fb6EGGo1QFJdHcMl5PW" crossorigin="anonymous">
     <link rel="stylesheet" href="../css/admin_dashboard.css">
     <link rel="stylesheet" href="../css/logout.css">
+    <link rel="stylesheet" href="../css/side_bar.css">
     <style>
 
     </style>
@@ -112,7 +113,7 @@ if (isset($_SESSION['user'])) {
                     </div>
                 </div>
 
-                <div>
+                <div class="container mt-4">
                     <ul class="menu_icon">
                         <li class="active"><img class="custom_menu_icon" src="../icons/dashboard_icon.png" alt=""><span><a href="dashboard.php">Dashboard</a></span></li>
                         <li class="accordion-item">
@@ -133,9 +134,13 @@ if (isset($_SESSION['user'])) {
                         <li><img class="custom_menu_icon" src="../icons/reports_icon.png" alt=""><span><a href="report.php">Reports</a></span></li>
                         <li><img class="custom_menu_icon" src="../icons/logs_icon.png" alt=""><span><a href="logs.php">Logs</a></span></li>
                         <li><img class="custom_menu_icon" src="../icons/admin_inventory_menu.png" alt=""><span><a href="inventory.php">Inventory</a></span></li>
+                        <li>
+                            <i class="bi bi-bookshelf custom_menu_icon" style="font-size: 20px; color:#fff"></i>
+                            <span><a href="shelf.php">Shelf</a></span>
+                        </li>
+
                     </ul>
                 </div>
-
             </div>
             <div class="col" style=" width: 100%; height: 100vh; ">
                 <div style="display: flex; justify-content: center; ">
