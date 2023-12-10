@@ -313,3 +313,57 @@ nav .right-side > .right-side-text {
         padding: 7px;
     }
 
+
+
+
+    
+.custom-menu-icon {
+    width: 15px;
+    height: 20px;
+    margin-right: 10px;
+}
+
+/* Custom styling for the accordion button */
+.accordion-button {
+    color: #f0ecec;
+    font-size: 12px;
+    background-color: transparent;
+    height: 14px;
+    margin-left: 10px;
+    padding: 0px;
+}
+
+.headermenu {
+    display: flex;
+    align-items: center;
+    height: 15px;
+    margin-left: -10px;
+    background-color: trasparent;
+}
+
+
+
+/* Custom styling for the accordion body */
+.accordion-body {
+    background-color: transparent;
+    padding: 10px;
+    margin-top: 5px;
+}
+
+/* Expanded state */
+.accordion-button:not(.collapsed) {
+    background-color: transparent;
+    color: white;
+}
+
+.headermenu:focus,
+.headermenu:active {
+    outline: none !important;
+    border: none !important;
+}
+
+.accordion-body a {
+    display: block;
+    line-height: .5;
+    /* Adjust the value as needed */
+}

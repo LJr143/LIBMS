@@ -7,7 +7,7 @@ include 'C:\wamp64\www\LIBMS\includes\fetch_books_data.php';
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
-$loggedAdmin ='';
+$loggedAdmin = '';
 
 $database = new Database();
 $userAuth = new UserAuthentication($database);
@@ -16,7 +16,7 @@ $booksData = new BookData($database);
 
 
 
-if($userAuth->isAuthenticated()) {
+if ($userAuth->isAuthenticated()) {
 } else {
     header('Location: ../index_admin.php');
     exit();
@@ -42,7 +42,6 @@ if (isset($_SESSION['user'])) {
     } else {
         echo 'Invalid admin ID.';
     }
-
 }
 ?>
 <!doctype html>
@@ -94,13 +93,32 @@ if (isset($_SESSION['user'])) {
                         </ul>
                     </div>
                 </div>
-                <div>
+                <div class="container mt-4">
                     <ul class="menu_icon">
                         <li><img class="custom_menu_icon" src="../icons/dashboard_icon.png" alt=""><span><a href="dashboard.php">Dashboard</a></span></li>
-                        <li><img class="custom_menu_icon" src="../icons/staff_icon.png" alt=""><span><a href="student.php">Student</a></span></li>
+                        <li class="accordion-item">
+                            <div class="headermenu">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#studentCollapse" aria-expanded="false" aria-controls="studentCollapse">
+                                    <img class="custom_menu_icon" src="../icons/staff_icon.png" alt="" style="margin-right: 10px"> Student
+                                </button>
+                            </div>
+                            <div id="studentCollapse" class="accordion-collapse collapse ms-4" data-bs-parent="#menuAccordion">
+                                <div class="accordion-body">
+                                    <a href="student.php">All Students</a><br>
+                                    <a href="college.php">Colleges</a><br>
+                                    <a href="course.php">Courses</a><br>
+                                    <a href="section.php">Sections</a>
+                                </div>
+                            </div>
+                        </li>
                         <li class="active"><img class="custom_menu_icon" src="../icons/reports_icon.png" alt=""><span><a href="report.php">Reports</a></span></li>
                         <li><img class="custom_menu_icon" src="../icons/logs_icon.png" alt=""><span><a href="logs.php">Logs</a></span></li>
                         <li><img class="custom_menu_icon" src="../icons/admin_inventory_menu.png" alt=""><span><a href="inventory.php">Inventory</a></span></li>
+                        <li>
+                            <i class="bi bi-bookshelf custom_menu_icon" style="font-size: 20px; color:#fff"></i>
+                            <span><a href="shelf.php">Shelf</a></span>
+                        </li>
+
                     </ul>
                 </div>
 
@@ -110,8 +128,8 @@ if (isset($_SESSION['user'])) {
                     <div style="width: 90%">
                         <p style="font-size: 10px; font-weight: 700; margin: 14px">HOME | REPORT</p>
                     </div>
-                      <!-- Notification Bell Icon -->
-                      <div class="mr-3" style="margin-left: 40px;">
+                    <!-- Notification Bell Icon -->
+                    <div class="mr-3" style="margin-left: 40px;">
                         <a href="#" id="notificationDropdown" data-bs-toggle="dropdown" aria-expanded="false">
                             <i class="bi bi-bell" style="font-size: 20px; color: #4d0202;"></i>
                         </a>
@@ -149,8 +167,8 @@ if (isset($_SESSION['user'])) {
                                     </div>
                                 </div>
                             </li>
-                           
-                            
+
+
 
                         </ul>
                     </div>
@@ -159,16 +177,18 @@ if (isset($_SESSION['user'])) {
                             <button style="background: none; border: none;" class=" dropdown-toggle" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
                                 <img src="../img/<?= $loggedAdmin['img'] ?>" alt="" width="35px" style="border-radius: 60px; border: 1px solid #4d0202">
                             </button>
-                            <ul class="dropdown-menu dropdown-menu-dark dropdown_menu_setting aria-labelledby="dropdownMenuButton2">
-                            <li><a style="font-size: 12px; color: white;" class="dropdown-item" href="profile.php"><img src="../icons/manage_account.png" alt="" class="custom_icon"><span>Manage Account</span></a></li>
-                            <li><a style="font-size: 12px; color: white;"class="dropdown-item" href="#"><img src="../icons/help.png" alt="" class="custom_icon"><span>Help</span></a></li>
-                            <li><hr class="dropdown-divider"></li>
+                            <ul class="dropdown-menu dropdown-menu-dark dropdown_menu_setting aria-labelledby=" dropdownMenuButton2">
+                                <li><a style="font-size: 12px; color: white;" class="dropdown-item" href="profile.php"><img src="../icons/manage_account.png" alt="" class="custom_icon"><span>Manage Account</span></a></li>
+                                <li><a style="font-size: 12px; color: white;" class="dropdown-item" href="#"><img src="../icons/help.png" alt="" class="custom_icon"><span>Help</span></a></li>
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
 
-                            <form action="" method="post" style="margin-left: 20px;">
+                                <form action="" method="post" style="margin-left: 20px;">
 
-                                <label for="logout"><img src="../icons/plug.png" style="width: 20px; " alt=""></label>
-                                <input id="logoutButton" style="font-size: 12px; color: white; background: none; border: none;" name="logout" type="submit" value="Logout">
-                            </form>
+                                    <label for="logout"><img src="../icons/plug.png" style="width: 20px; " alt=""></label>
+                                    <input id="logoutButton" style="font-size: 12px; color: white; background: none; border: none;" name="logout" type="submit" value="Logout">
+                                </form>
                             </ul>
                         </div>
                     </div>
@@ -231,9 +251,9 @@ if (isset($_SESSION['user'])) {
                                     <div style=" margin: 15px 0 0 50px; height: 40px; width: 450px; border-radius: 5px; background-color: #390000; display: flex">
                                         <div style="width: 80%; height: 40px;display: flex; align-items: center;margin-left: 20px; font-size: 12px; font-weight: bold; color: white">NEW USERS/VISITORS REPORTS</div>
                                         <a href="report_users_visitors_inventory_users_visitors.php">
-                                        <div style="width: 20%; height: 40px;display: flex; align-items: center;margin-left: 20px; font-size: 12px; font-weight: bold; color: white">
-                                            <button style="border: none; background-color: transparent"><img style="width: 20px" src="../icons/go_to.png" alt=""></button>
-                                        </div>
+                                            <div style="width: 20%; height: 40px;display: flex; align-items: center;margin-left: 20px; font-size: 12px; font-weight: bold; color: white">
+                                                <button style="border: none; background-color: transparent"><img style="width: 20px" src="../icons/go_to.png" alt=""></button>
+                                            </div>
                                         </a>
                                     </div>
 
@@ -410,7 +430,7 @@ if (isset($_SESSION['user'])) {
             window.location.href = pageUrls.bookBorrowButton;
         });
     </script>
-    
+
     <script>
         // Prevent the dropdown from closing when clicking on the buttons
         function handleButtonClick(event) {

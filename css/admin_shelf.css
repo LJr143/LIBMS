@@ -1,3 +1,4 @@
+
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Noto+Sans:ital,wght@0,100;1,100&family=Playfair+Display+SC:ital,wght@0,400;0,700;0,900;1,400;1,700;1,900&family=Poppins:ital,wght@0,100;0,200;0,300;0,500;1,100;1,300;1,400&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Gabarito:wght@900&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
@@ -152,18 +153,16 @@ nav .right-side > .right-side-text {
     background-color: rgba(86,6,6,100%);
     color: rgba(255,255,255,100%);
 }
-.search_by select {
-    width: 200px;
-    padding: 5px 10px;
+.operation_all_btn  {
+    width: 120px;
+    height: 30px;
+    border: none;
     border-radius: 5px;
-    font-size: 12px;
+    background-color: transparent;
+    border: 2px solid rgba(86,6,6,100%);
+    color: rgba(86,6,6,100%);
+    font-weight: bold;
 }
-.input_search-wrapper {
-    display: flex;
-    align-items: center;
-    margin-left: 10px;
-}
-
 .search-input {
     border: none;
     border-bottom: 1px solid #000000;
@@ -178,20 +177,52 @@ nav .right-side > .right-side-text {
 .search-input::placeholder {
     color: white;
 }
-.book_information_inventory p {
-    font-size: 10px;
-    line-height: 1px;
+
+
+
+
+
+.ImportFile {
+    padding: 20px;
 }
-.book_information_inventory {
-    padding: 0px 0px 0px 5px;
+
+.ImportFile input {
+    width: 50%;
+}
+
+.AddImageContainer {
+    position: relative;
+    margin-top: 20px;
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+.AddImageContainer i {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-size: 50px;
+    cursor: pointer;
+}
+
+.SI img {
+    border-radius: 50%;
 }
 
 
 
+.SI input {
+    display: none;
+}
 
-
-
-
+/* Hide "Choose File" button */
+#input-file {
+    visibility: hidden !important;
+}
 
 .clear {
     padding: 3px 30px;
@@ -215,17 +246,16 @@ nav .right-side > .right-side-text {
     border-radius: 5px;
 }
 
-
-.custom-btn {
-    padding: 0;
-    /* Remove default padding */
+.clear,
+.add:hover {
+    opacity: 0.8;
+    cursor: pointer;
 }
 
-.custom-btn .imgmng {
-    width: 20px;
-    /* Set the desired width */
-    height: auto;
-    /* Maintain aspect ratio */
+@media only screen and (max-width: 767px) {
+    .firstname {
+        margin-top: 50px !important;
+    }
 }
 
 .imgmngline {
@@ -233,6 +263,16 @@ nav .right-side > .right-side-text {
 
 }
 
+.my-swal-popup {
+    width: 330px;
+    height: 300px;
+    background-color: #ffffff;
+}
+
+
+
+/* Custom CSS for the title text */
+       
 .my-swal-popup {
     width: 330px;
     height: 300px;
@@ -252,7 +292,7 @@ nav .right-side > .right-side-text {
     font-weight: 600;
     color: black;
     font-size: 12px;
-    margin-top: -18px;
+    margin-top: -5px;
 }
 
 .my-swal-popup .my-cancel-button {
@@ -267,23 +307,20 @@ nav .right-side > .right-side-text {
     color: #ffffff;
     font-size: 13px !important;
 }
+.my-confirm-button {
+        background-color: #711717 !important;
+        color: #ffffff !important;
+        padding: 7px;
+    }
 
 
 
 
+    
 .custom-menu-icon {
     width: 15px;
     height: 20px;
     margin-right: 10px;
-}
-
-/* Custom styling for the accordion item */
-.accordion-item {
-    font-size: 13px;
-    background-color: rgba(100, 0, 0, 100%);
-    padding: 0px;
-    margin-bottom: 5px;
-    border-color: transparent;
 }
 
 /* Custom styling for the accordion button */
@@ -302,6 +339,15 @@ nav .right-side > .right-side-text {
     height: 15px;
     margin-left: -10px;
     background-color: trasparent;
+}
+
+/* Custom styling for the accordion item */
+.accordion-item {
+    font-size: 13px;
+    background-color: rgba(100, 0, 0, 100%);
+    padding: 0px;
+    margin-bottom: 5px;
+    border-color: transparent;
 }
 
 /* Custom styling for the accordion body */

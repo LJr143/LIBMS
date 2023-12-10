@@ -95,13 +95,31 @@ if (isset($_SESSION['user'])) {
 
                     </div>
                 </div>
-                <div>
-                    <ul class="menu_icon">
+                <div class="container mt-4">
+                <ul class="menu_icon">
                         <li><img class="custom_menu_icon" src="../icons/dashboard_icon.png" alt=""><span><a href="dashboard.php">Dashboard</a></span></li>
-                        <li class="active"><img class="custom_menu_icon" src="../icons/staff_icon.png" alt=""><span><a href="student.php">Student</a></span></li>
+                        <li class="active">
+                            <div class="headermenu">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#studentCollapse" aria-expanded="false" aria-controls="studentCollapse">
+                                    <img class="custom_menu_icon" src="../icons/staff_icon.png" alt="" style="margin-right: 10px"> Student
+                                </button>
+                            </div>
+                            <div id="studentCollapse" class="accordion-collapse collapse ms-4" data-bs-parent="#menuAccordion">
+                                <div class="accordion-body">
+                                    <a href="student.php">All Students</a><br>
+                                    <a href="college.php">Colleges</a><br>
+                                    <a href="course.php">Courses</a><br>
+                                    <a href="section.php">Sections</a>
+                                </div>
+                            </div>
+                        </li>
                         <li><img class="custom_menu_icon" src="../icons/reports_icon.png" alt=""><span><a href="report.php">Reports</a></span></li>
                         <li><img class="custom_menu_icon" src="../icons/logs_icon.png" alt=""><span><a href="logs.php">Logs</a></span></li>
                         <li><img class="custom_menu_icon" src="../icons/admin_inventory_menu.png" alt=""><span><a href="inventory.php">Inventory</a></span></li>
+                        <li>
+                            <i class="bi bi-bookshelf custom_menu_icon" style="font-size: 20px; color:#fff"></i>
+                            <span><a href="shelf.php">Shelf</a></span>
+                        </li>
 
                     </ul>
                 </div>
@@ -392,7 +410,7 @@ if (isset($_SESSION['user'])) {
 
 
                             <form id="EditCollegeModal" class="row needs-validation " style="margin-left: 30px; width: 80%; height: 65%; " novalidate>
-                            <div class="col-md-5 firstname">
+                                <div class="col-md-5 firstname">
                                     <label for="addCollegeId" class="form-label mb-0" style="font-size: 12px;">COLLEGE</label>
                                     <select class="form-select" id="editStudentCourse" style="font-size: 10px; text-transform: uppercase !important;" required>
                                         <option value="" disabled selected>Select Course</option>

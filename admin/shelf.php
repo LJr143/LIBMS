@@ -57,10 +57,8 @@ if (isset($_SESSION['user'])) {
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10/dist/sweetalert2.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
-    <link rel="stylesheet" href="../css/admin_student.css">
+    <link rel="stylesheet" href="../css/admin_shelf.css">
     <link rel="stylesheet" href="../css/logout.css">
-
-
 </head>
 
 <body style="">
@@ -95,13 +93,31 @@ if (isset($_SESSION['user'])) {
 
                     </div>
                 </div>
-                <div>
+                <div class="container mt-4">
                     <ul class="menu_icon">
                         <li><img class="custom_menu_icon" src="../icons/dashboard_icon.png" alt=""><span><a href="dashboard.php">Dashboard</a></span></li>
-                        <li class="active"><img class="custom_menu_icon" src="../icons/staff_icon.png" alt=""><span><a href="student.php">Student</a></span></li>
+                        <li class="accordion-item">
+                            <div class="headermenu">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#studentCollapse" aria-expanded="false" aria-controls="studentCollapse">
+                                    <img class="custom_menu_icon" src="../icons/staff_icon.png" alt="" style="margin-right: 10px"> Student
+                                </button>
+                            </div>
+                            <div id="studentCollapse" class="accordion-collapse collapse ms-4" data-bs-parent="#menuAccordion">
+                                <div class="accordion-body">
+                                    <a href="student.php">All Students</a><br>
+                                    <a href="college.php">Colleges</a><br>
+                                    <a href="course.php">Courses</a><br>
+                                    <a href="section.php">Sections</a>
+                                </div>
+                            </div>
+                        </li>
                         <li><img class="custom_menu_icon" src="../icons/reports_icon.png" alt=""><span><a href="report.php">Reports</a></span></li>
                         <li><img class="custom_menu_icon" src="../icons/logs_icon.png" alt=""><span><a href="logs.php">Logs</a></span></li>
                         <li><img class="custom_menu_icon" src="../icons/admin_inventory_menu.png" alt=""><span><a href="inventory.php">Inventory</a></span></li>
+                        <li class="active">
+                            <i class="bi bi-bookshelf custom_menu_icon" style="font-size: 20px; color:#fff"></i>
+                            <span><a href="shelf.php">Shelf</a></span>
+                        </li>
 
                     </ul>
                 </div>
