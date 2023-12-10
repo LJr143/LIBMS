@@ -235,7 +235,7 @@ if (isset($_SESSION['user'])) {
                                 </select>
                             </div>
                             <div class="input_search-wrapper" style="margin-left: 20px;">
-                                <input type="search" class="search-input"  placeholder="Search Book">
+                                <input type="search" class="search-input" placeholder="Search Book">
                             </div>
                         </div>
                         <div class="col col-md-2" style="display: flex; align-items: center; justify-content: flex-end;">
@@ -245,22 +245,22 @@ if (isset($_SESSION['user'])) {
                     </div>
                 </div>
                 <div style="display: flex; justify-content: center;">
-                    <div  style="width:95%; min-height: 100vh; margin-top: 10px; ">
+                    <div style="width: 95%; min-height: 100vh; margin-top: 10px; ">
                         <?php
                         for ($row = 0; $row < $rowCount; $row++) {
                             if ($totalBooks == 0) {
                                 break;
                             }
                         ?>
-                            <div class="col col-md-12 p-5 " style="background: rgb(255,255,255); height: 38vh; border-radius: 5px; box-shadow: 0px 4px 8px rgba(0,0,0,0.2); display: flex; align-items: center; justify-items: center; padding: 15px 5px 15px 15px; margin: 20px 0px 0px 0px;">
+                            <div class="col col-md-12" style="background: rgb(255,255,255); height: 38vh; border-radius: 5px; box-shadow: 0px 4px 8px rgba(0,0,0,0.2); display: flex; align-items: center; padding: 15px 5px 15px 15px; margin: 20px 0px 0px 0px;">
                                 <?php
                                 for ($col = 0; $col < $colCount; $col++) {
                                     $bookIndex = $startIndex + ($row * $colCount) + $col;
                                     if ($bookIndex <= $endIndex) {
                                         $book = $books[$bookIndex];
                                 ?>
-                                        <div class="card"  style="width: 25rem; height: 250px; box-shadow: 0px 3px 6px rgba(0,0,0,0.26); margin: 0px 10px 0px 0px;">
-                                            <div class="card-body ">
+                                        <div class="card" style="width: 25rem; height: 250px; box-shadow: 0px 3px 6px rgba(0,0,0,0.26); margin: 0px 10px 0px 0px;">
+                                            <div class="card-body">
                                                 <h6 class="card-title"><input type="checkbox"></h6>
                                                 <div style="width: 100%; height: 21vh; display: flex;">
                                                     <div style=" height: 21vh; width: 138px; overflow: hidden ">
@@ -691,9 +691,6 @@ if (isset($_SESSION['user'])) {
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-
-
-
 
 
     <script>

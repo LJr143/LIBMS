@@ -1,3 +1,4 @@
+
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Noto+Sans:ital,wght@0,100;1,100&family=Playfair+Display+SC:ital,wght@0,400;0,700;0,900;1,400;1,700;1,900&family=Poppins:ital,wght@0,100;0,200;0,300;0,500;1,100;1,300;1,400&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Gabarito:wght@900&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
@@ -9,7 +10,6 @@
     box-sizing: border-box;
     font-family: 'Inter', serif;
 }
-
 html {
     overflow-x: initial !important;
 }
@@ -26,37 +26,32 @@ nav {
     z-index: 1001;
     width: 100%;
 }
-
 .custom_img {
     width: 40px;
     padding: 0px 0px;
     margin: 0px 0px 0px 5px;
 }
-
 .custom_icon {
     width: 20px;
     padding: 0px 1px;
     margin: 0px 5px 5px 0px;
 }
-
 nav .head-text {
     display: flex;
 
 }
-
-nav .head-text>.usep-text {
+nav .head-text > .usep-text {
     margin-left: 10px;
 
 }
-
 nav .head-text .right-side {
     display: flex;
 
 
 }
+nav .right-side > .right-side-text {
 
-nav .right-side>.right-side-text {}
-
+}
 .user-nav {
     position: relative;
     width: 100%;
@@ -69,7 +64,6 @@ nav .right-side>.right-side-text {}
     align-items: center;
     align-content: center;
 }
-
 .profile_section {
     --bg_image: url('../icons/eagle.jpg');
     --opacity: 1;
@@ -104,97 +98,79 @@ nav .right-side>.right-side-text {}
     margin: 0px 5px 0px 5px;
     color: white;
 }
-
 .user-nav ul li a {
     color: white;
     text-decoration: none;
     font-size: 12px;
     font-weight: 400;
 }
-
 .user-nav ul li:hover {
 
-    background-color: rgba(86, 6, 6, 100%);
+    background-color: rgba(86,6,6,100%);
 }
-
 .user-nav ul li a:hover {
     color: white;
 }
-
 .main-content {
     position: relative;
     width: 100%;
     min-height: 250vh;
 
 }
-
 .side_bar {
-    background-color: rgba(100, 0, 0, 100%);
+    background-color: rgba(100,0,0,100%);
     min-height: 150vh;
     width: 200px;
 }
-
 .menu_icon {
     padding: 0;
     margin: 0;
 }
-
-.menu_icon>li {
+.menu_icon > li {
     list-style: none;
     margin: 0px 0px 0px 0px;
     width: 100%;
     padding: 12px;
 }
-
-.menu_icon>li:hover {
-    background-color: rgba(70, 7, 7, 100%);
+.menu_icon > li:hover {
+    background-color: rgba(70,7,7,100%);
     cursor: pointer;
 
 }
-
 .custom_menu_icon {
     width: 22px;
 }
-
-.menu_icon>li a {
+.menu_icon > li a {
     text-decoration: none;
     font-size: 11px;
-    color: rgba(255, 255, 255, 100%);
+    color: rgba(255,255,255,100%);
     margin: 10px 0px 0px 12px;
 
 }
-
-.card-body>h6 {
+.card-body > h6 {
     font-size: 12px;
 }
-
 .active {
-    background-color: rgba(86, 6, 6, 100%);
-    color: rgba(255, 255, 255, 100%);
+    background-color: rgba(86,6,6,100%);
+    color: rgba(255,255,255,100%);
 }
-
-tr th,
-td {
+tr th,td {
     font-size: 12px;
 }
-
 .custom_book_img {
     width: 80px;
 }
-
 .top_choice_book_container {
     display: flex;
     align-items: center;
     align-content: center;
     padding: 20px;
-}
-
+ }
 .dash_cards .card {
     position: relative;
     isolation: isolate;
     background-color: #560204;
 }
-
 .dash_cards .card::after {
     content: '';
     position: absolute;
@@ -208,20 +184,15 @@ td {
     background-position-x: 160px;
 
 }
-
-.dash_cards .card h6,
-h5 {
+.dash_cards .card h6, h5 {
     font-size: 12px;
     font-weight: bold;
     color: white;
 }
-
-.dash_cards .card h5 {
+.dash_cards .card  h5 {
     font-style: italic;
     font-size: 18px;
 }
-
-
 
 .custom-menu-icon {
     width: 15px;

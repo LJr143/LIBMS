@@ -111,6 +111,7 @@ if (isset($_SESSION['user'])) {
 
                     </div>
                 </div>
+<<<<<<< HEAD
 
                 <div>
                     <ul class="menu_icon">
@@ -130,17 +131,17 @@ if (isset($_SESSION['user'])) {
                                 </div>
                             </div>
                         </li>
+=======
+                <div>
+                    <ul class="menu_icon">
+                        <li class="active"><img class="custom_menu_icon" src="../icons/dashboard_icon.png" alt=""><span><a href="dashboard.php">Dashboard</a></span></li>
+                        <li><img class="custom_menu_icon" src="../icons/staff_icon.png" alt=""><span><a href="student.php">Student</a></span></li>
+>>>>>>> parent of b08d6ea (Merge branch 'main' of https://github.com/LJr143/LIBMS)
                         <li><img class="custom_menu_icon" src="../icons/reports_icon.png" alt=""><span><a href="report.php">Reports</a></span></li>
                         <li><img class="custom_menu_icon" src="../icons/logs_icon.png" alt=""><span><a href="logs.php">Logs</a></span></li>
                         <li><img class="custom_menu_icon" src="../icons/admin_inventory_menu.png" alt=""><span><a href="inventory.php">Inventory</a></span></li>
-                        <li>
-                            <i class="bi bi-bookshelf custom_menu_icon" style="font-size: 20px; color:#fff"></i>
-                            <span><a href="shelf.php">Shelf</a></span>
-                        </li>
-
                     </ul>
                 </div>
-
 
             </div>
             <div class="col" style=" width: 100%; height: 100vh; ">
@@ -149,50 +150,50 @@ if (isset($_SESSION['user'])) {
                         <div style="width: 90%">
                             <p style="font-size: 10px; font-weight: 700; margin: 14px">HOME | DASHBOARD</p>
                         </div>
-                        <!-- Notification Bell Icon -->
-                        <div class="mr-3" style="margin-left: 40px;">
-                            <a href="#" id="notificationDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                                <i class="bi bi-bell" style="font-size: 20px; color: #4d0202;"></i>
-                            </a>
-                            <ul class="dropdown-menu" aria-labelledby="notificationDropdown" style="padding: 25px; font-size: 13px; background-color: white;">
-                                <li style="margin-bottom: 15px;"><span><b>NOTIFICATION</b></span></li>
-                                <li>
-                                    <div class="d-flex justify-content-between align-items-center" style=" background-color: #F8F8FF; padding: 10px; height: 35px; box-shadow: 0px 4px 8px rgba(0,0,0,0.27); margin-bottom: 8px;">
-                                        <span>Sheena Pagas has requested to borrow a book</span>
-                                        <div class="btn-group ms-4">
-                                            <button type="button" class="btn custom-btn" data-bs-toggle="modal" onclick="handleButtonClick(event)" data-bs-target="#infoModal1">
-                                                <i class="bi bi-info-circle" style="color:blue; font-size: 20px;"></i>
-                                            </button>
-                                            <button type="button" class="btn custom-btn" onclick="handleButtonClick(event)">
-                                                <i class="bi bi-check-circle" style="color:green; font-size: 20px;"></i>
-                                            </button>
-                                            <button type="button" class="btn custom-btn" onclick="handleButtonClick(event)">
-                                                <i class="bi bi-x-circle" style="color:red; font-size: 20px;"></i>
-                                            </button>
-                                        </div>
+                          <!-- Notification Bell Icon -->
+                    <div class="mr-3" style="margin-left: 40px;">
+                        <a href="#" id="notificationDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="bi bi-bell" style="font-size: 20px; color: #4d0202;"></i>
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="notificationDropdown" style="padding: 25px; font-size: 13px; background-color: white;">
+                            <li style="margin-bottom: 15px;"><span><b>NOTIFICATION</b></span></li>
+                            <li>
+                                <div class="d-flex justify-content-between align-items-center" style=" background-color: #F8F8FF; padding: 10px; height: 35px; box-shadow: 0px 4px 8px rgba(0,0,0,0.27); margin-bottom: 8px;">
+                                    <span>Sheena Pagas has requested to borrow a book</span>
+                                    <div class="btn-group ms-4">
+                                        <button type="button" class="btn custom-btn" data-bs-toggle="modal" onclick="handleButtonClick(event)" data-bs-target="#infoModal1">
+                                            <i class="bi bi-info-circle" style="color:blue; font-size: 20px;"></i>
+                                        </button>
+                                        <button type="button" class="btn custom-btn" onclick="handleButtonClick(event)">
+                                            <i class="bi bi-check-circle" style="color:green; font-size: 20px;"></i>
+                                        </button>
+                                        <button type="button" class="btn custom-btn" onclick="handleButtonClick(event)">
+                                            <i class="bi bi-x-circle" style="color:red; font-size: 20px;"></i>
+                                        </button>
                                     </div>
-                                </li>
-                                <li>
-                                    <div class="d-flex justify-content-between align-items-center" style=" background-color: #F8F8FF; padding: 10px; height: 35px; box-shadow: 0px 4px 8px rgba(0,0,0,0.27); margin-bottom: 8px;">
-                                        <span>Sheena Pagas has requested to borrow a book</span>
-                                        <div class="btn-group ms-4">
-                                            <button type="button" class="btn custom-btn" data-bs-toggle="modal" onclick="handleButtonClick(event)" data-bs-target="#infoModal1">
-                                                <i class="bi bi-info-circle" style="color:blue; font-size: 20px;"></i>
-                                            </button>
-                                            <button type="button" class="btn custom-btn" onclick="handleButtonClick(event)">
-                                                <i class="bi bi-check-circle" style="color:green; font-size: 20px;"></i>
-                                            </button>
-                                            <button type="button" class="btn custom-btn" onclick="handleButtonClick(event)">
-                                                <i class="bi bi-x-circle" style="color:red; font-size: 20px;"></i>
-                                            </button>
-                                        </div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="d-flex justify-content-between align-items-center" style=" background-color: #F8F8FF; padding: 10px; height: 35px; box-shadow: 0px 4px 8px rgba(0,0,0,0.27); margin-bottom: 8px;">
+                                    <span>Sheena Pagas has requested to borrow a book</span>
+                                    <div class="btn-group ms-4">
+                                        <button type="button" class="btn custom-btn" data-bs-toggle="modal" onclick="handleButtonClick(event)" data-bs-target="#infoModal1">
+                                            <i class="bi bi-info-circle" style="color:blue; font-size: 20px;"></i>
+                                        </button>
+                                        <button type="button" class="btn custom-btn" onclick="handleButtonClick(event)">
+                                            <i class="bi bi-check-circle" style="color:green; font-size: 20px;"></i>
+                                        </button>
+                                        <button type="button" class="btn custom-btn" onclick="handleButtonClick(event)">
+                                            <i class="bi bi-x-circle" style="color:red; font-size: 20px;"></i>
+                                        </button>
                                     </div>
-                                </li>
+                                </div>
+                            </li>
+                           
+                            
 
-
-
-                            </ul>
-                        </div>
+                        </ul>
+                    </div>
                         <div class=" d-flex justify-content-end align-items-center" style="height: 50px; width: 6%; margin-right: 20px ">
                             <div class="dropdown" style=" margin-right: 0px; position: absolute">
                                 <button style="background: none; border: none;" class=" dropdown-toggle" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
@@ -648,6 +649,8 @@ if (isset($_SESSION['user'])) {
             event.stopPropagation();
         }
     </script>
+
+
 
 
 </body>
