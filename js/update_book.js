@@ -118,7 +118,7 @@ function validateUpdateForm() {
         var pattern = patterns[fieldId];
 
         if (!pattern.test(field.val())) {
-            var errorMessage = getCustomErrorMessage(fieldId,  'add_book');
+            var errorMessage = getCustomErrorMessage(fieldId, 'update');
             showValidationError(errorMessage);
             return false; // Validation failed
         }
@@ -175,7 +175,7 @@ function clearUpdateForm() {
     $('#UpdateBookDisplay')[0].reset();
 
     // Reset the profile picture display for update
-    var defaultImageSrc = 'path_to_default_image'; // Replace with the path to your default image
+    var defaultImageSrc = '../img'; // Replace with the path to your default image
     $('#displayUpdatedBookPicture').attr('src', defaultImageSrc);
 
     // Show the "+" sign for adding image in update form
@@ -185,3 +185,5 @@ function clearUpdateForm() {
     var form = $('#UpdateBookDisplay')[0];
     form.classList.remove('was-validated');
 }
+
+
