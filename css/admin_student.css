@@ -321,6 +321,19 @@ nav .right-side > .right-side-text {
     border: none;
 }
 
+<<<<<<< HEAD
+=======
+
+
+
+    
+.custom-menu-icon {
+    width: 15px;
+    height: 20px;
+    margin-right: 10px;
+}
+
+>>>>>>> 2a5064e6e1c5f56b2aac56cd9e4fa42d21508776
 /* Custom styling for the accordion button */
 .accordion-button {
     color: #f0ecec;
@@ -328,6 +341,7 @@ nav .right-side > .right-side-text {
     background-color: transparent;
     height: 14px;
     margin-left: 10px;
+<<<<<<< HEAD
     padding: 0;
     position: relative;
 }
@@ -345,14 +359,27 @@ nav .right-side > .right-side-text {
 }
 
 /* Header menu styling */
+=======
+    padding: 0px;
+}
+
+>>>>>>> 2a5064e6e1c5f56b2aac56cd9e4fa42d21508776
 .headermenu {
     display: flex;
     align-items: center;
     height: 15px;
     margin-left: -10px;
+<<<<<<< HEAD
     background-color: transparent;
 }
 
+=======
+    background-color: trasparent;
+}
+
+
+
+>>>>>>> 2a5064e6e1c5f56b2aac56cd9e4fa42d21508776
 /* Custom styling for the accordion body */
 .accordion-body {
     background-color: transparent;
@@ -366,20 +393,31 @@ nav .right-side > .right-side-text {
     color: white;
 }
 
+<<<<<<< HEAD
 /* Hide arrow in expanded state */
 .accordion-button:not(.collapsed)::after {
     color: white;
 }
 
 /* Remove focus and active styles for header menu */
+=======
+>>>>>>> 2a5064e6e1c5f56b2aac56cd9e4fa42d21508776
 .headermenu:focus,
 .headermenu:active {
     outline: none !important;
     border: none !important;
 }
 
+<<<<<<< HEAD
 /* Styling for links inside accordion body */
 .accordion-body a {
     display: block;
     line-height: 0.5; /* Adjust the value as needed */
 }
+=======
+.accordion-body a {
+    display: block;
+    line-height: .5;
+    /* Adjust the value as needed */
+}
+>>>>>>> 2a5064e6e1c5f56b2aac56cd9e4fa42d21508776

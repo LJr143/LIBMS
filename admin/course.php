@@ -95,6 +95,7 @@ if (isset($_SESSION['user'])) {
 
                     </div>
                 </div>
+<<<<<<< HEAD
                 <div>
                     <ul class="menu_icon">
                         <li class="active"><img class="custom_menu_icon" src="../icons/dashboard_icon.png" alt=""><span><a href="dashboard.php">Dashboard</a></span></li>
@@ -102,6 +103,15 @@ if (isset($_SESSION['user'])) {
                             <div class="headermenu">
                                 <button  class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#studentCollapse" aria-expanded="false" aria-controls="studentCollapse">
                                     <img class="custom_menu_icon" src="../icons/staff_icon.png" alt="" style="margin-right: 10px; "> Student
+=======
+                <div class="container mt-4">
+                <ul class="menu_icon">
+                        <li><img class="custom_menu_icon" src="../icons/dashboard_icon.png" alt=""><span><a href="dashboard.php">Dashboard</a></span></li>
+                        <li class="active">
+                            <div class="headermenu">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#studentCollapse" aria-expanded="false" aria-controls="studentCollapse">
+                                    <img class="custom_menu_icon" src="../icons/staff_icon.png" alt="" style="margin-right: 10px"> Student
+>>>>>>> 2a5064e6e1c5f56b2aac56cd9e4fa42d21508776
                                 </button>
                             </div>
                             <div id="studentCollapse" class="accordion-collapse collapse ms-4" data-bs-parent="#menuAccordion">
@@ -410,7 +420,7 @@ if (isset($_SESSION['user'])) {
 
 
                             <form id="EditCollegeModal" class="row needs-validation " style="margin-left: 30px; width: 80%; height: 65%; " novalidate>
-                            <div class="col-md-5 firstname">
+                                <div class="col-md-5 firstname">
                                     <label for="addCollegeId" class="form-label mb-0" style="font-size: 12px;">COLLEGE</label>
                                     <select class="form-select" id="editStudentCourse" style="font-size: 10px; text-transform: uppercase !important;" required>
                                         <option value="" disabled selected>Select Course</option>

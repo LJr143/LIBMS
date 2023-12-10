@@ -7,7 +7,7 @@ include 'C:\wamp64\www\LIBMS\includes\fetch_books_data.php';
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
-$loggedAdmin ='';
+$loggedAdmin = '';
 
 $database = new Database();
 $userAuth = new UserAuthentication($database);
@@ -16,7 +16,7 @@ $booksData = new BookData($database);
 
 
 
-if($userAuth->isAuthenticated()) {
+if ($userAuth->isAuthenticated()) {
 } else {
     header('Location: ../index_admin.php');
     exit();
@@ -42,7 +42,6 @@ if (isset($_SESSION['user'])) {
     } else {
         echo 'Invalid admin ID.';
     }
-
 }
 ?>
 <!doctype html>
@@ -94,13 +93,32 @@ if (isset($_SESSION['user'])) {
                         </ul>
                     </div>
                 </div>
-                <div>
+                <div class="container mt-4">
                     <ul class="menu_icon">
                         <li><img class="custom_menu_icon" src="../icons/dashboard_icon.png" alt=""><span><a href="dashboard.php">Dashboard</a></span></li>
-                        <li><img class="custom_menu_icon" src="../icons/staff_icon.png" alt=""><span><a href="student.php">Student</a></span></li>
+                        <li class="accordion-item">
+                            <div class="headermenu">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#studentCollapse" aria-expanded="false" aria-controls="studentCollapse">
+                                    <img class="custom_menu_icon" src="../icons/staff_icon.png" alt="" style="margin-right: 10px"> Student
+                                </button>
+                            </div>
+                            <div id="studentCollapse" class="accordion-collapse collapse ms-4" data-bs-parent="#menuAccordion">
+                                <div class="accordion-body">
+                                    <a href="student.php">All Students</a><br>
+                                    <a href="college.php">Colleges</a><br>
+                                    <a href="course.php">Courses</a><br>
+                                    <a href="section.php">Sections</a>
+                                </div>
+                            </div>
+                        </li>
                         <li class="active"><img class="custom_menu_icon" src="../icons/reports_icon.png" alt=""><span><a href="report.php">Reports</a></span></li>
                         <li><img class="custom_menu_icon" src="../icons/logs_icon.png" alt=""><span><a href="logs.php">Logs</a></span></li>
                         <li><img class="custom_menu_icon" src="../icons/admin_inventory_menu.png" alt=""><span><a href="inventory.php">Inventory</a></span></li>
+                        <li>
+                            <i class="bi bi-bookshelf custom_menu_icon" style="font-size: 20px; color:#fff"></i>
+                            <span><a href="shelf.php">Shelf</a></span>
+                        </li>
+
                     </ul>
                 </div>
 
@@ -110,8 +128,8 @@ if (isset($_SESSION['user'])) {
                     <div style="width: 90%">
                         <p style="font-size: 10px; font-weight: 700; margin: 14px">HOME | REPORT</p>
                     </div>
-                      <!-- Notification Bell Icon -->
-                      <div class="mr-3" style="margin-left: 40px;">
+                    <!-- Notification Bell Icon -->
+                    <div class="mr-3" style="margin-left: 40px;">
                         <a href="#" id="notificationDropdown" data-bs-toggle="dropdown" aria-expanded="false">
                             <i class="bi bi-bell" style="font-size: 20px; color: #4d0202;"></i>
                         </a>
@@ -149,8 +167,8 @@ if (isset($_SESSION['user'])) {
                                     </div>
                                 </div>
                             </li>
-                           
-                            
+
+
 
                         </ul>
                     </div>
@@ -159,16 +177,18 @@ if (isset($_SESSION['user'])) {
                             <button style="background: none; border: none;" class=" dropdown-toggle" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
                                 <img src="../img/<?= $loggedAdmin['img'] ?>" alt="" width="35px" style="border-radius: 60px; border: 1px solid #4d0202">
                             </button>
-                            <ul class="dropdown-menu dropdown-menu-dark dropdown_menu_setting aria-labelledby="dropdownMenuButton2">
-                            <li><a style="font-size: 12px; color: white;" class="dropdown-item" href="profile.php"><img src="../icons/manage_account.png" alt="" class="custom_icon"><span>Manage Account</span></a></li>
-                            <li><a style="font-size: 12px; color: white;"class="dropdown-item" href="#"><img src="../icons/help.png" alt="" class="custom_icon"><span>Help</span></a></li>
-                            <li><hr class="dropdown-divider"></li>
+                            <ul class="dropdown-menu dropdown-menu-dark dropdown_menu_setting aria-labelledby=" dropdownMenuButton2">
+                                <li><a style="font-size: 12px; color: white;" class="dropdown-item" href="profile.php"><img src="../icons/manage_account.png" alt="" class="custom_icon"><span>Manage Account</span></a></li>
+                                <li><a style="font-size: 12px; color: white;" class="dropdown-item" href="#"><img src="../icons/help.png" alt="" class="custom_icon"><span>Help</span></a></li>
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
 
-                            <form action="" method="post" style="margin-left: 20px;">
+                                <form action="" method="post" style="margin-left: 20px;">
 
-                                <label for="logout"><img src="../icons/plug.png" style="width: 20px; " alt=""></label>
-                                <input id="logoutButton" style="font-size: 12px; color: white; background: none; border: none;" name="logout" type="submit" value="Logout">
-                            </form>
+                                    <label for="logout"><img src="../icons/plug.png" style="width: 20px; " alt=""></label>
+                                    <input id="logoutButton" style="font-size: 12px; color: white; background: none; border: none;" name="logout" type="submit" value="Logout">
+                                </form>
                             </ul>
                         </div>
                     </div>
@@ -194,7 +214,7 @@ if (isset($_SESSION['user'])) {
                                 <h6 style="font-size: 12px; font-weight: 700;">QUARTERLY REPORTS</h6>
                             </div>
                             <div style="width: 15%; display: flex; justify-content: flex-end">
-                            <select name="" id="navigationSelect" style="font-size: 12px; width: 150px; padding: 2px 5px; border-radius: 5px">
+                                <select name="" id="navigationSelect" style="font-size: 12px; width: 150px; padding: 2px 5px; border-radius: 5px">
                                     <option value="overall">OVERALL</option>
                                     <option value="borrowed">BORROWED</option>
                                     <option value="reserved">RESERVED</option>
@@ -514,69 +534,69 @@ if (isset($_SESSION['user'])) {
         });
     </script>
     <script>
-    // Get the <select> element
-    const selectElement = document.getElementById('navigationSelect');
+        // Get the <select> element
+        const selectElement = document.getElementById('navigationSelect');
 
-    // Define the URLs corresponding to each option
-    const pageUrls = {
-        overall: 'report.php',
-        borrowed: 'report_borrowed_inventory.php',
-        reserved: 'report_reserved_inventory.php',
-        returned: 'report_returned_inventory.php',
-        'book-copies': 'report_copies_inventory.php',
-    };
+        // Define the URLs corresponding to each option
+        const pageUrls = {
+            overall: 'report.php',
+            borrowed: 'report_borrowed_inventory.php',
+            reserved: 'report_reserved_inventory.php',
+            returned: 'report_returned_inventory.php',
+            'book-copies': 'report_copies_inventory.php',
+        };
 
-    const currentPageUrl = window.location.pathname;
+        const currentPageUrl = window.location.pathname;
 
-    // Find the corresponding option based on the URL
-    const selectedOption = Object.entries(pageUrls).find(([option, url]) => currentPageUrl.endsWith(url));
+        // Find the corresponding option based on the URL
+        const selectedOption = Object.entries(pageUrls).find(([option, url]) => currentPageUrl.endsWith(url));
 
-    if (selectedOption) {
-        selectElement.value = selectedOption[0];
-    }
+        if (selectedOption) {
+            selectElement.value = selectedOption[0];
+        }
 
-    // Add an event listener to detect changes
-    selectElement.addEventListener('change', function() {
-        // Get the selected option's value
-        const selectedOption = selectElement.value;
+        // Add an event listener to detect changes
+        selectElement.addEventListener('change', function() {
+            // Get the selected option's value
+            const selectedOption = selectElement.value;
 
-        // Redirect the user to the selected page
-        window.location.href = pageUrls[selectedOption];
-    });
+            // Redirect the user to the selected page
+            window.location.href = pageUrls[selectedOption];
+        });
 
-    // Define the page URLs for the buttons
-    const buttonPageUrls = {
-        bookInventoryButton: 'report.php',
-        categoriesButton: 'report_categories_inventory.php',
-        newUsersButton: 'report_users_inventory.php',
-        bookStatusButton: 'report_book_status_inventory.php',
-    };
+        // Define the page URLs for the buttons
+        const buttonPageUrls = {
+            bookInventoryButton: 'report.php',
+            categoriesButton: 'report_categories_inventory.php',
+            newUsersButton: 'report_users_inventory.php',
+            bookStatusButton: 'report_book_status_inventory.php',
+        };
 
-    // Get the buttons by their IDs
-    const bookInventoryButton = document.getElementById('bookInventoryButton');
-    const categoriesButton = document.getElementById('categoriesButton');
-    const newUsersButton = document.getElementById('newUsersButton');
-    const bookStatusButton = document.getElementById('bookStatusButton');
+        // Get the buttons by their IDs
+        const bookInventoryButton = document.getElementById('bookInventoryButton');
+        const categoriesButton = document.getElementById('categoriesButton');
+        const newUsersButton = document.getElementById('newUsersButton');
+        const bookStatusButton = document.getElementById('bookStatusButton');
 
-    // Attach click event listeners to the buttons
-    bookInventoryButton.addEventListener('click', () => {
-        window.location.href = buttonPageUrls.bookInventoryButton;
-    });
+        // Attach click event listeners to the buttons
+        bookInventoryButton.addEventListener('click', () => {
+            window.location.href = buttonPageUrls.bookInventoryButton;
+        });
 
-    categoriesButton.addEventListener('click', () => {
-        window.location.href = buttonPageUrls.categoriesButton;
-    });
+        categoriesButton.addEventListener('click', () => {
+            window.location.href = buttonPageUrls.categoriesButton;
+        });
 
-    newUsersButton.addEventListener('click', () => {
-        window.location.href = buttonPageUrls.newUsersButton;
-    });
+        newUsersButton.addEventListener('click', () => {
+            window.location.href = buttonPageUrls.newUsersButton;
+        });
 
-    bookStatusButton.addEventListener('click', () => {
-        window.location.href = buttonPageUrls.bookStatusButton;
-    });
-</script>
+        bookStatusButton.addEventListener('click', () => {
+            window.location.href = buttonPageUrls.bookStatusButton;
+        });
+    </script>
 
-<script>
+    <script>
         // Prevent the dropdown from closing when clicking on the buttons
         function handleButtonClick(event) {
             event.stopPropagation();

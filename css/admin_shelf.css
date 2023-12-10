@@ -90,7 +90,6 @@ nav .right-side > .right-side-text {
     background-size: cover;
 
 }
-
 .user-nav ul li {
     width: 150px;
     text-align: center;
@@ -154,31 +153,74 @@ nav .right-side > .right-side-text {
     background-color: rgba(86,6,6,100%);
     color: rgba(255,255,255,100%);
 }
-.personal_infor_p {
-    font-size: 10px;
-    margin: 0px 0px 5px 35px;
-
-    font-weight: 600;
-}
-.list_password_accept > li > p {
-    margin-top: -25px;
-}
-.change_pass_btn {
-    font-size: 10px;
-    background: rgb(116,0,0);
+.operation_all_btn  {
+    width: 120px;
     height: 30px;
-    width: 110px;
     border: none;
-    color: white;
     border-radius: 5px;
-    font-weight: 600;
+    background-color: transparent;
+    border: 2px solid rgba(86,6,6,100%);
+    color: rgba(86,6,6,100%);
+    font-weight: bold;
+}
+.search-input {
+    border: none;
+    border-bottom: 1px solid #000000;
+    padding: 5px 30px;
+    background: transparent url('../icons/search.png') no-repeat 0% 50%;
+    background-size: 15px;
+    outline: none;
+    width: 200px;
+    font-size: 12px;
+}
+
+.search-input::placeholder {
+    color: white;
 }
 
 
 
 
- /* Hide "Choose File" button */
- #input-file {
+
+.ImportFile {
+    padding: 20px;
+}
+
+.ImportFile input {
+    width: 50%;
+}
+
+.AddImageContainer {
+    position: relative;
+    margin-top: 20px;
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+.AddImageContainer i {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-size: 50px;
+    cursor: pointer;
+}
+
+.SI img {
+    border-radius: 50%;
+}
+
+
+
+.SI input {
+    display: none;
+}
+
+/* Hide "Choose File" button */
+#input-file {
     visibility: hidden !important;
 }
 
@@ -210,35 +252,75 @@ nav .right-side > .right-side-text {
     cursor: pointer;
 }
 
-<<<<<<< HEAD
-/* Custom styling for the accordion item */
-.accordion-item {
+@media only screen and (max-width: 767px) {
+    .firstname {
+        margin-top: 50px !important;
+    }
+}
+
+.imgmngline {
+    max-width: 10%;
+
+}
+
+.my-swal-popup {
+    width: 330px;
+    height: 300px;
+    background-color: #ffffff;
+}
+
+
+
+/* Custom CSS for the title text */
+       
+.my-swal-popup {
+    width: 330px;
+    height: 300px;
+    background-color: #ffffff;
+}
+
+
+
+/* Custom CSS for the title text */
+.my-swal-popup .swal-title {
+    color: #711717;
     font-size: 14px;
-    background-color: rgba(100, 0, 0, 100%);
-    padding: 0;
-    margin-bottom: 5px;
-    border: none;
-=======
+    margin-top: -18px;
+}
+
+.my-swal-popup .my-swal-content {
+    font-weight: 600;
+    color: black;
+    font-size: 12px;
+    margin-top: -5px;
+}
+
+.my-swal-popup .my-cancel-button {
+    background-color: #dfdfdf !important;
+    color: #711717 !important;
+    border-color: #711717 !important;
+    font-size: 13px !important;
+}
+
+.my-swal-popup .my-confirm-button {
+    background-color: #711717;
+    color: #ffffff;
+    font-size: 13px !important;
+}
+.my-confirm-button {
+        background-color: #711717 !important;
+        color: #ffffff !important;
+        padding: 7px;
+    }
 
 
 
 
-
-
+    
 .custom-menu-icon {
     width: 15px;
     height: 20px;
     margin-right: 10px;
-}
-
-/* Custom styling for the accordion item */
-.accordion-item {
-    font-size: 13px;
-    background-color: rgba(100, 0, 0, 100%);
-    padding: 0px;
-    margin-bottom: 5px;
-    border-color: transparent;
->>>>>>> 2a5064e6e1c5f56b2aac56cd9e4fa42d21508776
 }
 
 /* Custom styling for the accordion button */
@@ -248,45 +330,26 @@ nav .right-side > .right-side-text {
     background-color: transparent;
     height: 14px;
     margin-left: 10px;
-<<<<<<< HEAD
-    padding: 0;
-    position: relative;
-}
-
-/* Remove default arrow */
-.accordion-button::after {
-    display: flex;
-    color: white;
-}
-
-/* Remove focus styles */
-.accordion-button:focus {
-    box-shadow: none;
-    border: none;
-}
-
-/* Header menu styling */
-=======
     padding: 0px;
 }
 
->>>>>>> 2a5064e6e1c5f56b2aac56cd9e4fa42d21508776
 .headermenu {
     display: flex;
     align-items: center;
     height: 15px;
     margin-left: -10px;
-<<<<<<< HEAD
-    background-color: transparent;
-}
-
-=======
     background-color: trasparent;
 }
 
+/* Custom styling for the accordion item */
+.accordion-item {
+    font-size: 13px;
+    background-color: rgba(100, 0, 0, 100%);
+    padding: 0px;
+    margin-bottom: 5px;
+    border-color: transparent;
+}
 
-
->>>>>>> 2a5064e6e1c5f56b2aac56cd9e4fa42d21508776
 /* Custom styling for the accordion body */
 .accordion-body {
     background-color: transparent;
@@ -300,31 +363,14 @@ nav .right-side > .right-side-text {
     color: white;
 }
 
-<<<<<<< HEAD
-/* Hide arrow in expanded state */
-.accordion-button:not(.collapsed)::after {
-    color: white;
-}
-
-/* Remove focus and active styles for header menu */
-=======
->>>>>>> 2a5064e6e1c5f56b2aac56cd9e4fa42d21508776
 .headermenu:focus,
 .headermenu:active {
     outline: none !important;
     border: none !important;
 }
 
-<<<<<<< HEAD
-/* Styling for links inside accordion body */
-.accordion-body a {
-    display: block;
-    line-height: 0.5; /* Adjust the value as needed */
-}
-=======
 .accordion-body a {
     display: block;
     line-height: .5;
     /* Adjust the value as needed */
 }
->>>>>>> 2a5064e6e1c5f56b2aac56cd9e4fa42d21508776
