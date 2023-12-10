@@ -207,36 +207,46 @@ function showValidationError(message) {
     showError(message);
 }
 
-function getCustomErrorMessage(fieldId, formType) {
+function getCustomErrorMessage(fieldId, operationType) {
+    var prefix = operationType === 'add' ? 'Invalid input for ' : '. ';
+
+    // Use the same switch case for both add and update
     switch (fieldId) {
         case '#bookBookID':
-            return 'Invalid Book ID. It should be in a specific format ****-*****.';
+        case '#editBookID':
+            return prefix + 'Invalid input for Book ID. It should be in a specific format ****-*****.';
         case '#bookBookTitle':
-            return 'Invalid Book Title. It should only contain letters and numbers.';
+        case '#editBookTitle':
+            return prefix + 'Invalid input for Book Title. It should only contain letters and numbers.';
         case '#bookBookAuthor':
-            return 'Invalid Book Author. It should only contain letters.';
+        case '#editBookAuthor':
+            return prefix + 'Invalid input for Book Author. It should only contain letters.';
         case '#bookISBN':
-            return 'Invalid ISBN. It should contain 13 numbers.';
+        case '#editBookISBN':
+            return prefix + 'Invalid input for ISBN. It should contain 13 numbers.';
         case '#bookCopies':
-            return 'Invalid Copies. It should be a three-digit number.';
+        case '#editBookCopies':
+            return prefix + 'Invalid input for Book Copies. It should be a three-digit number.';
         case '#bookShelf':
-            return 'Invalid Shelf. It should only contain letters and numbers.';
+        case '#editBookShelf':
+            return prefix + 'Invalid input for Shelf. It should only contain letters and numbers.';
         case '#bookPublishers':
-            return 'Invalid Publishers. It should only contain letters and numbers.';
+        case '#editBookPublishers':
+            return prefix + 'Invalid input for Publishers. It should only contain letters and numbers.';
         case '#bookSummary':
-            return 'Invalid Summary. It should only contain letters, numbers, and basic symbols.';
+        case '#editBookSummary':
+            return prefix + 'Invalid input for Summary. It should only contain letters, numbers, and basic symbols.';
         default:
-            return 'Invalid input for ' + $(fieldId).attr('placeholder') + '.';
+            return prefix + $(fieldId).attr('placeholder') + '.';
     }
 }
-
 
 function clearPhoto() {
     // Clear the entire form
     $('#AddBookDisplay')[0].reset();
 
     // Reset the profile picture display
-    var defaultImageSrc = 'path_to_default_image'; // Replace with the path to your default image
+    var defaultImageSrc = '../img' ;
     $('#displayBookPicture').attr('src', defaultImageSrc);
 
     // Show the "+" sign for adding image
