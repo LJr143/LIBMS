@@ -3,7 +3,7 @@ session_start();
 require_once 'C:\wamp64\www\LIBMS\db_config\config.php';
 include 'C:\wamp64\www\LIBMS\operations\authentication.php';
 include 'C:\wamp64\www\LIBMS\includes\fetch_user_data.php';
-
+include 'C:\wamp64\www\LIBMS\includes\fetch_college_data.php';
 include 'C:\wamp64\www\LIBMS\includes\fetch_staff_data.php';
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
@@ -13,7 +13,9 @@ $loggedAdmin = '';
 $database = new Database();
 $userAuth = new UserAuthentication($database);
 $adminData = new StaffData($database);
+$college = new CollegeData($database);
 $userData = new UserData($database);
+$getCollege = $college->getAllCollege();
 $userList = $userData->getAllUsers();
 
 if ($userAuth->isAuthenticated()) {
@@ -98,8 +100,8 @@ if (isset($_SESSION['user'])) {
                 </div>
                 <div class="container mt-4">
                     <ul class="menu_icon">
-                        <li class="active"><img class="custom_menu_icon" src="../icons/dashboard_icon.png" alt=""><span><a href="dashboard.php">Dashboard</a></span></li>
-                        <li class="accordion-item">
+                        <li><img class="custom_menu_icon" src="../icons/dashboard_icon.png" alt=""><span><a href="dashboard.php">Dashboard</a></span></li>
+                        <li class=" active accordion-item">
                             <div class="headermenu">
                                 <button  class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#studentCollapse" aria-expanded="false" aria-controls="studentCollapse">
                                     <img class="custom_menu_icon" src="../icons/staff_icon.png" alt="" style="margin-right: 10px; "> Student
@@ -218,23 +220,26 @@ if (isset($_SESSION['user'])) {
                                         </tr>
                                     </thead>
                                 <tbody>
+
+                                <?php foreach ($getCollege as $colleges): ?>
                                     <tr style="height: 10px">
 
                                     </tr>
                                     <tr style=" height: 40px; background-color: rgb(246,246,246); margin-bottom: 10px; border: 1px solid rgba(0,0,0,0.25);">
-                                        <td>COL0111</td>
-                                        <td>College of Teacher Education and Technology</td>
+                                        <td><?php echo $colleges['college_id']?></td>
+                                        <td><?php echo $colleges['college_name']?></td>
                                         <td style="padding: 1px;">
                                             <div class="btn-group" role="group">
-                                                <a href="#" class="btn custom-btn editStudentProfile" id="editCollegeBtn">
+                                                <a href="#" class="btn custom-btn editCollegeBtn" data-college-id="<?= $colleges['college_id'];?>" >
                                                     <i class="bi bi-pencil-square"></i>
                                                 </a>
-                                                <a href="#" class="btn custom-btn deleteStudent" id="deleteCollegeBtn">
+                                                <a href="#" class="btn custom-btn deleteCollegeBtn" data-college-id="<?= $colleges['college_id'];?>" data-college-name="<?= $colleges['college_name']?>">
                                                     <i class="bi bi-trash"></i>
                                                 </a>
                                             </div>
                                         </td>
                                     </tr>
+                                <?php endforeach;?>
                                 </tbody>
                             </table>
 
@@ -288,7 +293,7 @@ if (isset($_SESSION['user'])) {
 
                                 <div class="col-md-12">
                                     <label for="addCollegeName" class="form-label mb-0" style="font-size: 12px;">COLLEGE NAME</label>
-                                    <input type="text" class="form-control" placeholder="College of Teacher Eucation and Technology" id="addCollegeName" style="font-size: 10px; text-transform: capitalize !important;" required>
+                                    <input type="text" class="form-control" placeholder="College of Teacher Eucation and Technology" id="addCollegeName" style="font-size: 10px;" required>
                                     <div class="invalid-feedback" style="font-size: 8px">
                                         Not a valid last name!
                                     </div>
@@ -309,7 +314,6 @@ if (isset($_SESSION['user'])) {
             </div>
         </div>
     </div>
-
     <!-- Edit College Modal-->
     <div class="modal fade" id="editCollegeModal" tabindex="-1" role="dialog" aria-labelledby="editcollegeModalLabel" aria-hidden="true">
         <div class="modal-dialog  modal-dialog-centered" role="document" style="max-width: 700px;">
@@ -331,7 +335,7 @@ if (isset($_SESSION['user'])) {
                             <form id="EditCollegeModal" class="row needs-validation " style="margin-left: 30px; width: 80%; height: 65%; " novalidate>
                                 <div class="col-md-5 firstname">
                                     <label for="editCollegeId" class="form-label mb-0" style="font-size: 12px;">COLLEGE ID</label>
-                                    <input type="text" class="form-control" value="COL0111" id="editCollegeId" style="font-size: 10px; text-transform: capitalize !important;" required>
+                                    <input type="text" class="form-control" value="COL0111" id="editCollegeId" style="font-size: 10px; text-transform: capitalize !important;" readonly>
                                     <div class="invalid-feedback" style="font-size: 8px">
                                         Not a valid first name!
                                     </div>
@@ -341,7 +345,7 @@ if (isset($_SESSION['user'])) {
 
                                 <div class="col-md-12">
                                     <label for="editCollegeName" class="form-label mb-0" style="font-size: 12px;">COLLEGE NAME</label>
-                                    <input type="text" class="form-control" value="College of Teacher Eucation and Technology" id="editCollegeName" style="font-size: 10px; text-transform: capitalize !important;" required>
+                                    <input type="text" class="form-control" value="College of Teacher Eucation and Technology" id="editCollegeName" style="font-size: 10px;" required>
                                     <div class="invalid-feedback" style="font-size: 8px">
                                         Not a valid last name!
                                     </div>
@@ -362,7 +366,6 @@ if (isset($_SESSION['user'])) {
             </div>
         </div>
     </div>
-
     <!-- Information Modal -->
     <div class="modal fade" id="infoModal1" tabindex="-1" aria-labelledby="infoModal1Label" aria-hidden="true">
         <div class="modal-dialog  modal-dialog-centered" role="document" style="max-width: 800px;">
@@ -430,32 +433,6 @@ if (isset($_SESSION['user'])) {
     <script src='../js/logout_script.js'></script>
     <script src="../js/navbar_select.js"></script>
 
-    <script>
-        // Prevent the dropdown from closing when clicking on the buttons
-        function handleButtonClick(event) {
-            event.stopPropagation();
-        }
-    </script>
-
-    <script>
-        $(document).ready(function() {
-            // Attach a click event to the "ADD STUDENT" button
-            $("#addCollegeBtn").click(function() {
-                // Show the student modal
-                $("#collegeModal").modal("show");
-            });
-
-            $("#editCollegeBtn").click(function() {
-                // Show the student modal
-                $("#editCollegeModal").modal("show");
-            });
-
-            // Handle the file input change event
-            $("#addStudentinput-file").change(function() {
-                readURL(this);
-            });
-        });
-    </script>
 
     <script>
         // The deleteAllBook button
@@ -501,6 +478,60 @@ if (isset($_SESSION['user'])) {
             });
         }
     </script>
+    <script>
+        $(document).ready(function() {
+            $('.editCollegeBtn').click(function(e) {
+                $("#editCollegeModal").modal("show");
+                e.preventDefault();
+
+                // Get the book_id from the data attribute
+                var collegeId = $(this).data('college-id');
+                console.log(collegeId);
+                // Make an AJAX request to fetch Book data
+                $.ajax({
+                    url: '../operations/fetch_college.php', // Replace with your backend endpoint
+                    type: 'POST',
+                    data: {
+                        collegeId: collegeId,
+                    },
+                    dataType: 'json',
+                    success: function(response) {
+                        // Log the response to inspect the structure
+                        console.log(response);
+
+                        // Handle the response and populate your modal with data
+                        populateModal(response);
+                    },
+                    error: function() {
+                        // Handle errors
+                        console.error('Error fetching College data.');
+                    }
+                });
+            });
+
+
+            function populateModal(data) {
+                // Log the data to inspect the structure
+                console.log(data);
+
+                // Populate the modal fields with data received from the server
+                $('#editCollegeId').val(data[0].college_id);
+                $('#editCollegeName').val(data[0].college_name);
+
+            }
+        });
+
+    </script>
+    <script>
+        // Prevent the dropdown from closing when clicking on the buttons
+        function handleButtonClick(event) {
+            event.stopPropagation();
+        }
+    </script>
+    <script src="../js/add_college.js"></script>
+    <script src="../js/update_college.js"></script>
+    <script src="../js/delete_college.js"></script>
+
 
 </body>
 

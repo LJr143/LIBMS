@@ -1,32 +1,14 @@
-
 $(document).ready(function () {
     // Add click event listener to the "UPDATE" button
-    $('#updateBookBtn').on('click', function (e) {
+    $('#saveCllgBtn').on('click', function (e) {
         e.preventDefault(); // Prevent the default form submission
+        updateCollege();
 
-        // Call the updateBook function when the button is clicked
-        updateBook();
     });
 });
 
-function updateProfilePictureForUpdate(event) {
-    var input = event.target;
-    var image = $('#displayUpdatedBookPicture')[0];
-    var updateImageIcon = $('#updateImageIcon');
 
-    if (input.files && input.files[0]) {
-        var reader = new FileReader();
-
-        reader.onload = function (e) {
-            image.src = e.target.result;
-            updateImageIcon.hide(); // Hide the "+" sign when an image is added
-        };
-
-        reader.readAsDataURL(input.files[0]);
-    }
-}
-
-function updateBook() {
+function updateCollege() {
     // Validate the form fields before proceeding
     if (!validateUpdateForm()) {
         return; // Exit if validation fails
@@ -37,7 +19,7 @@ function updateBook() {
 
     // AJAX request for update_book.php
     $.ajax({
-        url: '../operations/update_book.php',
+        url: '../operations/update_college.php',
         method: 'POST',
         data: formData,
         contentType: false,
@@ -53,21 +35,13 @@ function updateBook() {
 
 function validateUpdateForm() {
     // Trigger form validation manually
-    var form = $('#UpdateBookDisplay')[0];
+    var form = $('#EditCollegeModal')[0];
     form.classList.add('was-validated');
 
     // Add validation logic for each required field in the update form
     var requiredFields = [
-        '#editBookID',
-        '#editBookTitle',
-        '#editBookGenre',
-        '#editBookAuthor',
-        '#editBookISBN',
-        '#editBookCopies',
-        '#editBookShelf',
-        '#editBookPublishers',
-        '#editBookCategory',
-        '#editBookSummary',
+        '#editCollegeId',
+        '#editCollegeName',
     ];
 
     for (var i = 0; i < requiredFields.length; i++) {
@@ -85,44 +59,6 @@ function validateUpdateForm() {
         }
     }
 
-    // Validate the file input for update only if a new image is selected
-    var profileFileInput = $('#editprofilePictureInput')[0];
-
-    if (profileFileInput.files.length > 0) {
-        var profileFile = profileFileInput.files[0];
-        // Additional validation code for the profile image if needed
-    } else {
-        // No new image selected, so no validation needed for the image
-    }
-
-    // Validate patterns for specific fields in the update form
-    var patterns = {
-        '#editBookID': /^\d{4}-\d{5}$/,
-        '#editBookTitle': /^[A-Za-z0-9\s]+$/,
-        '#editBookAuthor': /^[A-Za-z0-9\s]+$/,
-        '#editBookISBN': /^\d{13}$/,
-        '#editBookCopies': /^\d{3}$/,
-        '#editBookShelf': /^[A-Za-z0-9\s]+$/,
-        '#editBookPublishers': /^[A-Za-z0-9\s]+$/,
-        '#editBookSummary': /^[A-Za-z0-9,.\s]+$/,
-    };
-
-    for (var fieldId in patterns) {
-        var field = $(fieldId);
-
-        if (field.length === 0) {
-            console.error('Field not found with ID:', fieldId);
-            continue; // Skip to the next iteration if the field is not found
-        }
-
-        var pattern = patterns[fieldId];
-
-        if (!pattern.test(field.val())) {
-            var errorMessage = getCustomErrorMessage(fieldId,  'add_book');
-            showValidationError(errorMessage);
-            return false; // Validation failed
-        }
-    }
 
     return true; // Validation succeeded
 }
@@ -131,23 +67,11 @@ function validateUpdateForm() {
 
 function prepareUpdateFormData()     {
     var formData = new FormData();
-    var profileFileInput = $('#editprofilePictureInput')[0];
-
-    if (profileFileInput.files.length > 0) {
-        formData.append('profile', profileFileInput.files[0]);
-    }
 
     // Append form data for update_book
-    formData.append('bookId', $('#editBookID').val());
-    formData.append('bookTitle', $('#editBookTitle').val());
-    formData.append('bookGenre', $('#editBookGenre').val());
-    formData.append('bookAuthor', $('#editBookAuthor').val());
-    formData.append('bookISBN', $('#editBookISBN').val());
-    formData.append('bookCopy', $('#editBookCopies').val());
-    formData.append('bookShelf', $('#editBookShelf').val());
-    formData.append('bookPublisher', $('#editBookPublishers').val());
-    formData.append('bookCategory', $('#editBookCategory').val());
-    formData.append('bookSummary', $('#editBookSummary').val());
+    formData.append('collegeId', $('#editCollegeId').val());
+    formData.append('collegeName', $('#editCollegeName').val());
+
 
     return formData;
 }
@@ -159,9 +83,9 @@ function handleAjaxUpdateSuccess(response) {
     try {
         var result = typeof response === 'string' ? JSON.parse(response) : response;
         if (result.success) {
-            handleSuccessConfirmation('UpdateBookModal');
+            handleSuccessConfirmation('editCollegeModal');
         } else {
-            showError('Failed to update the book. Please try again.');
+            showError('Failed to update the college. Please try again.');
         }
     } catch (e) {
         console.error('Failed to parse JSON response:', response);
@@ -170,18 +94,3 @@ function handleAjaxUpdateSuccess(response) {
 }
 
 
-function clearUpdateForm() {
-    // Clear the entire update form
-    $('#UpdateBookDisplay')[0].reset();
-
-    // Reset the profile picture display for update
-    var defaultImageSrc = 'path_to_default_image'; // Replace with the path to your default image
-    $('#displayUpdatedBookPicture').attr('src', defaultImageSrc);
-
-    // Show the "+" sign for adding image in update form
-    $('#updateImageIcon').show();
-
-    // Clear validation styling
-    var form = $('#UpdateBookDisplay')[0];
-    form.classList.remove('was-validated');
-}

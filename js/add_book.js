@@ -27,8 +27,6 @@ function updateProfilePicture(event) {
 }
 
 
-
-
 function addBook() {
     // Validate the form fields before proceeding
     if (!validateForm()) {
@@ -80,11 +78,9 @@ function validateForm() {
             return false; // Validation failed
         }
     }
-
     // Validate the file input
     var profileFileInput = $('#profilePictureInput')[0];
     var profileFile = profileFileInput.files[0];
-
     if (!profileFile) {
         showValidationError('Please select a profile image.');
         return false; // Validation failed
@@ -122,8 +118,7 @@ function validateForm() {
     return true; // Validation succeeded
 }
 
-
-    function prepareFormData() {
+function prepareFormData() {
     var formData = new FormData();
     var profileFileInput = $('#profilePictureInput')[0];
 
@@ -162,8 +157,6 @@ function handleAjaxSuccess(response, operationType) {
     }
 }
 
-
-
 function handleSuccessConfirmation(modalId, operationType) {
     $("#" + modalId).modal("hide");
     var successTitle = operationType === 'add' ? 'ADDED!' : 'UPDATED!';
@@ -188,8 +181,6 @@ function handleSuccessConfirmation(modalId, operationType) {
         }
     });
 }
-
-
 
 function handleAjaxError() {
     showError('AJAX request failed.'); // Consider improving the user experience
@@ -229,7 +220,6 @@ function getCustomErrorMessage(fieldId, formType) {
             return 'Invalid input for ' + $(fieldId).attr('placeholder') + '.';
     }
 }
-
 
 function clearPhoto() {
     // Clear the entire form
