@@ -9,11 +9,11 @@ $log = new Logs($database);
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     try {
         $collegeId = $_POST['collegeId'];
-        $collegeName = $_POST['collegeName'];
+        $courseName = $_POST['courseName'];
 
-        $college = new CollegeData($database);
+        $course = new CourseData($database);
 
-        $result = $college->addCollege($collegeId, $collegeName);
+        $result = $course->addCourse($collegeId, $courseName);
 
         header('Content-Type: application/json');
         echo json_encode($result);

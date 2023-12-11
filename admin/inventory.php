@@ -469,8 +469,6 @@ if (isset($_SESSION['user'])) {
         </div>
     </div>
 
-
-
     <!-- update book Modal -->
     <div class="modal fade " id="editBookModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg modal-dialog-centered">
@@ -680,8 +678,6 @@ if (isset($_SESSION['user'])) {
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-
-
     <script>
         function updateBookPicture(event) {
             const input = event.target;
@@ -699,8 +695,6 @@ if (isset($_SESSION['user'])) {
             }
         }
     </script>
-
-
     <script>
 
         function showDeleteConfirmation(id) {

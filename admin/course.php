@@ -121,7 +121,6 @@ if (isset($_SESSION['user'])) {
                             <i class="bi bi-bookshelf custom_menu_icon" style="font-size: 20px; color:#fff"></i>
                             <span><a href="shelf.php">Shelf</a></span>
                         </li>
-
                     </ul>
                 </div>
 
@@ -267,7 +266,7 @@ if (isset($_SESSION['user'])) {
                 <div class="modal-header" style="height: 15px;">
 
                     <p class="modal-title" id="borrowModalLabel " style="font-size: 10px; color: #800000; font-weight: 600;">
-                        <i class="bi bi-pencil-square ml-3 m-3" style="font-size: 12px; color: #800000;"></i>ADD COLLEGE
+                        <i class="bi bi-pencil-square ml-3 m-3" style="font-size: 12px; color: #800000;"></i>ADD COURSE
                     </p>
                     <button style="font-size: 16px; background-color: transparent; border:none;" type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
@@ -275,16 +274,14 @@ if (isset($_SESSION['user'])) {
                 </div>
                 <div class="modal-body">
                     <div class="container-fluid " style="padding-left: 40px ; padding-right: 40px">
-                        <div class="row">
+                        <div class="row" style="display: flex; justify-content: center">
 
 
-                            <form id="AddCollegeModal" class="row needs-validation " style="margin-left: 30px; width: 80%; height: 65%; " novalidate>
+                            <form id="AddCourseModal" class="row needs-validation" style="width: 80%; height: 65%;">
                                 <div class="col-md-5 firstname">
-                                    <label for="addCollegeId" class="form-label mb-0" style="font-size: 12px;">COLLEGE</label>
-                                    <select class="form-select" id="editStudentCollege" style="font-size: 10px; text-transform: uppercase !important;" required>
+                                    <label for="editSelectCollege" class="form-label mb-0" style="font-size: 12px;">COLLEGE</label>
+                                    <select class="form-select" id="editSelectCollege" style="font-size: 10px; width: 435px;" required>
                                         <option value="" disabled selected>Select College</option>
-                                        <option value="BSIT">CTET</option>
-                                        <option value="BTVTED">CARS</option>
                                     </select>
                                     <div class="invalid-feedback" style="font-size: 8px">
                                         Not a valid first name!
@@ -295,7 +292,7 @@ if (isset($_SESSION['user'])) {
 
                                 <div class="col-md-12">
                                     <label for="addCourseName" class="form-label mb-0" style="font-size: 12px;">COURSE NAME</label>
-                                    <input type="text" class="form-control" placeholder="Bachelor of Science in Information Technology" id="addCourseName" style="font-size: 10px; text-transform: capitalize !important;" required>
+                                    <input type="text" class="form-control" placeholder="Bachelor of Science in Information Technology" id="addCourseName" style="font-size: 10px;" required>
                                     <div class="invalid-feedback" style="font-size: 8px">
                                         Not a valid last name!
                                     </div>
@@ -303,7 +300,7 @@ if (isset($_SESSION['user'])) {
 
                                 </div>
 
-                                <div class="wishlist-container mt-4 mb-0" style="display: flex; justify-content: flex-end; width: 664px; margin-left: 30%;">
+                                <div class="wishlist-container mt-4 mb-0" style="display: flex; justify-content: flex-end; width: 664px;">
                                     <button style="height: 25px; width: 100px" type="button" class="clear shadow" onclick="clearForm()">CLEAR</button>
                                     <button style="height: 25px; width: 100px" type="submit" id="addCllgBtn" class="add shadow">ADD</button>
                                 </div>
@@ -541,32 +538,6 @@ if (isset($_SESSION['user'])) {
             event.stopPropagation();
         }
     </script>
-
-    <script>
-        $(document).ready(function() {
-            // Attach a click event to the "ADD STUDENT" button
-            $("#addCourseBtn").click(function() {
-                // Show the student modal
-                $("#courseModal").modal("show");
-            });
-
-            $("#editCourseBtn").click(function() {
-                // Show the student modal
-                $("#editCourseModal").modal("show");
-            });
-
-            $("#addMajorBtn").click(function() {
-                // Show the student modal
-                $("#majorModal").modal("show");
-            });
-
-            // Handle the file input change event
-            $("#addStudentinput-file").change(function() {
-                readURL(this);
-            });
-        });
-    </script>
-
     <script>
         // The deleteAllBook button
         const deleteButton = document.getElementById('deleteCourseBtn');
@@ -611,6 +582,7 @@ if (isset($_SESSION['user'])) {
             });
         }
     </script>
+    <script src="../js/add_course.js"></script>
 
 </body>
 

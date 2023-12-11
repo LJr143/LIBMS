@@ -4,7 +4,7 @@ require_once 'C:\wamp64\www\LIBMS\db_config\config.php';
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
-class BookData
+class CollegeData
 {
     protected $database;
 
@@ -13,38 +13,36 @@ class BookData
         $this->database = $database->getDb();
     }
 
-    public function getAllBook(): array
+    public function getAllCollege(): array
     {
-        $sql = "SELECT * FROM tbl_book";
+        $sql = "SELECT * FROM tbl_college";
         $stmt = $this->database->query($sql);
 
         if ($stmt) {
-            $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
-            return $users;
+            $colleges = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            return $colleges;
         } else {
             return array();
         }
     }
 
-    public function getNumberOfBooks(): int
+    public function getNumberOfColleges(): int
     {
-        $sql = "SELECT COUNT(*) as num_books FROM tbl_book";
+        $sql = "SELECT COUNT(*) as num_colleges FROM tbl_college";
         $stmt = $this->database->prepare($sql);
 
         if ($stmt->execute()) {
-            return (int) $stmt->fetch(PDO::FETCH_ASSOC)['num_books'];
+            return (int)$stmt->fetch(PDO::FETCH_ASSOC)['num_colleges'];
         } else {
             return 0;
         }
     }
 
-
-
-    public function getBookById($bookId): array
+    public function getCollegeById($collegeId): array
     {
-        $sql = "SELECT * FROM tbl_book WHERE book_id = :bookId";
+        $sql = "SELECT * FROM tbl_college WHERE college_id = :collegeId";
         $stmt = $this->database->prepare($sql);
-        $stmt->bindParam(':bookId', $bookId, PDO::PARAM_STR);
+        $stmt->bindParam(':collegeId', $collegeId, PDO::PARAM_STR);
 
         if ($stmt->execute()) {
             $errorInfo = $stmt->errorInfo();
@@ -58,120 +56,93 @@ class BookData
             return array();
         }
     }
-    public function addBook($bookID, $bookTitle, $bookGenre, $bookAuthor, $bookISBN, $bookCopies, $bookShelf, $bookPublisher, $bookCategory, $bookSummary, $profile): bool
-    {
 
-        $sql = "INSERT INTO tbl_book (book_id, book_title, genre, author, ISBN, copy, shelf, publisher, category, description, book_img)
-            VALUES (:bookID, :bookTitle, :bookGenre, :bookAuthor, :bookISBN, :bookCopies, :bookShelf, :bookPublisher, :bookCategory, :bookSummary, :img)";
+    public function addCollege($collegeId, $collegeName): array
+    {
+        $sql = "INSERT INTO tbl_college (college_id, college_name)
+            VALUES (:college_id, :college_name)";
         $stmt = $this->database->prepare($sql);
 
         // Bind parameters
-        $stmt->bindParam(':bookID', $bookID, PDO::PARAM_STR);
-        $stmt->bindParam(':bookTitle', $bookTitle, PDO::PARAM_STR);
-        $stmt->bindParam(':bookGenre', $bookGenre, PDO::PARAM_STR);
-        $stmt->bindParam(':bookAuthor', $bookAuthor, PDO::PARAM_STR);
-        $stmt->bindParam(':bookISBN', $bookISBN, PDO::PARAM_STR);
-        $stmt->bindParam(':bookCopies', $bookCopies, PDO::PARAM_STR);
-        $stmt->bindParam(':bookShelf', $bookShelf, PDO::PARAM_STR);
-        $stmt->bindParam(':bookPublisher', $bookPublisher, PDO::PARAM_STR);
-        $stmt->bindParam(':bookCategory', $bookCategory, PDO::PARAM_STR);
-        $stmt->bindParam(':bookSummary', $bookSummary, PDO::PARAM_STR);
-        $stmt->bindParam(':img', $profile, PDO::PARAM_STR);
+        $stmt->bindParam(':college_id', $collegeId, PDO::PARAM_STR);
+        $stmt->bindParam(':college_name', $collegeName, PDO::PARAM_STR);
 
         // Execute the query
-        return $stmt->execute();
+        $success = $stmt->execute();
+
+        // Return an array with success information
+        return [
+            'success' => $success,
+            'message' => $success ? 'College added successfully' : 'Failed to add college',
+        ];
     }
-    public function updateBook($bookId, $bookTitle, $bookGenre, $bookAuthor, $bookISBN,$bookCopy, $bookShelf, $bookPublisher, $bookCategory, $bookSummary,$profile)
+    public function updateCollege($collegeId, $collegeName): array
     {
-        $sql = "UPDATE tbl_book 
-        SET book_id = :bookId, book_title = :bookTitle, ISBN = :bookISBN, 
-            author = :bookAuthor, publisher = :bookPublisher, 
-            genre = :bookGenre,
-            category = :bookCategory, description = :bookSummary, shelf = :bookShelf, copy = :bookCopy";
-
-// If $profile is not null, include the img column in the SQL query
-        if ($profile !== null) {
-            $sql .= ", book_img = :bookPicture";
-        }
-
-        $sql .= " WHERE book_id = :bookId";
-
+        $sql = "UPDATE tbl_college SET college_name = :college_name WHERE college_id = :college_id";
         $stmt = $this->database->prepare($sql);
 
-// Bind parameters (excluding the img parameter if $profile is null)
-        $stmt->bindParam(':bookId', $bookId, PDO::PARAM_STR);
-        $stmt->bindParam(':bookTitle', $bookTitle, PDO::PARAM_STR);
-        $stmt->bindParam(':bookISBN', $bookISBN, PDO::PARAM_STR);
-        $stmt->bindParam(':bookAuthor', $bookAuthor, PDO::PARAM_STR);
-        $stmt->bindParam(':bookPublisher', $bookPublisher, PDO::PARAM_STR);
-        $stmt->bindParam(':bookGenre', $bookGenre, PDO::PARAM_STR);
-        $stmt->bindParam(':bookCategory', $bookCategory, PDO::PARAM_STR);
-        $stmt->bindParam(':bookSummary', $bookSummary, PDO::PARAM_STR);
-        $stmt->bindParam(':bookShelf', $bookShelf, PDO::PARAM_STR);
-        $stmt->bindParam(':bookCopy', $bookCopy, PDO::PARAM_STR);
+        // Bind parameters
+        $stmt->bindParam(':college_id', $collegeId, PDO::PARAM_STR);
+        $stmt->bindParam(':college_name', $collegeName, PDO::PARAM_STR);
 
-// Bind the img parameter if $profile is not null
-        if ($profile !== null) {
-            $stmt->bindParam(':bookPicture', $profile, PDO::PARAM_STR);
-        }
+        // Execute the query
+        $success = $stmt->execute();
 
-// Execute the query
-        return $stmt->execute();
+        // Return an array with success information
+        return [
+            'success' => $success,
+            'message' => $success ? 'College updates successfully' : 'Failed to update college',
+        ];
     }
 
-
-    public function borrowBook($user_id, $bookId, $date): array
-    {
-        $sql = "INSERT INTO tbl_borrow (user_id, book_id, date) VALUES (:user_id, :book_id, :date_borrowed)";
-
-        try {
-            $stmt = $this->database->prepare($sql);
-            $stmt->bindParam(':user_id', $user_id, PDO::PARAM_STR);
-            $stmt->bindParam(':book_id', $bookId, PDO::PARAM_STR);
-            $stmt->bindParam(':date_borrowed', $date, PDO::PARAM_STR);
-            $stmt->execute();
-
-            // Return success flag or any additional information
-            return ['success' => true, 'message' => 'Record inserted successfully'];
-        } catch (PDOException $e) {
-            // Log the error or handle it accordingly
-            error_log("Error: " . $e->getMessage());
-
-            // Return failure flag or any additional information
-            return ['success' => false, 'message' => 'Error inserting record'];
-        }
-    }
-    public function reserveBook($user_id, $bookId, $date, $returnDate): array
-    {
-        $sql = "INSERT INTO tbl_reserve (user_id, book_id, reserve_date, return_date) VALUES (:user_id, :book_id, :date_borrowed,:return_date)";
-
-        try {
-            $stmt = $this->database->prepare($sql);
-            $stmt->bindParam(':user_id', $user_id, PDO::PARAM_STR);
-            $stmt->bindParam(':book_id', $bookId, PDO::PARAM_STR);
-            $stmt->bindParam(':date_borrowed', $date, PDO::PARAM_STR);
-            $stmt->bindParam(':return_date', $returnDate, PDO::PARAM_STR);
-            $stmt->execute();
-
-            // Return success flag or any additional information
-            return ['success' => true, 'message' => 'Record inserted successfully'];
-        } catch (PDOException $e) {
-            // Log the error or handle it accordingly
-            error_log("Error: " . $e->getMessage());
-
-            // Return failure flag or any additional information
-            return ['success' => false, 'message' => 'Error inserting record'];
-        }
-    }
-
-
-    public function deleteBook($bookId){
-        $sql = "DELETE FROM tbl_book WHERE book_id = :book_ID";
+    public function deleteCollege($collegeId){
+        $sql = "DELETE FROM tbl_college WHERE college_id = :college_ID";
 
         $stmt = $this->database->prepare($sql);
-        $stmt->bindParam(':book_ID', $bookId, PDO::PARAM_STR);
+        $stmt->bindParam(':college_ID', $collegeId, PDO::PARAM_STR);
 
         return $stmt->execute();
     }
+
 
 }
+class CourseData extends CollegeData
+{
+
+    public function getAllCourses(): array
+    {
+        $sql = "SELECT * FROM tbl_course";
+        $stmt = $this->database->query($sql);
+
+        if ($stmt) {
+            $courses = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            return $courses;
+        } else {
+            return array();
+        }
+    }
+
+    public function addCourse($collegeId, $courseName): array
+    {
+        $sql = "INSERT INTO tbl_course (college_id, course_name)
+            VALUES (:college_id, :course_name)";
+        $stmt = $this->database->prepare($sql);
+
+        // Bind parameters
+        $stmt->bindParam(':college_id', $collegeId, PDO::PARAM_STR);
+        $stmt->bindParam(':course_name', $courseName, PDO::PARAM_STR);
+
+        // Execute the query
+        $success = $stmt->execute();
+
+        // Return an array with success information
+        return [
+            'success' => $success,
+            'message' => $success ? 'Course added successfully' : 'Failed to add course',
+        ];
+    }
+
+
+}
+
+
