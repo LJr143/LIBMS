@@ -226,8 +226,8 @@ if (isset($_SESSION['user'])) {
 
                                     </tr>
                                     <tr style=" height: 40px; background-color: rgb(246,246,246); margin-bottom: 10px; border: 1px solid rgba(0,0,0,0.25);">
-                                        <td><?php echo $colleges['college_id']?></td>
-                                        <td><?php echo $colleges['college_name']?></td>
+                                        <td><?php echo strtoupper($colleges['college_id']) ?></td>
+                                        <td><?php echo ucwords( $colleges['college_name'])?></td>
                                         <td style="padding: 1px;">
                                             <div class="btn-group" role="group">
                                                 <a href="#" class="btn custom-btn editCollegeBtn" data-college-id="<?= $colleges['college_id'];?>" >
@@ -283,21 +283,20 @@ if (isset($_SESSION['user'])) {
                             <form id="AddCollegeModal" class="row needs-validation " style="margin-left: 30px; width: 80%; height: 65%; " novalidate>
                                 <div class="col-md-5 firstname">
                                     <label for="addCollegeId" class="form-label mb-0" style="font-size: 12px;">COLLEGE ID</label>
-                                    <input type="text" class="form-control" placeholder="COL0111" id="addCollegeId" style="font-size: 10px; text-transform: capitalize !important;  width: 435px;" required>
+                                    <input type="text" class="form-control" pattern="^COL-[0-9]{4}$" placeholder="COL-0111" id="addCollegeId" style="font-size: 10px; text-transform: uppercase !important;  width: 435px;" required>
                                     <div class="invalid-feedback" style="font-size: 8px">
-                                        Not a valid first name!
+                                        Not a valid College ID!
                                     </div>
-                                    <div class="valid-feedback" style="font-size: 8px">Looks good!</div>
                                 </div>
 
 
                                 <div class="col-md-12">
                                     <label for="addCollegeName" class="form-label mb-0" style="font-size: 12px;">COLLEGE NAME</label>
-                                    <input type="text" class="form-control" placeholder="College of Teacher Eucation and Technology" id="addCollegeName" style="font-size: 10px;" required>
+                                    <input type="text" class="form-control" placeholder="College of Teacher Eucation and Technology" id="addCollegeName" style="font-size: 10px; text-transform: capitalize !important; " required>
                                     <div class="invalid-feedback" style="font-size: 8px">
-                                        Not a valid last name!
+                                        Not a valid College Name!
                                     </div>
-                                    <div class="valid-feedback" style="font-size: 8px">Looks good!</div>
+
 
                                 </div>
 
@@ -423,7 +422,7 @@ if (isset($_SESSION['user'])) {
 
     </div>
 
-
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script src="../node_modules/jquery/dist/jquery.min.js"></script>
     <script src="../node_modules/sweetalert2/dist/sweetalert2.all.min.js"></script>
