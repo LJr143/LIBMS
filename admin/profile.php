@@ -96,19 +96,13 @@ if (isset($_SESSION['user'])) {
                 </div>
                 <div class="container mt-4">
                     <ul class="menu_icon">
-<<<<<<< HEAD
-                        <li class="active"><img class="custom_menu_icon" src="../icons/dashboard_icon.png" alt=""><span><a href="dashboard.php">Dashboard</a></span></li>
-                        <li class="accordion-item">
-                            <div class="headermenu">
-                                <button  class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#studentCollapse" aria-expanded="false" aria-controls="studentCollapse">
-                                    <img class="custom_menu_icon" src="../icons/staff_icon.png" alt="" style="margin-right: 10px; "> Student
-=======
+
                         <li><img class="custom_menu_icon" src="../icons/dashboard_icon.png" alt=""><span><a href="dashboard.php">Dashboard</a></span></li>
                         <li class="accordion-item">
                             <div class="headermenu">
                                 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#studentCollapse" aria-expanded="false" aria-controls="studentCollapse">
                                     <img class="custom_menu_icon" src="../icons/staff_icon.png" alt="" style="margin-right: 10px"> Student
->>>>>>> 2a5064e6e1c5f56b2aac56cd9e4fa42d21508776
+
                                 </button>
                             </div>
                             <div id="studentCollapse" class="accordion-collapse collapse ms-4" data-bs-parent="#menuAccordion">
@@ -217,7 +211,7 @@ if (isset($_SESSION['user'])) {
                             </div>
                             <div style="margin: 14px 0 0 0;">
                                 <div style="display: flex; width: 100%; justify-content: center">
-                                    <p style="font-size: 12px; color: rgb(116,0,0); font-weight: 600; font-style: italic"><?php echo $loggedAdmin['fname'] ."&nbsp". $loggedAdmin['initial'] . "&nbsp". $loggedAdmin['lname']?></p>
+                                    <p style="font-size: 12px; color: rgb(116,0,0); font-weight: 600; font-style: italic"><?php echo ucwords( $loggedAdmin['fname'] ."&nbsp". ucwords( $loggedAdmin['initial']) . ".". "&nbsp". ucwords( $loggedAdmin['lname']))?></p>
                                     <span><button style="border: none; background: transparent">
                                             <img id="editStaffBtn" style="width: 15px; margin: -10px 0 0 5px;" src="../icons/edit_profile_icon.png" alt="">
                                         </button></span>
@@ -234,16 +228,16 @@ if (isset($_SESSION['user'])) {
                             <div style="margin: 30px 20px">
                                 <h6 style="font-size: 12px; color: rgb(116,0,0)">PERSONAL INFORMATION</h6>
                                 <p class="personal_infor_p">STAFF ID &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; <?php echo $loggedAdmin['admin_id']?></p>
-                                <p class="personal_infor_p">FULL NAME &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp;<?php echo $loggedAdmin['fname'] ."&nbsp". $loggedAdmin['initial']. "." . "&nbsp". $loggedAdmin['lname']?></p>
+                                <p class="personal_infor_p">FULL NAME &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp;<?php echo ucwords($loggedAdmin['fname'] ." ". $loggedAdmin['initial']. "." . " ".$loggedAdmin['lname'])?></p>
                                 <p class="personal_infor_p">PHONE NUMBER&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;<?php echo $loggedAdmin['phone_number']?></p>
                                 <p class="personal_infor_p">TELEPHONE NUMBER&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp;&nbsp;<?php echo $loggedAdmin['tele_number']?></p>
-                                <p class="personal_infor_p">HOME ADDRESS&nbsp;&nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;<?php echo $loggedAdmin['address']?></p>
+                                <p class="personal_infor_p">HOME ADDRESS&nbsp;&nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;<?php echo ucwords ( $loggedAdmin['address'])?></p>
 
                             </div>
 
                             <div style="margin: 30px 20px">
                                 <h6 style="font-size: 12px; color: rgb(116,0,0)">ACCOUNT</h6>
-                                <p class="personal_infor_p">EMAIL&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; <?php echo $loggedAdmin['email']?></p>
+                                <p class="personal_infor_p">EMAIL&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; <?php echo  $loggedAdmin['email']?></p>
                                 <p class="personal_infor_p">USERNAME &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp;<?php echo $loggedAdmin['username']?></p>
                                 <p class="personal_infor_p">PASSWORD&nbsp;&nbsp;&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;<span style="-webkit-text-security: disc !important;"><?php echo $loggedAdmin['password']?></span></p>
                             </div>
@@ -397,6 +391,9 @@ if (isset($_SESSION['user'])) {
     </div>
 
 
+
+
+    <!-- edit staff-->
 <div class="modal fade" id="editStaffModal" tabindex="-1" role="dialog" aria-labelledby="editStaffModalLabel" aria-hidden="true">
       <div class="modal-dialog  modal-dialog-centered" role="document" style="max-width: 800px;">
           <div class="modal-content">
@@ -415,19 +412,19 @@ if (isset($_SESSION['user'])) {
 
                             <!-- uploading image -->
                             <div style="width: 100px; height: 100px; overflow: hidden; border: 1px solid maroon; border-radius: 50%; margin: 0 auto; margin-top:40px;">
-                                <label for="profilePictureInput" class="AddImageContainer" style="display: flex; justify-content: center; align-items: center; width: 100%; height: 100%;">
+                                <label for="editprofilePictureInput" class="AddImageContainer" style="display: flex; justify-content: center; align-items: center; width: 100%; height: 100%;">
                                     <i class="bi bi-plus-circle" title="Add Image" style="color: grey;"></i>
                                     <img src="../img/me_sample_profile.jpg" width="100" height="100" id="Profile-Pic" style="display: block; margin-left: -14px;">
                                 </label>
-                                <input type="file" accept="image/jpeg, image/png, image/jpg" id="profilePictureInput" class="visually-hidden mb-0" accept="image/*" onchange="updateProfilePicture(event)">
+                                <input type="file" accept="image/jpeg, image/png, image/jpg" id="editprofilePictureInput" class="visually-hidden mb-0" accept="image/*" onchange="updateProfilePicture(event)">
                             </div>
 
 
-                            <form class="row needs-validation" style="margin-left: 30px; width: 80%; height: 65%;" novalidate>
+                            <form id="UpdateStaffProfileDisplay" class="row needs-validation" style="margin-left: 30px; width: 80%; height: 65%;" novalidate>
                                 <input type="text" name="userID" id="userID" value="<?php echo $admin_id ?>" style="display: none;">
                                 <div class="col-md-5 firstname">
                                     <label for="editStaffFirstName" class="form-label mb-0" style="font-size: 12px;">FIRST NAME</label>
-                                    <input type="text" class="form-control" placeholder="Juan" id="editStaffFirstName" style="font-size: 10px; text-transform: capitalize !important;" required pattern="[A-Za-z]+" required>
+                                    <input type="text" class="form-control" placeholder="Juan" id="editStaffFirstName" style="font-size: 10px; text-transform: capitalize !important;" pattern="[A-Za-z]+(?: [A-Za-z]+)?" required>
                                     <div class="invalid-feedback" style="font-size: 8px">
                                         Not a valid first name!
                                     </div>
@@ -475,7 +472,7 @@ if (isset($_SESSION['user'])) {
 
                                 <div class="col-md-4 mt-2">
                                     <label for="editStaffTelNumber" class="form-label mb-0" style="font-size: 12px;">TELEPHONE NUMBER</label>
-                                        <input type="tel" class="form-control" id="editStaffTelNumber" pattern="[0-9]{2}-[0-9]{4}-[0-9]{4}" placeholder="02-1234-5678" style="font-size: 10px;" required>
+                                        <input type="tel" class="form-control" id="editStaffTelNumber" pattern="[0-9]{3}-[0-9]{4}" placeholder="234-5678" style="font-size: 10px;" required>
                                     <div class="invalid-feedback" style="font-size: 8px">
                                         Not a valid tel number with 10 digits!
                                     </div>
