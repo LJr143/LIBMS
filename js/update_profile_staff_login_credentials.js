@@ -1,4 +1,4 @@
-function updateLoginCredentialsStaff() {
+    function updateLoginCredentialsStaff() {
     var formData = new FormData();
     formData.append('staffId', $('#userID').val());
     formData.append('oldPassword', $('#change_password_old_pass').val());

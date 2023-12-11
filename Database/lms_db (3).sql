@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Dec 08, 2023 at 09:45 AM
+-- Generation Time: Dec 11, 2023 at 01:03 PM
 -- Server version: 8.0.31
 -- PHP Version: 7.4.33
 
@@ -85,8 +85,16 @@ CREATE TABLE IF NOT EXISTS `tbl_book` (
 --
 
 INSERT INTO `tbl_book` (`book_id`, `book_title`, `ISBN`, `author`, `publisher`, `genre`, `category`, `description`, `shelf`, `copy`, `status`, `book_img`) VALUES
-('2021-1234', '1984', '1234567', 'George Orwell', 'SITS', 'Fiction', 'option', 'Okieh', '201-21-123', 10, 'New', '1984.jpg'),
-('Pariatur Consequatu', 'Harry Potter Prisoner of Azkaban', 'Est amet eaque repr', 'Molestiae perspiciat', 'Aut eaque consequunt', 'Non-Fiction', 'option', 'Voluptas voluptatem', 'Duis exercitationem ', 10, 'New', 'book2.jpg');
+('B1', 'To Kill a Mockingbird', '9780061120084', 'Harper Lee', 'HarperCollins', 'Fiction', 'null', 'A story set in the American South during the 1930s that addresses racial injustice.', 'ShelfA', 5, 'New', 'To Kill a Mockingbird.jpg'),
+('B10', 'The Hobbit', '9780547928227', 'J.R.R. Tolkien', 'Houghton Mifflin', 'null', 'null', 'A fantasy novel following the journey of Bilbo Baggins as he joins a quest to reclaim treasure guarded by the dragon Smaug.', 'ShelfJ', 10, 'New', 'The Hobbit.jpg'),
+('B2', '1984', '9780451524935', 'George Orwell', 'Signet Classics', 'null', 'null', 'A novel depicting a totalitarian society and the dangers of government overreach.', 'ShelfB', 3, 'New', '1984.jpg'),
+('B3', 'The Great Gatsby', '9780743273565', 'F. Scott Fitzgerald', 'Scribner', 'Fiction', 'null', 'A tale of wealth, decadence, and the American Dream set in the Roaring Twenties.', 'ShelfC', 7, 'New', 'The Great Gatsby.jpg'),
+('B4', 'To the Lighthouse', '9780156907392', 'Virginia Woolf', 'Houghton Mifflin Harcourt', 'Fiction', 'null', 'A novel exploring the passage of time and the complexity of human relationships.', 'ShelfD', 2, 'New', 'To The Lighthouse.jpg'),
+('B5', 'The Catcher in the Rye', '9780241950425', 'J.D. Salinger', 'Penguin Books', 'Fiction', 'null', 'A story narrated by a disenchanted teenager, Holden Caulfield, during his experiences in New York City.', 'ShelfE', 6, 'New', 'The Catcher in the Rye.jpg'),
+('B6', 'One Hundred Years of Solitude', '9780061120091', 'Gabriel García Márquez', 'Harper & Row', 'null', 'null', 'A multi-generational tale blending magical and real elements, exploring the Buendía family in Macondo.', 'ShelfF', 4, 'New', 'One Hundred Years Of Solitude.jpg'),
+('B7', 'Brave New World', '9780060850524', 'Aldous Huxley', 'Harper Perennial', 'null', 'null', 'A novel depicting a future society where people are conditioned for conformity and happiness.', 'ShelfG', 8, 'New', 'Brave New World.jpg'),
+('B8', 'Pride and Prejudice', '9780141439518', 'Jane Austen', 'Penguin Classics', 'Fiction', 'null', 'A romantic novel exploring themes of love, class, and societal expectations in 19th-century England.', 'ShelfH', 1, 'New', 'Pride and Prejudice.jpg'),
+('B9', 'Romeo and Juliet', '9780743477116', 'William Shakespeare', 'Simon & Schuster', 'null', 'null', 'A tragic play depicting the ill-fated love story between Romeo Montague and Juliet Capulet.', 'ShelfI', 9, 'New', 'Romeo and Juliet.jpg');
 
 -- --------------------------------------------------------
 
@@ -96,15 +104,45 @@ INSERT INTO `tbl_book` (`book_id`, `book_title`, `ISBN`, `author`, `publisher`, 
 
 DROP TABLE IF EXISTS `tbl_borrow`;
 CREATE TABLE IF NOT EXISTS `tbl_borrow` (
-  `borrow_id` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `borrow_id` int NOT NULL AUTO_INCREMENT,
   `user_id` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `book_id` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
   `date` date NOT NULL,
-  `status` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
+  `status` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT 'Pending',
   PRIMARY KEY (`borrow_id`),
-  KEY `user_id` (`user_id`),
-  KEY `borrow_book_id_fk` (`book_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  KEY `user_id_fk` (`user_id`),
+  KEY `book_id_fk` (`book_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `tbl_borrow`
+--
+
+INSERT INTO `tbl_borrow` (`borrow_id`, `user_id`, `book_id`, `date`, `status`) VALUES
+(19, '2021-00027', 'B5', '2023-12-09', 'Pending');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_college`
+--
+
+DROP TABLE IF EXISTS `tbl_college`;
+CREATE TABLE IF NOT EXISTS `tbl_college` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `college_id` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
+  `college_name` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `college_id` (`college_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `tbl_college`
+--
+
+INSERT INTO `tbl_college` (`id`, `college_id`, `college_name`) VALUES
+(28, 'C0001', 'College of Teacher Education and Technology'),
+(29, 'CO002', 'College of Engineering');
 
 -- --------------------------------------------------------
 
@@ -122,6 +160,28 @@ CREATE TABLE IF NOT EXISTS `tbl_copy` (
   PRIMARY KEY (`copy_id`),
   KEY `book_id` (`book_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_course`
+--
+
+DROP TABLE IF EXISTS `tbl_course`;
+CREATE TABLE IF NOT EXISTS `tbl_course` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `college_id` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `course_name` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `college_id_FK` (`college_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `tbl_course`
+--
+
+INSERT INTO `tbl_course` (`id`, `college_id`, `course_name`) VALUES
+(2, 'C0001', 'Bachelor of Science in Information Technology');
 
 -- --------------------------------------------------------
 
@@ -361,20 +421,28 @@ CREATE TABLE IF NOT EXISTS `tbl_record` (
 
 DROP TABLE IF EXISTS `tbl_reserve`;
 CREATE TABLE IF NOT EXISTS `tbl_reserve` (
-  `reserve_id` int NOT NULL,
+  `reserve_id` int NOT NULL AUTO_INCREMENT,
+  `user_id` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
   `book_id` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
   `reserve_date` date NOT NULL,
-  `status` varchar(25) COLLATE utf8mb4_general_ci NOT NULL,
+  `return_date` date NOT NULL,
+  `status` varchar(25) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT 'Pending',
   PRIMARY KEY (`reserve_id`),
-  KEY `book_id` (`book_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  KEY `book_id` (`book_id`),
+  KEY `reserve_user_id_fk` (`user_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `tbl_reserve`
 --
 
-INSERT INTO `tbl_reserve` (`reserve_id`, `book_id`, `reserve_date`, `status`) VALUES
-(1, '7', '2023-10-27', 'Approved');
+INSERT INTO `tbl_reserve` (`reserve_id`, `user_id`, `book_id`, `reserve_date`, `return_date`, `status`) VALUES
+(6, '2021-00027', 'B5', '2023-12-12', '2023-12-12', 'Pending'),
+(7, '2021-00027', 'B6', '0000-00-00', '0000-00-00', 'Pending'),
+(8, '2021-00027', 'B2', '0000-00-00', '0000-00-00', 'Pending'),
+(9, '2021-00027', 'B5', '2023-12-05', '2023-12-20', 'Pending'),
+(10, '2021-00027', 'B3', '0000-00-00', '0000-00-00', 'Pending'),
+(11, '2021-00027', 'B8', '0000-00-00', '0000-00-00', 'Pending');
 
 -- --------------------------------------------------------
 
@@ -431,15 +499,16 @@ CREATE TABLE IF NOT EXISTS `tbl_user` (
   `img` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
   PRIMARY KEY (`user_id`),
   UNIQUE KEY `user_id` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `tbl_user`
 --
 
 INSERT INTO `tbl_user` (`id`, `user_id`, `fname`, `lname`, `initial`, `year`, `course`, `major`, `username`, `password`, `status`, `user_type`, `email`, `usep_email`, `phone_number`, `address`, `img`) VALUES
-(20, '2021-00027', 'despenser', 'kyowa', 'M', '2nd', 'BTVTED', 'Information Security', 'John123', '$2y$10$LxFDVnSXPhqNRwGoArN9yuWuj0FTnDAgU9Er9pX6a/3Skat3zihQG', 'Active', 'Student', 'lmran0027@gmail.com', 'lmran0027@gmail.com', '09096763912', 'tagum', 'Picture6.jpg'),
-(27, '2021-10028', 'Lorjohn', 'Rana', 'M', '3rd', 'BSIT', 'Information Security', 'lmrana', '$2y$10$/nsDdEQV4Ow2Xp8QHOtZQ.Vx5fLd.XKpJNf/aa6is53VVpdPyYFWa', 'Active', 'Student', 'lorjohn143@gmail.com', 'lorjohn143@usep.edu.ph', '09096763912', 'Sabina Homes Apokon', 'photo1695631639-transformed.jpeg');
+(28, '2021-00012', 'Gwendolyn', 'Sharp', 'M', '3rd', 'BECED', 'Information Security', 'sacumify', '$2y$10$RYhRNrGl.Y5dqPZtxqZnuOCV3/4xHIYH7s7iIfSod4siHFKcaF92.', 'Suspended', 'Student', 'bulihep@gmail.com', 'vawoxosudy@usep.edu.ph', '09096763192', 'Eum blanditiis dolor', 'photo1695631639-transformed.jpeg'),
+(20, '2021-00027', 'despenser', 'kyowa', 'M', '2nd', 'BTVTED', 'Information Security', 'John123', '$2y$10$LxFDVnSXPhqNRwGoArN9yuWuj0FTnDAgU9Er9pX6a/3Skat3zihQG', 'Active', 'Student', 'lmran0027@gmail.com', 'lmran0027@gmail.com', '09096763912', 'tagum', 'me-removebg (1).png'),
+(27, '2021-10028', 'Lorjohn', 'Rana', 'M', '3rd', 'BSIT', 'Information Security', 'lmrana', '$2y$10$/nsDdEQV4Ow2Xp8QHOtZQ.Vx5fLd.XKpJNf/aa6is53VVpdPyYFWa', 'Suspended', 'Student', 'lorjohn143@gmail.com', 'lorjohn143@usep.edu.ph', '09096763912', 'Sabina Homes Apokon', 'photo1695631639-transformed.jpeg');
 
 -- --------------------------------------------------------
 
@@ -519,10 +588,10 @@ CREATE TABLE IF NOT EXISTS `vw_borrowed_books` (
 --
 DROP VIEW IF EXISTS `vw_logs`;
 CREATE TABLE IF NOT EXISTS `vw_logs` (
-`date` timestamp
+`action` varchar(50)
 ,`admin_id` varchar(50)
-,`action` varchar(50)
 ,`admin_role` varchar(50)
+,`date` timestamp
 );
 
 -- --------------------------------------------------------
@@ -553,15 +622,15 @@ CREATE TABLE IF NOT EXISTS `vw_user_penalty` (
 --
 DROP VIEW IF EXISTS `vw_user_record`;
 CREATE TABLE IF NOT EXISTS `vw_user_record` (
-`user_id` varchar(50)
+`activity` varchar(50)
 ,`date` timestamp
-,`fname` varchar(50)
-,`lname` varchar(50)
-,`initial` char(5)
 ,`email` varchar(50)
-,`activity` varchar(50)
-,`status` varchar(50)
+,`fname` varchar(50)
 ,`img` varchar(50)
+,`initial` char(5)
+,`lname` varchar(50)
+,`status` varchar(50)
+,`user_id` varchar(50)
 );
 
 -- --------------------------------------------------------
@@ -622,8 +691,8 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 -- Constraints for table `tbl_borrow`
 --
 ALTER TABLE `tbl_borrow`
-  ADD CONSTRAINT `borrow_book_id_fk` FOREIGN KEY (`book_id`) REFERENCES `tbl_book` (`book_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `borrow_user_id` FOREIGN KEY (`user_id`) REFERENCES `tbl_user` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `book_id_fk` FOREIGN KEY (`book_id`) REFERENCES `tbl_book` (`book_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `user_id_fk` FOREIGN KEY (`user_id`) REFERENCES `tbl_user` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `tbl_copy`
@@ -632,12 +701,10 @@ ALTER TABLE `tbl_copy`
   ADD CONSTRAINT `fk_book` FOREIGN KEY (`book_id`) REFERENCES `tbl_book` (`book_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `tbl_penalties`
+-- Constraints for table `tbl_course`
 --
-ALTER TABLE `tbl_penalties`
-  ADD CONSTRAINT `book_id_fk_penalty` FOREIGN KEY (`book_id`) REFERENCES `tbl_book` (`book_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `borrow_id_fk_penalty` FOREIGN KEY (`borrow_id`) REFERENCES `tbl_borrow` (`borrow_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `user_id_fk_penalty` FOREIGN KEY (`user_id`) REFERENCES `tbl_borrow` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE `tbl_course`
+  ADD CONSTRAINT `college_id_FK` FOREIGN KEY (`college_id`) REFERENCES `tbl_college` (`college_id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
 
 --
 -- Constraints for table `tbl_record`
@@ -649,7 +716,8 @@ ALTER TABLE `tbl_record`
 -- Constraints for table `tbl_reserve`
 --
 ALTER TABLE `tbl_reserve`
-  ADD CONSTRAINT `reserve_book_id_fk` FOREIGN KEY (`book_id`) REFERENCES `tbl_book` (`book_id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+  ADD CONSTRAINT `reserve_book_id_fk` FOREIGN KEY (`book_id`) REFERENCES `tbl_book` (`book_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `reserve_user_id_fk` FOREIGN KEY (`user_id`) REFERENCES `tbl_user` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

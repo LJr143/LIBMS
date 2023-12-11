@@ -121,7 +121,6 @@ if (isset($_SESSION['user'])) {
                             <i class="bi bi-bookshelf custom_menu_icon" style="font-size: 20px; color:#fff"></i>
                             <span><a href="shelf.php">Shelf</a></span>
                         </li>
-
                     </ul>
                 </div>
 
@@ -278,9 +277,9 @@ if (isset($_SESSION['user'])) {
                         <div class="row" style="display: flex; justify-content: center">
 
 
-                            <form id="AddCourseModal" class="row needs-validation " style=" width: 80%; height: 65%; " novalidate>
+                            <form id="AddCourseModal" class="row needs-validation" style="width: 80%; height: 65%;">
                                 <div class="col-md-5 firstname">
-                                    <label for="addCollegeId" class="form-label mb-0" style="font-size: 12px;">COLLEGE</label>
+                                    <label for="editSelectCollege" class="form-label mb-0" style="font-size: 12px;">COLLEGE</label>
                                     <select class="form-select" id="editSelectCollege" style="font-size: 10px; width: 435px;" required>
                                         <option value="" disabled selected>Select College</option>
                                     </select>
@@ -293,7 +292,7 @@ if (isset($_SESSION['user'])) {
 
                                 <div class="col-md-12">
                                     <label for="addCourseName" class="form-label mb-0" style="font-size: 12px;">COURSE NAME</label>
-                                    <input type="text" class="form-control" placeholder="Bachelor of Science in Information Technology" id="addCourseName" style="font-size: 10px; text-transform: capitalize !important;" required>
+                                    <input type="text" class="form-control" placeholder="Bachelor of Science in Information Technology" id="addCourseName" style="font-size: 10px;" required>
                                     <div class="invalid-feedback" style="font-size: 8px">
                                         Not a valid last name!
                                     </div>

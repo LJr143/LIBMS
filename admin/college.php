@@ -277,13 +277,13 @@ if (isset($_SESSION['user'])) {
                 </div>
                 <div class="modal-body">
                     <div class="container-fluid " style="padding-left: 40px ; padding-right: 40px">
-                        <div class="row">
+                        <div class="row" style="display: flex; justify-content: center">
 
 
                             <form id="AddCollegeModal" class="row needs-validation " style="margin-left: 30px; width: 80%; height: 65%; " novalidate>
                                 <div class="col-md-5 firstname">
                                     <label for="addCollegeId" class="form-label mb-0" style="font-size: 12px;">COLLEGE ID</label>
-                                    <input type="text" class="form-control" placeholder="COL0111" id="addCollegeId" style="font-size: 10px; text-transform: capitalize !important;" required>
+                                    <input type="text" class="form-control" placeholder="COL0111" id="addCollegeId" style="font-size: 10px; text-transform: capitalize !important;  width: 435px;" required>
                                     <div class="invalid-feedback" style="font-size: 8px">
                                         Not a valid first name!
                                     </div>
@@ -302,7 +302,7 @@ if (isset($_SESSION['user'])) {
                                 </div>
 
 
-                                <div class="wishlist-container mt-4 mb-0" style="display: flex; justify-content: flex-end; width: 664px; margin-left: 30%;">
+                                <div class="wishlist-container mt-4 mb-0" style="display: flex; justify-content: flex-end; width: 664px;">
                                     <button style="height: 25px; width: 100px" type="button" class="clear shadow" onclick="clearForm()">CLEAR</button>
                                     <button style="height: 25px; width: 100px" type="submit" id="addCllgBtn" class="add shadow">ADD</button>
                                 </div>
