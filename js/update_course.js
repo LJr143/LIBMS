@@ -1,23 +1,32 @@
+
 $(document).ready(function () {
+    var courseId;
+    // Fetch college options on document ready
+    fetchCollegeOptions();
 
     $(".editCourseBtn").click(function() {
         // Show the student modal
         $("#editCourseModal").modal("show");
 
+        // Fetch course options
+        fetchCollegeOptionsEdit();
+
         // Get the course_id from the data attribute
-        var courseId = $(this).data('course-id');
-        console.log(courseId);
-        // Make an AJAX request to fetch Book data
+         courseId = $(this).data('course-id');
+         var collegeId = $(this).data('college-id');
+
+         console.log(courseId,collegeId);
+        // Make an AJAX request to fetch course data
         $.ajax({
-            url: '../operations/fetch_course.php', // Replace with your backend endpoint
+            url: '../operations/fetch_course.php',
             type: 'POST',
             data: {
                 courseId: courseId,
+                collegeId: collegeId,
             },
             dataType: 'json',
             success: function(response) {
                 // Log the response to inspect the structure
-                console.log(response);
 
                 // Handle the response and populate your modal with data
                 populateModal(response);
@@ -27,71 +36,55 @@ $(document).ready(function () {
                 console.error('Error fetching course data.');
             }
         });
-        // Fetch course options
-        fetchCollegeOptions();
 
-        $("#addCllgBtn").click(function (e){
-            e.preventDefault(); // Prevent the default form submission
+    });
+    // Bind the click event for #addCrseBtn
+    $("#saveCourseBtnEdit").click(function (e) {
+        console.log('clicked!');
+        e.preventDefault(); // Prevent the default form submission
 
-            addCourse();
-        });
-
+        updateCourse(courseId);  // Pass the courseId to updateCourse
     });
 });
 
-$('.editCourseBtn').click(function(e) {
-    $("#editCourseModal").modal("show");
-    e.preventDefault();
-
-});
-
-
 function populateModal(data) {
-    // Log the data to inspect the structure
-    console.log(data);
 
     // Populate the modal fields with data received from the server
-    $('#editCollegeId').val(data[0].college_id);
-    $('#editCollegeName').val(data[0].college_name);
-
+    $('#editStudentCollege').val(data[0].college_id);
+    $('#editCourse').val(data[0].course_name);
+    $('#editMajor').val(data[0].course_major);
 }
 
-
-function updateCourse() {
+function updateCourse(courseId) {
     // Validate the form fields before proceeding
     if (!validateUpdateForm()) {
         return; // Exit if validation fails
     }
 
     // Prepare form data for update
-    var formData = prepareUpdateFormData();
+    var formData = prepareUpdateFormData(courseId);
 
-    // AJAX request for update_book.php
+    // AJAX request for update_course.php
     $.ajax({
-        url: '../operations/update_college.php',
+        url: '../operations/update_course.php',
         method: 'POST',
         data: formData,
         contentType: false,
         processData: false,
-        success: function (response) {
-            handleAjaxUpdateSuccess(response);
-        },
-        error: function () {
-            handleAjaxError();
-        }
+        success: handleAjaxUpdateSuccess,
+        error: handleAjaxError
     });
 }
-function fetchCollegeOptions() {
+
+function fetchCollegeOptionsEdit() {
     $.ajax({
         url: '../operations/fetch_college_options.php',
         type: 'GET',
         dataType: 'json',
         success: function(response) {
-            // Log the response to inspect the structure
-            console.log(response);
 
             // Populate the select options
-            populateCollegeOptions(response);
+            populateCollegeOptionsEdit(response);
         },
         error: function() {
             // Handle errors
@@ -99,12 +92,11 @@ function fetchCollegeOptions() {
         }
     });
 }
-function populateCollegeOptions(data) {
+function populateCollegeOptionsEdit(data) {
     // Log the data to inspect the structure
-    console.log(data);
 
     // Get the select element
-    var selectElement = $('#editCollege');
+    var selectElement = $('#editStudentCollege');
 
     // Clear existing options
     selectElement.empty();
@@ -117,7 +109,6 @@ function populateCollegeOptions(data) {
         selectElement.append('<option value="' + college.college_id + '">' + college.college_name + '</option>');
     });
 }
-
 function validateUpdateForm() {
     // Trigger form validation manually
     var form = $('#editCourseModal')[0];
@@ -125,7 +116,7 @@ function validateUpdateForm() {
 
     // Add validation logic for each required field in the update form
     var requiredFields = [
-        '#editCollege',
+        '#editStudentCollege',
         '#editCourse',
     ];
 
@@ -144,39 +135,65 @@ function validateUpdateForm() {
         }
     }
 
-
     return true; // Validation succeeded
 }
-
-
-
-function prepareUpdateFormData()     {
+function prepareUpdateFormData(courseId) {
     var formData = new FormData();
-
-    // Append form data for update_book
-    formData.append('editCollege', $('#editCollege').val());
+    // Append form data for update_course.php
+    formData.append('courseId', courseId);  // Include courseId in the form data
+    formData.append('editCollege', $('#editStudentCollege').val());
     formData.append('editCourse', $('#editCourse').val());
     formData.append('editMajor', $('#editMajor').val());
 
-
     return formData;
 }
-
-
 function handleAjaxUpdateSuccess(response) {
-    console.log(response); // Log the response for debugging
-
     try {
         var result = typeof response === 'string' ? JSON.parse(response) : response;
         if (result.success) {
-            handleSuccessConfirmation('editCollegeModal');
+            handleSuccessConfirmation('editCourseModal');
         } else {
-            showError('Failed to update the college. Please try again.');
+            showError('Failed to update the course. Please try again.');
         }
     } catch (e) {
         console.error('Failed to parse JSON response:', response);
         showError('Failed to process the server response.');
     }
 }
-
-
+function handleAjaxError() {
+    showError('AJAX request failed.');
+}
+function showError(message) {
+    Swal.fire({
+        title: 'Error!',
+        text: message,
+        icon: 'error'
+    });
+}
+function showValidationError(message) {
+    showError(message);
+}
+function handleSuccessConfirmation(modalId) {
+    $("#" + modalId).modal("hide");
+    var successTitle = 'UPDATED!';
+    var successText = 'SUCCESSFULLY UPDATED!';
+    Swal.fire({
+        title: successTitle,
+        text: successText,
+        icon: 'success',
+        customClass: {
+            popup: 'my-swal-popup',
+            title: 'swal-title',
+            content: 'my-swal-content',
+            confirmButton: 'my-confirm-button'
+        }
+    }).then((result) => {
+        // Check if the user clicked "OK"
+        if (result.isConfirmed) {
+            // Reload the page after a short delay
+            setTimeout(function() {
+                location.reload();
+            }, 0);
+        }
+    });
+}

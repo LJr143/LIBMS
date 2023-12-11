@@ -209,7 +209,6 @@ if (isset($_SESSION['user'])) {
                         </div>
                     </div>
                 </div>
-
                 <div style="display: flex; justify-content: center; ">
                     <div style="font-size: 12px; background-color: white; width: 95%; max-height: 550px; box-shadow: 0px 4px 8px rgba(0,0,0,0.27);">
                         <div style="width: 100%; display: flex; justify-content: center; border-radius: 5px">
@@ -234,10 +233,10 @@ if (isset($_SESSION['user'])) {
                                         <td><?= $courses['course_major']; ?></td>
                                         <td style="padding: 1px;">
                                             <div class="btn-group" role="group">
-                                                <a href="#" class="btn custom-btn editCourseBtn" data-course-id="<?= $courses['course_id'];?>">
+                                                <a href="#" class="btn custom-btn editCourseBtn" data-course-id="<?= $courses['course_id'];?>" data-college-id="<?= $courses['college_id'];?>">
                                                     <i class="bi bi-pencil-square"></i>
                                                 </a>
-                                                <a href="#" class="btn custom-btn deleteCourseBtn">
+                                                <a href="#" class="btn custom-btn deleteCourseBtn" data-course-id="<?= $courses['course_id'];?>" data-course-name="<?= $courses['course_name'];?>">
                                                     <i class="bi bi-trash"></i>
                                                 </a>
                                             </div>
@@ -286,8 +285,8 @@ if (isset($_SESSION['user'])) {
 
                             <form id="AddCourseModal" class="row needs-validation" style="width: 80%; height: 65%;">
                                 <div class="col-md-5 firstname">
-                                    <label for="editSelectCollege" class="form-label mb-0" style="font-size: 12px;">COLLEGE</label>
-                                    <select class="form-select" id="editSelectCollege" style="font-size: 10px; width: 435px;" required>
+                                    <label for="addSelectCollege" class="form-label mb-0" style="font-size: 12px;">COLLEGE</label>
+                                    <select class="form-select" id="addSelectCollege" style="font-size: 10px; width: 435px;" required>
                                         <option value="" disabled selected>Select College</option>
                                     </select>
                                     <div class="invalid-feedback" style="font-size: 8px">
@@ -324,7 +323,7 @@ if (isset($_SESSION['user'])) {
             </div>
         </div>
     </div>
-    
+
     <!-- Edit College Modal-->
     <div class="modal fade" id="editCourseModal" tabindex="-1" role="dialog" aria-labelledby="editcourseModalLabel" aria-hidden="true">
         <div class="modal-dialog  modal-dialog-centered" role="document" style="max-width: 700px;">
@@ -339,14 +338,13 @@ if (isset($_SESSION['user'])) {
                     </button>
                 </div>
                 <div class="modal-body">
-                    <div class="container-fluid " style="padding-left: 40px ; padding-right: 40px">
-                        <div class="row">
+                    <div class="container-fluid " style="padding-left: 0px ; padding-right: 40px">
+                        <div class="row" style="display: flex; justify-content: center">
 
-
-                            <form id="EditCollegeModal" class="row needs-validation " style="margin-left: 30px; width: 80%; height: 65%; " novalidate>
+                            <form id="editCourseModal" class="row needs-validation " style="margin-left: 30px; width: 80%; height: 65%; " novalidate>
                                 <div class="col-md-5 firstname">
-                                    <label for="editCollege" class="form-label mb-0" style="font-size: 12px;">COLLEGE</label>
-                                    <select class="form-select" id="editCollege" style="font-size: 10px; text-transform: uppercase !important;" required>
+                                    <label for="editStudentCollege" class="form-label mb-0" style="font-size: 12px;">COLLEGE</label>
+                                    <select class="form-select" id="editStudentCollege" style="font-size: 10px; text-transform: uppercase !important; width: 470px;" required>
                                         <option value="" disabled selected>Select Course</option>
 
                                     </select>
@@ -359,16 +357,7 @@ if (isset($_SESSION['user'])) {
 
                                 <div class="col-md-12">
                                     <label for="editCourse" class="form-label mb-0" style="font-size: 12px;">COURSE NAME</label>
-                                    <select class="form-select" id="editCourse" style="font-size: 10px; text-transform: uppercase !important;" required>
-                                        <option value="" disabled selected>Select Course</option>
-                                        <option selected value="BSIT">BSIT</option>
-                                        <option value="BTVTED">BTVTED</option>
-                                        <option value="BECED">BECED</option>
-                                        <option value="BECED">BECED</option>
-                                        <option value="BSED">BSED</option>
-                                        <option value="BSABE">BSABE</option>
-                                        <option value="BSNED">BSNED</option>
-                                    </select>
+                                    <input type="text" class="form-control" value="Bachelor of Science in Information Technology" id="editCourse" style="font-size: 10px; text-transform: capitalize !important;" required>
                                     <div class="invalid-feedback" style="font-size: 8px">
                                         Not a valid last name!
                                     </div>
@@ -378,7 +367,7 @@ if (isset($_SESSION['user'])) {
 
                                 <div class="col-md-9">
                                     <label for="editMajor" class="form-label mb-0" style="font-size: 12px;">MAJOR</label>
-                                    <input type="text" class="form-control" value="Information Security" id="editMajor" style="font-size: 10px; text-transform: capitalize !important;" required>
+                                    <input type="text" class="form-control" value="Information Security" id="editMajor" style="font-size: 10px; text-transform: capitalize !important; width: 470px;" required>
                                     <div class="invalid-feedback" style="font-size: 8px">
                                         Not a valid last name!
                                     </div>
@@ -387,9 +376,9 @@ if (isset($_SESSION['user'])) {
                                 </div>
 
 
-                                <div class="wishlist-container mt-4 mb-0" style="display: flex; justify-content: flex-end; width: 664px; margin-left: 30%;">
+                                <div class="wishlist-container mt-4 mb-0" style="display: flex; justify-content: flex-end; width: 664px; margin-left: 0%;">
                                     <button style="height: 25px; width: 100px" type="button" class="clear shadow" onclick="clearForm()">CLEAR</button>
-                                    <button style="height: 25px; width: 100px" type="submit" id="addCrseBtn" class="add shadow">SAVE</button>
+                                    <button style="height: 25px; width: 100px" type="submit" id="saveCourseBtnEdit" class="add shadow">SAVE</button>
                                 </div>
 
                             </form>
@@ -473,52 +462,9 @@ if (isset($_SESSION['user'])) {
             event.stopPropagation();
         }
     </script>
-    <script>
-        // The deleteAllBook button
-        const deleteButton = document.getElementById('deleteCourseBtn');
-        if (deleteButton) {
-            deleteButton.addEventListener('click', function() {
-                showDeleteConfirmation(1); // Pass a unique identifier
-            });
-        }
-
-        function showDeleteConfirmation(id) {
-            Swal.fire({
-                title: 'ARE YOU SURE?',
-                text: 'Do you really want to delete this course? Process cannot be undone.',
-                icon: 'error', // Set the icon as 'error'
-                iconHtml: '<div style="background-color: white; display: inline-block; padding: 20px; border-radius: 5px;"><i class="bi bi-trash3-fill" style="font-size: 50px; color: #711717;"></i></div>',
-                showCancelButton: true,
-                confirmButtonColor: '#711717',
-                confirmButtonText: 'DELETE',
-                cancelButtonText: 'CANCEL',
-                cancelButtonColor: '#e3e6e9',
-                customClass: {
-                    popup: 'my-swal-popup',
-                    content: 'my-swal-content',
-                    title: 'swal-title',
-                    cancelButton: 'my-cancel-button',
-                    confirmButton: 'my-confirm-button'
-                }
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    Swal.fire({
-                        title: 'DELETED!',
-                        text: 'SUCCESSFULLY DELETED!',
-                        icon: 'success',
-                        customClass: {
-                            popup: 'my-swal-popup',
-                            title: 'swal-title',
-                            content: 'my-swal-content',
-                            confirmButton: 'my-confirm-button'
-                        }
-                    });
-                }
-            });
-        }
-    </script>
     <script src="../js/add_course.js"></script>
     <script src="../js/update_course.js"></script>
+    <script src="../js/delete_course.js"></script>
 
 </body>
 

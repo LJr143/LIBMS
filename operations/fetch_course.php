@@ -8,7 +8,8 @@ $course = new CourseData($database);
 
 // Assuming you have a method to fetch staff data based on admin_id
 $courseId = $_POST['courseId'];
-$courseData = $course->getCourseById($courseId);
+$collegeId = $_POST['collegeId'];
+$courseData = $course->getCourseInfo($courseId,$collegeId);
 
 // Return data as JSON
 header('Content-Type: application/json');
