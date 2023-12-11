@@ -10,10 +10,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     try {
         $collegeId = $_POST['collegeId'];
         $courseName = $_POST['courseName'];
+        $courseMajor = $_POST['courseMajor'];
 
         $course = new CourseData($database);
 
-        $result = $course->addCourse($collegeId, $courseName);
+        $result = $course->addCourse($collegeId, $courseName, $courseMajor);
 
         header('Content-Type: application/json');
         echo json_encode($result);

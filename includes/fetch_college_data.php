@@ -111,7 +111,7 @@ class CourseData extends CollegeData
 
     public function getAllCourses(): array
     {
-        $sql = "SELECT * FROM tbl_course";
+        $sql = "SELECT * FROM vw_course";
         $stmt = $this->database->query($sql);
 
         if ($stmt) {
@@ -121,16 +121,35 @@ class CourseData extends CollegeData
             return array();
         }
     }
-
-    public function addCourse($collegeId, $courseName): array
+    public function getCourseById($courseId): array
     {
-        $sql = "INSERT INTO tbl_course (college_id, course_name)
-            VALUES (:college_id, :course_name)";
+        $sql = "SELECT * FROM tbl_course WHERE id = :courseId";
+        $stmt = $this->database->prepare($sql);
+        $stmt->bindParam(':courseId', $courseId, PDO::PARAM_STR);
+
+        if ($stmt->execute()) {
+            $errorInfo = $stmt->errorInfo();
+            if ($errorInfo[0] !== '00000') {
+                // Log or print the error information
+                error_log("Database error: " . $errorInfo[2]);
+            }
+
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        } else {
+            return array();
+        }
+    }
+
+    public function addCourse($collegeId, $courseName, $courseMajor): array
+    {
+        $sql = "INSERT INTO tbl_course (college_id, course_name, course_major)
+            VALUES (:college_id, :course_name, :course_major)";
         $stmt = $this->database->prepare($sql);
 
         // Bind parameters
         $stmt->bindParam(':college_id', $collegeId, PDO::PARAM_STR);
         $stmt->bindParam(':course_name', $courseName, PDO::PARAM_STR);
+        $stmt->bindParam(':course_major', $courseMajor, PDO::PARAM_STR);
 
         // Execute the query
         $success = $stmt->execute();

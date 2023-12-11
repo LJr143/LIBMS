@@ -103,6 +103,7 @@ function prepareFormData() {
     var formData = new FormData();
     formData.append('collegeId', $('#editSelectCollege').val());
     formData.append('courseName', $('#addCourseName').val());
+    formData.append('courseMajor', $('#addCourseMajor').val());
 
     return formData;
 }
@@ -161,17 +162,5 @@ function showValidationError(message) {
     showError(message);
 }
 
-$("#editCourseBtn").click(function() {
-    // Show the student modal
-    $("#editCourseModal").modal("show");
-});
 
-$("#addMajorBtn").click(function() {
-    // Show the student modal
-    $("#majorModal").modal("show");
-});
 
-// Handle the file input change event
-$("#addStudentinput-file").change(function() {
-    readURL(this);
-});

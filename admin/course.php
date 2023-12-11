@@ -3,6 +3,7 @@ session_start();
 require_once 'C:\wamp64\www\LIBMS\db_config\config.php';
 include 'C:\wamp64\www\LIBMS\operations\authentication.php';
 include 'C:\wamp64\www\LIBMS\includes\fetch_user_data.php';
+include 'C:\wamp64\www\LIBMS\includes\fetch_college_data.php';
 
 include 'C:\wamp64\www\LIBMS\includes\fetch_staff_data.php';
 error_reporting(E_ALL);
@@ -14,7 +15,12 @@ $database = new Database();
 $userAuth = new UserAuthentication($database);
 $adminData = new StaffData($database);
 $userData = new UserData($database);
+$course = new CourseData($database);
+$college = new CollegeData($database);
 $userList = $userData->getAllUsers();
+$getCourse = $course->getAllCourses();
+
+
 
 if ($userAuth->isAuthenticated()) {
 } else {
@@ -198,9 +204,8 @@ if (isset($_SESSION['user'])) {
 
                 <div style="display: flex; justify-content: center; ">
                     <div style="background-color: white; width: 95%; height: 55px; margin: 15px; border-radius: 5px;display: flex; box-shadow: 0px 4px 8px rgba(0,0,0,0.27); align-items: center">
-                        <div class="col col-md-6" style="margin-left: 70%;">
+                        <div class="col col-md-6" style="margin-left: 87%;">
                             <button id="addCourseBtn" style="font-size: 12px; width: 150px; height: 30px; border-radius: 5px; background-color: rgb(128,0,0); color: white; border: none;">ADD COURSE</button>
-                            <button id="addMajorBtn" style="font-size: 12px; width: 150px; height: 30px; border-radius: 5px; background-color: rgb(128,0,0); color: white; border: none; margin-left: 5%;">ADD MAJOR</button>
                         </div>
                     </div>
                 </div>
@@ -219,24 +224,26 @@ if (isset($_SESSION['user'])) {
                                         </tr>
                                     </thead>
                                 <tbody>
+                                <?php foreach ($getCourse as $courses) : ?>
                                     <tr style="height: 10px">
 
                                     </tr>
                                     <tr style=" height: 40px; background-color: rgb(246,246,246); margin-bottom: 10px; border: 1px solid rgba(0,0,0,0.25);">
-                                        <td>CTET</td>
-                                        <td>Bachelor of Science in Information Technology</td>
-                                        <td>Information Security</td>
+                                        <td><?= $courses['college_name']; ?></td>
+                                        <td><?= $courses['course_name'];?></td>
+                                        <td><?= $courses['course_major']; ?></td>
                                         <td style="padding: 1px;">
                                             <div class="btn-group" role="group">
-                                                <a href="#" class="btn custom-btn editStudentProfile" id="editCourseBtn">
+                                                <a href="#" class="btn custom-btn editCourseBtn" data-course-id="<?= $courses['course_id'];?>">
                                                     <i class="bi bi-pencil-square"></i>
                                                 </a>
-                                                <a href="#" class="btn custom-btn deleteStudent" id="deleteCourseBtn">
+                                                <a href="#" class="btn custom-btn deleteCourseBtn">
                                                     <i class="bi bi-trash"></i>
                                                 </a>
                                             </div>
                                         </td>
                                     </tr>
+                                <?php endforeach;?>
                                 </tbody>
                             </table>
 
@@ -300,6 +307,11 @@ if (isset($_SESSION['user'])) {
 
                                 </div>
 
+                                <div class="col-md-12">
+                                    <label for="addCourseMajor" class="form-label mb-0" style="font-size: 12px;">MAJOR</label>
+                                    <input type="text" class="form-control" placeholder="Information Security" id="addCourseMajor" style="font-size: 10px;">
+                                </div>
+
                                 <div class="wishlist-container mt-4 mb-0" style="display: flex; justify-content: flex-end; width: 664px;">
                                     <button style="height: 25px; width: 100px" type="button" class="clear shadow" onclick="clearForm()">CLEAR</button>
                                     <button style="height: 25px; width: 100px" type="submit" id="addCllgBtn" class="add shadow">ADD</button>
@@ -312,83 +324,7 @@ if (isset($_SESSION['user'])) {
             </div>
         </div>
     </div>
-
-    <!-- Add Major Modal-->
-    <div class="modal fade" id="majorModal" tabindex="-1" role="dialog" aria-labelledby="collegeModalLabel" aria-hidden="true">
-        <div class="modal-dialog  modal-dialog-centered" role="document" style="max-width: 700px;">
-            <div class="modal-content">
-                <div class="modal-header" style="height: 15px;">
-
-                    <p class="modal-title" id="borrowModalLabel " style="font-size: 10px; color: #800000; font-weight: 600;">
-                        <i class="bi bi-pencil-square ml-3 m-3" style="font-size: 12px; color: #800000;"></i>ADD COLLEGE
-                    </p>
-                    <button style="font-size: 16px; background-color: transparent; border:none;" type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <div class="container-fluid " style="padding-left: 40px ; padding-right: 40px">
-                        <div class="row">
-
-
-                            <form id="AddCourseModal" class="row needs-validation " style="margin-left: 30px; width: 80%; height: 65%; " novalidate>
-                                <div class="col-md-5 firstname">
-                                    <label for="addCollegeId" class="form-label mb-0" style="font-size: 12px;">COLLEGE</label>
-                                    <select class="form-select" id="editStudentCourse" style="font-size: 10px; text-transform: uppercase !important;" required>
-                                        <option value="" disabled selected>Select Course</option>
-                                        <option value="BSIT">CTET</option>
-                                        <option value="BTVTED">CARS</option>
-                                    </select>
-                                    <div class="invalid-feedback" style="font-size: 8px">
-                                        Not a valid first name!
-                                    </div>
-                                    <div class="valid-feedback" style="font-size: 8px">Looks good!</div>
-                                </div>
-
-
-                                <div class="col-md-12">
-                                    <label for="addCourseName" class="form-label mb-0" style="font-size: 12px;">COURSE NAME</label>
-                                    <select class="form-select" id="editStudentCourse" style="font-size: 10px; text-transform: uppercase !important;" required>
-                                        <option value="" disabled selected>Select Course</option>
-                                        <option value="BSIT">BSIT</option>
-                                        <option value="BTVTED">BTVTED</option>
-                                        <option value="BECED">BECED</option>
-                                        <option value="BECED">BECED</option>
-                                        <option value="BSED">BSED</option>
-                                        <option value="BSABE">BSABE</option>
-                                        <option value="BSNED">BSNED</option>
-                                    </select>
-                                    <div class="invalid-feedback" style="font-size: 8px">
-                                        Not a valid last name!
-                                    </div>
-                                    <div class="valid-feedback" style="font-size: 8px">Looks good!</div>
-
-                                </div>
-
-                                <div class="col-md-9">
-                                    <label for="addMajor" class="form-label mb-0" style="font-size: 12px;">MAJOR</label>
-                                    <input type="text" class="form-control" placeholder="Information Security" id="addMajor" style="font-size: 10px; text-transform: capitalize !important;" required>
-                                    <div class="invalid-feedback" style="font-size: 8px">
-                                        Not a valid last name!
-                                    </div>
-                                    <div class="valid-feedback" style="font-size: 8px">Looks good!</div>
-
-                                </div>
-
-
-                                <div class="wishlist-container mt-4 mb-0" style="display: flex; justify-content: flex-end; width: 664px; margin-left: 30%;">
-                                    <button style="height: 25px; width: 100px" type="button" class="clear shadow" onclick="clearForm()">CLEAR</button>
-                                    <button style="height: 25px; width: 100px" type="submit" id="addCllgBtn" class="add shadow">ADD</button>
-                                </div>
-
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
+    
     <!-- Edit College Modal-->
     <div class="modal fade" id="editCourseModal" tabindex="-1" role="dialog" aria-labelledby="editcourseModalLabel" aria-hidden="true">
         <div class="modal-dialog  modal-dialog-centered" role="document" style="max-width: 700px;">
@@ -409,11 +345,10 @@ if (isset($_SESSION['user'])) {
 
                             <form id="EditCollegeModal" class="row needs-validation " style="margin-left: 30px; width: 80%; height: 65%; " novalidate>
                                 <div class="col-md-5 firstname">
-                                    <label for="addCollegeId" class="form-label mb-0" style="font-size: 12px;">COLLEGE</label>
-                                    <select class="form-select" id="editStudentCourse" style="font-size: 10px; text-transform: uppercase !important;" required>
+                                    <label for="editCollege" class="form-label mb-0" style="font-size: 12px;">COLLEGE</label>
+                                    <select class="form-select" id="editCollege" style="font-size: 10px; text-transform: uppercase !important;" required>
                                         <option value="" disabled selected>Select Course</option>
-                                        <option selected value="BSIT">CTET</option>
-                                        <option value="BTVTED">CARS</option>
+
                                     </select>
                                     <div class="invalid-feedback" style="font-size: 8px">
                                         Not a valid first name!
@@ -423,8 +358,8 @@ if (isset($_SESSION['user'])) {
 
 
                                 <div class="col-md-12">
-                                    <label for="addCourseName" class="form-label mb-0" style="font-size: 12px;">COURSE NAME</label>
-                                    <select class="form-select" id="editStudentCourse" style="font-size: 10px; text-transform: uppercase !important;" required>
+                                    <label for="editCourse" class="form-label mb-0" style="font-size: 12px;">COURSE NAME</label>
+                                    <select class="form-select" id="editCourse" style="font-size: 10px; text-transform: uppercase !important;" required>
                                         <option value="" disabled selected>Select Course</option>
                                         <option selected value="BSIT">BSIT</option>
                                         <option value="BTVTED">BTVTED</option>
@@ -442,8 +377,8 @@ if (isset($_SESSION['user'])) {
                                 </div>
 
                                 <div class="col-md-9">
-                                    <label for="addMajor" class="form-label mb-0" style="font-size: 12px;">MAJOR</label>
-                                    <input type="text" class="form-control" value="Information Security" id="addMajor" style="font-size: 10px; text-transform: capitalize !important;" required>
+                                    <label for="editMajor" class="form-label mb-0" style="font-size: 12px;">MAJOR</label>
+                                    <input type="text" class="form-control" value="Information Security" id="editMajor" style="font-size: 10px; text-transform: capitalize !important;" required>
                                     <div class="invalid-feedback" style="font-size: 8px">
                                         Not a valid last name!
                                     </div>
@@ -583,6 +518,7 @@ if (isset($_SESSION['user'])) {
         }
     </script>
     <script src="../js/add_course.js"></script>
+    <script src="../js/update_course.js"></script>
 
 </body>
 
