@@ -3,7 +3,7 @@ session_start();
 require_once 'C:\wamp64\www\LIBMS\db_config\config.php';
 include 'C:\wamp64\www\LIBMS\operations\authentication.php';
 include 'C:\wamp64\www\LIBMS\includes\fetch_user_data.php';
-
+include 'C:\wamp64\www\LIBMS\includes\fetch_shelf_data.php';
 include 'C:\wamp64\www\LIBMS\includes\fetch_staff_data.php';
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
@@ -14,7 +14,9 @@ $database = new Database();
 $userAuth = new UserAuthentication($database);
 $adminData = new StaffData($database);
 $userData = new UserData($database);
+$shelfData = new ShelfData($database);
 $userList = $userData->getAllUsers();
+$shelfList = $shelfData->getAllShelf();
 
 if ($userAuth->isAuthenticated()) {
 } else {
@@ -217,24 +219,27 @@ if (isset($_SESSION['user'])) {
                                         </tr>
                                     </thead>
                                 <tbody>
+                                <?php foreach($shelfList as $shelf) : ?>
+
                                     <tr style="height: 10px">
 
                                     </tr>
                                     <tr style=" height: 40px; background-color: rgb(246,246,246); margin-bottom: 10px; border: 1px solid rgba(0,0,0,0.25);">
-                                        <td>CN0111</td>
-                                        <td>General Information</td>
+                                        <td><?= $shelf['shelf_id'];?></td>
+                                        <td><?= $shelf['shelf_category'];?></td>
                                         <td style="padding: 1px;">
                                             <div class="btn-group" role="group">
-                                                <a href="#" class="btn custom-btn editStudentProfile" id="editShelfBtn">
+                                                <a href="#" class="btn custom-btn editShelfBtn" data-shelf-id="<?php echo $shelf['id']; ?>" data-category-name="<?php echo $shelf['shelf_category']; ?>">
                                                     <i class="bi bi-pencil-square"></i>
                                                 </a>
-                                                <a href="#" class="btn custom-btn deleteStudent" id="deleteShelfBtn">
+                                                <a href="#" class="btn custom-btn deleteShelfBtn" data-shelf-id="<?php echo $shelf['id']; ?>" data-category-name="<?php echo $shelf['shelf_category']; ?>" >
                                                     <i class="bi bi-trash"></i>
                                                 </a>
                                             </div>
                                         </td>
                                     </tr>
                                 </tbody>
+                                <?php endforeach; ?>
                             </table>
 
 
@@ -287,7 +292,7 @@ if (isset($_SESSION['user'])) {
 
                                 <div class="col-md-12">
                                     <label for="addShelfCategory" class="form-label mb-0" style="font-size: 12px;">CATEGORIES</label>
-                                    <select class="form-select" id="editShelf" style="font-size: 10px; text-transform: uppercase !important;" required>
+                                    <select class="form-select" id="addShelfCategory" style="font-size: 10px; text-transform: uppercase !important;" required>
                                         <option value="" disabled selected>Select Categories</option>
                                         <option value="Usepiana">Usepiana</option>
                                         <option value="General Information">General Information</option>
@@ -305,7 +310,7 @@ if (isset($_SESSION['user'])) {
 
                                 <div class="wishlist-container mt-4 mb-0" style="display: flex; justify-content: flex-end; width: 664px;">
                                     <button style="height: 25px; width: 100px" type="button" class="clear shadow" onclick="clearForm()">CLEAR</button>
-                                    <button style="height: 25px; width: 100px" type="submit" id="addCllgBtn" class="add shadow">ADD</button>
+                                    <button style="height: 25px; width: 100px" type="submit" id="addShelfBtnAdd" class="add shadow">ADD</button>
                                 </div>
 
                             </form>
@@ -331,13 +336,13 @@ if (isset($_SESSION['user'])) {
                 </div>
                 <div class="modal-body">
                     <div class="container-fluid " style="padding-left: 40px ; padding-right: 40px">
-                        <div class="row">
+                        <div class="row" style="display: flex; justify-content: center;">
 
 
-                            <form id="EditCollegeModal" class="row needs-validation " style="margin-left: 30px; width: 80%; height: 65%; " novalidate>
+                            <form id="EditShelfModal" class="row needs-validation " style=" width: 80%; height: 65%; " novalidate>
                                 <div class="col-md-5 firstname">
                                     <label for="editShelfId" class="form-label mb-0" style="font-size: 12px;">SHELF ID</label>
-                                    <input type="text" class="form-control" value="COL0111" id="editShelfId" style="font-size: 10px; text-transform: capitalize !important;" required>
+                                    <input type="text" class="form-control" value="COL0111" id="editShelfId" style="font-size: 10px; text-transform: capitalize !important; width: 440px;" required>
                                     <div class="invalid-feedback" style="font-size: 8px">
                                         Not a valid first name!
                                     </div>
@@ -347,7 +352,7 @@ if (isset($_SESSION['user'])) {
 
                                 <div class="col-md-12">
                                     <label for="editShelfCategory" class="form-label mb-0" style="font-size: 12px;">CATEGORIES</label>
-                                    <select class="form-select" id="editShelf" style="font-size: 10px; text-transform: uppercase !important;" required>
+                                    <select class="form-select" id="editShelfCategory" style="font-size: 10px; text-transform: uppercase !important;" required>
                                         <option value="" disabled selected>Select Categories</option>
                                         <option value="Usepiana">Usepiana</option>
                                         <option selected value="General Information">General Information</option>
@@ -362,7 +367,7 @@ if (isset($_SESSION['user'])) {
 
                                 </div>
 
-                                <div class="wishlist-container mt-4 mb-0" style="display: flex; justify-content: flex-end; width: 664px;  margin-left: 30%;">
+                                <div class="wishlist-container mt-4 mb-0" style="display: flex; justify-content: flex-end; width: 664px;">
                                     <button style="height: 25px; width: 100px" type="button" class="clear shadow" onclick="clearForm()">CLEAR</button>
                                     <button style="height: 25px; width: 100px" type="submit" id="saveShlfBtn" class="add shadow">SAVE</button>
                                 </div>
@@ -433,7 +438,6 @@ if (isset($_SESSION['user'])) {
     </div>
 
 
-    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script src="../node_modules/jquery/dist/jquery.min.js"></script>
     <script src="../node_modules/sweetalert2/dist/sweetalert2.all.min.js"></script>
     <script src="../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
@@ -448,71 +452,9 @@ if (isset($_SESSION['user'])) {
             event.stopPropagation();
         }
     </script>
-
-    <script>
-        $(document).ready(function() {
-            // Attach a click event to the "ADD STUDENT" button
-            $("#addShelfBtn").click(function() {
-                // Show the student modal
-                $("#shelfModal").modal("show");
-            });
-
-            $("#editShelfBtn").click(function() {
-                // Show the student modal
-                $("#editShelfModal").modal("show");
-            });
-
-            // Handle the file input change event
-            $("#addShelfinput-file").change(function() {
-                readURL(this);
-            });
-        });
-    </script>
-
-    <script>
-        // The deleteAllBook button
-        const deleteButton = document.getElementById('deleteShelfBtn');
-        if (deleteButton) {
-            deleteButton.addEventListener('click', function() {
-                showDeleteConfirmation(1); // Pass a unique identifier
-            });
-        }
-
-        function showDeleteConfirmation(id) {
-            Swal.fire({
-                title: 'ARE YOU SURE?',
-                text: 'Do you really want to delete this college? Process cannot be undone.',
-                icon: 'error', // Set the icon as 'error'
-                iconHtml: '<div style="background-color: white; display: inline-block; padding: 20px; border-radius: 5px;"><i class="bi bi-trash3-fill" style="font-size: 50px; color: #711717;"></i></div>',
-                showCancelButton: true,
-                confirmButtonColor: '#711717',
-                confirmButtonText: 'DELETE',
-                cancelButtonText: 'CANCEL',
-                cancelButtonColor: '#e3e6e9',
-                customClass: {
-                    popup: 'my-swal-popup',
-                    content: 'my-swal-content',
-                    title: 'swal-title',
-                    cancelButton: 'my-cancel-button',
-                    confirmButton: 'my-confirm-button'
-                }
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    Swal.fire({
-                        title: 'DELETED!',
-                        text: 'SUCCESSFULLY DELETED!',
-                        icon: 'success',
-                        customClass: {
-                            popup: 'my-swal-popup',
-                            title: 'swal-title',
-                            content: 'my-swal-content',
-                            confirmButton: 'my-confirm-button'
-                        }
-                    });
-                }
-            });
-        }
-    </script>
+    <script src="../js/add_shelf.js"></script>
+    <script src="../js/update_shelf.js"></script>
+    <script src="../js/delete_shelf.js"></script>
 
 </body>
 
