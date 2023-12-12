@@ -1,3 +1,4 @@
+
 $(document).ready(function () {
     function updateNotifications() {
         // Fetch new transactions using AJAX
@@ -18,31 +19,37 @@ $(document).ready(function () {
     }
 
     function updateNotificationDropdown(transactions) {
-    var notificationList = $('#notificationList');
-    notificationList.empty();
+        var notificationList = $('#notificationList');
+        notificationList.empty();
 
-    transactions.forEach(function (transact) {
-    var listItem = $('<li></li>');
-    listItem.html('<div class="d-flex justify-content-between align-items-center" style=" background-color: #F8F8FF; padding: 10px; height: 35px; box-shadow: 0px 4px 8px rgba(0,0,0,0.27); margin-bottom: 8px;">' +
-    '<span style="text-transform: capitalize;">' + transact.fname + ' ' + transact.initial + '.' + ' ' + transact.lname + ' has requested to ' + transact.transaction_type + ' a book</span>' +
-    '<div class="btn-group ms-4">' +
-    '<button type="button" class="btn custom-btn" data-bs-toggle="modal" onclick="handleButtonClick(event)" data-bs-target="#infoModal1">' +
-    '<i class="bi bi-info-circle" style="color:blue; font-size: 20px;"></i>'
-    + '</button>' +
-    '<button type="button" class="btn custom-btn" onclick="handleButtonClick(event)">' +
-    '<i class="bi bi-check-circle" style="color:green; font-size: 20px;"></i>' +
-    '</button>' +
-    '<button type="button" class="btn custom-btn" onclick="handleButtonClick(event)">' +
-    '<i class="bi bi-x-circle" style="color:red; font-size: 20px;"></i>' +
-    '</button>' +
-    '</div>' +
-    '</div>' +
-    '</li>');
+        transactions.forEach(function (transact) {
+            // Inside updateNotificationDropdown function
+            var listItem = $('<li></li>');
+            listItem.html('<div class="d-flex justify-content-between align-items-center" style=" background-color: #F8F8FF; padding: 10px; height: 35px; box-shadow: 0px 4px 8px rgba(0,0,0,0.27); margin-bottom: 8px;">' +
+                '<span style="text-transform: capitalize;">' + transact.fname + ' ' + transact.initial + '.' + ' ' + transact.lname + ' has requested to ' + transact.transaction_type + ' a book</span>' +
+                '<div class="btn-group ms-4">' +
+                '<button type="button" class="btn custom-btn transaction_modal" data-transaction-id="' + transact.id + '">' +
+                '<i class="bi bi-info-circle" style="color:blue; font-size: 20px;"></i>' +
+                '</button>' +
+                '<button type="button" class="btn custom-btn">' +
+                '<i class="bi bi-check-circle" style="color:green; font-size: 20px;"></i>' +
+                '</button>' +
+                '<button type="button" class="btn custom-btn">' +
+                '<i class="bi bi-x-circle" style="color:red; font-size: 20px;"></i>' +
+                '</button>' +
+                '</div>' +
+                '</div>' +
+                '</li>');
 
-    notificationList.append(listItem);
-});
-}
+            notificationList.append(listItem);
 
-    // Periodically update notifications (every 30 seconds in this example)
-    setInterval(updateNotifications, 30000);
+
+        });
+    }
+    // Periodically update notifications and modal data
+    setInterval(function () {
+        updateNotifications();
+    }, 30000);
+
+
 });
