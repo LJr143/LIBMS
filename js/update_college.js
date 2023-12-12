@@ -115,22 +115,22 @@ function showValidationError(message) {
     });
 }
 
-function getCustomErrorMessage(fieldId) {
-    var errorMessage = '';
-
-    switch (fieldId) {
-        case '#editCollegeId':
-            errorMessage = 'Invalid College ID. It should follow the pattern COL-****.';
-            break;
-        case '#editCollegeName':
-            errorMessage = 'Invalid College Name. It should only contain letters and spaces.';
-            break;
-        // Add more cases for other fields as needed
-        default:
-            errorMessage = 'Invalid input for ' + $(fieldId).attr('placeholder') + '.';
-            break;
-    }
-
-    return errorMessage;
-}
+// function getCustomErrorMessage(fieldId) {
+//     var errorMessage = '';
+//
+//     switch (fieldId) {
+//         case '#editCollegeId':
+//             errorMessage = 'Invalid College ID. It should follow the pattern COL-****.';
+//             break;
+//         case '#editCollegeName':
+//             errorMessage = 'Invalid College Name. It should only contain letters and spaces.';
+//             break;
+//         // Add more cases for other fields as needed
+//         default:
+//             errorMessage = 'Invalid input for ' + $(fieldId).attr('placeholder') + '.';
+//             break;
+//     }
+//
+//     return errorMessage;
+// }
 
