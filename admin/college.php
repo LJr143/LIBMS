@@ -338,7 +338,6 @@ if (isset($_SESSION['user'])) {
                                     <div class="invalid-feedback" style="font-size: 8px">
                                         Not a valid first name!
                                     </div>
-                                    <div class="valid-feedback" style="font-size: 8px">Looks good!</div>
                                 </div>
 
 
@@ -348,7 +347,6 @@ if (isset($_SESSION['user'])) {
                                     <div class="invalid-feedback" style="font-size: 8px">
                                         Not a valid last name!
                                     </div>
-                                    <div class="valid-feedback" style="font-size: 8px">Looks good!</div>
 
                                 </div>
 
