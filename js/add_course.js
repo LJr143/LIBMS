@@ -1,20 +1,18 @@
-$(document).ready(function() {
+$(document).ready(function () {
     // Attach a click event to the "ADD STUDENT" button
-    $("#addCourseBtn").click(function() {
+    $("#addCourseBtn").click(function () {
         // Show the student modal
         $("#courseModal").modal("show");
 
         // Fetch college options
         fetchCollegeOptions();
 
-        $("#addCllgBtn").click(function (e){
+        // Attach click event for addCllgBtn
+        $("#addCllgBtn").click(function (e) {
             e.preventDefault(); // Prevent the default form submission
-
-           addCourse();
+            addCourse();
         });
-
     });
-
 });
 
 function fetchCollegeOptions() {
@@ -22,25 +20,22 @@ function fetchCollegeOptions() {
         url: '../operations/fetch_college_options.php',
         type: 'GET',
         dataType: 'json',
-        success: function(response) {
-            // Log the response to inspect the structure
-            console.log(response);
+        success: function (response) {
 
             // Populate the select options
             populateCollegeOptions(response);
         },
-        error: function() {
+        error: function () {
             // Handle errors
             console.error('Error fetching College options.');
         }
     });
 }
+
 function populateCollegeOptions(data) {
-    // Log the data to inspect the structure
-    console.log(data);
 
     // Get the select element
-    var selectElement = $('#editSelectCollege');
+    var selectElement = $('#addSelectCollege');
 
     // Clear existing options
     selectElement.empty();
@@ -49,7 +44,7 @@ function populateCollegeOptions(data) {
     selectElement.append('<option value="" disabled selected>Select College</option>');
 
     // Add options based on the fetched data
-    data.forEach(function(college) {
+    data.forEach(function (college) {
         selectElement.append('<option value="' + college.college_id + '">' + college.college_name + '</option>');
     });
 }
@@ -65,7 +60,7 @@ function addCourse() {
         data: formData,
         contentType: false,
         processData: false,
-        success: function(response) {
+        success: function (response) {
             handleAjaxSuccess(response, 'add');
         },
         error: handleAjaxError
@@ -84,7 +79,7 @@ function validateForm() {
     form.classList.add('was-validated');
 
     // Add validation logic for each required field
-    var requiredFields = ['#editSelectCollege', '#addCourseName'];
+    var requiredFields = ['#addSelectCollege', '#addCourseName'];
 
     for (var i = 0; i < requiredFields.length; i++) {
         var fieldId = requiredFields[i];
@@ -98,11 +93,11 @@ function validateForm() {
     return true; // Validation succeeded
 }
 
-
 function prepareFormData() {
     var formData = new FormData();
-    formData.append('collegeId', $('#editSelectCollege').val());
+    formData.append('collegeId', $('#addSelectCollege').val());
     formData.append('courseName', $('#addCourseName').val());
+    formData.append('courseMajor', $('#addCourseMajor').val());
 
     return formData;
 }
@@ -138,7 +133,7 @@ function handleSuccessConfirmation(modalId, operationType) {
         // Check if the user clicked "OK"
         if (result.isConfirmed) {
             // Reload the page after a short delay
-            setTimeout(function() {
+            setTimeout(function () {
                 location.reload();
             }, 0);
         }
@@ -160,18 +155,3 @@ function showError(message) {
 function showValidationError(message) {
     showError(message);
 }
-
-$("#editCourseBtn").click(function() {
-    // Show the student modal
-    $("#editCourseModal").modal("show");
-});
-
-$("#addMajorBtn").click(function() {
-    // Show the student modal
-    $("#majorModal").modal("show");
-});
-
-// Handle the file input change event
-$("#addStudentinput-file").change(function() {
-    readURL(this);
-});
