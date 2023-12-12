@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Dec 11, 2023 at 01:03 PM
+-- Generation Time: Dec 12, 2023 at 02:19 PM
 -- Server version: 8.0.31
 -- PHP Version: 7.4.33
 
@@ -70,7 +70,7 @@ CREATE TABLE IF NOT EXISTS `tbl_book` (
   `author` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `publisher` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
   `genre` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
-  `category` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
+  `category` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT 'Others',
   `description` longtext COLLATE utf8mb4_general_ci NOT NULL,
   `shelf` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
   `copy` int NOT NULL,
@@ -112,14 +112,7 @@ CREATE TABLE IF NOT EXISTS `tbl_borrow` (
   PRIMARY KEY (`borrow_id`),
   KEY `user_id_fk` (`user_id`),
   KEY `book_id_fk` (`book_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `tbl_borrow`
---
-
-INSERT INTO `tbl_borrow` (`borrow_id`, `user_id`, `book_id`, `date`, `status`) VALUES
-(19, '2021-00027', 'B5', '2023-12-09', 'Pending');
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -172,16 +165,18 @@ CREATE TABLE IF NOT EXISTS `tbl_course` (
   `id` int NOT NULL AUTO_INCREMENT,
   `college_id` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `course_name` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
+  `course_major` varchar(100) COLLATE utf8mb4_general_ci NOT NULL DEFAULT 'N/A',
   PRIMARY KEY (`id`),
   KEY `college_id_FK` (`college_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `tbl_course`
 --
 
-INSERT INTO `tbl_course` (`id`, `college_id`, `course_name`) VALUES
-(2, 'C0001', 'Bachelor of Science in Information Technology');
+INSERT INTO `tbl_course` (`id`, `college_id`, `course_name`, `course_major`) VALUES
+(8, 'CO002', 'Bachelor of Early-Childhood Education', 'N/A'),
+(11, 'C0001', 'Bachelor of Science in Information Technology', 'Information Security');
 
 -- --------------------------------------------------------
 
@@ -430,19 +425,28 @@ CREATE TABLE IF NOT EXISTS `tbl_reserve` (
   PRIMARY KEY (`reserve_id`),
   KEY `book_id` (`book_id`),
   KEY `reserve_user_id_fk` (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
 
 --
--- Dumping data for table `tbl_reserve`
+-- Table structure for table `tbl_shelf`
 --
 
-INSERT INTO `tbl_reserve` (`reserve_id`, `user_id`, `book_id`, `reserve_date`, `return_date`, `status`) VALUES
-(6, '2021-00027', 'B5', '2023-12-12', '2023-12-12', 'Pending'),
-(7, '2021-00027', 'B6', '0000-00-00', '0000-00-00', 'Pending'),
-(8, '2021-00027', 'B2', '0000-00-00', '0000-00-00', 'Pending'),
-(9, '2021-00027', 'B5', '2023-12-05', '2023-12-20', 'Pending'),
-(10, '2021-00027', 'B3', '0000-00-00', '0000-00-00', 'Pending'),
-(11, '2021-00027', 'B8', '0000-00-00', '0000-00-00', 'Pending');
+DROP TABLE IF EXISTS `tbl_shelf`;
+CREATE TABLE IF NOT EXISTS `tbl_shelf` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `shelf_id` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
+  `shelf_category` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `tbl_shelf`
+--
+
+INSERT INTO `tbl_shelf` (`id`, `shelf_id`, `shelf_category`) VALUES
+(5, 'COL124', 'General Information');
 
 -- --------------------------------------------------------
 
@@ -471,6 +475,37 @@ CREATE TABLE IF NOT EXISTS `tbl_superadmin` (
 
 INSERT INTO `tbl_superadmin` (`id`, `admin_id`, `fname`, `lname`, `initial`, `admin_role`, `email`, `username`, `password`, `img`) VALUES
 (1, '2021-00027', 'lorjohn', 'Rana', '', 'Librarian', 'lmrana00027@usep.edu.ph', 'admin', 'admin', 'me-removebg (1).png');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_transaction`
+--
+
+DROP TABLE IF EXISTS `tbl_transaction`;
+CREATE TABLE IF NOT EXISTS `tbl_transaction` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `user_id` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
+  `book_id` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
+  `transaction_type` varchar(25) COLLATE utf8mb4_general_ci NOT NULL,
+  `date_requested` date NOT NULL,
+  `date_return` date DEFAULT NULL,
+  `status` varchar(25) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT 'Pending',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `tbl_transaction`
+--
+
+INSERT INTO `tbl_transaction` (`id`, `user_id`, `book_id`, `transaction_type`, `date_requested`, `date_return`, `status`) VALUES
+(1, '2021-00027', 'B5', 'Borrow', '2023-12-12', NULL, 'Pending'),
+(2, '2021-00027', 'B5', 'Reserve', '0000-00-00', '0000-00-00', 'Pending'),
+(3, '2021-00027', 'B4', 'Borrow', '2023-12-12', NULL, 'Pending'),
+(4, '2021-00027', 'B5', 'Borrow', '2023-12-12', NULL, 'Pending'),
+(7, '2021-00027', 'B5', 'Reserve', '2023-12-12', '2023-12-14', 'Pending'),
+(8, '2021-00027', 'B4', 'Reserve', '0000-00-00', '0000-00-00', 'Pending'),
+(9, '2021-00027', 'B5', 'Borrow', '2023-12-12', NULL, 'Pending');
 
 -- --------------------------------------------------------
 
@@ -573,11 +608,42 @@ INSERT INTO `users` (`id`, `email`, `first_name`, `last_name`, `gender`, `full_n
 -- --------------------------------------------------------
 
 --
--- Stand-in structure for view `vw_borrowed_books`
+-- Stand-in structure for view `vw_book_request`
 -- (See below for the actual view)
 --
-DROP VIEW IF EXISTS `vw_borrowed_books`;
-CREATE TABLE IF NOT EXISTS `vw_borrowed_books` (
+DROP VIEW IF EXISTS `vw_book_request`;
+CREATE TABLE IF NOT EXISTS `vw_book_request` (
+`author` varchar(100)
+,`book_title` varchar(100)
+,`course` varchar(100)
+,`date_requested` date
+,`date_return` date
+,`fname` varchar(50)
+,`id` int
+,`initial` char(5)
+,`lname` varchar(50)
+,`major` varchar(100)
+,`publisher` varchar(100)
+,`shelf` varchar(100)
+,`status` varchar(25)
+,`transaction_type` varchar(25)
+,`user_id` varchar(50)
+,`year` varchar(50)
+);
+
+-- --------------------------------------------------------
+
+--
+-- Stand-in structure for view `vw_course`
+-- (See below for the actual view)
+--
+DROP VIEW IF EXISTS `vw_course`;
+CREATE TABLE IF NOT EXISTS `vw_course` (
+`college_id` varchar(100)
+,`college_name` varchar(100)
+,`course_id` int
+,`course_major` varchar(100)
+,`course_name` varchar(100)
 );
 
 -- --------------------------------------------------------
@@ -592,26 +658,6 @@ CREATE TABLE IF NOT EXISTS `vw_logs` (
 ,`admin_id` varchar(50)
 ,`admin_role` varchar(50)
 ,`date` timestamp
-);
-
--- --------------------------------------------------------
-
---
--- Stand-in structure for view `vw_reservation`
--- (See below for the actual view)
---
-DROP VIEW IF EXISTS `vw_reservation`;
-CREATE TABLE IF NOT EXISTS `vw_reservation` (
-);
-
--- --------------------------------------------------------
-
---
--- Stand-in structure for view `vw_user_penalty`
--- (See below for the actual view)
---
-DROP VIEW IF EXISTS `vw_user_penalty`;
-CREATE TABLE IF NOT EXISTS `vw_user_penalty` (
 );
 
 -- --------------------------------------------------------
@@ -636,12 +682,22 @@ CREATE TABLE IF NOT EXISTS `vw_user_record` (
 -- --------------------------------------------------------
 
 --
--- Structure for view `vw_borrowed_books`
+-- Structure for view `vw_book_request`
 --
-DROP TABLE IF EXISTS `vw_borrowed_books`;
+DROP TABLE IF EXISTS `vw_book_request`;
 
-DROP VIEW IF EXISTS `vw_borrowed_books`;
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vw_borrowed_books`  AS SELECT `tbl_borrow`.`borrow_id` AS `borrow_id`, `tbl_borrow`.`date_barrowed` AS `date_barrowed`, `tbl_borrow`.`status` AS `status`, `tbl_borrow`.`user_id` AS `user_id`, `tbl_book`.`book_title` AS `book_title`, `tbl_book`.`Author_id` AS `book_author`, `tbl_book`.`book_img` AS `book_img` FROM (`tbl_borrow` left join `tbl_book` on((`tbl_borrow`.`book_id` = `tbl_book`.`book_id`)))  ;
+DROP VIEW IF EXISTS `vw_book_request`;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vw_book_request`  AS SELECT `tbl_transaction`.`id` AS `id`, `tbl_transaction`.`transaction_type` AS `transaction_type`, `tbl_transaction`.`date_requested` AS `date_requested`, `tbl_transaction`.`date_return` AS `date_return`, `tbl_transaction`.`status` AS `status`, `tbl_user`.`user_id` AS `user_id`, `tbl_user`.`fname` AS `fname`, `tbl_user`.`lname` AS `lname`, `tbl_user`.`initial` AS `initial`, `tbl_user`.`year` AS `year`, `tbl_user`.`course` AS `course`, `tbl_user`.`major` AS `major`, `tbl_book`.`book_title` AS `book_title`, `tbl_book`.`author` AS `author`, `tbl_book`.`shelf` AS `shelf`, `tbl_book`.`publisher` AS `publisher` FROM ((`tbl_transaction` join `tbl_user` on((`tbl_transaction`.`user_id` = `tbl_user`.`user_id`))) join `tbl_book` on((`tbl_transaction`.`book_id` = `tbl_book`.`book_id`)))  ;
+
+-- --------------------------------------------------------
+
+--
+-- Structure for view `vw_course`
+--
+DROP TABLE IF EXISTS `vw_course`;
+
+DROP VIEW IF EXISTS `vw_course`;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vw_course`  AS SELECT `tbl_college`.`college_id` AS `college_id`, `tbl_course`.`id` AS `course_id`, `tbl_course`.`course_name` AS `course_name`, `tbl_course`.`course_major` AS `course_major`, `tbl_college`.`college_name` AS `college_name` FROM (`tbl_course` join `tbl_college` on((`tbl_course`.`college_id` = `tbl_college`.`college_id`)))  ;
 
 -- --------------------------------------------------------
 
@@ -652,26 +708,6 @@ DROP TABLE IF EXISTS `vw_logs`;
 
 DROP VIEW IF EXISTS `vw_logs`;
 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vw_logs`  AS SELECT `tbl_logs`.`date` AS `date`, `tbl_logs`.`admin_id` AS `admin_id`, `tbl_logs`.`action` AS `action`, `tbl_superadmin`.`admin_role` AS `admin_role` FROM (`tbl_logs` join `tbl_superadmin` on((`tbl_logs`.`admin_id` = `tbl_superadmin`.`admin_id`))) ORDER BY `tbl_logs`.`date` AS `DESCdesc` ASC  ;
-
--- --------------------------------------------------------
-
---
--- Structure for view `vw_reservation`
---
-DROP TABLE IF EXISTS `vw_reservation`;
-
-DROP VIEW IF EXISTS `vw_reservation`;
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vw_reservation`  AS SELECT `tbl_reserve`.`reserve_id` AS `reserve_id`, `tbl_reserve`.`book_id` AS `book_id`, `tbl_reserve`.`status` AS `status`, `tbl_book`.`book_title` AS `book_title`, `tbl_book`.`Author_id` AS `Author_id` FROM (`tbl_reserve` join `tbl_book` on((`tbl_reserve`.`book_id` = `tbl_book`.`book_id`)))  ;
-
--- --------------------------------------------------------
-
---
--- Structure for view `vw_user_penalty`
---
-DROP TABLE IF EXISTS `vw_user_penalty`;
-
-DROP VIEW IF EXISTS `vw_user_penalty`;
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vw_user_penalty`  AS SELECT `tbl_penalties`.`user_id` AS `user_id`, `tbl_penalties`.`borrow_id` AS `borrow_id`, `tbl_book`.`book_title` AS `book_title`, `tbl_book`.`Author_id` AS `Author_id`, `tbl_book`.`book_img` AS `book_img`, `tbl_borrow`.`date_barrowed` AS `date_barrowed`, `tbl_borrow`.`status` AS `status` FROM ((`tbl_penalties` left join `tbl_book` on((`tbl_penalties`.`book_id` = `tbl_book`.`book_id`))) left join `tbl_borrow` on((`tbl_penalties`.`borrow_id` = `tbl_borrow`.`borrow_id`)))  ;
 
 -- --------------------------------------------------------
 
