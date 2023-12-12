@@ -529,14 +529,14 @@ if (isset($_SESSION['user'])) {
                             <form class="row needs-validation" style="margin-left: 30px; width: 80%; height: 65%; " novalidate>
                                 <div class="col-md-5 firstname">
                                     <label for="editStudentFname" class="form-label mb-0" style="font-size: 12px;">FIRST NAME</label>
-                                    <input type="text" class="form-control" placeholder="Juan" id="editStudentFname" style="font-size: 10px; text-transform: capitalize !important;" required pattern="[A-Za-z]+" required>
+                                    <input type="text" class="form-control" placeholder="Juan" id="editStudentFname" style="font-size: 10px; text-transform: capitalize !important;" pattern="[A-Za-z]+(?: [A-Za-z]+)?" required>
                                     <div class="invalid-feedback" style="font-size: 8px">
                                         Not a valid first name!
                                     </div>
                                 </div>
                                 <div class="col-md-5">
                                     <label for="editStudentLname" class="form-label mb-0" style="font-size: 12px;">LAST NAME</label>
-                                    <input type="text" class="form-control" placeholder="Dela Cruz" id="editStudentLname" style="font-size: 10px; text-transform: capitalize !important;" required pattern="[A-Za-z]+" required>
+                                    <input type="text" class="form-control" placeholder="Dela Cruz" id="editStudentLname" style="font-size: 10px; text-transform: capitalize !important;" pattern="[A-Za-z]+(?: [A-Za-z]+)?" required>
                                     <div class="invalid-feedback" style="font-size: 8px">
                                         Not a valid last name!
                                     </div>
@@ -552,7 +552,7 @@ if (isset($_SESSION['user'])) {
 
                                 <div class="col-md-3 mt-2">
                                     <label for="editStudentID" class="form-label mb-0" style="font-size: 12px;">STUDENT ID</label>
-                                    <input type="text" class="form-control" id="editStudentID" pattern="[0-9]{4}-[0-9]{5}" placeholder="2021-00565" style="font-size: 10px;" required>
+                                    <input type="text" class="form-control" id="editStudentID" pattern="[0-9]{4}-[0-9]{5}" placeholder="2021-00565" style="font-size: 10px;" readonly >
                                     <div class="invalid-feedback" style="font-size: 8px">
                                         Not a valid student ID!
                                     </div>
@@ -560,9 +560,9 @@ if (isset($_SESSION['user'])) {
 
 
                                 <div class="col-md-5 mt-2">
-                                    <label for="editStudentEmail" class="form-label mb-0" style="font-size: 12px;">EMAIL ADDRESS</label>
+                                    <label for="editStudentEmail" class="form-label mb-0" style="font-size: 12px;">PERSONAL EMAIL ADDRESS</label>
                                     <div class="input-group has-validation">
-                                        <input type="email" class="form-control" id="editStudentEmail" aria-describedby="inputGroupPrepend" placeholder="juan001@usep.edu.ph" style="font-size: 10px;" required>
+                                        <input type="email" class="form-control" id="editStudentEmail" aria-describedby="inputGroupPrepend" placeholder="juan001@gmail.com" style="font-size: 10px;" required>
                                         <div class="invalid-feedback" style="font-size: 8px">
                                             Not a valid email address!
                                         </div>
@@ -850,7 +850,7 @@ if (isset($_SESSION['user'])) {
                 $('#editStudentMajor').val(data[0].major);
                 $('#editpsw').val(data[0].password);
                 $('#editStudentUsername').val(data[0].username);
-                $('#editStudentUsepEmail').val(data[0].email);
+                $('#editStudentUsepEmail').val(data[0].usep_email);
 
                 var imagePath = '../img/' + data[0].img;
                 $('#ProfilePic').attr('src', imagePath);

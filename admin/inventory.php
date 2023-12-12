@@ -354,7 +354,7 @@ if (isset($_SESSION['user'])) {
                             <form id="AddBookDisplay" class="row needs-validation" style="width: 70%; height: 65%;" novalidate>
                                 <div class="col-md-3 firstname">
                                     <label for="bookBookID" class="form-label mb-0" style="font-size: 12px;">BOOK ID</label>
-                                    <input type="text" class="form-control" placeholder="1234-56789" pattern="[0-9]{4}-[0-9]{5}" id="bookBookID" style="font-size: 10px; text-transform: capitalize !important;" required>
+                                    <input type="text" class="form-control" placeholder="BK20210001" pattern="^[0-9A-Za-z]+$" id="bookBookID" style="font-size: 10px; text-transform: capitalize !important;" required>
                                     <div class="invalid-feedback" style="font-size: 8px">
                                         Not a valid book ID!
                                     </div>
@@ -399,9 +399,9 @@ if (isset($_SESSION['user'])) {
 
                                 <div class="col-md-3 mt-2">
                                     <label for="bookCopies" class="form-label mb-0" style="font-size: 12px;">COPIES</label>
-                                    <input type="text" class="form-control" id="bookCopies" pattern="^[0-9]{3}$" placeholder="010" style="font-size: 10px;" required>
+                                    <input type="text" class="form-control" id="bookCopies" pattern = "[0-9]+" placeholder="1" style="font-size: 10px;" required>
                                     <div class="invalid-feedback" style="font-size: 8px">
-                                        Not a valid format 010!
+                                        Not a valid format 1 !
                                     </div>
                                 </div>
 
@@ -545,9 +545,9 @@ if (isset($_SESSION['user'])) {
 
                                 <div class="col-md-3 mt-2">
                                     <label for="editBookCopies" class="form-label mb-0" style="font-size: 12px;">COPIES</label>
-                                    <input type="text" class="form-control" id="editBookCopies" pattern="^[0-9]{3}$" placeholder="010" style="font-size: 10px;" required>
+                                    <input type="text" class="form-control" id="editBookCopies" pattern = "[0-9]+"  placeholder="1" style="font-size: 10px;" required>
                                     <div class="invalid-feedback" style="font-size: 8px">
-                                        Not a valid format 010!
+                                        Not a valid format 1 !
                                     </div>
                                 </div>
 

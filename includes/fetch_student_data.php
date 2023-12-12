@@ -93,7 +93,7 @@ class StudentData
     }
 
     // Inside the StudentData class
-    public function updateStudent($firstName, $lastName, $mi, $StudentId, $Pemail,$Uemail, $phoneNumber, $address, $year, $course, $major, $username, $password,$profile) {
+    public function updateStudent($firstName, $lastName, $mi, $StudentId, $Pemail, $Uemail, $phoneNumber, $address, $year, $course, $major, $username, $password, $profile) {
         // SQL query without the img column
         $sql = "UPDATE tbl_user 
         SET fname = :fname, lname = :lname, initial = :initial, 
