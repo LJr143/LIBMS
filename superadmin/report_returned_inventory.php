@@ -9,7 +9,7 @@ include 'C:\wamp64\www\LIBMS\includes\fetch_superadmin_data.php';
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
-$loggedAdmin ='';
+$loggedAdmin = '';
 
 $database = new Database();
 $userAuth = new UserAuthentication($database);
@@ -23,7 +23,7 @@ $numberOfBooks = $bookData->getNumberOfBooks();
 $numberOfUsers = $userData->getNumberOfUser();
 
 //Authenticate
-if($userAuth->isAuthenticated()) {
+if ($userAuth->isAuthenticated()) {
 } else {
     header('Location: ../index_admin.php');
     exit();
@@ -38,31 +38,26 @@ if (isset($_POST['logout'])) {
 if (isset($_SESSION['user'])) {
     $adminUsername = $_SESSION['user'];
 
-    if(isset($_SESSION['admin_role'])){
+    if (isset($_SESSION['admin_role'])) {
         $accessType = $_SESSION['admin_role'];
-        if($accessType == 'Librarian'){
-            $adminID =$superAdminData->getSuperadminIdByUsername($adminUsername);
-            if(!empty($adminID)){
+        if ($accessType == 'Librarian') {
+            $adminID = $superAdminData->getSuperadminIdByUsername($adminUsername);
+            if (!empty($adminID)) {
                 $admin = $superAdminData->getSuperadminById($adminID);
                 $loggedAdmin = $admin[0];
-            }
-            else {
+            } else {
                 echo 'SuperAdmin data not found.';
             }
-        }
-        else if($accessType == 'Staff'){
-            $adminID =$adminData->getStaffIdByUsername($adminUsername);
-            if(!empty($adminID)){
+        } else if ($accessType == 'Staff') {
+            $adminID = $adminData->getStaffIdByUsername($adminUsername);
+            if (!empty($adminID)) {
                 $admin = $adminData->getStaffById($adminID);
                 $loggedAdmin = $admin[0];
-            }
-            else {
+            } else {
                 echo 'SuperAdmin data not found.';
             }
-
         }
     }
-
 }
 ?>
 <!doctype html>
@@ -76,35 +71,39 @@ if (isset($_SESSION['user'])) {
     <link rel="icon" href="../icons/usep-logo.png">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.32/dist/sweetalert2.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
     <link rel="stylesheet" href="../css/superadmin_report.css">
 </head>
 
 <body style="">
-<div>
-    <?php include 'header.php'?>
+    <div>
+        <?php include 'header.php' ?>
 
-    <div class="main-content d-flex" >
-        <div class="col col-md-2 side_bar">
-            <div class="profile_section">
+        <div class="main-content d-flex">
+            <div class="col col-md-2 side_bar">
+                <div class="profile_section">
+                    <div>
+                        <img style="border: 3px solid white; width: 60px; border-radius: 60px;" src="../img/<?= $loggedAdmin['img'] ?>" alt="">
+                        <div style="position: absolute; top: 55px; right: 72px; background:#01d501; height: 15px; width: 15px; border-radius: 60px;"></div>
+                    </div>
+                    <div style="display: block; text-align: center; color: white; height: 20px;">
+
+                    </div>
+                </div>
                 <div>
-                    <img style="border: 3px solid white; width: 60px; border-radius: 60px;" src="../img/<?= $loggedAdmin['img'] ?>" alt="">
-                    <div style="position: absolute; top: 55px; right: 72px; background:#01d501; height: 15px; width: 15px; border-radius: 60px;"></div>
-                </div>
-                <div style="display: block; text-align: center; color: white; height: 20px;">
-
+                    <ul class="menu_icon">
+                        <li><img class="custom_menu_icon" src="../icons/dashboard_icon.png" alt=""><span><a href="dashboard.php">Dashboard</a></span></li>
+                        <li><img class="custom_menu_icon" src="../icons/staff_icon.png" alt=""><span><a href="staff.php">Staff</a></span></li>
+                        <li class="active"><img class="custom_menu_icon" src="../icons/reports_icon.png" alt=""><span><a href="report.php">Reports</a></span></li>
+                        <li><img class="custom_menu_icon" src="../icons/logs_icon.png" alt=""><span><a href="logs.php">Logs</a></span></li>
+                        <li><img class="custom_menu_icon" src="../icons/feedback_icon_dashboard.png" alt=""><span><a href="feedback.php">Feedback</a></span></li>
+                        <li>
+                            <i class="bi bi-bookmark-star custom_menu_icon" style="font-size: 20px; color:#fff"></i>
+                            <span><a href="book_review.php">Book Review</a></span>
+                        </li>
+                    </ul>
                 </div>
             </div>
-            <div>
-                <ul class="menu_icon">
-                    <li><img class="custom_menu_icon" src="../icons/dashboard_icon.png" alt=""><span><a href="dashboard.php">Dashboard</a></span></li>
-                    <li><img class="custom_menu_icon" src="../icons/staff_icon.png" alt=""><span><a href="staff.php">Staff</a></span></li>
-                    <li class="active"><img class="custom_menu_icon" src="../icons/reports_icon.png" alt=""><span><a href="report.php">Reports</a></span></li>
-                    <li><img class="custom_menu_icon" src="../icons/logs_icon.png" alt=""><span><a href="logs.php">Logs</a></span></li>
-                    <li><img class="custom_menu_icon" src="../icons/feedback_icon_dashboard.png" alt=""><span><a href="feedback.php">Feedback</a></span></li>
-                </ul>
-            </div>
-
-        </div>
             <div class="col" style=" width: 100%; height: 100vh; ">
                 <div style="background-color: white; width: 95%; height: 45px; margin: 15px; border-radius: 5px;display: flex; box-shadow: 0px 4px 8px rgba(0,0,0,0.27); align-content: center; align-items: center">
                     <div style="width: 90%">
