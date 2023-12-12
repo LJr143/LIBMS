@@ -33,38 +33,6 @@ function updateCollege() {
     });
 }
 
-function validateUpdateForm() {
-    // Trigger form validation manually
-    var form = $('#EditCollegeModal')[0];
-    form.classList.add('was-validated');
-
-    // Add validation logic for each required field in the update form
-    var requiredFields = [
-        '#editCollegeId',
-        '#editCollegeName',
-    ];
-
-    for (var i = 0; i < requiredFields.length; i++) {
-        var fieldId = requiredFields[i];
-        var field = $(fieldId);
-
-        if (field.length === 0) {
-            console.error('Field not found with ID:', fieldId);
-            continue; // Skip to the next iteration if the field is not found
-        }
-
-        if (field.val().trim() === '') {
-            showValidationError('Please fill in all required fields.');
-            return false; // Validation failed
-        }
-    }
-
-
-    return true; // Validation succeeded
-}
-
-
-
 function prepareUpdateFormData()     {
     var formData = new FormData();
 
