@@ -69,9 +69,7 @@ if (isset($_SESSION['user'])) {
     <title>USeP | LMS</title>
     <link rel="icon" href="../icons/usep-logo.png">
     <link href="../node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="../node_modules/sweetalert2/dist/sweetalert2.min.js">
     <link rel="stylesheet" href="../node_modules/bootstrap-icons/font/bootstrap-icons.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" integrity="sha384-dB/KXVd5TzvxsvLE3FpaL3CCOOEGX9F8r+5N18CIteA6Fb6EGGo1QFJdHcMl5PW" crossorigin="anonymous">
     <link rel="stylesheet" href="../css/admin_dashboard.css">
     <link rel="stylesheet" href="../css/logout.css">
     <link rel="stylesheet" href="../css/side_bar.css">
@@ -550,7 +548,7 @@ if (isset($_SESSION['user'])) {
             event.stopPropagation();
         }
     </script>
-
+    <script src="../js/fetch_transaction.js"></script>
 
 
 
