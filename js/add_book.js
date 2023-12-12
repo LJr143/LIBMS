@@ -27,6 +27,8 @@ function updateProfilePicture(event) {
 }
 
 
+
+
 function addBook() {
     // Validate the form fields before proceeding
     if (!validateForm()) {
@@ -78,9 +80,11 @@ function validateForm() {
             return false; // Validation failed
         }
     }
+
     // Validate the file input
     var profileFileInput = $('#profilePictureInput')[0];
     var profileFile = profileFileInput.files[0];
+
     if (!profileFile) {
         showValidationError('Please select a profile image.');
         return false; // Validation failed
@@ -88,11 +92,11 @@ function validateForm() {
 
     // Validate patterns for specific fields
     var patterns = {
-        '#bookBookID': /^\d{4}-\d{5}$/,
+        '#bookBookID': /^[0-9A-Za-z]+$/,
         '#bookBookTitle': /^[A-Za-z0-9\s]+$/,
         '#bookBookAuthor': /^[A-Za-z0-9\s]+$/,
         '#bookISBN': /^\d{13}$/,
-        '#bookCopies': /^\d{3}$/,
+        '#bookCopies': /^\d+$/,
         '#bookShelf': /^[A-Za-z0-9\s]+$/,
         '#bookPublishers': /^[A-Za-z0-9\s]+$/,
         '#bookSummary': /^[A-Za-z0-9,.\s]+$/,
@@ -117,6 +121,7 @@ function validateForm() {
 
     return true; // Validation succeeded
 }
+
 
 function prepareFormData() {
     var formData = new FormData();
@@ -157,6 +162,8 @@ function handleAjaxSuccess(response, operationType) {
     }
 }
 
+
+
 function handleSuccessConfirmation(modalId, operationType) {
     $("#" + modalId).modal("hide");
     var successTitle = operationType === 'add' ? 'ADDED!' : 'UPDATED!';
@@ -182,6 +189,8 @@ function handleSuccessConfirmation(modalId, operationType) {
     });
 }
 
+
+
 function handleAjaxError() {
     showError('AJAX request failed.'); // Consider improving the user experience
 }
@@ -198,26 +207,37 @@ function showValidationError(message) {
     showError(message);
 }
 
-function getCustomErrorMessage(fieldId, formType) {
+function getCustomErrorMessage(fieldId, operationType) {
+    var prefix = operationType === 'add' ? 'Invalid input for ' : '. ';
+
+    // Use the same switch case for both add and update
     switch (fieldId) {
         case '#bookBookID':
-            return 'Invalid Book ID. It should be in a specific format ****-*****.';
+        case '#editBookID':
+            return prefix + 'Invalid input for Book ID. .';
         case '#bookBookTitle':
-            return 'Invalid Book Title. It should only contain letters and numbers.';
+        case '#editBookTitle':
+            return prefix + 'Invalid input for Book Title. It should only contain letters and numbers.';
         case '#bookBookAuthor':
-            return 'Invalid Book Author. It should only contain letters.';
+        case '#editBookAuthor':
+            return prefix + 'Invalid input for Book Author. It should only contain letters.';
         case '#bookISBN':
-            return 'Invalid ISBN. It should contain 13 numbers.';
+        case '#editBookISBN':
+            return prefix + 'Invalid input for ISBN. It should contain 13 numbers.';
         case '#bookCopies':
-            return 'Invalid Copies. It should be a three-digit number.';
+        case '#editBookCopies':
+            return prefix + 'Invalid input for Book Copies. It should be a number.';
         case '#bookShelf':
-            return 'Invalid Shelf. It should only contain letters and numbers.';
+        case '#editBookShelf':
+            return prefix + 'Invalid input for Shelf. It should only contain letters and numbers.';
         case '#bookPublishers':
-            return 'Invalid Publishers. It should only contain letters and numbers.';
+        case '#editBookPublishers':
+            return prefix + 'Invalid input for Publishers. It should only contain letters and numbers.';
         case '#bookSummary':
-            return 'Invalid Summary. It should only contain letters, numbers, and basic symbols.';
+        case '#editBookSummary':
+            return prefix + 'Invalid input for Summary. It should only contain letters, numbers, and basic symbols.';
         default:
-            return 'Invalid input for ' + $(fieldId).attr('placeholder') + '.';
+            return prefix + $(fieldId).attr('placeholder') + '.';
     }
 }
 
@@ -226,7 +246,7 @@ function clearPhoto() {
     $('#AddBookDisplay')[0].reset();
 
     // Reset the profile picture display
-    var defaultImageSrc = 'path_to_default_image'; // Replace with the path to your default image
+    var defaultImageSrc = '../img' ;
     $('#displayBookPicture').attr('src', defaultImageSrc);
 
     // Show the "+" sign for adding image
