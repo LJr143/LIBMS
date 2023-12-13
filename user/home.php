@@ -597,6 +597,8 @@ if (isset($_SESSION['user'])) {
             initialSlide: 3,
         });
     </script>
+
+
     <script>
         // script for star rating
         $(document).ready(function() {
