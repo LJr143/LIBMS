@@ -16,16 +16,16 @@ $userAuth = new UserAuthentication($db);
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>CONFIRM EMAIL</title>
-    <link rel="icon" href="icons/usep-logo.png">
-    <link href="node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="node_modules/sweetalert2/dist/sweetalert2.min.css">
-    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="../icons/usep-logo.png">
+    <link href="../node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../node_modules/sweetalert2/dist/sweetalert2.min.css">
+    <link rel="stylesheet" href="../style.css">
     <link rel="stylesheet" href="css/confrim-email.css">
 
 </head>
 <body style="">
 <div>
-    <?php include 'header.php'?>
+    <?php include 'header.php' ?>
     <div class="main-content">
         <div class="form-box" >
             <form action="" method="POST" enctype="multipart/form-data">
@@ -35,7 +35,7 @@ $userAuth = new UserAuthentication($db);
                     <img src="img/ArrowLeft.png" alt="arrow" class="arrow" style="width: 20px; height: 20px;">
                    </a> 
                 </div>
-                    <div style="margin-top: 30px"> <img src="icons/usep-logo.png" alt="" style="width: 70px"></div>
+                    <div style="margin-top: 30px"> <img src="../icons/usep-logo.png" alt="" style="width: 70px"></div>
                     <div>
                     <p style="font-weight: 700; font-size: 10px;  letter-spacing: 0.2px; margin-top: 15px;">CONFIRM EMAIL</p>
                     </div>

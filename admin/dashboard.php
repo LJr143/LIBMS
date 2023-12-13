@@ -471,7 +471,6 @@ if (isset($_SESSION['user'])) {
                 }
             }
         });
-
         const chart3 = new Chart(ctx2, {
             type: 'bar',
             data: {

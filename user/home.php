@@ -382,7 +382,6 @@ if (isset($_SESSION['user'])) {
         </div>
     </div>
 
-
     <!-- Feedback Modal -->
     <div class="modal fade " id="feedbackModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog  modal-dialog-centered">
@@ -598,7 +597,6 @@ if (isset($_SESSION['user'])) {
             initialSlide: 3,
         });
     </script>
-
     <script>
         // script for star rating
         $(document).ready(function() {
@@ -639,8 +637,6 @@ if (isset($_SESSION['user'])) {
             });
         });
     </script>
-
-
     <script>
         // script for book review and feedback modal
         document.getElementById('FeedbackBtn').addEventListener('click', function() {
@@ -671,6 +667,8 @@ if (isset($_SESSION['user'])) {
         });
     });
     </script>
+    <script src="../js/borrow_book.js"></script>
+    <script src="../js/reserve_book.js"></script>
 
 </body>
 
