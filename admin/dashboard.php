@@ -172,16 +172,15 @@ if (isset($_SESSION['user'])) {
                     </div>
                 </div>
                 <div class="dash_cards" style="margin: 0px 35px; display: flex; justify-content: space-between; margin-top: 10px ">
-                    <div class="dash_cards" style="margin: 0px 35px; display: flex; justify-content: space-between; margin-top: 10px">
-                        <div class="card" style="width: 18rem; height: 140px; box-shadow: 0px 3px 6px rgba(0,0,0,0.26)">
-                            <div class="card-body">
-                                <h6 class="card-title">No. of New Books</h6>
-                                <h5 id="newBooksCount">...</h5>
-                                <div style="width: 100%; display: flex; justify-content: flex-end; margin-top: -40px; ">
+                    <div class="card" style="width: 18rem; height: 140px; box-shadow: 0px 3px 6px rgba(0,0,0,0.26)">
+                        <div class="card-body">
+                            <h6 class="card-title">No. of New Books</h6>
+                            <h5 id="newBooksCount">...</h5>
+                            <div style="width: 100%; display: flex; justify-content: flex-end; margin-top: -40px; ">
 
-                                </div>
-                                <p class="card-text"></p>
                             </div>
+                            <p class="card-text"></p>
+
                         </div>
                     </div>
 
