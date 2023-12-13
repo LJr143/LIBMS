@@ -225,7 +225,7 @@ if (isset($_SESSION['user'])) {
 
                                     </tr>
                                     <tr style=" height: 40px; background-color: rgb(246,246,246); margin-bottom: 10px; border: 1px solid rgba(0,0,0,0.25);">
-                                        <td><?= $shelf['shelf_id'];?></td>
+                                        <td><?=strtoupper( $shelf['shelf_id']);?></td>
                                         <td><?= $shelf['shelf_category'];?></td>
                                         <td style="padding: 1px;">
                                             <div class="btn-group" role="group">
@@ -282,11 +282,10 @@ if (isset($_SESSION['user'])) {
                             <form id="AddShelfModal" class="row needs-validation " style="width: 80%; height: 65%; " novalidate>
                                 <div class="col-md-5 firstname">
                                     <label for="addShelfId" class="form-label mb-0" style="font-size: 12px;">SHELF ID</label>
-                                    <input type="text" class="form-control" placeholder="COL0111" id="addShelfId" style="font-size: 10px; text-transform: capitalize !important; width: 440px;" required>
+                                    <input type="text" class="form-control" placeholder="SHF0111" id="addShelfId" style="font-size: 10px; text-transform: uppercase !important; width: 440px;" required>
                                     <div class="invalid-feedback" style="font-size: 8px">
-                                        Not a valid first name!
+                                        Not a valid Shelf ID!
                                     </div>
-                                    <div class="valid-feedback" style="font-size: 8px">Looks good!</div>
                                 </div>
 
 
@@ -309,8 +308,7 @@ if (isset($_SESSION['user'])) {
 
 
                                 <div class="wishlist-container mt-4 mb-0" style="display: flex; justify-content: flex-end; width: 664px;">
-                                    <button style="height: 25px; width: 100px" type="button" class="clear shadow" onclick="clearForm()">CLEAR</button>
-                                    <button style="height: 25px; width: 100px" type="submit" id="addShelfBtnAdd" class="add shadow">ADD</button>
+                                    <button style="height: 25px; width: 100px" type="button" class="clear shadow" onclick="clearForm()">CLEAR</button>                                    <button style="height: 25px; width: 100px" type="submit" id="addShelfBtnAdd" class="add shadow">ADD</button>
                                 </div>
 
                             </form>
@@ -342,11 +340,10 @@ if (isset($_SESSION['user'])) {
                             <form id="EditShelfModal" class="row needs-validation " style=" width: 80%; height: 65%; " novalidate>
                                 <div class="col-md-5 firstname">
                                     <label for="editShelfId" class="form-label mb-0" style="font-size: 12px;">SHELF ID</label>
-                                    <input type="text" class="form-control" value="COL0111" id="editShelfId" style="font-size: 10px; text-transform: capitalize !important; width: 440px;" required>
+                                    <input type="text" class="form-control" value="SHF0111" id="editShelfId" style="font-size: 10px; text-transform: uppercase !important; width: 440px;" required>
                                     <div class="invalid-feedback" style="font-size: 8px">
-                                        Not a valid first name!
+                                        Not a valid Shelf ID!
                                     </div>
-                                    <div class="valid-feedback" style="font-size: 8px">Looks good!</div>
                                 </div>
 
 
@@ -446,6 +443,7 @@ if (isset($_SESSION['user'])) {
     <script src='../js/logout_script.js'></script>
     <script src="../js/navbar_select.js"></script>
 
+    
     <script>
         // Prevent the dropdown from closing when clicking on the buttons
         function handleButtonClick(event) {

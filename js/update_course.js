@@ -1,8 +1,43 @@
 
 $(document).ready(function () {
     var courseId;
-    // Fetch college options on document ready
+
+    // Fetch college options
     fetchCollegeOptions();
+
+    function fetchCollegeOptions() {
+        $.ajax({
+            url: '../operations/fetch_college_options.php',
+            type: 'GET',
+            dataType: 'json',
+            success: function (response) {
+                // Populate the select options
+                populateCollegeOptions(response);
+            },
+            error: function () {
+                // Handle errors
+                console.error('Error fetching College options.');
+            }
+        });
+    }
+
+    function populateCollegeOptions(data) {
+        // Get the select element
+        var selectElement = $('#addSelectCollege');
+
+        // Clear existing options
+        selectElement.empty();
+
+        // Add a default option
+        selectElement.append('<option value="" disabled selected>Select College</option>');
+
+        // Add options based on the fetched data
+        data.forEach(function (college) {
+            selectElement.append('<option value="' + college.college_id + '">' + college.college_name + '</option>');
+        });
+    }
+
+
 
     $(".editCourseBtn").click(function() {
         // Show the student modal
@@ -115,29 +150,62 @@ function validateUpdateForm() {
     form.classList.add('was-validated');
 
     // Add validation logic for each required field in the update form
-    var requiredFields = [
-        '#editStudentCollege',
-        '#editCourse',
-    ];
+    var validations = {
+        '#editStudentCollege': {
+            required: true,
+            fieldName: 'College'
+        },
+        '#editCourse': {
+            required: true,
+            pattern: /^([A-Za-z]+\s*)+$/,
+            fieldName: 'Course Name'
+        },
+        '#editMajor': {
+            required: true,
+            pattern: /^([A-Za-z]+\s*)+$/,
+            fieldName: 'Course Major'
+        }
+    };
 
-    for (var i = 0; i < requiredFields.length; i++) {
-        var fieldId = requiredFields[i];
+    for (var fieldId in validations) {
         var field = $(fieldId);
+        var validation = validations[fieldId];
 
-        if (field.length === 0) {
-            console.error('Field not found with ID:', fieldId);
-            continue; // Skip to the next iteration if the field is not found
+        if (!field.length) {
+            console.error('Field not found:', fieldId);
+            continue; // Skip to the next field if not found
         }
 
-        if (field.val().trim() === '') {
-            showValidationError('Please fill in all required fields.');
+        if (validation.required && (field.val() === null || field.val().trim() === '')) {
+            showValidationError(validation.fieldName + ' is required.');
+            return false; // Validation failed
+        }
+
+        if (validation.pattern && !validation.pattern.test(field.val())) {
+            var errorMessage = getCustomEditCourseErrorMessage(fieldId);
+            showValidationError(errorMessage);
             return false; // Validation failed
         }
     }
 
     return true; // Validation succeeded
 }
-function prepareUpdateFormData(courseId) {
+
+
+function getCustomEditCourseErrorMessage(fieldId) {
+    switch (fieldId) {
+        case '#editStudentCollege':
+            return 'Please select a college.';
+        case '#editCourse':
+            return 'Invalid Course Name. It should only contain letters.';
+        case '#editMajor':
+            return 'Invalid Course Major. It should only contain letters.';
+        default:
+            return 'Invalid input for ' + $(fieldId).attr('placeholder') + '.';
+    }
+}
+
+    function prepareUpdateFormData(courseId) {
     var formData = new FormData();
     // Append form data for update_course.php
     formData.append('courseId', courseId);  // Include courseId in the form data

@@ -69,9 +69,7 @@ if (isset($_SESSION['user'])) {
     <title>USeP | LMS</title>
     <link rel="icon" href="../icons/usep-logo.png">
     <link href="../node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="../node_modules/sweetalert2/dist/sweetalert2.min.js">
     <link rel="stylesheet" href="../node_modules/bootstrap-icons/font/bootstrap-icons.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" integrity="sha384-dB/KXVd5TzvxsvLE3FpaL3CCOOEGX9F8r+5N18CIteA6Fb6EGGo1QFJdHcMl5PW" crossorigin="anonymous">
     <link rel="stylesheet" href="../css/admin_dashboard.css">
     <link rel="stylesheet" href="../css/logout.css">
     <link rel="stylesheet" href="../css/side_bar.css">
@@ -388,32 +386,49 @@ if (isset($_SESSION['user'])) {
         const ctx2 = document.getElementById('quarterlyCategory').getContext('2d');
         const ctx3 = document.getElementById('quarterlyVisitCategory').getContext('2d');
 
-        const chart1 = new Chart(ctx, {
-            type: 'doughnut',
-            data: {
-                labels: ['Environment and Forestry', 'Agriculture and Agricultural Engineering', 'Usepiana', 'General Information', 'Filipiñiana', 'Educational', 'Video Tapes', 'Special Education', 'Others'],
-                datasets: [{
-                    label: '',
-                    data: [12, 12, 10, 24, 67, 98, 25, 65, 90],
-                    backgroundColor: ['rgb(128,0,0)', 'rgb(94,0,0)', 'rgb(72,0,0)', 'rgb(54,0,0)', 'rgb(38,0,0)', 'rgb(16,0,0)', 'rgb(0,0,0)', 'rgb(181,0,0)', 'rgb(156,0,0)'],
-                    cutout: '65%',
-                    borderWidth: 1,
-                    pointStyle: 'circle',
-
-                }]
-            },
-            options: {
-                maintainAspectRatio: false,
-                plugins: {
-                    legend: {
-                        position: 'left',
-                        labels: {
-                            usePointStyle: true
+        // Fetch data from the server
+        fetch('../includes/fetch_borrow_counts_byCategory.php')
+            .then(response => response.json())
+            .then(data => {
+                // Create the Chart.js chart
+                const chart1 = new Chart(ctx, {
+                    type: 'doughnut',
+                    data: {
+                        labels: data.map(item => item.category),
+                        datasets: [{
+                            label: '',
+                            data: data.map(item => item.borrow_count),
+                            backgroundColor: ['rgb(128,0,0)', 'rgb(94,0,0)', 'rgb(72,0,0)', 'rgb(54,0,0)', 'rgb(38,0,0)', 'rgb(16,0,0)', 'rgb(0,0,0)', 'rgb(181,0,0)', 'rgb(156,0,0)'],
+                            cutout: '65%',
+                            borderWidth: 1,
+                            pointStyle: 'circle',
+                        }]
+                    },
+                    options: {
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                position: 'left',
+                                labels: {
+                                    usePointStyle: true
+                                }
+                            }
                         }
                     }
+                });
+            })
+            .catch(error => {
+                console.error('Error fetching data:', error);
+
+                if (error instanceof Response && typeof error.text === 'function') {
+                    return error.text(); // This will return the actual response body as text
+                } else {
+                    return 'Unable to retrieve error details';
                 }
-            }
-        });
+            })
+            .then(errorMessage => console.log('Server Response:', errorMessage));
+
+
 
         const chart2 = new Chart(ctx1, {
             type: 'bar',
@@ -550,7 +565,7 @@ if (isset($_SESSION['user'])) {
             event.stopPropagation();
         }
     </script>
-
+    <script src="../js/fetch_transaction.js"></script>
 
 
 

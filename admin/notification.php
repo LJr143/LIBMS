@@ -20,8 +20,8 @@ $transaction = $transactionData->getPendingTransaction();
         <i class="bi bi-bell" style="font-size: 20px; color: #4d0202;"></i>
     </a>
     <div class="dropdown-menu" aria-labelledby="notificationDropdown" style="padding: 25px; font-size: 13px; background-color: white;">
-        <div style="margin-bottom: 15px; background-color: white;">
-            <span><b>TRANSACTION REQUEST</b></span>
+        <div style="margin-bottom: 15px; background-color: white; width: 520px; box-shadow: 2px 4px 6px rgba(82,21,21,0.2); padding: 5px;">
+            <span style="font-size: 12px;"><b>TRANSACTION REQUEST</b></span>
         </div>
         <ul id="notificationList" class="list-unstyled">
             <?php foreach ($transaction as $transact) : ?>
@@ -29,16 +29,22 @@ $transaction = $transactionData->getPendingTransaction();
                     <div class="d-flex justify-content-between align-items-center" style=" background-color: #F8F8FF; padding: 10px; height: 35px; box-shadow: 0px 4px 8px rgba(0,0,0,0.27); margin-bottom: 8px;">
                         <span style="text-transform: capitalize;"><?= $transact['fname'] . " ". $transact['initial'] . "." . " " . $transact['lname']  ?> has requested to <?= $transact['transaction_type'] ?> a book</span>
                         <div class="btn-group ms-4">
-                            <button type="button" class="btn custom-btn transaction_modal" data-transaction-id="<?= $transact['id'];?>" >
-                                <i class="bi bi-info-circle" style="color:blue; font-size: 20px;"></i>
+                            <!-- Information button -->
+                            <button type="button" class="btn custom-btn transaction_modal" data-transaction-id="<?php echo $transact['id'];?>">
+                                <i class="bi bi-info-circle" style="color: blue; font-size: 20px;"></i>
                             </button>
+
+                            <!-- Confirmation button -->
                             <button type="button" class="btn custom-btn">
-                                <i class="bi bi-check-circle" style=transaction_modal"color:green; font-size: 20px;"></i>
+                                <i class="bi bi-check-circle" style="color: green; font-size: 20px;"></i>
                             </button>
+
+                            <!-- Rejection button -->
                             <button type="button" class="btn custom-btn">
-                                <i class="bi bi-x-circle" style="color:red; font-size: 20px;"></i>
+                                <i class="bi bi-x-circle" style="color: red; font-size: 20px;"></i>
                             </button>
                         </div>
+
                     </div>
                 </li>
             <?php endforeach; ?>
@@ -59,16 +65,16 @@ $transaction = $transactionData->getPendingTransaction();
                 </button>
             </div>
             <div class="modal-body" style=" margin-left: 20px;">
-                <!-- Student Information -->
+                <!-- User Information -->
                 <div class="row" style="font-size: 12px;">
                     <div class="col-md-5">
-                        <p>Student ID: <span id="studentId"></span></p>
-                        <p>Name: <span id="studentName"></span></p>
-                        <p>Course: <span id="studentCourse"></span></p>
+                        <p style="font-size: 10px; font-weight: 600;">Student ID: <span id="userId"></span></p>
+                        <p style="font-size: 10px; font-weight: 600;">Name: <span id="userName"></span></p>
+                        <p style="font-size: 10px; font-weight: 600;">Course: <span id="userCourse"></span></p>
                     </div>
                     <div class="col-md-5">
-                        <p>Year: <span id="studentYear"></span></p>
-                        <p>Major: <span id="studentMajor"></span></p>
+                        <p style="font-size: 10px; font-weight: 600;">Year: <span id="userYear"></span></p>
+                        <p style="font-size: 10px; font-weight: 600;">Major: <span id="userMajor"></span></p>
                     </div>
                 </div>
 
@@ -77,42 +83,30 @@ $transaction = $transactionData->getPendingTransaction();
 
                     <div class="col-md-2">
                         <!-- Book Image -->
-                        <img src="../book_img/1984.jpg" alt="Book Image" class="img-fluid" style="max-height: 160px; max-width: 100%;">
+                        <img id="bookImage" alt="Book Image" class="img-fluid" style="max-height: 160px; max-width: 100%;">
                     </div>
 
                     <div class="col-md-5">
-                        <p>Book Title: <span id="bookTitle"></span></p>
-                        <p>Author: <span id="author"></span></p>
-                        <p>Borrow date: <span id="borrowDate"></span></p>
+                        <p style="font-size: 10px; font-weight: 600;">Book Title: <span id="bookTitle"></span></p>
+                        <p style="font-size: 10px; font-weight: 600;">Author: <span id="author"></span></p>
+                        <p style="font-size: 10px; font-weight: 600;">Borrow date: <span id="borrowDate"></span></p>
                     </div>
 
                     <div class="col-md-5">
-                        <p>Shelf: <span id="shelf"></span></p>
-                        <p>Publisher: <span id="publisher"></span></p>
-                        <p>Due Date: <span id="dueDate"></span></p>
+                        <p style="font-size: 10px; font-weight: 600;">Shelf: <span id="shelf"></span></p>
+                        <p style="font-size: 10px; font-weight: 600;">Publisher: <span id="publisher"></span></p>
+                        <p style="font-size: 10px; font-weight: 600;">Due Date: <span id="dueDate"></span></p>
                     </div>
                 </div>
                 <!-- Buttons -->
-                <button style="margin-left: 70%; background-color:white; border-color:#4d0202; color:#4d0202; height: 35px; font-size:13px" type="button" class="btn">REJECT</button>
-                <button style="margin-left: 10px; background-color:#740000; color:#fff; height: 35px; font-size:13px" type="button" class="btn">APPROVE</button>
+                <button style="margin-left: 60%; background-color:white; font-weight: bold; border-color:#4d0202; color:#4d0202; height: 30px; font-size:12px; width: 110px;" type="button" class="btn" id="rejectRequest">REJECT</button>
+                <button style="margin-left: 10px; background-color:#740000; color:#fff; height: 30px; font-size:12px; width: 110px;" type="button" class="btn" id="approveRequest">APPROVE</button>
             </div>
 
         </div>
     </div>
 </div>
 
-<script src="../node_modules/jquery/dist/jquery.min.js"></script>
-<script>
-    $(document).ready(function () {
-        $('.transaction_modal').on('click', function (e) {
-            e.preventDefault(); // Prevent the default form submission
-            e.stopPropagation();
-            // Call the updateBook function when the button is clicked
-            $('#infoModal1').modal('show');
-        });
-    });
-</script>
-<script src="../js/transaction.js"></script>
 </body>
 </html>
 
