@@ -448,9 +448,7 @@ if (isset($_SESSION['user'])) {
                         backgroundColor: 'rgba(37,37,37,100%)',
                         barThickness: 15,
 
-                    }
-
-                ]
+                    }]               
             },
             options: {
                 maintainAspectRatio: false,
