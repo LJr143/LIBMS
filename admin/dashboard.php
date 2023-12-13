@@ -116,7 +116,7 @@ if (isset($_SESSION['user'])) {
                         <li class="active"><img class="custom_menu_icon" src="../icons/dashboard_icon.png" alt=""><span><a href="dashboard.php">Dashboard</a></span></li>
                         <li class="accordion-item">
                             <div class="headermenu">
-                                <button  class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#studentCollapse" aria-expanded="false" aria-controls="studentCollapse">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#studentCollapse" aria-expanded="false" aria-controls="studentCollapse">
                                     <img class="custom_menu_icon" src="../icons/staff_icon.png" alt="" style="margin-right: 10px; "> Student
                                 </button>
                             </div>
@@ -146,7 +146,7 @@ if (isset($_SESSION['user'])) {
                         <div style="width: 90%">
                             <p style="font-size: 10px; font-weight: 700; margin: 14px">HOME | DASHBOARD</p>
                         </div>
-                          <!-- Notification Bell Icon -->
+                        <!-- Notification Bell Icon -->
                         <?php include 'notification.php' ?>
 
                         <div class=" d-flex justify-content-end align-items-center" style="height: 50px; width: 6%; margin-right: 20px ">
@@ -175,7 +175,7 @@ if (isset($_SESSION['user'])) {
                     <div class="card" style="width: 18rem; height: 140px; box-shadow: 0px 3px 6px rgba(0,0,0,0.26)">
                         <div class="card-body">
                             <h6 class="card-title">No. of New Books</h6>
-                            <h5>...</h5>
+                            <h5 id="newBooksCount">...</h5>
                             <div style="width: 100%; display: flex; justify-content: flex-end; margin-top: -40px; ">
 
                             </div>
@@ -183,6 +183,7 @@ if (isset($_SESSION['user'])) {
 
                         </div>
                     </div>
+
                     <div class="card" style="width: 18rem; height: 140px; box-shadow: 0px 3px 6px rgba(0,0,0,0.26)">
                         <div class="card-body">
                             <h6 class="card-title">Total No. of Books</h6>
@@ -197,14 +198,14 @@ if (isset($_SESSION['user'])) {
                     <div class="card" style="width: 18rem; height: 140px; box-shadow: 0px 3px 6px rgba(0,0,0,0.26)">
                         <div class="card-body">
                             <h6 class="card-title">No. of New Users</h6>
-                            <h5>...</h5>
+                            <h5 id="newUsersCount">...</h5>
                             <div style="width: 100%; display: flex; justify-content: flex-end; margin-top: -40px; ">
 
                             </div>
                             <p class="card-text"></p>
-
                         </div>
                     </div>
+
                     <div class="card" style="width: 18rem; height: 140px; box-shadow: 0px 3px 6px rgba(0,0,0,0.26)">
                         <div class="card-body">
                             <h6 class="card-title">Total No. of Users</h6>
@@ -447,9 +448,7 @@ if (isset($_SESSION['user'])) {
                         backgroundColor: 'rgba(37,37,37,100%)',
                         barThickness: 15,
 
-                    }
-
-                ]
+                    }]               
             },
             options: {
                 maintainAspectRatio: false,
@@ -472,59 +471,58 @@ if (isset($_SESSION['user'])) {
             }
         });
 
- // Fetch data from the server
-fetch('../includes/fetch_borrow_reserve_counts_quarterly.php')
-    .then(response => response.json())
-    .then(data => {
-        // Create the Chart.js chart
-        const chart3 = new Chart(ctx2, {
-            type: 'bar',
-            data: {
-                labels: ['Q1', 'Q2', 'Q3', 'Q4'],
-                datasets: [
-                    {
-                        label: 'RESERVED',
-                        data: data.filter(item => item.transaction_type === 'RESERVED').map(item => item.count),
-                        backgroundColor: 'rgba(147,38,38,100%)',
-                        barThickness: 15,
+        // Fetch data from the server
+        fetch('../includes/fetch_borrow_reserve_counts_quarterly.php')
+            .then(response => response.json())
+            .then(data => {
+                // Create the Chart.js chart
+                const chart3 = new Chart(ctx2, {
+                    type: 'bar',
+                    data: {
+                        labels: ['Q1', 'Q2', 'Q3', 'Q4'],
+                        datasets: [{
+                                label: 'RESERVED',
+                                data: data.filter(item => item.transaction_type === 'RESERVED').map(item => item.count),
+                                backgroundColor: 'rgba(147,38,38,100%)',
+                                barThickness: 15,
+                            },
+                            {
+                                label: 'BORROWED',
+                                data: data.filter(item => item.transaction_type === 'BORROWED').map(item => item.count),
+                                backgroundColor: 'rgba(37,37,37,100%)',
+                                barThickness: 15,
+                            }
+                        ]
                     },
-                    {
-                        label: 'BORROWED',
-                        data: data.filter(item => item.transaction_type === 'BORROWED').map(item => item.count),
-                        backgroundColor: 'rgba(37,37,37,100%)',
-                        barThickness: 15,
-                    }
-                ]
-            },
-            options: {
-                maintainAspectRatio: false,
-                scales: {
-                    x: {
-                        grid: {
-                            display: false,
-                        }
-                    },
-                    y: {
-                        beginAtZero: true,
-                        suggestedMin: 0,
-                        suggestedMax: Math.max(
-                            Math.max(...data.filter(item => item.transaction_type === 'RESERVED').map(item => item.count)), 
-                            Math.max(...data.filter(item => item.transaction_type === 'BORROWED').map(item => item.count))
-                        ) + 4,
-                    }
-                },
-                plugins: {
-                    legend: {
-                        position: 'bottom',
-                        labels: {
-                            usePointStyle: true
+                    options: {
+                        maintainAspectRatio: false,
+                        scales: {
+                            x: {
+                                grid: {
+                                    display: false,
+                                }
+                            },
+                            y: {
+                                beginAtZero: true,
+                                suggestedMin: 0,
+                                suggestedMax: Math.max(
+                                    Math.max(...data.filter(item => item.transaction_type === 'RESERVED').map(item => item.count)),
+                                    Math.max(...data.filter(item => item.transaction_type === 'BORROWED').map(item => item.count))
+                                ) + 4,
+                            }
+                        },
+                        plugins: {
+                            legend: {
+                                position: 'bottom',
+                                labels: {
+                                    usePointStyle: true
+                                }
+                            }
                         }
                     }
-                }
-            }
-        });
-    })
-    .catch(error => console.error('Error fetching data:', error));
+                });
+            })
+            .catch(error => console.error('Error fetching data:', error));
 
 
 
@@ -582,8 +580,26 @@ fetch('../includes/fetch_borrow_reserve_counts_quarterly.php')
     </script>
     <script src="../js/fetch_transaction.js"></script>
 
-
-
+    <script>
+        // new book count
+        fetch('../includes/fetch_new_books_count.php')
+            .then(response => response.json())
+            .then(data => {
+                // Update the card with the new books count
+                document.getElementById('newBooksCount').innerText = data.new_books_count;
+            })
+            .catch(error => console.error('Error fetching data:', error));
+    </script>
+    <script>
+        // new users count
+        fetch('../includes/fetch_new_users_count.php')
+            .then(response => response.json())
+            .then(data => {
+                // Update the card with the new users count
+                document.getElementById('newUsersCount').innerText = data.new_users_count;
+            })
+            .catch(error => console.error('Error fetching data:', error));
+    </script>
 </body>
 
 </html>
