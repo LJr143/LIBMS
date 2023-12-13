@@ -81,7 +81,6 @@ function validateForm() {
         '#addStudentPhoneNumber': /^09[0-9]{9}$/,
         '#addStudentAddress': /^[A-Za-z0-9,.\s]+$/,
         '#addStudentUsepEmail': /^[^\s@]+@usep\.edu\.ph$/,
-        // Add more patterns as needed for other fields
         '#addStudentUsername': /^(?=.*[A-Za-z0-9])[A-Za-z0-9]{6,}$/,
         '#addStudentPassword': /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@_]).{8,}$/
     };

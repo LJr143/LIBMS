@@ -73,10 +73,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $student = new StudentData($database);
 
     // Check if the file is uploaded
-    if (!empty($_FILES['profile']['name'])) {
-        $profile = $_FILES['profile']['name'];
+    if (!empty($_FILES['editprofile']['name'])) {
+        $profile = $_FILES['editprofile']['name'];
 
-        $uploadFolder = '../book_img/' . DIRECTORY_SEPARATOR;
+        $uploadFolder = '../img/' . DIRECTORY_SEPARATOR;
 
         if (!file_exists($uploadFolder)) {
             mkdir($uploadFolder, 0777, true);
@@ -85,7 +85,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Move the file to the destination folder
         $uploadPath = $uploadFolder . $profile;
 
-        if (!move_uploaded_file($_FILES['profile']['tmp_name'], $uploadPath)) {
+        if (!move_uploaded_file($_FILES['editprofile']['tmp_name'], $uploadPath)) {
             echo json_encode(['success' => false, 'error' => 'Failed to move uploaded file.']);
             exit;
         }    } else {
