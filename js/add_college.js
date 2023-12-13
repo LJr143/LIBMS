@@ -162,6 +162,10 @@ function getCustomErrorMessage(fieldId, formType) {
         case '#addCollegeName':
             return 'Invalid College Name. It should only contain letters and spaces.';
         // Add more cases for other fields as needed
+        case '#editCollegeId': // Example for an edit form
+            return 'Invalid Edited College ID. It should follow the pattern COL-****.';
+        case '#editCollegeName': // Example for an edit form
+            return 'Invalid Edited College Name. It should only contain letters and spaces.';
         default:
             return 'Invalid input for ' + $(fieldId).attr('placeholder') + '.';
     }
