@@ -1,4 +1,3 @@
-
 <?php
 require_once 'C:\wamp64\www\LIBMS\db_config\config.php';
 error_reporting(E_ALL);
@@ -12,7 +11,6 @@ class BookData
     {
         $this->database = $database->getDb();
     }
-
     public function getAllBook(): array
     {
         $sql = "SELECT * FROM tbl_book";
@@ -25,7 +23,6 @@ class BookData
             return array();
         }
     }
-
     public function getNumberOfBooks(): int
     {
         $sql = "SELECT COUNT(*) as num_books FROM tbl_book";
@@ -37,9 +34,6 @@ class BookData
             return 0;
         }
     }
-
-
-
     public function getBookById($bookId): array
     {
         $sql = "SELECT * FROM tbl_book WHERE book_id = :bookId";
@@ -118,8 +112,6 @@ class BookData
 // Execute the query
         return $stmt->execute();
     }
-
-
     public function borrowBook($user_id, $bookId, $date): array
     {
         $transaction = 'Borrow';
@@ -146,7 +138,6 @@ class BookData
             return ['success' => false, 'message' => 'Error inserting record'];
         }
     }
-
     public function reserveBook($user_id, $bookId, $date, $returnDate): array
     {
         $transaction = 'Reserve';
@@ -174,7 +165,37 @@ class BookData
             return ['success' => false, 'message' => 'Error inserting record'];
         }
     }
+    public function bookRequest($status, $transaction_id): array {
+        try {
+            $sql = "UPDATE tbl_transaction SET status = :status WHERE id = :transaction_id";
+            $stmt = $this->database->prepare($sql);
 
+            // Bind parameters
+            $stmt->bindParam(':status', $status, PDO::PARAM_STR);
+            $stmt->bindParam(':transaction_id', $transaction_id, PDO::PARAM_INT);
+
+            // Execute the query
+            $success = $stmt->execute();
+
+            if (!$success) {
+                // Log the error message
+                error_log("Error executing SQL query: " . print_r($stmt->errorInfo(), true));
+            }
+
+            // Return an array with success information
+            return [
+                'success' => $success,
+                'message' => $success ? 'Responded successfully' : 'Failed to update course',
+            ];
+        } catch (Exception $e) {
+            // Log any exceptions
+            error_log("Exception: " . $e->getMessage());
+            return [
+                'success' => false,
+                'message' => 'An error occurred during the request processing.',
+            ];
+        }
+    }
 
 
     public function deleteBook($bookId){
@@ -185,5 +206,6 @@ class BookData
 
         return $stmt->execute();
     }
+
 
 }

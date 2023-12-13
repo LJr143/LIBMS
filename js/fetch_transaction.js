@@ -15,10 +15,11 @@ $(document).ready(function () {
         // Fetch and update the modal immediately when the button is clicked
         fetchAndUpdateModal(transactionId);
 
-        $("#approveRequest").click(function (e) {
-            e.preventDefault(); // Prevent the default form submission
-            approveRequest();
-        });
+
+    });
+    $(".approveRequest").click(function (e) {
+        e.preventDefault(); // Prevent the default form submission
+        approveRequest();
     });
 
     function fetchAndUpdateModal(transactionId) {
@@ -126,24 +127,32 @@ $(document).ready(function () {
     }
     function approveRequest() {
         console.log('Approving course');
-        var formData = prepareFormData();
+        var status = 'Approve';
         $.ajax({
-            url: '../operations/approve_request.php',
+            url: '../operations/response_request.php',
             method: 'POST',
-            data: formData,
-            contentType: false,
-            processData: false,
+            data: {
+                transactionId: transactionId,
+                status: status,
+            },
+            dataType: 'json', // Expect JSON response
             success: function (response) {
+                console.log(response);
                 handleAjaxSuccess(response, 'add');
             },
-            error: handleAjaxError
+            error: function (xhr, status, error) {
+                console.error('AJAX Error:', status, error);
+                console.log(xhr.responseText); // Log the full response text
+                handleAjaxError(xhr);
+            },
         });
     }
+
 
     function handleAjaxSuccess(response, operationType) {
         try {
             if (response.success) {
-                handleSuccessConfirmation('nfoModal1', operationType);
+                handleSuccessConfirmation('infoModal1', operationType);
             } else {
                 showError(response.message || `Failed to ${operationType === 'add' ? 'add' : 'update'} the Course. Please try again.`);
             }
@@ -177,8 +186,14 @@ $(document).ready(function () {
             }
         });
     }
-    function handleAjaxError() {
-        showError('AJAX request failed.');
+
+    function handleAjaxError(xhr) {
+        // Extract error message from the response, if available
+        var errorMessage = 'AJAX request failed.';
+        if (xhr.responseJSON && xhr.responseJSON.error) {
+            errorMessage = xhr.responseJSON.error;
+        }
+        showError(errorMessage);
     }
 
     function showError(message) {
@@ -188,4 +203,5 @@ $(document).ready(function () {
             icon: 'error'
         });
     }
+
 });

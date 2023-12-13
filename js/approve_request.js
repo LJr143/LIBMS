@@ -5,11 +5,8 @@ $(document).ready(function () {
     });
 
     function approveRequest() {
-        console.log('Adding course');
-        if (!validateForm()) {
-            console.log('Validation failed.');
-            return; // Exit if validation fails
-        }
+        console.log('Approving course');
+
         var formData = prepareFormData();
         $.ajax({
             url: '../operations/approve_request.php',
@@ -37,7 +34,7 @@ $(document).ready(function () {
     function handleAjaxSuccess(response, operationType) {
         try {
             if (response.success) {
-                handleSuccessConfirmation('AddCourseModal', operationType);
+                handleSuccessConfirmation('infoModal1', operationType);
             } else {
                 showError(response.message || `Failed to ${operationType === 'add' ? 'add' : 'update'} the Course. Please try again.`);
             }
