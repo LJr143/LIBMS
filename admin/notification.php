@@ -4,7 +4,10 @@ include 'C:\wamp64\www\LIBMS\includes\fetch_transaction_data.php';
 
 $database = new Database();
 $transactionData = new TransactionData($database);
+
 $transaction = $transactionData->getPendingTransaction();
+$pendingTransaction = $transactionData->getPendingTransactionCount();
+
 ?>
 <!doctype html>
 <html lang="en">
@@ -18,6 +21,8 @@ $transaction = $transactionData->getPendingTransaction();
 <div class="mr-3" style="margin-left: 40px;">
     <a href="#" id="notificationDropdown" data-bs-toggle="dropdown" aria-expanded="false">
         <i class="bi bi-bell" style="font-size: 20px; color: #4d0202;"></i>
+        <span style="position:absolute; font-size: 8px;" id="notificationCounter" class="badge bg-danger"><?= $pendingTransaction ?></span>
+
     </a>
     <div class="dropdown-menu" aria-labelledby="notificationDropdown" style="padding: 25px; font-size: 13px; background-color: white;">
         <div style="margin-bottom: 15px; background-color: white; width: 520px; box-shadow: 2px 4px 6px rgba(82,21,21,0.2); padding: 5px;">
@@ -33,24 +38,14 @@ $transaction = $transactionData->getPendingTransaction();
                             <button type="button" class="btn custom-btn transaction_modal" data-transaction-id="<?php echo $transact['id'];?>">
                                 <i class="bi bi-info-circle" style="color: blue; font-size: 20px;"></i>
                             </button>
-
-                            <!-- Confirmation button -->
-                            <button type="button" class="btn custom-btn">
-                                <i class="bi bi-check-circle" style="color: green; font-size: 20px;"></i>
-                            </button>
-
-                            <!-- Rejection button -->
-                            <button type="button" class="btn custom-btn">
-                                <i class="bi bi-x-circle" style="color: red; font-size: 20px;"></i>
-                            </button>
                         </div>
-
                     </div>
                 </li>
             <?php endforeach; ?>
         </ul>
     </div>
 </div>
+
 
 <div class="modal fade" id="infoModal1" tabindex="-1" aria-labelledby="infoModal1Label" aria-hidden="true">
     <div class="modal-dialog  modal-dialog-centered" role="document" style="max-width: 800px;">
@@ -99,7 +94,7 @@ $transaction = $transactionData->getPendingTransaction();
                     </div>
                 </div>
                 <!-- Buttons -->
-                <button style="margin-left: 60%; background-color:white; font-weight: bold; border-color:#4d0202; color:#4d0202; height: 30px; font-size:12px; width: 110px;" type="button" class="btn" id="rejectRequest">REJECT</button>
+                <button style="margin-left: 60%; background-color:white; font-weight: bold; border-color:#4d0202; color:#4d0202; height: 30px; font-size:12px; width: 110px;" type="button" class="btn rejectRequest" id="rejectRequest">REJECT</button>
                 <button style="margin-left: 10px; background-color:#740000; color:#fff; height: 30px; font-size:12px; width: 110px;" type="button" class="btn approveRequest" id="approveRequest">APPROVE</button>
             </div>
 

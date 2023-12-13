@@ -592,10 +592,10 @@ if (isset($_SESSION['user'])) {
         }
 
         // Function to handle adding a staff (you can replace this with your actual logic)
-        function addStaff() {
-            // Add your logic here
-            $("#staffModal").modal("hide");
-        }
+        // function addStaff() {
+        //     // Add your logic here
+        //     $("#staffModal").modal("hide");
+        // }
     </script>
 
 

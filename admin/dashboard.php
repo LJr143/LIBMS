@@ -104,7 +104,6 @@ if (isset($_SESSION['user'])) {
                 <div class="profile_section">
                     <div>
                         <img style="border: 3px solid white; width: 60px; border-radius: 60px;" src="../img/<?= $loggedAdmin['img'] ?>" alt="">
-                        gege
                         <div style="position: absolute; top: 55px; right: 72px; background:#01d501; height: 15px; width: 15px; border-radius: 60px;"></div>
                     </div>
                     <div style="display: block; text-align: center; color: white; height: 20px;">
@@ -472,25 +471,29 @@ if (isset($_SESSION['user'])) {
                 }
             }
         });
+
+ // Fetch data from the server
+fetch('../includes/fetch_borrow_reserve_counts_quarterly.php')
+    .then(response => response.json())
+    .then(data => {
+        // Create the Chart.js chart
         const chart3 = new Chart(ctx2, {
             type: 'bar',
             data: {
-                labels: ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JLY', 'SEP', 'NOV', 'DEC'],
-                datasets: [{
-                        label: 'BORROWED',
-                        data: [70, 140, 210, 280, 350, 200, 150, 90, 26, 10, 120, 120],
-                        backgroundColor: 'rgba(147,38,38,100%)',
-                        barThickness: 15,
-
-                    },
+                labels: ['Q1', 'Q2', 'Q3', 'Q4'],
+                datasets: [
                     {
                         label: 'RESERVED',
-                        data: [50, 160, 200, 180, 150, 130, 140, 135, 60, 70, 50],
+                        data: data.filter(item => item.transaction_type === 'RESERVED').map(item => item.count),
+                        backgroundColor: 'rgba(147,38,38,100%)',
+                        barThickness: 15,
+                    },
+                    {
+                        label: 'BORROWED',
+                        data: data.filter(item => item.transaction_type === 'BORROWED').map(item => item.count),
                         backgroundColor: 'rgba(37,37,37,100%)',
                         barThickness: 15,
-
                     }
-
                 ]
             },
             options: {
@@ -501,7 +504,14 @@ if (isset($_SESSION['user'])) {
                             display: false,
                         }
                     },
-
+                    y: {
+                        beginAtZero: true,
+                        suggestedMin: 0,
+                        suggestedMax: Math.max(
+                            Math.max(...data.filter(item => item.transaction_type === 'RESERVED').map(item => item.count)), 
+                            Math.max(...data.filter(item => item.transaction_type === 'BORROWED').map(item => item.count))
+                        ) + 4,
+                    }
                 },
                 plugins: {
                     legend: {
@@ -513,6 +523,11 @@ if (isset($_SESSION['user'])) {
                 }
             }
         });
+    })
+    .catch(error => console.error('Error fetching data:', error));
+
+
+
         const chart4 = new Chart(ctx3, {
             type: 'line',
             data: {
