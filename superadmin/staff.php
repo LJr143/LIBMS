@@ -387,12 +387,12 @@ if (isset($_SESSION['user'])) {
                         <div class="row">
                             <!-- uploading image -->
                             <div style="width: 100px; height: 100px; overflow: hidden; border: 1px solid maroon; border-radius: 50%; margin: 0 auto; margin-top:40px;">
-                                <label for="profilePictureInput" class="AddImageCon" style="display: flex; justify-content: center; align-items: center; width: 100%; height: 100%;">
+                                <label for="EditprofilePictureInput" class="AddImageCon" style="display: flex; justify-content: center; align-items: center; width: 100%; height: 100%;">
 
-                                    <img src="" width="220px" height="100px" id="ProfilePic" style="display: block;">
+                                    <img src="" width="220px" height="100px" id="EditProfilePic" style="display: block;">
                                 </label>
-                                <form id="editStudentForm" method="post" enctype="multipart/form-data">
-                                    <input type="file" accept="image/jpeg, image/png, image/jpg" id="profilePictureInput" class="visually-hidden mb-0" accept="image/*" onchange="updateProfilePicture(event)">
+                                <form id="editStaffForm" method="post" enctype="multipart/form-data">
+                                    <input type="file" accept="image/jpeg, image/png, image/jpg" id="EditprofilePictureInput" class="visually-hidden mb-0" accept="image/*" onchange="updateProfilePicture(event)">
                                 </form>
                             </div>
 
@@ -714,14 +714,14 @@ if (isset($_SESSION['user'])) {
                 $('#EditStaffOemail').val(data[0].email);
 
                 var imagePath = '../img/' + data[0].img;
-                $('#ProfilePic').attr('src', imagePath);
+                $('#EditProfilePic').attr('src', imagePath);
 
                 if (data[0].img) {
                     var imagePath = '../img/' + data[0].img;
-                    $('#ProfilePic').attr('src', imagePath);
+                    $('#EditProfilePic').attr('src', imagePath);
                 } else {
                     // Display the default 'user.png' if there is no photo
-                    $('#ProfilePic').attr('src', '../icons/user.png');
+                    $('#EditProfilePic').attr('src', '../icons/user.png');
                 }
                 // Show the modal
                 $('#editStudentModal').modal('show');
@@ -737,14 +737,14 @@ if (isset($_SESSION['user'])) {
 
         // Function to clear the displayed photo
         function clearPhoto() {
-            $('#ProfilePic').attr('src', '../icons/user.png');
+            $('#EditProfilePic').attr('src', '../icons/user.png');
             $(".AddImageCon i").show();
         }
 
         // Function to update the profile picture
         function updateProfilePicture(event) {
             const input = event.target;
-            const profilePic = document.getElementById('ProfilePic');
+            const profilePic = document.getElementById('EditProfilePic');
             const icon = $(".AddImageCon i");
 
             if (input.files && input.files[0]) {
