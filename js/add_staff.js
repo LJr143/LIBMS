@@ -30,7 +30,7 @@ $(document).ready(function () {
             });
         } else {
             // Validation failed, show the validation errors
-            showValidationErrors();
+            showStaffValidationError();
         }
     });
 });
@@ -81,16 +81,7 @@ function validateStaffForm() {
         '#addStaffUsername',
         '#psw'
     ];
-
-    for (var i = 0; i < requiredFields.length; i++) {
-        var field = $(requiredFields[i]);
-        if (field.val().trim() === '') {
-            showStaffValidationError('Please fill in all required fields.');
-            return false; // Validation failed
-        }
-    }
-
-    // Validate the file input
+// Validate the file input
     var profileFileInput = $('#addStaffinput-file')[0];
     var profileFile = profileFileInput.files[0];
 
@@ -99,13 +90,20 @@ function validateStaffForm() {
         return false; // Validation failed
     }
 
+// Check if the selected file is an image (you can modify this condition based on your requirements)
+    if (!profileFile.type.startsWith('image/')) {
+        showStaffValidationError('Please select a valid image file.');
+        return false; // Validation failed
+    }
+
+
 
     var patterns = {
         '#addStaffFname': /^[A-Za-z]+$/,
         '#addStaffLname': /^[A-Za-z]+$/,
-        '#addStaffInitial': /^$|^[A-Za-z]{1}$/,
-        '#addStaffID': /^[0-9]{4}-[0-9]{5}$/,
-        '#addStaffPemail': /^[^\s@]+@[^\s@]+\.[a-zA-Z]{2,}$/,
+        '#addStaffInitial': /^$|^[A-Za-z]{1,2}$/,
+        '#addStaffID': /^20[0-9]{2}-[0-9]{5}$/,
+        '#addStaffPemail': /^[^\s@]+@gmail\.com$/,
         '#addStaffPnumber': /^09[0-9]{9}$/,
         '#addStaffTnumber': /^[0-9]{3}-[0-9]{4}$/,
         '#addStaffAddress': /^[A-Za-z0-9,.\s]+$/,
@@ -129,6 +127,8 @@ function validateStaffForm() {
         }
     }
 
+    handleStaffSuccessConfirmation();
+
     function getStaffCustomErrorMessage(fieldId) {
         switch (fieldId) {
             case '#addStaffFname':
@@ -136,7 +136,7 @@ function validateStaffForm() {
             case '#addStaffLname':
                 return 'Invalid Last Name. It should only contain letters.';
             case '#addStaffInitial':
-                return 'Invalid Middle Initial. It should be a single letter.';
+                return 'Invalid Middle Initial. It should be a letter.';
             case '#addStaffID':
                 return 'Invalid Staff ID. It should be in the format 20**-*****.';
             case '#addStaffOemail':

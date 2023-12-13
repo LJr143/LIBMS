@@ -271,7 +271,7 @@ if (isset($_SESSION['user'])) {
 
                                 <div class="col-md-3 mt-2">
                                     <label for="addStaffID" class="form-label mb-0" style="font-size: 12px;">STAFF ID</label>
-                                    <input type="text" class="form-control" id="addStaffID" name="addStaffID" placeholder="2021-00565" pattern="[0-9]{4}-[0-9]{5}" style="font-size: 10px;" required>
+                                    <input type="text" class="form-control" id="addStaffID" name="addStaffID" placeholder="2021-00565" pattern="20[0-9]{2}-[0-9]{5}" style="font-size: 10px;" required>
                                     <div class="invalid-feedback" style="font-size: 8px">
                                         Not a valid student ID!
                                     </div>
