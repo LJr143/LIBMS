@@ -388,6 +388,8 @@ if (isset($_SESSION['user'])) {
             <div class="modal-content" >
                 <div class="modal-body">
                     <form action="" method="post">
+
+                        <input type="text" id="user_id" data-user-id="<?= $_SESSION['user_id'];  ?>" style="display: none;">
                         <div style="width: 100%; height: 300px">
                             <div style="font-size: 14px; letter-spacing: 0.2px; width: 100%; color: #711717; display: flex; justify-content: center; margin-top: 30px">
                                 <p style="font-style: italic; font-weight: 700;">FEEDBACK</p>
@@ -408,7 +410,7 @@ if (isset($_SESSION['user'])) {
                         </div>
                         <div style="font-size: 12px; width: 100%; display: flex; justify-content: center;">
                             <button data-bs-dismiss="modal" type="button" style="width: 95px; margin: 0px 20px; font-weight: bold; border-radius: 5px; padding: 8px; color: #711717; background-color: transparent; border: 1px solid #711717">CANCEL</button>
-                            <button data-bs-toggle="modal" id="submitFeedbackBtn" class="feedback_submit_btn" type="button" style="width: 95px; font-weight: bold; border-radius: 5px; padding: 8px; color: white; background-color: #740000; border: 1px solid #711717">SUBMIT</button>
+                            <button id="submitFeedbackBtn" class="feedback_submit_btn" type="button" style="width: 95px; font-weight: bold; border-radius: 5px; padding: 8px; color: white; background-color: #740000; border: 1px solid #711717">SUBMIT</button>
                         </div>
                     </form>
                 </div>
@@ -599,78 +601,11 @@ if (isset($_SESSION['user'])) {
     </script>
 
 
-    <script>
-        // script for star rating
-        $(document).ready(function() {
-            // Handle star rating click
-            $('.rating i').click(function() {
-                let index = $(this).data('index');
-                $('.rating i').removeClass('bi-star-fill text-warning').addClass('bi-star');
-                $('.rating i').each(function(i) {
-                    if (i <= index) {
-                        $(this).removeClass('bi-star').addClass('bi-star-fill text-warning');
-                    }
-                });
-            });
 
-            // Reset star rating on modal close
-            $('#feedbackModal').on('hidden.bs.modal', function() {
-                $('.rating i').removeClass('bi-star-fill').addClass('bi-star');
-            });
-        });
-    </script>
-    <script>
-        // script for star rating
-        $(document).ready(function() {
-            // Handle star rating click
-            $('.bookRating i').click(function() {
-                let index = $(this).data('index');
-                $('.bookRating i').removeClass('bi-star-fill text-warning').addClass('bi-star');
-                $('.bookRating i').each(function(i) {
-                    if (i <= index) {
-                        $(this).removeClass('bi-star').addClass('bi-star-fill text-warning');
-                    }
-                });
-            });
 
-            // Reset star rating on modal close
-            $('#feedbackModal').on('hidden.bs.modal', function() {
-                $('.bookRating i').removeClass('bi-star-fill').addClass('bi-star');
-            });
-        });
-    </script>
-    <script>
-        // script for book review and feedback modal
-        document.getElementById('FeedbackBtn').addEventListener('click', function() {
-            var feedbackModal = new bootstrap.Modal(document.getElementById('feedbackModal'));
-
-            feedbackModal.show();
-     
-
-        document.getElementById('submitFeedbackBtn').addEventListener('click', function() {
-            var successfulModal = new bootstrap.Modal(document.getElementById('successfulFeedbackModal'));
-            
-
-            successfulModal.show();
-            feedbackModal.hide();
-        });
-    });
-
-        document.getElementById('bookReviewBtn').addEventListener('click', function() {
-            var bookReviewModal = new bootstrap.Modal(document.getElementById('bookReviewModal'));
-
-            bookReviewModal.show();
-       
-        document.getElementById('submitReviewBtn').addEventListener('click', function() {
-            var successfulModal = new bootstrap.Modal(document.getElementById('succesfulBookReviewModal'));
-
-            successfulModal.show();
-            bookReviewModal.hide();
-        });
-    });
-    </script>
     <script src="../js/borrow_book.js"></script>
     <script src="../js/reserve_book.js"></script>
+    <script src="../js/add_feedback.js"></script>
 
 </body>
 
