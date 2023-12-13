@@ -21,6 +21,10 @@ $(document).ready(function () {
         e.preventDefault(); // Prevent the default form submission
         approveRequest();
     });
+    $(".rejectRequest").click(function (e) {
+        e.preventDefault(); // Prevent the default form submission
+        rejectRequest();
+    });
 
     function fetchAndUpdateModal(transactionId) {
         // Make an AJAX request to fetch the latest transaction data
@@ -31,7 +35,10 @@ $(document).ready(function () {
             dataType: 'json',
             success: function (response) {
                 // Handle the response and populate your modal with data
-                populateModal(response);
+                if (response && response.length > 0) {
+                    // If transactionData is not empty, populate the modal
+                    populateModal(response);
+                }
             },
             error: function (xhr, status, error) {
                 // Handle errors
@@ -89,6 +96,10 @@ $(document).ready(function () {
                 if (response.length > 0) {
                     // Update the notification dropdown
                     updateNotificationDropdown(response);
+
+                    // Update the notification counter
+                    updateNotificationCounter();
+
                 }
             },
             error: function () {
@@ -98,7 +109,7 @@ $(document).ready(function () {
 
         // Fetch and update the modal immediately when the button is clicked
         fetchAndUpdateModal(transactionId);
-    }, 30000);
+    }, 5000);
 
     function updateNotificationDropdown(transactions) {
         var notificationList = $('#notificationList');
@@ -111,13 +122,6 @@ $(document).ready(function () {
                 '<div class="btn-group ms-4">' +
                 '<button type="button" class="btn custom-btn transaction_modal" data-transaction-id="' + transact.id + '">' +
                 '<i class="bi bi-info-circle" style="color:blue; font-size: 20px;"></i>' +
-                '</button>' +
-                '<button type="button" class="btn custom-btn">' +
-                '<i class="bi bi-check-circle" style="color:green; font-size: 20px;"></i>' +
-                '</button>' +
-                '<button type="button" class="btn custom-btn">' +
-                '<i class="bi bi-x-circle" style="color:red; font-size: 20px;"></i>' +
-                '</button>' +
                 '</div>' +
                 '</div>' +
                 '</li>');
@@ -125,9 +129,27 @@ $(document).ready(function () {
             notificationList.append(listItem);
         });
     }
+    function updateNotificationCounter() {
+        // Fetch the updated counter value using AJAX
+        $.ajax({
+            url: '../operations/fetch_notification_counter.php',
+            type: 'GET',
+            dataType: 'json',
+            success: function (counterValue) {
+                // Update the notification counter span with the new value
+                $('#notificationCounter').text(counterValue);
+                console.log('Notification counter updated:', counterValue);
+            },
+            error: function (xhr, status, error) {
+                console.error('Error fetching notification counter:', status, error);
+            }
+        });
+    }
+
+
     function approveRequest() {
         console.log('Approving course');
-        var status = 'Approve';
+        var status = 'Approved';
         $.ajax({
             url: '../operations/response_request.php',
             method: 'POST',
@@ -138,7 +160,29 @@ $(document).ready(function () {
             dataType: 'json', // Expect JSON response
             success: function (response) {
                 console.log(response);
-                handleAjaxSuccess(response, 'add');
+                handleAjaxSuccess(response, 'approve');
+            },
+            error: function (xhr, status, error) {
+                console.error('AJAX Error:', status, error);
+                console.log(xhr.responseText); // Log the full response text
+                handleAjaxError(xhr);
+            },
+        });
+    }
+    function rejectRequest() {
+        console.log('Rejecting course');
+        var status = 'Rejected';
+        $.ajax({
+            url: '../operations/response_request.php',
+            method: 'POST',
+            data: {
+                transactionId: transactionId,
+                status: status,
+            },
+            dataType: 'json', // Expect JSON response
+            success: function (response) {
+                console.log(response);
+                handleAjaxSuccess(response, 'reject');
             },
             error: function (xhr, status, error) {
                 console.error('AJAX Error:', status, error);
@@ -154,7 +198,7 @@ $(document).ready(function () {
             if (response.success) {
                 handleSuccessConfirmation('infoModal1', operationType);
             } else {
-                showError(response.message || `Failed to ${operationType === 'add' ? 'add' : 'update'} the Course. Please try again.`);
+                showError(response.message || `Failed to ${operationType === 'approve' ? 'reject' : 'update'} the Request. Please try again.`);
             }
         } catch (e) {
             console.error('Failed to process the server response:', e);
@@ -164,8 +208,8 @@ $(document).ready(function () {
 
     function handleSuccessConfirmation(modalId, operationType) {
         $("#" + modalId).modal("hide");
-        var successTitle = operationType === 'add' ? 'ADDED!' : 'UPDATED!';
-        var successText = operationType === 'add' ? 'SUCCESSFULLY ADDED!' : 'SUCCESSFULLY UPDATED!';
+        var successTitle = operationType === 'approve' ? 'APPROVED!' : 'REJECTED!';
+        var successText = operationType === 'approve' ? 'SUCCESSFULLY APPROVED!' : 'SUCCESSFULLY REJECTED!';
         Swal.fire({
             title: successTitle,
             text: successText,

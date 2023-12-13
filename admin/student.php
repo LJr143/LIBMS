@@ -320,7 +320,9 @@ if (isset($_SESSION['user'])) {
                                         <img src="" width="110" height="120" id="Profile-Pic" style="margin-top: -10px;">
 
                                     </div>
-                                    <input type="file" accept="image/jpeg, image/png, image/jpg" id="addStudentinput-file" class="visually-hidden mb-0" required>
+                                    <form action="" method="post" name="addStudentForm" enctype="multipart/form-data">
+                                    <input type="file" name="profile" accept="image/jpeg, image/png, image/jpg" id="addStudentinput-file" class="visually-hidden mb-0" required>
+                                    </form>
                                 </div>
                             </div>
 
@@ -519,11 +521,13 @@ if (isset($_SESSION['user'])) {
                             <!-- uploading image -->
                             <div style="width: 100px; height: 100px; overflow: hidden; border: 1px solid maroon; border-radius: 50%; margin: 0 auto; margin-top:40px;">
 
-                                <label for="profilePictureInput" class="AddImageCon" style="display: flex; justify-content: center; align-items: center; width: 100%; height: 100%;">
+                                <label for="editprofilePictureInput" class="AddImageCon" style="display: flex; justify-content: center; align-items: center; width: 100%; height: 100%;">
                                     <i class="bi bi-plus-circle" title="Add Image" style="color: grey;"></i>
-                                    <img src="../img/me_sample_profile.jpg" width="250px" height="100px" id="ProfilePic" style="display: block; margin-left: -4px;">
+                                    <img src="../img/me_sample_profile.jpg" width="250px" height="100px" id="editProfilePic" style="display: block; margin-left: -4px;">
                                 </label>
-                                <input type="file" accept="image/jpeg, image/png, image/jpg" id="profilePictureInput" class="visually-hidden mb-0" accept="image/*" onchange="updateProfilePicture(event)">
+                                <form action="" method="post" name="editStudentForm" enctype="multipart/form-data">
+                                <input type="file" name="editprofile" accept="image/jpeg, image/png, image/jpg" id="editprofilePictureInput" class="visually-hidden mb-0" accept="image/*" onchange="updateProfilePicture(event)">
+                                </form>
                             </div>
 
                             <form class="row needs-validation" style="margin-left: 30px; width: 80%; height: 65%; " novalidate>
@@ -658,7 +662,7 @@ if (isset($_SESSION['user'])) {
 
 
                                 <div class="wishlist-container mt-4 mb-0" style="display: flex; justify-content: flex-end; width: 664px;">
-                                    <button style="height: 25px; width: 100px" type="submit" class="clear shadow" onclick="clearPhoto()">CLEAR</button>
+                                    <button style="height: 25px; width: 100px" type="button" class="clear shadow" onclick="clearPhoto()">CLEAR</button>
                                     <button style="height: 25px; width: 100px" type="submit" class="add shadow" id="saveButton">SAVE</button>
                                 </div>
 
@@ -853,7 +857,7 @@ if (isset($_SESSION['user'])) {
                 $('#editStudentUsepEmail').val(data[0].usep_email);
 
                 var imagePath = '../img/' + data[0].img;
-                $('#ProfilePic').attr('src', imagePath);
+                $('#editProfilePic').attr('src', imagePath);
 
                 // Show the modal
                 $('#editStudentModal').modal('show');
@@ -862,14 +866,14 @@ if (isset($_SESSION['user'])) {
 
 
         // Function to handle adding a student
-        function addStudent() {
-            // Add your logic here
-            $("#editStudentModal").modal("hide");
-        }
+        // function addStudent() {
+        //     // Add your logic here
+        //     $("#editStudentModal").modal("hide");
+        // }
 
         // Function to clear the displayed photo
         function clearPhoto() {
-            $('#ProfilePic').attr('src', '../img/me_sample_profile.jpg');
+            $('#editProfilePic').attr('src', '../img/me_sample_profile.jpg');
             $(".AddImageCon i").show();
         }
 
@@ -879,7 +883,7 @@ if (isset($_SESSION['user'])) {
             if (input.files && input.files[0]) {
                 const reader = new FileReader();
                 reader.onload = function(e) {
-                    const profilePic = document.getElementById('ProfilePic');
+                    const profilePic = document.getElementById('editProfilePic');
                     profilePic.src = e.target.result;
 
                     // Hide the icon when a new image is selected
@@ -981,7 +985,6 @@ if (isset($_SESSION['user'])) {
     <script src="../js/delete_student.js"></script>
     <script src="../js/suspend_student.js"></script>
     <script src="../js/update_student.js"></script>
-
     <script>
         // Prevent the dropdown from closing when clicking on the buttons
         function handleButtonClick(event) {

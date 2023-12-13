@@ -29,6 +29,19 @@ class TransactionData
         // Fetch all records
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+    public function getPendingTransactionCount(): int
+    {
+        $status = 'Pending';
+        $sql = "SELECT COUNT(*) as num_pending_transaction FROM vw_book_request WHERE status = :status";
+        $params = array(':status' => $status);
+        $stmt = $this->database->executeQuery($sql, $params);
+
+        if ($stmt->execute()) {
+            return (int) $stmt->fetch(PDO::FETCH_ASSOC)['num_pending_transaction'];
+        } else {
+            return 0;
+        }
+    }
     public function getTransactionById($transactionId): array
     {
         $sql = "SELECT * FROM vw_book_request WHERE id = :transactionId";

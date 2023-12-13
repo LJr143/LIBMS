@@ -104,7 +104,6 @@ if (isset($_SESSION['user'])) {
                 <div class="profile_section">
                     <div>
                         <img style="border: 3px solid white; width: 60px; border-radius: 60px;" src="../img/<?= $loggedAdmin['img'] ?>" alt="">
-                        gege
                         <div style="position: absolute; top: 55px; right: 72px; background:#01d501; height: 15px; width: 15px; border-radius: 60px;"></div>
                     </div>
                     <div style="display: block; text-align: center; color: white; height: 20px;">

@@ -69,10 +69,10 @@ function validateUpdateForm() {
 
 function prepareUpdateFormData() {
     var formData = new FormData();
-    var profileFileInput = $('#profilePictureInput')[0];
+    var profileFileInput = $('#editprofilePictureInput')[0];
 
     if (profileFileInput.files.length > 0) {
-        formData.append('profile', profileFileInput.files[0]);
+        formData.append('editprofile', profileFileInput.files[0]);
     }
 
     formData.append('first_name', $('#editStudentFname').val());
