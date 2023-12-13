@@ -473,7 +473,7 @@ if (isset($_SESSION['user'])) {
             }
         });
 
-       // Fetch data from the server
+ // Fetch data from the server
 fetch('../includes/fetch_borrow_reserve_counts_quarterly.php')
     .then(response => response.json())
     .then(data => {
@@ -482,17 +482,20 @@ fetch('../includes/fetch_borrow_reserve_counts_quarterly.php')
             type: 'bar',
             data: {
                 labels: ['Q1', 'Q2', 'Q3', 'Q4'],
-                datasets: [{
-                    label: 'BORROWED',
-                    data: data.borrows.map(item => item.borrow_count),
-                    backgroundColor: 'rgba(147,38,38,100%)',
-                    barThickness: 15,
-                }, {
-                    label: 'RESERVED',
-                    data: data.reserves.map(item => item.reserve_count),
-                    backgroundColor: 'rgba(37,37,37,100%)',
-                    barThickness: 15,
-                }]
+                datasets: [
+                    {
+                        label: 'RESERVED',
+                        data: data.filter(item => item.transaction_type === 'RESERVED').map(item => item.count),
+                        backgroundColor: 'rgba(147,38,38,100%)',
+                        barThickness: 15,
+                    },
+                    {
+                        label: 'BORROWED',
+                        data: data.filter(item => item.transaction_type === 'BORROWED').map(item => item.count),
+                        backgroundColor: 'rgba(37,37,37,100%)',
+                        barThickness: 15,
+                    }
+                ]
             },
             options: {
                 maintainAspectRatio: false,
@@ -502,6 +505,14 @@ fetch('../includes/fetch_borrow_reserve_counts_quarterly.php')
                             display: false,
                         }
                     },
+                    y: {
+                        beginAtZero: true,
+                        suggestedMin: 0,
+                        suggestedMax: Math.max(
+                            Math.max(...data.filter(item => item.transaction_type === 'RESERVED').map(item => item.count)), 
+                            Math.max(...data.filter(item => item.transaction_type === 'BORROWED').map(item => item.count))
+                        ) + 4,
+                    }
                 },
                 plugins: {
                     legend: {
@@ -515,7 +526,6 @@ fetch('../includes/fetch_borrow_reserve_counts_quarterly.php')
         });
     })
     .catch(error => console.error('Error fetching data:', error));
-
 
 
 
