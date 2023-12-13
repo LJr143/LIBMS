@@ -228,9 +228,10 @@ if (isset($_SESSION['user'])) {
 
                                     </tr>
                                     <tr style=" height: 40px; background-color: rgb(246,246,246); margin-bottom: 10px; border: 1px solid rgba(0,0,0,0.25);">
-                                        <td><?= $courses['college_name']; ?></td>
-                                        <td><?= $courses['course_name'];?></td>
-                                        <td><?= $courses['course_major']; ?></td>
+                                        <td><?= $courses ['college_name']; ?></td>
+                                        <td><?= ucwords($courses['course_name']); ?></td>
+                                        <td><?= ucwords($courses['course_major']); ?></td>
+
                                         <td style="padding: 1px;">
                                             <div class="btn-group" role="group">
                                                 <a href="#" class="btn custom-btn editCourseBtn" data-course-id="<?= $courses['course_id'];?>" data-college-id="<?= $courses['college_id'];?>">
@@ -290,25 +291,26 @@ if (isset($_SESSION['user'])) {
                                         <option value="" disabled selected>Select College</option>
                                     </select>
                                     <div class="invalid-feedback" style="font-size: 8px">
-                                        Not a valid first name!
+                                        Not a valid College !
                                     </div>
-                                    <div class="valid-feedback" style="font-size: 8px">Looks good!</div>
+
                                 </div>
 
 
                                 <div class="col-md-12">
                                     <label for="addCourseName" class="form-label mb-0" style="font-size: 12px;">COURSE NAME</label>
-                                    <input type="text" class="form-control" placeholder="Bachelor of Science in Information Technology" id="addCourseName" style="font-size: 10px;" required>
+                                    <input type="text" class="form-control" placeholder="Bachelor of Science in Information Technology" id="addCourseName" style="font-size: 10px; text-transform: capitalize !important; " required>
                                     <div class="invalid-feedback" style="font-size: 8px">
-                                        Not a valid last name!
+                                        Not a valid Course Name!
                                     </div>
-                                    <div class="valid-feedback" style="font-size: 8px">Looks good!</div>
-
                                 </div>
 
                                 <div class="col-md-12">
                                     <label for="addCourseMajor" class="form-label mb-0" style="font-size: 12px;">MAJOR</label>
-                                    <input type="text" class="form-control" placeholder="Information Security" id="addCourseMajor" style="font-size: 10px;">
+                                    <input type="text" class="form-control" placeholder="Information Security" id="addCourseMajor" style="font-size: 10px; text-transform: capitalize !important; " required>
+                                    <div class="invalid-feedback" style="font-size: 8px">
+                                        Not a valid Major!
+                                    </div>
                                 </div>
 
                                 <div class="wishlist-container mt-4 mb-0" style="display: flex; justify-content: flex-end; width: 664px;">
@@ -349,9 +351,8 @@ if (isset($_SESSION['user'])) {
 
                                     </select>
                                     <div class="invalid-feedback" style="font-size: 8px">
-                                        Not a valid first name!
+                                        Not a valid College!
                                     </div>
-                                    <div class="valid-feedback" style="font-size: 8px">Looks good!</div>
                                 </div>
 
 
@@ -359,9 +360,8 @@ if (isset($_SESSION['user'])) {
                                     <label for="editCourse" class="form-label mb-0" style="font-size: 12px;">COURSE NAME</label>
                                     <input type="text" class="form-control" value="Bachelor of Science in Information Technology" id="editCourse" style="font-size: 10px; text-transform: capitalize !important;" required>
                                     <div class="invalid-feedback" style="font-size: 8px">
-                                        Not a valid last name!
+                                        Not a valid Course Name!
                                     </div>
-                                    <div class="valid-feedback" style="font-size: 8px">Looks good!</div>
 
                                 </div>
 
@@ -369,9 +369,8 @@ if (isset($_SESSION['user'])) {
                                     <label for="editMajor" class="form-label mb-0" style="font-size: 12px;">MAJOR</label>
                                     <input type="text" class="form-control" value="Information Security" id="editMajor" style="font-size: 10px; text-transform: capitalize !important; width: 470px;" required>
                                     <div class="invalid-feedback" style="font-size: 8px">
-                                        Not a valid last name!
+                                        Not a valid Major!
                                     </div>
-                                    <div class="valid-feedback" style="font-size: 8px">Looks good!</div>
 
                                 </div>
 
