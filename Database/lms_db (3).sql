@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Dec 12, 2023 at 02:19 PM
+-- Generation Time: Dec 13, 2023 at 02:10 PM
 -- Server version: 8.0.31
 -- PHP Version: 7.4.33
 
@@ -47,14 +47,15 @@ CREATE TABLE IF NOT EXISTS `tbl_admin` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `admin_id_2` (`admin_id`),
   KEY `admin_id` (`admin_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=108 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=110 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `tbl_admin`
 --
 
 INSERT INTO `tbl_admin` (`id`, `admin_id`, `lname`, `fname`, `initial`, `admin_role`, `email`, `personal_email`, `phone_number`, `tele_number`, `address`, `status`, `username`, `password`, `img`) VALUES
-(97, '2313123', 'Raña', 'Lorjohn', 'M', 'Staff', 'lorjohn143@gmail.com', 'lorjohn143@gmail.com', '09096763912', '02-1234-5678', 'Purok 3-C Sabina Homes Apokon Tagum City Davao Del Norte Philippines', 'Active', 'john', 'Password_123', 'me-removebg (1).png');
+(97, '2313123', 'Rana', 'Lorjohn', 'M', 'Staff', 'lmrana00027@usep.edu.ph', 'lorjohn143@gmail.com', '09096763912', '123-1234', 'Tagum', 'Active', 'john', 'pass', 'me-removebg (1).png'),
+(109, 'Ab adipisci eos cons', 'Ford', 'Hamish', 'Paria', 'Staff', 'nulowu@mailinator.com', 'bato@mailinator.com', '+1 (487) 372-49', '+1 (913) 255-76', 'Molestiae expedita o', 'Suspended', 'juquja', '$2y$10$Exc2IdHeW82ljDEAGurdye20nL3C7hOscNHcZ2bw3rw', 'Picture5.jpg');
 
 -- --------------------------------------------------------
 
@@ -127,7 +128,7 @@ CREATE TABLE IF NOT EXISTS `tbl_college` (
   `college_name` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `college_id` (`college_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `tbl_college`
@@ -135,7 +136,8 @@ CREATE TABLE IF NOT EXISTS `tbl_college` (
 
 INSERT INTO `tbl_college` (`id`, `college_id`, `college_name`) VALUES
 (28, 'C0001', 'College of Teacher Education and Technology'),
-(29, 'CO002', 'College of Engineering');
+(29, 'CO002', 'College of Engineering '),
+(31, 'COL-4321', 'School Of Law');
 
 -- --------------------------------------------------------
 
@@ -168,15 +170,16 @@ CREATE TABLE IF NOT EXISTS `tbl_course` (
   `course_major` varchar(100) COLLATE utf8mb4_general_ci NOT NULL DEFAULT 'N/A',
   PRIMARY KEY (`id`),
   KEY `college_id_FK` (`college_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `tbl_course`
 --
 
 INSERT INTO `tbl_course` (`id`, `college_id`, `course_name`, `course_major`) VALUES
-(8, 'CO002', 'Bachelor of Early-Childhood Education', 'N/A'),
-(11, 'C0001', 'Bachelor of Science in Information Technology', 'Information Security');
+(8, 'CO002', 'Bachelor of Early Childhood Education', 'NA'),
+(11, 'C0001', 'Bachelor of Science in Information Technology', 'Information Security'),
+(12, 'COL-4321', 'law', 'International Law');
 
 -- --------------------------------------------------------
 
@@ -222,7 +225,7 @@ CREATE TABLE IF NOT EXISTS `tbl_logs` (
   `action` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
   PRIMARY KEY (`id`),
   KEY `admin_id_log_FK` (`admin_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=222 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=230 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `tbl_logs`
@@ -370,7 +373,15 @@ INSERT INTO `tbl_logs` (`id`, `admin_id`, `date`, `action`) VALUES
 (218, '2021-00027', '2023-11-28 19:36:20', 'admin edit Lorjohn Raña'),
 (219, '2021-00027', '2023-11-28 19:36:29', 'admin edit Doormat Raña'),
 (220, '2021-00027', '2023-11-28 19:54:00', 'admin added Cabinet SADADS'),
-(221, '2021-00027', '2023-11-28 19:54:27', 'admin edit Cabinet SADADS');
+(221, '2021-00027', '2023-11-28 19:54:27', 'admin edit Cabinet SADADS'),
+(222, '2021-00027', '2023-12-13 07:06:12', 'admin added Brynn Smith'),
+(223, '2021-00027', '2023-12-13 07:14:32', 'admin edit lorjohn Smith'),
+(224, '2021-00027', '2023-12-13 07:20:52', 'admin edit lorjohn Smith'),
+(225, '2021-00027', '2023-12-13 07:21:08', 'admin edit lorjohn Smith'),
+(226, '2021-00027', '2023-12-13 07:21:20', 'admin edit lorjohn Smith'),
+(227, '2021-00027', '2023-12-13 07:21:29', 'admin edit lorjohn Smith'),
+(228, '2021-00027', '2023-12-13 07:22:21', 'admin added Hamish Ford'),
+(229, '2021-00027', '2023-12-13 07:22:30', 'admin edit Hamish Ford');
 
 -- --------------------------------------------------------
 
@@ -491,21 +502,24 @@ CREATE TABLE IF NOT EXISTS `tbl_transaction` (
   `date_requested` date NOT NULL,
   `date_return` date DEFAULT NULL,
   `status` varchar(25) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT 'Pending',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  PRIMARY KEY (`id`),
+  KEY `trans_user_id_fk` (`user_id`),
+  KEY `trans_book_id_fk` (`book_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1063 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `tbl_transaction`
 --
 
 INSERT INTO `tbl_transaction` (`id`, `user_id`, `book_id`, `transaction_type`, `date_requested`, `date_return`, `status`) VALUES
-(1, '2021-00027', 'B5', 'Borrow', '2023-12-12', NULL, 'Pending'),
-(2, '2021-00027', 'B5', 'Reserve', '0000-00-00', '0000-00-00', 'Pending'),
-(3, '2021-00027', 'B4', 'Borrow', '2023-12-12', NULL, 'Pending'),
-(4, '2021-00027', 'B5', 'Borrow', '2023-12-12', NULL, 'Pending'),
-(7, '2021-00027', 'B5', 'Reserve', '2023-12-12', '2023-12-14', 'Pending'),
-(8, '2021-00027', 'B4', 'Reserve', '0000-00-00', '0000-00-00', 'Pending'),
-(9, '2021-00027', 'B5', 'Borrow', '2023-12-12', NULL, 'Pending');
+(1055, '2021-10028', 'B5', 'Borrow', '2023-12-12', NULL, 'Approve'),
+(1056, '2021-10028', 'B2', 'Borrow', '2023-12-12', NULL, 'Approve'),
+(1057, '2021-10028', 'B6', 'Borrow', '2023-12-12', NULL, 'Approve'),
+(1058, '2021-00027', 'B5', 'Reserve', '0000-00-00', '0000-00-00', 'Approve'),
+(1059, '2021-00027', 'B2', 'Reserve', '0000-00-00', '0000-00-00', 'Approve'),
+(1060, '2021-00027', 'B3', 'Borrow', '2023-12-13', NULL, 'Approve'),
+(1061, '2021-00027', 'B9', 'Reserve', '0000-00-00', '0000-00-00', 'Approve'),
+(1062, '2021-00027', 'B8', 'Borrow', '2023-12-13', NULL, 'Approve');
 
 -- --------------------------------------------------------
 
@@ -541,9 +555,8 @@ CREATE TABLE IF NOT EXISTS `tbl_user` (
 --
 
 INSERT INTO `tbl_user` (`id`, `user_id`, `fname`, `lname`, `initial`, `year`, `course`, `major`, `username`, `password`, `status`, `user_type`, `email`, `usep_email`, `phone_number`, `address`, `img`) VALUES
-(28, '2021-00012', 'Gwendolyn', 'Sharp', 'M', '3rd', 'BECED', 'Information Security', 'sacumify', '$2y$10$RYhRNrGl.Y5dqPZtxqZnuOCV3/4xHIYH7s7iIfSod4siHFKcaF92.', 'Suspended', 'Student', 'bulihep@gmail.com', 'vawoxosudy@usep.edu.ph', '09096763192', 'Eum blanditiis dolor', 'photo1695631639-transformed.jpeg'),
 (20, '2021-00027', 'despenser', 'kyowa', 'M', '2nd', 'BTVTED', 'Information Security', 'John123', '$2y$10$LxFDVnSXPhqNRwGoArN9yuWuj0FTnDAgU9Er9pX6a/3Skat3zihQG', 'Active', 'Student', 'lmran0027@gmail.com', 'lmran0027@gmail.com', '09096763912', 'tagum', 'me-removebg (1).png'),
-(27, '2021-10028', 'Lorjohn', 'Rana', 'M', '3rd', 'BSIT', 'Information Security', 'lmrana', '$2y$10$/nsDdEQV4Ow2Xp8QHOtZQ.Vx5fLd.XKpJNf/aa6is53VVpdPyYFWa', 'Suspended', 'Student', 'lorjohn143@gmail.com', 'lorjohn143@usep.edu.ph', '09096763912', 'Sabina Homes Apokon', 'photo1695631639-transformed.jpeg');
+(27, '2021-10028', 'Lorjohn', 'Rana', 'M', '3rd', 'BSIT', 'Information Security', 'lmrana', '$2y$10$/nsDdEQV4Ow2Xp8QHOtZQ.Vx5fLd.XKpJNf/aa6is53VVpdPyYFWa', 'Active', 'Student', 'lorjohn143@gmail.com', 'lorjohn143@usep.edu.ph', '09096763912', 'Sabina Homes Apokon', 'photo1695631639-transformed.jpeg');
 
 -- --------------------------------------------------------
 
@@ -613,22 +626,36 @@ INSERT INTO `users` (`id`, `email`, `first_name`, `last_name`, `gender`, `full_n
 --
 DROP VIEW IF EXISTS `vw_book_request`;
 CREATE TABLE IF NOT EXISTS `vw_book_request` (
-`author` varchar(100)
-,`book_title` varchar(100)
-,`course` varchar(100)
+`id` int
+,`transaction_type` varchar(25)
 ,`date_requested` date
 ,`date_return` date
-,`fname` varchar(50)
-,`id` int
-,`initial` char(5)
-,`lname` varchar(50)
-,`major` varchar(100)
-,`publisher` varchar(100)
-,`shelf` varchar(100)
 ,`status` varchar(25)
-,`transaction_type` varchar(25)
 ,`user_id` varchar(50)
+,`fname` varchar(50)
+,`lname` varchar(50)
+,`initial` char(5)
 ,`year` varchar(50)
+,`course` varchar(100)
+,`major` varchar(100)
+,`book_title` varchar(100)
+,`author` varchar(100)
+,`shelf` varchar(100)
+,`book_img` varchar(100)
+,`publisher` varchar(100)
+,`category` varchar(100)
+);
+
+-- --------------------------------------------------------
+
+--
+-- Stand-in structure for view `vw_borrow_counts`
+-- (See below for the actual view)
+--
+DROP VIEW IF EXISTS `vw_borrow_counts`;
+CREATE TABLE IF NOT EXISTS `vw_borrow_counts` (
+`category` varchar(100)
+,`borrow_count` bigint
 );
 
 -- --------------------------------------------------------
@@ -640,10 +667,10 @@ CREATE TABLE IF NOT EXISTS `vw_book_request` (
 DROP VIEW IF EXISTS `vw_course`;
 CREATE TABLE IF NOT EXISTS `vw_course` (
 `college_id` varchar(100)
-,`college_name` varchar(100)
 ,`course_id` int
-,`course_major` varchar(100)
 ,`course_name` varchar(100)
+,`course_major` varchar(100)
+,`college_name` varchar(100)
 );
 
 -- --------------------------------------------------------
@@ -654,10 +681,10 @@ CREATE TABLE IF NOT EXISTS `vw_course` (
 --
 DROP VIEW IF EXISTS `vw_logs`;
 CREATE TABLE IF NOT EXISTS `vw_logs` (
-`action` varchar(50)
+`date` timestamp
 ,`admin_id` varchar(50)
+,`action` varchar(50)
 ,`admin_role` varchar(50)
-,`date` timestamp
 );
 
 -- --------------------------------------------------------
@@ -668,15 +695,15 @@ CREATE TABLE IF NOT EXISTS `vw_logs` (
 --
 DROP VIEW IF EXISTS `vw_user_record`;
 CREATE TABLE IF NOT EXISTS `vw_user_record` (
-`activity` varchar(50)
+`user_id` varchar(50)
 ,`date` timestamp
-,`email` varchar(50)
 ,`fname` varchar(50)
-,`img` varchar(50)
-,`initial` char(5)
 ,`lname` varchar(50)
+,`initial` char(5)
+,`email` varchar(50)
+,`activity` varchar(50)
 ,`status` varchar(50)
-,`user_id` varchar(50)
+,`img` varchar(50)
 );
 
 -- --------------------------------------------------------
@@ -687,7 +714,17 @@ CREATE TABLE IF NOT EXISTS `vw_user_record` (
 DROP TABLE IF EXISTS `vw_book_request`;
 
 DROP VIEW IF EXISTS `vw_book_request`;
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vw_book_request`  AS SELECT `tbl_transaction`.`id` AS `id`, `tbl_transaction`.`transaction_type` AS `transaction_type`, `tbl_transaction`.`date_requested` AS `date_requested`, `tbl_transaction`.`date_return` AS `date_return`, `tbl_transaction`.`status` AS `status`, `tbl_user`.`user_id` AS `user_id`, `tbl_user`.`fname` AS `fname`, `tbl_user`.`lname` AS `lname`, `tbl_user`.`initial` AS `initial`, `tbl_user`.`year` AS `year`, `tbl_user`.`course` AS `course`, `tbl_user`.`major` AS `major`, `tbl_book`.`book_title` AS `book_title`, `tbl_book`.`author` AS `author`, `tbl_book`.`shelf` AS `shelf`, `tbl_book`.`publisher` AS `publisher` FROM ((`tbl_transaction` join `tbl_user` on((`tbl_transaction`.`user_id` = `tbl_user`.`user_id`))) join `tbl_book` on((`tbl_transaction`.`book_id` = `tbl_book`.`book_id`)))  ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vw_book_request`  AS SELECT `tbl_transaction`.`id` AS `id`, `tbl_transaction`.`transaction_type` AS `transaction_type`, `tbl_transaction`.`date_requested` AS `date_requested`, `tbl_transaction`.`date_return` AS `date_return`, `tbl_transaction`.`status` AS `status`, `tbl_user`.`user_id` AS `user_id`, `tbl_user`.`fname` AS `fname`, `tbl_user`.`lname` AS `lname`, `tbl_user`.`initial` AS `initial`, `tbl_user`.`year` AS `year`, `tbl_user`.`course` AS `course`, `tbl_user`.`major` AS `major`, `tbl_book`.`book_title` AS `book_title`, `tbl_book`.`author` AS `author`, `tbl_book`.`shelf` AS `shelf`, `tbl_book`.`book_img` AS `book_img`, `tbl_book`.`publisher` AS `publisher`, `tbl_book`.`category` AS `category` FROM ((`tbl_transaction` join `tbl_user` on((`tbl_transaction`.`user_id` = `tbl_user`.`user_id`))) join `tbl_book` on((`tbl_transaction`.`book_id` = `tbl_book`.`book_id`)))  ;
+
+-- --------------------------------------------------------
+
+--
+-- Structure for view `vw_borrow_counts`
+--
+DROP TABLE IF EXISTS `vw_borrow_counts`;
+
+DROP VIEW IF EXISTS `vw_borrow_counts`;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vw_borrow_counts`  AS SELECT `vw_book_request`.`category` AS `category`, count(`vw_book_request`.`id`) AS `borrow_count` FROM `vw_book_request` WHERE ((`vw_book_request`.`transaction_type` = 'Borrow') AND (`vw_book_request`.`status` = 'Approve')) GROUP BY `vw_book_request`.`category``category`  ;
 
 -- --------------------------------------------------------
 
@@ -754,6 +791,13 @@ ALTER TABLE `tbl_record`
 ALTER TABLE `tbl_reserve`
   ADD CONSTRAINT `reserve_book_id_fk` FOREIGN KEY (`book_id`) REFERENCES `tbl_book` (`book_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `reserve_user_id_fk` FOREIGN KEY (`user_id`) REFERENCES `tbl_user` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `tbl_transaction`
+--
+ALTER TABLE `tbl_transaction`
+  ADD CONSTRAINT `trans_book_id_fk` FOREIGN KEY (`book_id`) REFERENCES `tbl_book` (`book_id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  ADD CONSTRAINT `trans_user_id_fk` FOREIGN KEY (`user_id`) REFERENCES `tbl_user` (`user_id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

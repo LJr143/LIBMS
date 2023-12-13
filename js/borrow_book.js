@@ -7,7 +7,6 @@ $(document).ready(function () {
 
         fetchBookData(bookId);
     });
-
     $('.barrow_confirm_btn').on('click', function () {
         var bookId = $('#book_id').val();
         var userId = $(this).data('user-id');

@@ -14,6 +14,12 @@ $(document).ready(function () {
 
         // Fetch and update the modal immediately when the button is clicked
         fetchAndUpdateModal(transactionId);
+
+
+    });
+    $(".approveRequest").click(function (e) {
+        e.preventDefault(); // Prevent the default form submission
+        approveRequest();
     });
 
     function fetchAndUpdateModal(transactionId) {
@@ -119,4 +125,83 @@ $(document).ready(function () {
             notificationList.append(listItem);
         });
     }
+    function approveRequest() {
+        console.log('Approving course');
+        var status = 'Approve';
+        $.ajax({
+            url: '../operations/response_request.php',
+            method: 'POST',
+            data: {
+                transactionId: transactionId,
+                status: status,
+            },
+            dataType: 'json', // Expect JSON response
+            success: function (response) {
+                console.log(response);
+                handleAjaxSuccess(response, 'add');
+            },
+            error: function (xhr, status, error) {
+                console.error('AJAX Error:', status, error);
+                console.log(xhr.responseText); // Log the full response text
+                handleAjaxError(xhr);
+            },
+        });
+    }
+
+
+    function handleAjaxSuccess(response, operationType) {
+        try {
+            if (response.success) {
+                handleSuccessConfirmation('infoModal1', operationType);
+            } else {
+                showError(response.message || `Failed to ${operationType === 'add' ? 'add' : 'update'} the Course. Please try again.`);
+            }
+        } catch (e) {
+            console.error('Failed to process the server response:', e);
+            showError('Failed to process the server response.');
+        }
+    }
+
+    function handleSuccessConfirmation(modalId, operationType) {
+        $("#" + modalId).modal("hide");
+        var successTitle = operationType === 'add' ? 'ADDED!' : 'UPDATED!';
+        var successText = operationType === 'add' ? 'SUCCESSFULLY ADDED!' : 'SUCCESSFULLY UPDATED!';
+        Swal.fire({
+            title: successTitle,
+            text: successText,
+            icon: 'success',
+            customClass: {
+                popup: 'my-swal-popup',
+                title: 'swal-title',
+                content: 'my-swal-content',
+                confirmButton: 'my-confirm-button'
+            }
+        }).then(function (result) {
+            // Check if the user clicked "OK"
+            if (result.isConfirmed) {
+                // Reload the page after a short delay
+                setTimeout(function () {
+                    location.reload();
+                }, 0);
+            }
+        });
+    }
+
+    function handleAjaxError(xhr) {
+        // Extract error message from the response, if available
+        var errorMessage = 'AJAX request failed.';
+        if (xhr.responseJSON && xhr.responseJSON.error) {
+            errorMessage = xhr.responseJSON.error;
+        }
+        showError(errorMessage);
+    }
+
+    function showError(message) {
+        Swal.fire({
+            title: 'Error!',
+            text: message,
+            icon: 'error'
+        });
+    }
+
 });

@@ -114,7 +114,7 @@ $(document).ready(function () {
 
         return true; // Validation succeeded
     }
-    y
+
 
     $(document).ready(function () {
         // Listen for input changes in the addCourseName field

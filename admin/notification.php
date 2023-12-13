@@ -100,12 +100,13 @@ $transaction = $transactionData->getPendingTransaction();
                 </div>
                 <!-- Buttons -->
                 <button style="margin-left: 60%; background-color:white; font-weight: bold; border-color:#4d0202; color:#4d0202; height: 30px; font-size:12px; width: 110px;" type="button" class="btn" id="rejectRequest">REJECT</button>
-                <button style="margin-left: 10px; background-color:#740000; color:#fff; height: 30px; font-size:12px; width: 110px;" type="button" class="btn" id="approveRequest">APPROVE</button>
+                <button style="margin-left: 10px; background-color:#740000; color:#fff; height: 30px; font-size:12px; width: 110px;" type="button" class="btn approveRequest" id="approveRequest">APPROVE</button>
             </div>
 
         </div>
     </div>
 </div>
+
 
 </body>
 </html>
