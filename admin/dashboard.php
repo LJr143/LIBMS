@@ -472,26 +472,26 @@ if (isset($_SESSION['user'])) {
             }
         });
 
+       // Fetch data from the server
+fetch('../includes/fetch_borrow_reserve_counts_quarterly.php')
+    .then(response => response.json())
+    .then(data => {
+        // Create the Chart.js chart
         const chart3 = new Chart(ctx2, {
             type: 'bar',
             data: {
-                labels: ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JLY', 'SEP', 'NOV', 'DEC'],
+                labels: ['Q1', 'Q2', 'Q3', 'Q4'],
                 datasets: [{
-                        label: 'BORROWED',
-                        data: [70, 140, 210, 280, 350, 200, 150, 90, 26, 10, 120, 120],
-                        backgroundColor: 'rgba(147,38,38,100%)',
-                        barThickness: 15,
-
-                    },
-                    {
-                        label: 'RESERVED',
-                        data: [50, 160, 200, 180, 150, 130, 140, 135, 60, 70, 50],
-                        backgroundColor: 'rgba(37,37,37,100%)',
-                        barThickness: 15,
-
-                    }
-
-                ]
+                    label: 'BORROWED',
+                    data: data.borrows.map(item => item.borrow_count),
+                    backgroundColor: 'rgba(147,38,38,100%)',
+                    barThickness: 15,
+                }, {
+                    label: 'RESERVED',
+                    data: data.reserves.map(item => item.reserve_count),
+                    backgroundColor: 'rgba(37,37,37,100%)',
+                    barThickness: 15,
+                }]
             },
             options: {
                 maintainAspectRatio: false,
@@ -501,7 +501,6 @@ if (isset($_SESSION['user'])) {
                             display: false,
                         }
                     },
-
                 },
                 plugins: {
                     legend: {
@@ -513,6 +512,12 @@ if (isset($_SESSION['user'])) {
                 }
             }
         });
+    })
+    .catch(error => console.error('Error fetching data:', error));
+
+
+
+
         const chart4 = new Chart(ctx3, {
             type: 'line',
             data: {
