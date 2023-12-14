@@ -58,6 +58,7 @@ if (isset($_SESSION['user'])) {
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
     <link rel="stylesheet" href="../css/superadmin_report.css">
     <link rel="stylesheet" href="../css/logout.css">
+    <link rel="stylesheet" href="../css/side_bar.css">
 </head>
 
 <body style="">
@@ -107,7 +108,6 @@ if (isset($_SESSION['user'])) {
                                     <a href="student.php">All Students</a><br>
                                     <a href="college.php">Colleges</a><br>
                                     <a href="course.php">Courses</a><br>
-                                    <a href="section.php">Sections</a>
                                 </div>
                             </div>
                         </li>
@@ -437,57 +437,6 @@ if (isset($_SESSION['user'])) {
     <script src="https://unpkg.com/chart.js-plugin-labels-dv/dist/chartjs-plugin-labels.min.js"></script>
     <script src='../js/logout_script.js'></script>
 
-    <script>
-        const ctx = document.getElementById('overallchart').getContext('2d');
-
-        const chart = new Chart(ctx, {
-            type: 'bar',
-            data: {
-                labels: ['First Quarter', 'Second Quarter', 'Third Quarter', 'Fourth Quarter'],
-                datasets: [{
-                        label: 'daily',
-                        data: [40, 50, 60, 70],
-                        backgroundColor: '#FF0000',
-                        barThickness: 26,
-
-                    },
-                    {
-                        label: 'weekly',
-                        data: [200, 220, 230, 240],
-                        backgroundColor: '#B50000',
-                        barThickness: 26,
-
-                    },
-                    {
-                        label: 'quarterly',
-                        data: [260, 270, 280, 290],
-                        backgroundColor: '#5A0202',
-                        barThickness: 26,
-
-                    }
-
-                ]
-            },
-            options: {
-                maintainAspectRatio: false,
-
-                scales: {
-                    x: {
-                        grid: {
-                            display: false,
-                        }
-                    },
-
-                },
-                plugins: {
-                    legend: {
-                        display: false,
-                    },
-                }
-
-            }
-        });
-    </script>
     <script>
         // Get the buttons by their IDs
         const bookInventoryButton = document.getElementById('bookInventoryButton');

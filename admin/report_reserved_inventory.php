@@ -59,6 +59,7 @@ if (isset($_SESSION['user'])) {
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
     <link rel="stylesheet" href="../css/superadmin_report.css">
     <link rel="stylesheet" href="../css/logout.css">
+    <link rel="stylesheet" href="../css/side_bar.css">
 </head>
 
 <body style="">
@@ -108,7 +109,6 @@ if (isset($_SESSION['user'])) {
                                     <a href="student.php">All Students</a><br>
                                     <a href="college.php">Colleges</a><br>
                                     <a href="course.php">Courses</a><br>
-                                    <a href="section.php">Sections</a>
                                 </div>
                             </div>
                         </li>
