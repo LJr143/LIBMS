@@ -20,7 +20,7 @@ $userAuth = new UserAuthentication($db);
     <link href="../node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="../node_modules/sweetalert2/dist/sweetalert2.min.css">
     <link rel="stylesheet" href="../style.css">
-    <link rel="stylesheet" href="css/confrim-email.css">
+    <link rel="stylesheet" href="../css/confrim-email.css">
 
 </head>
 <body style="">

@@ -458,33 +458,6 @@ if (isset($_SESSION['user'])) {
         </div>
     </div>
 
-<<<<<<< HEAD
-    
-=======
-    <!-- Book Review succesfully submitted -->
-    <div class="modal fade " id="succesfulBookReviewModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog  modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-body">
-                    <form action="" method="post">
-                        <div style="width: 100%; height: 180px; padding: 10px;">
-                            <div style="width: 100%; display: flex; justify-content: center;"><i class="bi bi-chat" style="font-size: 50px; color: #711717;"></i></div>
-                            <div style="font-size: 14px; letter-spacing: 0.2px; width: 100%; color: #711717; display: flex; justify-content: center; margin-top: 30px">
-                                <p style="font-style: italic; font-weight: 700;">BOOK REVIEW SUBMITTED!</p>
-                            </div>
-                        </div>
-                        <div style="font-size: 12px; width: 100%; display: flex; justify-content: center;">
-                            <button data-bs-dismiss="modal" type="button" style="width: 95px; margin: 0px 20px; font-weight: bold; border-radius: 5px; padding: 8px; color: #711717; background-color: transparent; border: 1px solid #711717">CLOSE</button>
-                        </div>
-                    </form>
-                </div>
-
-            </div>
-        </div>
-    </div>
-
-
->>>>>>> 1bfaca025c17245c2f659ccc936c96514b190d0d
 
     <script src="../node_modules/jquery/dist/jquery.min.js"></script>
     <script src="../node_modules/sweetalert2/dist/sweetalert2.all.min.js"></script>
