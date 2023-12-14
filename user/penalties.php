@@ -174,7 +174,7 @@ $getAllTransaction = $transactionData->getAllTransactionByUser($userID);
             <div style=" margin-top: 10px">
                 <p style="font-size: 12px; font-weight: bold; font-style: italic">Borrowed Book Status</p>
             </div>
-            <main class="table" style= height: 100vh; overflow: scroll">
+            <main class="table" style= "height: 100vh; overflow: scroll">
                 <section class="table__header">
                     <div class="input-group">
                         <input type="search" placeholder="Search Data...">
