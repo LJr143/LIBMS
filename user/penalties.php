@@ -170,7 +170,7 @@ $getAllTransaction = $transactionData->getAllTransactionByUser($userID);
 
                 </div>
             </div>
-        <div class="container mt-4 card  " style="min-height: 50vh; max-height: 200vh; width: 100%">
+        <div class="container mt-4 card  " style="min-height: 50vh; max-height: 200vh; width: 100%; background-color: red">
             <div style=" margin-top: 10px">
                 <p style="font-size: 12px; font-weight: bold; font-style: italic">Borrowed Book Status</p>
             </div>
@@ -191,7 +191,7 @@ $getAllTransaction = $transactionData->getAllTransactionByUser($userID);
                     </div>
                 </section>
                 <section class="table__body">
-                    <table style="height: 100vh;">
+                    <table>
                         <thead>
                         <tr>
                             <th>Transaction Id</th>
