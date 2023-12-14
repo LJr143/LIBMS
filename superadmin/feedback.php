@@ -60,22 +60,7 @@ if (isset($_SESSION['user'])) {
         }
     }
 }
-$feedbackData = array(
-    array(
-        'userStarCounts' => 3,
-        'username' => 'Sheena Mariz Pagas',
-        'date' => '07 November 2023',
-        'comment' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
-    ),
-    // Add more elements as needed
-);
 
-foreach ($feedbackData as $feedback) {
-    $userStarCounts = $feedback['userStarCounts'];
-    $username = $feedback['username'];
-    $date = $feedback['date'];
-    $comment = $feedback['comment'];
-}
 ?>
 <!doctype html>
 <html lang="en">
@@ -166,17 +151,6 @@ foreach ($feedbackData as $feedback) {
                             </div>
                         </div>
                         <div style="margin: 0px 20px 20px 20px; width: 97%; display:flex; justify-content: space-between; flex-wrap: wrap ">
-                            <?php
-                            // Replace this with your actual database retrieval logic
-                            $feedbackData = fetchFeedbackData(); // Implement this function to fetch feedback data
-
-                            foreach ($feedbackData as $feedback) {
-                                $userStarCounts = $feedback['star_count'];
-                                $username = $feedback['fname'] . ' ' . $feedback['lname'] . ' ' . $feedback['initials'];
-                                $date = $feedback['feedback_date'];
-                                $comment = $feedback['feedback_comments'];
-
-                            ?>
                                 <div class="card" style="width: 37.5rem; height: 200px; box-shadow: 0px 3px 6px rgba(0,0,0,0.26); margin: 10px 0px;">
                                     <div class="card-body">
                                         <h6 class="card-title"><input type="checkbox"></h6>
@@ -187,37 +161,28 @@ foreach ($feedbackData as $feedback) {
                                                 </div>
                                                 <div style="padding: 0; margin: 0 0 0 5px; height: 35px; width: 15ch;">
                                                     <div style="margin-top: 2px">
-                                                        <p style="font-size: 12px; font-weight:600"><?php echo $username; ?></p>
-                                                        <p style="font-size: 10px; margin-top: -20px;"><?php echo $date; ?></p>
+                                                        <p style="font-size: 12px; font-weight:600"></p>
+                                                        <p style="font-size: 10px; margin-top: -20px;"></p>
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="col col-md-6" style=" display: flex; justify-content: flex-end; align-content: center; align-items: center;">
-                                                <div class="user-rating" data-rating="<?php echo $userStarCounts; ?>">
-                                                    <!-- Use a loop to generate stars based on the star count -->
-                                                    <?php
-                                                    for ($i = 1; $i <= 5; $i++) {
-                                                        $filledClass = ($i <= $userStarCounts) ? 'filled' : ''; // Add 'filled' class for filled stars
-                                                    ?>
-                                                        <span class="star <?php echo $filledClass; ?>" data-value="<?php echo $i; ?>">&#9733;</span>
-                                                    <?php
-                                                    }
-                                                    ?>
+                                                <div class="user-rating" data-rating="">
+
+                                                        <span class="star" data-value="">&#9733;</span>
+
                                                 </div>
                                             </div>
                                         </div>
                                         <div style="width: 100%; display: flex; justify-content: center; margin-top: 10px; text-align: center">
-                                            <p style="width: 70ch; font-size: 12px" class="card-text"><?php echo $comment; ?></p>
+                                            <p style="width: 70ch; font-size: 12px" class="card-text"></p>
                                         </div>
-                                        <button style="border: none; background: none; margin-top: 10px; margin-left: 90%;" class="deleteFeedback" data-feedback-id="<?php echo $feedback['feedback_id']; ?>">
+                                        <button style="border: none; background: none; margin-top: 10px; margin-left: 90%;" class="deleteFeedback" data-feedback-id="">
                                             <img style="width: 20px" src="../icons/delete_rating.png" alt="">
                                         </button>
 
                                     </div>
                                 </div>
-                            <?php
-                            }
-                            ?>
                         </div>
 
                     </div>
