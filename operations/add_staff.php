@@ -1,8 +1,8 @@
 <?php
 session_start();
-require_once '..\db_config\config.php';
+require_once '../db_config/config.php';
 include '../includes/fetch_staff_data.php';
-include '..\includes\logs_operation.php';
+include '../includes/logs_operation.php';
 
 $database = new Database();
 $log = new Logs($database);

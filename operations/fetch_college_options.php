@@ -1,7 +1,7 @@
 <?php
 
-require_once 'C:\wamp64\www\LIBMS\db_config\config.php';
-require_once 'C:\wamp64\www\LIBMS\includes\fetch_college_data.php';
+require_once '../db_config/config.php';
+require_once '../includes/fetch_college_data.php';
 
 $database = new Database();
 $collegeData = new CollegeData($database);

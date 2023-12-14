@@ -1,6 +1,6 @@
 <?php
-require_once 'C:\wamp64\www\LIBMS\db_config\config.php';
-include 'C:\wamp64\www\LIBMS\includes\fetch_college_data.php';
+require_once '../db_config/config.php';
+include '../includes/fetch_college_data.php';
 $database = new Database();
 $course = new CourseData($database);
 

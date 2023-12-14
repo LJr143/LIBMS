@@ -1,8 +1,8 @@
 <?php
 error_reporting(0);
-require_once 'C:\wamp64\www\LIBMS\db_config\config.php';
+require_once '../db_config/config.php';
 include '../includes/fetch_books_data.php';
-include '..\includes\logs_operation.php';
+include '../includes/logs_operation.php';
 
 $database = new Database();
 $log = new Logs($database);
