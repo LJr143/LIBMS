@@ -56,6 +56,7 @@ if (isset($_SESSION['user'])) {
     <link rel="stylesheet" href="../node_modules/swiper/swiper-bundle.min.css" />
     <link rel="stylesheet" href="../node_modules/bootstrap-icons/font/bootstrap-icons.css">
     <link rel="stylesheet" href="../css/user_home.css">
+    <link rel="stylesheet" href="../css/logout.css">
     <style>
         /* style for feedback modal */
         .rating {
@@ -268,14 +269,16 @@ if (isset($_SESSION['user'])) {
                                 <p style="font-style: italic; font-weight: 700;">Confirmation</p>
                             </div>
                             <div style="font-size: 12px; width: 100%; display: flex; justify-content: center;">
-                                <p style="font-weight: 700;">Would you like to borrow <span id="book_title"></span> by <span id="book_author"></span> ?</p>
+                                <p style="font-weight: 700;">Would you like to borrow <?php echo "<i><b>{$books['book_title']}</b></i>"; ?>
+                                    by <?php echo "<i><b>{$books['author']}</b></i>"; ?>
+                                    ?</p>
                             </div>
 
                             <div style="font-size: 12px; width: 100%; display: flex; justify-content: center;">
                                 <p style="padding: 5px 0px; font-weight: 700;">Borrowed Date: &nbsp;&nbsp;</p>
                                 <span>
                                     <label for="date_borrowed_vw"></label>
-                                    <input name="date_for_borrow" id="date_borrowed_vw" style="padding: 2px 10px;" type="date" readonly>
+                                    <input name="date_for_borrow" id="date_borrowed_vw" style="padding: 2px 10px;" type="date" required>
                                 </span>
                             </div>
 
@@ -283,7 +286,7 @@ if (isset($_SESSION['user'])) {
                                 <p style="padding: 5px 0px; font-weight: 700;">Due Date: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
                                 <span>
                                     <label for="date_due_vw"></label>
-                                    <input name="date_for_due" id="date_due_vw" style="padding: 2px 10px;" type="date" readonly>
+                                    <input name="date_for_due" id="date_due_vw" style="padding: 2px 10px;" type="date" required>
                                 </span>
                             </div>
                             <div style="font-size: 12px; width: 100%; display: flex; justify-content: center;">
