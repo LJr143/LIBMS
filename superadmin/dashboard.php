@@ -73,6 +73,7 @@ if (isset($_SESSION['user'])) {
     <link rel="stylesheet" href="../node_modules/sweetalert2/dist/sweetalert2.min.js">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
     <link rel="stylesheet" href="../css/superadmin_dashboard.css">
+    <link rel="stylesheet" href="../css/logout.css">
 </head>
 
 <body style="">
@@ -121,11 +122,11 @@ if (isset($_SESSION['user'])) {
                                     <hr class="dropdown-divider">
                                 </li>
 
-                                <form action="" method="post" style="margin-left: 20px;">
+                            <form action="" method="post" style="margin-left: 20px;">
 
-                                    <label for="logout"><img src="../icons/plug.png" style="width: 20px; " alt=""></label>
-                                    <input style="font-size: 12px; color: white; background: none; border: none;" name="logout" type="submit" value="Logout">
-                                </form>
+                                <label for="logout"><img src="../icons/plug.png" style="width: 20px; " alt=""></label>
+                                <input id="logoutButton" style="font-size: 12px; color: white; background: none; border: none;" name="logout" type="submit" value="Logout">
+                            </form>
                             </ul>
                         </div>
                     </div>
@@ -500,7 +501,10 @@ if (isset($_SESSION['user'])) {
     <script src="../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="../node_modules/swiper/swiper-bundle.min.js"></script>
     <script src="../node_modules/chart.js/dist/chart.umd.js"></script>
+
+    <script src='../js/logout_script.js'></script>
     <script>
+
         const listItems = document.querySelectorAll('li');
         listItems.forEach((listItem) => {
             listItem.addEventListener('click', () => {
