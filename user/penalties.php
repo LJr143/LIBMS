@@ -46,6 +46,7 @@ if (isset($_SESSION['user'])) {
 
 }
 $transaction = $transactionData->getTransactionByUser($userID);
+$getAllTransaction = $transactionData->getAllTransactionByUser($userID);
 ?>
 
 <!doctype html>
@@ -192,29 +193,30 @@ $transaction = $transactionData->getTransactionByUser($userID);
                     <table>
                         <thead>
                         <tr>
-                            <th> Id <span class="icon-arrow">&UpArrow;</span></th>
+                            <th>Transaction Id</th>
                             <th></th>
-                            <th> Book <span class="icon-arrow">&UpArrow;</span></th>
-                            <th> Author <span class="icon-arrow">&UpArrow;</span></th>
-                            <th> Date Borrowed <span class="icon-arrow">&UpArrow;</span></th>
-                            <th> Status <span class="icon-arrow">&UpArrow;</span></th>
+                            <th>Book Title</th>
+                            <th>Author</th>
+                            <th>Transaction Date</th>
+                            <th>Status</th>
                         </tr>
                         </thead>
                         <tbody>
-                        <?php foreach ($user_penalty as $user_penalties) { ?>
+                        <?php foreach ($getAllTransaction as $userTransaction) { ?>
                             <tr>
-                                <td><?php echo $user_penalties['borrow_id'] ?> </td>
-                                <td><img src="../book_img/<?php echo $user_penalties['book_img'] ?>" alt=""></td>
-                                <td><?php echo $user_penalties['book_title'] ?></td>
-                                <td><?php echo $user_penalties['Author_id'] ?></td>
-                                <td> <?php echo $user_penalties['date_barrowed'] ?> </td>
+                                <td><?php echo $userTransaction['id'] ?> </td>
+                                <td><img src="../book_img/<?php echo $userTransaction['book_img'] ?>" alt=""></td>
+                                <td><?php echo $userTransaction['book_title'] ?></td>
+                                <td><?php echo $userTransaction['author'] ?></td>
+                                <td> <?php echo $userTransaction['date_requested'] ?> </td>
                                 <td>
-                                    <p class="status <?php echo ($user_penalties['status'] === 'Returned') ? 'delivered' : (($user_penalties['status'] === 'Unpaid') ? 'cancelled' : 'pending'); ?>"><?php echo $user_penalties['status']; ?></p>
+                                    <p class="status <?php echo ($userTransaction['status'] === 'Approved') ? 'approve' : (($userTransaction['status'] === 'Rejected') ? 'reject' : 'pending'); ?>"><?php echo $userTransaction['status']; ?></p>
                                 </td>
 
                             </tr>
                         <?php } ?>
                         </tbody>
+                    </table>
                     </table>
                 </section>
             </main>

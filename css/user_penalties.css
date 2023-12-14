@@ -143,10 +143,7 @@ nav .right-side > .right-side-text {
     border: none;
     border-radius: 5px;
 }
-.search-by .search-input button:hover {
-    background-color: blue;
-    color: white;
-}
+
 .new-books {
     width: 100%;
     max-height: 60vh;
@@ -223,17 +220,8 @@ main.table {
     margin-left: 20px;
 }
 
-.table__header .input-group:hover {
-    width: 40%;
-    background-color: #fff8;
-    box-shadow: 0 .1rem .4rem #0002;
 
-}
 
-.table__header .input-group img {
-    width: 1.2rem;
-    height: 1.2rem;
-}
 
 .table__header .input-group input {
     width: 100%;
@@ -245,17 +233,6 @@ main.table {
 }
 .table__header .input-group input::placeholder {
     color: white;
-    font-size: 12px;
-}
-
-.table__body {
-    width: 95%;
-    max-height: calc(89% - 1.6rem);
-    background-color: #fffb;
-    margin: .8rem auto;
-    border-radius: 5px;
-    overflow: auto;
-    overflow: overlay;
     font-size: 12px;
 }
 
@@ -280,9 +257,8 @@ table {
 
 td img {
     width: 36px;
-    height: 36px;
+    height: 50px;
     margin-right: .5rem;
-    border-radius: 50%;
     vertical-align: middle;
 }
 
@@ -290,6 +266,7 @@ table, th, td {
     border-collapse: collapse;
     padding: 1rem;
     text-align: left;
+    font-size: 10px;
 }
 
 thead th {
@@ -331,31 +308,18 @@ tbody tr td img {
     text-align: center;
 }
 
-tbody tr.hide td,
-tbody tr.hide td p {
-    padding: 0;
-    font:  0 / 0 sans-serif;
-    transition: .2s ease-in-out .5s;
-}
-
-tbody tr.hide td img {
-    width: 0;
-    height: 0;
-    transition: .2s ease-in-out .5s;
-}
-
 .status {
-    padding: 0.5rem 0;
+    padding: 0.4rem 0rem;
     border-radius: 5px;
     text-align: center;
 }
 
-.status.delivered {
-    background-color: #86e49d;
-    color: #006b21;
+.status.approve {
+    background-color: #00f33a;
+    color: #ffffff;
 }
 
-.status.cancelled {
+.status.reject{
     background-color: #d893a3;
     color: #b30021;
 }
@@ -363,11 +327,6 @@ tbody tr.hide td img {
 .status.pending {
     background-color: #ebc474;
 }
-
-.status.shipped {
-    background-color: #6fcaea;
-}
-
 
 @media (max-width: 1000px) {
     td:not(:first-of-type) {
