@@ -1,4 +1,5 @@
 <?php
+date_default_timezone_set('Asia/Manila');
 require_once '../db_config/config.php';
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
