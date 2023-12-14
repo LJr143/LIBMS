@@ -84,7 +84,7 @@ class StaffData
         $stmt->bindParam(':address', $address, PDO::PARAM_STR);
         $stmt->bindParam(':admin_role', $admin_role, PDO::PARAM_STR);
         $stmt->bindParam(':username', $username, PDO::PARAM_STR);
-        $stmt->bindParam(':password', $hashedPassword, PDO::PARAM_STR); // Use hashed password
+        $stmt->bindParam(':password', $hashedPassword, PDO::PARAM_STR);
         $stmt->bindParam(':img', $profile, PDO::PARAM_STR);
 
         // Execute the query
