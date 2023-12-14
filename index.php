@@ -2,9 +2,6 @@
 session_start();
 require_once 'db_config/config.php';
 $db = new Database();
-
-
-
 ?>
 
 <!doctype html>
@@ -116,66 +113,6 @@ $db = new Database();
         });
     });
 </script>
-
-<!--<script>-->
-<!--    $(document).ready(function(){-->
-<!--        $("#loginForm").submit(function (event) {-->
-<!--            event.preventDefault();-->
-<!--            $("#form_submit_btn").prop("disabled", true);-->
-<!---->
-<!--            var username = $("#user_username").val();-->
-<!--            var password = $("#user_password").val();-->
-<!---->
-<!--            $.ajax({-->
-<!--                type: "POST",-->
-<!--                url: "operations/authentication.php",-->
-<!--                data: {-->
-<!--                    username: username,-->
-<!--                    password: password-->
-<!--                },-->
-<!--                dataType: 'json',-->
-<!---->
-<!--                success: function (response) {-->
-<!--                    $("#form_submit_btn").prop("disabled", false);-->
-<!--                    console.log(response);-->
-<!---->
-<!--                    var login_result = response.login_result;-->
-<!---->
-<!--                    if (login_result == "login_successful") {-->
-<!--                        window.location = 'user/home.php';-->
-<!--                    } else if (login_result == "wrong_password") {-->
-<!--                        Swal.fire({-->
-<!--                            title: 'Login Failed!',-->
-<!--                            text: "Incorrect username or password",-->
-<!--                            icon: 'error',-->
-<!--                            confirmButtonColor: '#A24D4D',-->
-<!--                            confirmButtonText: 'Try Again',-->
-<!--                        });-->
-<!--                    } else if (login_result == "empty_fields") {-->
-<!--                        Swal.fire({-->
-<!--                            title: 'Login Failed!',-->
-<!--                            text: "Some fields are empty. Make sure to fill in all fields.",-->
-<!--                            icon: 'error',-->
-<!--                            confirmButtonColor: '#A24D4D',-->
-<!--                            confirmButtonText: 'Try Again!'-->
-<!--                        });-->
-<!--                    } else {-->
-<!--                        Swal.fire({-->
-<!--                            title: 'Login Failed!',-->
-<!--                            text: "Account does not exist in our database!",-->
-<!--                            icon: 'error',-->
-<!--                            confirmButtonColor: '#A24D4D',-->
-<!--                            confirmButtonText: 'Try Again!'-->
-<!--                        });-->
-<!--                    }-->
-<!--                },-->
-<!--                error: function () {-->
-<!--                    $("#form_submit_btn").prop("disabled", false);-->
-<!--                }-->
-<!--            });-->
-<!--        });-->
-<!--    });-->
-<!--</script>-->
 
 </body>
 </html>

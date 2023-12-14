@@ -97,7 +97,7 @@ class UserAuthentication
 
         if ($user) {
             // Check if the user is active
-            if ($user['status'] == 'Active' && $password == $user['password']) {
+            if ($user['status'] == 'Active' && password_verify($password, $user['password'])) {
                 return ['status' => 'admin_success', 'message' => 'Login successful'];
             } else {
                 return ['status' => 'error', 'message' => 'User is not active or password is incorrect'];
