@@ -5,6 +5,7 @@ include 'C:\wamp64\www\LIBMS\operations\authentication.php';
 include 'C:\wamp64\www\LIBMS\includes\fetch_staff_data.php';
 
 
+
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
@@ -43,8 +44,7 @@ if (isset($_SESSION['user'])) {
     }
 }
 
-include 'C:\wamp64\www\LIBMS\includes\fetch_borrow_data.php';
-include 'C:\wamp64\www\LIBMS\includes\fetch_borrow_details.php';
+
 ?>
 <!doctype html>
 <html lang="en">
@@ -252,25 +252,18 @@ include 'C:\wamp64\www\LIBMS\includes\fetch_borrow_details.php';
                                 </tr>
                             </thead>
                             <tbody cellspacing="6" style=" font-size: 12px;">
-                                <?php foreach ($borrowData->fetchBorrowData() as $borrow) : ?>
-                                    <?php
-                                    $book_id = $borrow['book_id'];
-                                    $title = $borrow['book_title'];
-                                    $issued_to = $borrow['fname'] . ' ' . $borrow['initial'] . ' ' . $borrow['lname'];
-                                    $date_barrowed = $borrow['date_barrowed'];
-                                    $date_return = $borrow['date_return'];
-                                    ?>
+
                                     <tr class="mb-3 me-auto" style="margin-top: 20px; background-color: rgb(246,246,246); border: 1px solid rgba(0,0,0,0.25);">
-                                        <td style="padding: 5px;"><?= $book_id; ?></td>
-                                        <td style="padding: 5px;"><?= $title; ?></td>
-                                        <td style="padding: 5px;"><?= $issued_to; ?></td>
-                                        <td style="padding: 5px;"><?= $date_barrowed; ?></td>
-                                        <td style="padding: 5px;"><?= $date_return; ?></td>
-                                        <td style="padding: 5px;"> <button class="returnBtn" data-bs-toggle="modal" data-bs-target="#returnModal" data-book-id="<?= $book_id ?>" data-title="<?= $title ?>" data-issued-to="<?= $issued_to ?>" data-date-barrowed="<?= $date_barrowed ?>" data-date-return="<?= $date_return ?>" style="font-size: 12px; width: 150px; height: 25px; border-radius: 5px; background-color: #1FBA05; color: white; border: none">
+                                        <td style="padding: 5px;"</td>
+                                        <td style="padding: 5px;"></td>
+                                        <td style="padding: 5px;"></td>
+                                        <td style="padding: 5px;"></td>
+                                        <td style="padding: 5px;"></td>
+                                        <td style="padding: 5px;"> <button class="returnBtn" data-bs-toggle="modal" data-bs-target="#returnModal" style="font-size: 12px; width: 150px; height: 25px; border-radius: 5px; background-color: #1FBA05; color: white; border: none">
                                                 RETURN
                                             </button></td>
                                     </tr>
-                                <?php endforeach; ?>
+
                             </tbody>
                         </table>
                     </div>
