@@ -238,14 +238,12 @@ if (isset($_SESSION['user'])) {
                                         <img src="" width="110" height="120" id="Profile-Pic" style="margin-top: -10px;">
 
                                     </div>
-                                    <form action="" method="post" name="addStaffForm" enctype="multipart/form-data">
                                         <input type="file" accept="image/jpeg, image/png, image/jpg" id="addStaffinput-file" name="profileAdd" class="visually-hidden mb-0">
-                                    </form>
                                 </div>
                             </div>
 
 
-                            <form class="row needs-validation" style="margin-left: 30px; width: 80%; height: 65%; " novalidate>
+                            <form id="addStaffForm" class="row needs-validation" style="margin-left: 30px; width: 80%; height: 65%; " novalidate>
                                 <div class="col-md-5 firstname">
                                     <label for="addStaffFname" class="form-label mb-0" style="font-size: 12px;">FIRST NAME</label>
                                     <input type="text" class="form-control" placeholder="Juan" id="addStaffFname" name="addStaffFname" style="font-size: 10px; text-transform: capitalize !important;" required>
@@ -264,7 +262,7 @@ if (isset($_SESSION['user'])) {
 
                                 <div class="col-md-2">
                                     <label for="addStaffInitial" class="form-label mb-0" style="font-size: 12px;">M.I.</label>
-                                    <input type="text" class="form-control mb-0" placeholder="I" id="addStaffInitial" pattern="[A-Za-z]{1}" name="addStaffInitial" style="font-size: 10px; text-transform: capitalize !important;" required>
+                                    <input type="text" class="form-control mb-0" placeholder="I" id="addStaffInitial" pattern="[A-Za-z]{1}" name="addStaffInitial" style="font-size: 10px; text-transform: capitalize !important;" >
                                     <div class="invalid-feedback" style="font-size: 8px">
                                         Not a valid M.I.!
                                     </div>
@@ -273,7 +271,7 @@ if (isset($_SESSION['user'])) {
 
                                 <div class="col-md-3 mt-2">
                                     <label for="addStaffID" class="form-label mb-0" style="font-size: 12px;">STAFF ID</label>
-                                    <input type="text" class="form-control" id="addStaffID" name="addStaffID" placeholder="2021-00565" pattern="[0-9]{4}-[0-9]{5}" style="font-size: 10px;" required>
+                                    <input type="text" class="form-control" id="addStaffID" name="addStaffID" placeholder="2021-00565" pattern="20[0-9]{2}-[0-9]{5}" style="font-size: 10px;" required>
                                     <div class="invalid-feedback" style="font-size: 8px">
                                         Not a valid student ID!
                                     </div>
@@ -299,7 +297,7 @@ if (isset($_SESSION['user'])) {
 
                                 <div class="col-md-4 mt-2">
                                     <label for="addStaffTnumber" class="form-label mb-0" style="font-size: 12px;">TELEPHONE NUMBER</label>
-                                    <input type="text" class="form-control" id="addStaffTnumber" name="addStaffTnumber" placeholder="291-3281-919" pattern="[0-9]{3}-[0-9]{4}-[0-9]{3}" style="font-size: 10px;" required>
+                                    <input type="text" class="form-control" id="addStaffTnumber" name="addStaffTnumber" placeholder="291-3288" pattern="[0-9]{3}-[0-9]{4}" style="font-size: 10px;" required>
                                     <div class="invalid-feedback" style="font-size: 8px">
                                         Not a valid tel number with 10 digits!
                                     </div>
@@ -347,7 +345,9 @@ if (isset($_SESSION['user'])) {
                                 <div class="col col-md-4 mt-3">
                                     <label for="psw" class="form-label mb-0" style="font-size: 12px;">PASSWORD</label>
                                     <div class="input-group has-validation">
-                                        <input type="password" class="form-control" placeholder="Password_123" id="psw" name="psw" style="font-size: 10px;" aria-describedby="inputGroupPrepend" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@_]).{8,}" title="Must contain at least one number, one uppercase and lowercase letter, one symbol, and at least 8 or more characters" required>
+                                        <input type="password" class="form-control" placeholder="Password_123" id="psw" name="psw" style="font-size: 10px;" aria-describedby="inputGroupPrepend"
+                                               pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@_]).{8,}" title="Must contain at least one number, one uppercase and lowercase letter,
+                                               one symbol, and at least 8 or more characters" required>
                                         <div class="invalid-feedback" id="passwordRequirements" style="font-size: 8px; display: none;">
                                             Not a valid password!
                                         </div>
@@ -397,7 +397,7 @@ if (isset($_SESSION['user'])) {
                             </div>
 
 
-                            <form class="row needs-validation" style="margin-left: 30px; width: 80%; height: 65%; ">
+                            <form id="editStaffForm" class="row needs-validation" style="margin-left: 30px; width: 80%; height: 65%; ">
                                 <div class="col-md-5 firstname">
                                     <label for="EditStaffFname" class="form-label mb-0" style="font-size: 12px;">FIRST NAME</label>
                                     <input type="text" class="form-control" placeholder="Juan" id="EditStaffFname" name="EditStaffFname" style="font-size: 10px; text-transform: capitalize !important;" required>
@@ -597,6 +597,9 @@ if (isset($_SESSION['user'])) {
         //     $("#staffModal").modal("hide");
         // }
     </script>
+
+
+
     <script>
         document.getElementById('deleteAllStaff').addEventListener('click', function() {
             showDeleteConfirmation(1); // Pass a unique identifier
