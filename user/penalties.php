@@ -170,11 +170,11 @@ $getAllTransaction = $transactionData->getAllTransactionByUser($userID);
 
                 </div>
             </div>
-        <div class="container mt-4 card  " style="min-height: 50vh; max-height: 200vh; width: 100%; background-color: red">
+        <div class="container mt-4 card  " style="min-height: 50vh; max-height: 200vh; width: 100%;">
             <div style=" margin-top: 10px">
                 <p style="font-size: 12px; font-weight: bold; font-style: italic">Borrowed Book Status</p>
             </div>
-            <main class="table" style="background-color: yellow; height: 150vh; overflow: scroll">
+            <main class="table" style= height: 100vh; overflow: scroll">
                 <section class="table__header">
                     <div class="input-group">
                         <input type="search" placeholder="Search Data...">
