@@ -270,7 +270,7 @@ if (isset($_SESSION['user'])) {
                             </div>
                             <div style="font-size: 12px; width: 100%; display: flex; justify-content: center;">
                                 <p style="font-weight: 700;">Would you like to borrow <span id="book_title"></span>
-                                    by <span id="book_author"></span>?</p>
+                                    by <span id="book_author"></span>   ?</p>
                             </div>
 
                             <div style="font-size: 12px; width: 100%; display: flex; justify-content: center;">
