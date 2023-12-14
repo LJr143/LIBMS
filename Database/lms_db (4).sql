@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Dec 13, 2023 at 02:10 PM
+-- Generation Time: Dec 14, 2023 at 03:16 PM
 -- Server version: 8.0.31
 -- PHP Version: 7.4.33
 
@@ -47,15 +47,17 @@ CREATE TABLE IF NOT EXISTS `tbl_admin` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `admin_id_2` (`admin_id`),
   KEY `admin_id` (`admin_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=110 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=112 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `tbl_admin`
 --
 
 INSERT INTO `tbl_admin` (`id`, `admin_id`, `lname`, `fname`, `initial`, `admin_role`, `email`, `personal_email`, `phone_number`, `tele_number`, `address`, `status`, `username`, `password`, `img`) VALUES
-(97, '2313123', 'Rana', 'Lorjohn', 'M', 'Staff', 'lmrana00027@usep.edu.ph', 'lorjohn143@gmail.com', '09096763912', '123-1234', 'Tagum', 'Active', 'john', 'pass', 'me-removebg (1).png'),
-(109, 'Ab adipisci eos cons', 'Ford', 'Hamish', 'Paria', 'Staff', 'nulowu@mailinator.com', 'bato@mailinator.com', '+1 (487) 372-49', '+1 (913) 255-76', 'Molestiae expedita o', 'Suspended', 'juquja', '$2y$10$Exc2IdHeW82ljDEAGurdye20nL3C7hOscNHcZ2bw3rw', 'Picture5.jpg');
+(97, '2313123', 'Rana', 'Lorjohn', 'M', 'Staff', 'lmrana00027@usep.edu.ph', 'lorjohn143@gmail.com', '09096763912', '123-1234', 'Tagum city', 'Active', 'john', 'pass', 'me-removebg (1).png'),
+(109, 'Ab adipisci eos cons', 'Ford', 'Hamish', 'Paria', 'Staff', 'nulowu@mailinator.com', 'bato@mailinator.com', '+1 (487) 372-49', '+1 (913) 255-76', 'Molestiae expedita o', 'Suspended', 'juquja', '$2y$10$Exc2IdHeW82ljDEAGurdye20nL3C7hOscNHcZ2bw3rw', 'Picture5.jpg'),
+(110, 'Rem quaerat harum vo', 'Hall', 'Mason', 'Aperi', 'Staff', 'romesegy@mailinator.com', 'pevynyvix@mailinator.com', '+1 (892) 542-67', '+1 (777) 343-25', 'Veniam natus odit q', 'Active', 'lucojo', '$2y$10$U5oiX2yad5BYGkkyWIAdJ.fv5GpIleKoN0AHpmcXWaX', '400865813_325398640382436_4221974037372489828_n.jpg'),
+(111, 'Quo mollit dicta tem', 'Walker', 'Kirk', 'Qui m', 'Staff', 'xiwy@mailinator.com', 'cyfabitely@mailinator.com', '+1 (292) 853-94', '+1 (416) 364-24', 'Incidunt ipsam in d', 'Active', 'pojut', '$2y$10$pu/o6IgI6VOi.IGqZup4s.hu6MfSg/XzHShkXePDiOE', 'smcti_logo-removebg-preview.png');
 
 -- --------------------------------------------------------
 
@@ -77,7 +79,9 @@ CREATE TABLE IF NOT EXISTS `tbl_book` (
   `copy` int NOT NULL,
   `status` varchar(25) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT 'New',
   `book_img` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `book_addition_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`book_id`),
+  UNIQUE KEY `ISBN` (`ISBN`),
   KEY `copy_id` (`copy`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -85,17 +89,46 @@ CREATE TABLE IF NOT EXISTS `tbl_book` (
 -- Dumping data for table `tbl_book`
 --
 
-INSERT INTO `tbl_book` (`book_id`, `book_title`, `ISBN`, `author`, `publisher`, `genre`, `category`, `description`, `shelf`, `copy`, `status`, `book_img`) VALUES
-('B1', 'To Kill a Mockingbird', '9780061120084', 'Harper Lee', 'HarperCollins', 'Fiction', 'null', 'A story set in the American South during the 1930s that addresses racial injustice.', 'ShelfA', 5, 'New', 'To Kill a Mockingbird.jpg'),
-('B10', 'The Hobbit', '9780547928227', 'J.R.R. Tolkien', 'Houghton Mifflin', 'null', 'null', 'A fantasy novel following the journey of Bilbo Baggins as he joins a quest to reclaim treasure guarded by the dragon Smaug.', 'ShelfJ', 10, 'New', 'The Hobbit.jpg'),
-('B2', '1984', '9780451524935', 'George Orwell', 'Signet Classics', 'null', 'null', 'A novel depicting a totalitarian society and the dangers of government overreach.', 'ShelfB', 3, 'New', '1984.jpg'),
-('B3', 'The Great Gatsby', '9780743273565', 'F. Scott Fitzgerald', 'Scribner', 'Fiction', 'null', 'A tale of wealth, decadence, and the American Dream set in the Roaring Twenties.', 'ShelfC', 7, 'New', 'The Great Gatsby.jpg'),
-('B4', 'To the Lighthouse', '9780156907392', 'Virginia Woolf', 'Houghton Mifflin Harcourt', 'Fiction', 'null', 'A novel exploring the passage of time and the complexity of human relationships.', 'ShelfD', 2, 'New', 'To The Lighthouse.jpg'),
-('B5', 'The Catcher in the Rye', '9780241950425', 'J.D. Salinger', 'Penguin Books', 'Fiction', 'null', 'A story narrated by a disenchanted teenager, Holden Caulfield, during his experiences in New York City.', 'ShelfE', 6, 'New', 'The Catcher in the Rye.jpg'),
-('B6', 'One Hundred Years of Solitude', '9780061120091', 'Gabriel García Márquez', 'Harper & Row', 'null', 'null', 'A multi-generational tale blending magical and real elements, exploring the Buendía family in Macondo.', 'ShelfF', 4, 'New', 'One Hundred Years Of Solitude.jpg'),
-('B7', 'Brave New World', '9780060850524', 'Aldous Huxley', 'Harper Perennial', 'null', 'null', 'A novel depicting a future society where people are conditioned for conformity and happiness.', 'ShelfG', 8, 'New', 'Brave New World.jpg'),
-('B8', 'Pride and Prejudice', '9780141439518', 'Jane Austen', 'Penguin Classics', 'Fiction', 'null', 'A romantic novel exploring themes of love, class, and societal expectations in 19th-century England.', 'ShelfH', 1, 'New', 'Pride and Prejudice.jpg'),
-('B9', 'Romeo and Juliet', '9780743477116', 'William Shakespeare', 'Simon & Schuster', 'null', 'null', 'A tragic play depicting the ill-fated love story between Romeo Montague and Juliet Capulet.', 'ShelfI', 9, 'New', 'Romeo and Juliet.jpg');
+INSERT INTO `tbl_book` (`book_id`, `book_title`, `ISBN`, `author`, `publisher`, `genre`, `category`, `description`, `shelf`, `copy`, `status`, `book_img`, `book_addition_date`) VALUES
+('B1', 'To Kill a Mockingbird', '9780061120084', 'Harper Lee', 'HarperCollins', 'Fiction', 'null', 'A story set in the American South during the 1930s that addresses racial injustice.', 'ShelfA', 5, 'New', 'To Kill a Mockingbird.jpg', '2023-12-13 17:59:08'),
+('B10', 'The Hobbit', '9780547928227', 'J.R.R. Tolkien', 'Houghton Mifflin', 'null', 'null', 'A fantasy novel following the journey of Bilbo Baggins as he joins a quest to reclaim treasure guarded by the dragon Smaug.', 'ShelfJ', 10, 'New', 'The Hobbit.jpg', '2023-12-13 17:59:08'),
+('B2', '1984', '9780451524935', 'George Orwell', 'Signet Classics', 'null', 'null', 'A novel depicting a totalitarian society and the dangers of government overreach.', 'ShelfB', 3, 'New', '1984.jpg', '2023-12-13 17:59:08'),
+('B3', 'The Great Gatsby', '9780743273565', 'F. Scott Fitzgerald', 'Scribner', 'Fiction', 'null', 'A tale of wealth, decadence, and the American Dream set in the Roaring Twenties.', 'ShelfC', 7, 'New', 'The Great Gatsby.jpg', '2023-12-13 17:59:08'),
+('B4', 'To the Lighthouse', '9780156907392', 'Virginia Woolf', 'Houghton Mifflin Harcourt', 'Fiction', 'null', 'A novel exploring the passage of time and the complexity of human relationships.', 'ShelfD', 2, 'New', 'To The Lighthouse.jpg', '2023-12-13 17:59:08'),
+('B5', 'The Catcher in the Rye', '9780241950425', 'J.D. Salinger', 'Penguin Books', 'Fiction', 'null', 'A story narrated by a disenchanted teenager, Holden Caulfield, during his experiences in New York City.', 'ShelfE', 6, 'New', 'The Catcher in the Rye.jpg', '2023-12-13 17:59:08'),
+('B6', 'One Hundred Years of Solitude', '9780061120091', 'Gabriel García Márquez', 'Harper & Row', 'null', 'null', 'A multi-generational tale blending magical and real elements, exploring the Buendía family in Macondo.', 'ShelfF', 4, 'New', 'One Hundred Years Of Solitude.jpg', '2023-12-13 17:59:08'),
+('B7', 'Brave New World', '9780060850524', 'Aldous Huxley', 'Harper Perennial', 'null', 'null', 'A novel depicting a future society where people are conditioned for conformity and happiness.', 'ShelfG', 8, 'New', 'Brave New World.jpg', '2023-12-13 17:59:08'),
+('B8', 'Pride and Prejudice', '9780141439518', 'Jane Austen', 'Penguin Classics', 'Fiction', 'null', 'A romantic novel exploring themes of love, class, and societal expectations in 19th-century England.', 'ShelfH', 1, 'New', 'Pride and Prejudice.jpg', '2023-12-13 17:59:08'),
+('B9', 'Romeo and Juliet', '9780743477116', 'William Shakespeare', 'Simon & Schuster', 'null', 'null', 'A tragic play depicting the ill-fated love story between Romeo Montague and Juliet Capulet.', 'ShelfI', 9, 'New', 'Romeo and Juliet.jpg', '2023-12-13 17:59:08');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_book_rating`
+--
+
+DROP TABLE IF EXISTS `tbl_book_rating`;
+CREATE TABLE IF NOT EXISTS `tbl_book_rating` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `user_id` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
+  `book_id` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
+  `comment` varchar(250) COLLATE utf8mb4_general_ci NOT NULL,
+  `rating` int NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `rating_book_id_fk` (`book_id`),
+  KEY `rating_book_id_user_fk` (`user_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `tbl_book_rating`
+--
+
+INSERT INTO `tbl_book_rating` (`id`, `user_id`, `book_id`, `comment`, `rating`) VALUES
+(1, '2021-00027', 'B4', '', 0),
+(2, '2021-00027', 'B4', 'ssfdfdsfsdfsdf', 4),
+(3, '2021-00027', 'B4', '', 0),
+(4, '2021-00027', 'B4', '', 0),
+(5, '2021-00027', 'B4', '', 4);
 
 -- --------------------------------------------------------
 
@@ -108,12 +141,21 @@ CREATE TABLE IF NOT EXISTS `tbl_borrow` (
   `borrow_id` int NOT NULL AUTO_INCREMENT,
   `user_id` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `book_id` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
-  `date` date NOT NULL,
-  `status` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT 'Pending',
+  `transaction_id` int NOT NULL,
+  `date` timestamp NOT NULL,
+  `status` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT 'Borrowed',
   PRIMARY KEY (`borrow_id`),
   KEY `user_id_fk` (`user_id`),
-  KEY `book_id_fk` (`book_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  KEY `book_id_fk` (`book_id`),
+  KEY `borrow_transaction_id_fk` (`transaction_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `tbl_borrow`
+--
+
+INSERT INTO `tbl_borrow` (`borrow_id`, `user_id`, `book_id`, `transaction_id`, `date`, `status`) VALUES
+(29, '2021-00027', 'B5', 1092, '2023-12-14 11:23:58', 'Approved');
 
 -- --------------------------------------------------------
 
@@ -190,26 +232,26 @@ INSERT INTO `tbl_course` (`id`, `college_id`, `course_name`, `course_major`) VAL
 DROP TABLE IF EXISTS `tbl_feedback`;
 CREATE TABLE IF NOT EXISTS `tbl_feedback` (
   `feedback_id` int NOT NULL AUTO_INCREMENT,
-  `user_id` int DEFAULT NULL,
-  `fname` varchar(50) DEFAULT NULL,
-  `lname` varchar(50) DEFAULT NULL,
-  `initials` varchar(5) DEFAULT NULL,
+  `user_id` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `feedback_comments` text,
   `star_count` int DEFAULT NULL,
   `feedback_date` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`feedback_id`),
-  KEY `user_id` (`user_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  KEY `feedback_user_id_fk` (`user_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data for table `tbl_feedback`
 --
 
-INSERT INTO `tbl_feedback` (`feedback_id`, `user_id`, `fname`, `lname`, `initials`, `feedback_comments`, `star_count`, `feedback_date`) VALUES
-(1, 202100412, 'Pagas', 'Sheena Mariz', 'M', ' Praesent sapien mi, tincidunt vitae elit at, condimentum consectetur metus. Duis quis lectus dapibus lacus varius efficitur. Morbi tortor odio, vestibulum et orci sed, vulputate pretium justo. Nullam in justo elit.', 4, '2023-11-29 17:33:38'),
-(2, 202100723, 'Zozobrado', 'Carla Jean', 'S', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris ipsum nulla, accumsan a leo vitae, fermentum luctus ex. Etiam at orci et sapien porta pellentesque quis malesuada ligula. Donec vitae dui congue, mollis mi vitae, elementum eros. Maecenas sit amet nisl metus. Quisque vitae pretium odio, vel dignissim nisi.', 3, '2023-11-29 17:34:13'),
-(3, 20210027, 'Rana', 'Lorjohn', 'M', 'Morbi eget enim vehicula sem bibendum cursus eu vel lorem. Integer lobortis risus eget diam tempus mattis. Etiam dictum eros in ex aliquam, quis mattis ante tempus. Curabitur tincidunt nisl dui, sit amet iaculis ex aliquet vitae. Quisque consectetur ultricies lobortis. Etiam justo eros, auctor a dictum ac, maximus a lorem.', 2, '2023-11-29 17:34:57'),
-(4, 202100748, 'Allice', 'Monte', 'E', 'Suspendisse tincidunt sodales placerat. Duis nibh velit, volutpat et quam ut, consectetur finibus purus. Nunc et nulla eu sem finibus tincidunt non vitae mauris. Pellentesque aliquam auctor lectus eget commodo. Nullam commodo ipsum at consectetur vestibulum. Donec laoreet fringilla hendrerit. Fusce dignissim maximus suscipit.', 1, '2023-11-29 17:35:58');
+INSERT INTO `tbl_feedback` (`feedback_id`, `user_id`, `feedback_comments`, `star_count`, `feedback_date`) VALUES
+(5, '2021-00027', 'DSDASDSADSDSADSA', 4, '2023-12-13 20:15:23'),
+(6, '2021-00027', '', 4, '2023-12-13 20:21:09'),
+(7, '2021-00027', 'dfsdfdsgsdds', 4, '2023-12-13 20:22:21'),
+(8, '2021-00027', 'dfsdfdsgsdds', 3, '2023-12-13 20:22:36'),
+(9, '2021-00027', 'sdsdsdsadasdsa', 4, '2023-12-13 20:25:03'),
+(10, '2021-00027', 'sdsadsddsad', 4, '2023-12-13 20:29:25'),
+(11, '2021-00027', 'ddsccsvfgrgg', 3, '2023-12-13 20:29:50');
 
 -- --------------------------------------------------------
 
@@ -225,163 +267,15 @@ CREATE TABLE IF NOT EXISTS `tbl_logs` (
   `action` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
   PRIMARY KEY (`id`),
   KEY `admin_id_log_FK` (`admin_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=230 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=232 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `tbl_logs`
 --
 
 INSERT INTO `tbl_logs` (`id`, `admin_id`, `date`, `action`) VALUES
-(80, '2021-00027', '2023-11-21 16:41:45', 'admin added Lorjohn Raña'),
-(81, '2021-00027', '2023-11-21 16:48:16', 'admin added Lorjohn Raña'),
-(82, '2021-00027', '2023-11-21 22:35:25', 'admin edit Lorjohnny Raña'),
-(83, '2021-00027', '2023-11-21 22:51:11', 'admin edit Lorjohn Raña'),
-(84, '2021-00027', '2023-11-21 22:51:23', 'admin edit Lorjohn Raña'),
-(85, '2021-00027', '2023-11-22 01:04:23', 'admin edit Lorjohnny Raña'),
-(86, '2021-00027', '2023-11-22 01:04:48', 'admin edit Lorjohnny Raña'),
-(87, '2021-00027', '2023-11-22 01:10:11', 'admin added Lorjohn Raña'),
-(88, '2021-00027', '2023-11-22 01:10:26', 'admin edit Lorjohn Raña'),
-(89, '2021-00027', '2023-11-22 01:11:49', 'admin added Lorjohn Raña'),
-(90, '2021-00027', '2023-11-22 01:14:27', 'admin edit Lorjohn Raña'),
-(91, '2021-00027', '2023-11-22 01:14:51', 'admin edit Lorjohn Raña'),
-(92, '2021-00027', '2023-11-22 01:17:13', 'admin edit Lorjohn Raña'),
-(93, '2021-00027', '2023-11-22 01:18:40', 'admin edit Lorjohn Raña'),
-(94, '2021-00027', '2023-11-22 01:21:05', 'admin added Lorjohn Raña'),
-(95, '2021-00027', '2023-11-22 01:22:51', 'admin added Lorjohn Raña'),
-(96, '2021-00027', '2023-11-22 01:26:14', 'admin added Lorjohn Raña'),
-(97, '2021-00027', '2023-11-22 01:27:37', 'admin added Lorjohn Raña'),
-(98, '2021-00027', '2023-11-22 01:29:15', 'admin added Lorjohn Raña'),
-(99, '2021-00027', '2023-11-22 01:31:12', 'admin added Lorjohn Raña'),
-(100, '2021-00027', '2023-11-22 01:32:13', 'admin added Lorjohn Raña'),
-(101, '2021-00027', '2023-11-22 01:32:47', 'admin added Lorjohn Raña'),
-(102, '2021-00027', '2023-11-22 01:36:10', 'admin added Lorjohn Raña'),
-(103, '2021-00027', '2023-11-22 01:37:24', 'admin added Lorjohn Raña'),
-(104, '2021-00027', '2023-11-22 01:38:13', 'admin edit Lorjohn Raña'),
-(105, '2021-00027', '2023-11-23 12:47:26', 'admin added Lorjohn Raña'),
-(106, '2021-00027', '2023-11-23 12:47:51', 'admin edit Lorjohn Raña'),
-(107, '2021-00027', '2023-11-23 12:48:30', 'admin edit Lorjohn Raña'),
-(108, '2021-00027', '2023-11-23 12:49:04', 'admin edit Lorjohn Raña'),
-(109, '2021-00027', '2023-11-23 16:01:07', 'admin edit Nova Raña'),
-(110, '2021-00027', '2023-11-23 16:02:01', 'admin added Lorjohn Raña'),
-(111, '2021-00027', '2023-11-23 16:04:40', 'admin added Lorjohn Raña'),
-(112, '2021-00027', '2023-11-23 16:05:21', 'admin edit Lorjohn Raña'),
-(113, '2021-00027', '2023-11-23 16:13:47', 'admin edit Lorjohn Raña'),
-(114, '2021-00027', '2023-11-23 16:13:56', 'admin edit Lorjohn Raña'),
-(115, '2021-00027', '2023-11-23 16:16:47', 'admin edit Lorjohn Raña'),
-(116, '2021-00027', '2023-11-23 16:16:57', 'admin edit Lorjohn Raña'),
-(117, '2021-00027', '2023-11-23 16:22:57', 'admin edit Lorjohn Raña'),
-(118, '2021-00027', '2023-11-23 16:23:06', 'admin edit Lorjohn Raña'),
-(119, '2021-00027', '2023-11-23 16:23:14', 'admin edit Lorjohn Raña'),
-(120, '2021-00027', '2023-11-23 16:23:27', 'admin edit Lorjohn Raña'),
-(121, '2021-00027', '2023-11-23 16:23:38', 'admin edit Lorjohn Raña'),
-(122, '2021-00027', '2023-11-23 16:24:56', 'admin edit Lorjohn Raña'),
-(123, '2021-00027', '2023-11-23 16:27:16', 'admin edit Lorjohn Raña'),
-(124, '2021-00027', '2023-11-23 16:27:21', 'admin edit Lorjohn Raña'),
-(125, '2021-00027', '2023-11-23 16:28:14', 'admin edit Lorjohn Raña'),
-(126, '2021-00027', '2023-11-23 16:29:16', 'admin edit Lorjohn Raña'),
-(127, '2021-00027', '2023-11-23 16:29:25', 'admin edit Lorjohn Raña'),
-(128, '2021-00027', '2023-11-23 16:29:30', 'admin edit Lorjohn Raña'),
-(129, '2021-00027', '2023-11-23 16:29:37', 'admin edit Lorjohn Raña'),
-(130, '2021-00027', '2023-11-23 16:29:44', 'admin edit Lorjohn Raña'),
-(131, '2021-00027', '2023-11-23 16:30:14', 'admin edit Lorjohn Raña'),
-(132, '2021-00027', '2023-11-23 16:30:23', 'admin edit Lorjohn Raña'),
-(133, '2021-00027', '2023-11-23 16:39:15', 'admin edit Lorjohn Raña'),
-(134, '2021-00027', '2023-11-23 16:39:24', 'admin edit Lorjohn Raña'),
-(135, '2021-00027', '2023-11-25 16:10:15', 'admin added Lorjohn Raña'),
-(136, '2021-00027', '2023-11-27 13:28:33', 'admin added Lorjohn Raña'),
-(137, '2021-00027', '2023-11-27 13:28:40', 'admin edit Lorjohn Raña'),
-(138, '2021-00027', '2023-11-27 13:30:28', 'admin added Lorjohn Raña'),
-(139, '2021-00027', '2023-11-27 13:30:35', 'admin edit Lorjohn Raña'),
-(140, '2021-00027', '2023-11-27 13:30:48', 'admin edit Lorjohn Raña'),
-(141, '2021-00027', '2023-11-27 13:32:07', 'admin edit Lorjohn Raña'),
-(142, '2021-00027', '2023-11-27 13:32:34', 'admin edit Lorjohn Raña'),
-(143, '2021-00027', '2023-11-27 13:32:37', 'admin edit Lorjohn Raña'),
-(144, '2021-00027', '2023-11-27 13:33:26', 'admin edit Lorjohn Raña'),
-(145, '2021-00027', '2023-11-27 13:33:33', 'admin edit Lorjohn Raña'),
-(146, '2021-00027', '2023-11-27 13:35:39', 'admin edit Lorjohn Raña'),
-(147, '2021-00027', '2023-11-27 13:38:10', 'admin edit Lorjohn Raña'),
-(148, '2021-00027', '2023-11-27 13:38:13', 'admin edit Lorjohn Raña'),
-(149, '2021-00027', '2023-11-27 13:39:35', 'admin edit Lorjohn Raña'),
-(150, '2021-00027', '2023-11-27 13:40:04', 'admin edit Lorjohn Raña'),
-(151, '2021-00027', '2023-11-27 13:40:42', 'admin edit Lorjohn Raña'),
-(152, '2021-00027', '2023-11-27 13:41:41', 'admin edit Lorjohn Raña'),
-(153, '2021-00027', '2023-11-27 13:41:55', 'admin edit Lorjohn Raña'),
-(154, '2021-00027', '2023-11-27 13:42:04', 'admin edit Lorjohn Raña'),
-(155, '2021-00027', '2023-11-27 13:44:52', 'admin edit Lorjohn Raña'),
-(156, '2021-00027', '2023-11-27 13:44:55', 'admin edit Lorjohn Raña'),
-(157, '2021-00027', '2023-11-27 13:46:07', 'admin edit Lorjohn Raña'),
-(158, '2021-00027', '2023-11-27 13:46:10', 'admin edit Lorjohn Raña'),
-(159, '2021-00027', '2023-11-27 13:47:28', 'admin edit Lorjohn Raña'),
-(160, '2021-00027', '2023-11-27 13:47:36', 'admin edit Lorjohn Raña'),
-(161, '2021-00027', '2023-11-27 13:49:45', 'admin edit Lorjohn Raña'),
-(162, '2021-00027', '2023-11-27 13:51:58', 'admin edit Lorjohn Raña'),
-(163, '2021-00027', '2023-11-27 13:52:01', 'admin edit Lorjohn Raña'),
-(164, '2021-00027', '2023-11-27 13:54:29', 'admin edit Lorjohn Raña'),
-(165, '2021-00027', '2023-11-27 13:54:33', 'admin edit Lorjohn Raña'),
-(166, '2021-00027', '2023-11-27 13:55:22', 'admin edit Lorjohn Raña'),
-(167, '2021-00027', '2023-11-27 13:59:20', 'admin edit Lorjohn Raña'),
-(168, '2021-00027', '2023-11-27 13:59:56', 'admin edit Lorjohn Raña'),
-(169, '2021-00027', '2023-11-27 14:03:38', 'admin edit Lorjohn Raña'),
-(170, '2021-00027', '2023-11-27 14:06:47', 'admin edit Lorjohn Raña'),
-(171, '2021-00027', '2023-11-27 14:06:51', 'admin edit Lorjohn Raña'),
-(172, '2021-00027', '2023-11-27 14:07:01', 'admin edit Lorjohn Raña'),
-(173, '2021-00027', '2023-11-27 14:07:08', 'admin edit Lorjohn Raña'),
-(174, '2021-00027', '2023-11-27 14:09:02', 'admin edit Lorjohn Raña'),
-(175, '2021-00027', '2023-11-27 14:09:05', 'admin edit Lorjohn Raña'),
-(176, '2021-00027', '2023-11-27 14:12:15', 'admin edit Lorjohn Raña'),
-(177, '2021-00027', '2023-11-27 14:12:19', 'admin edit Lorjohn Raña'),
-(178, '2021-00027', '2023-11-27 14:12:25', 'admin edit Lorjohn Raña'),
-(179, '2021-00027', '2023-11-27 14:15:04', 'admin edit Lorjohn Raña'),
-(180, '2021-00027', '2023-11-27 14:15:12', 'admin edit Lorjohn Raña'),
-(181, '2021-00027', '2023-11-27 14:15:18', 'admin edit Lorjohn Raña'),
-(182, '2021-00027', '2023-11-27 14:22:59', 'admin edit Lorjohn Raña'),
-(183, '2021-00027', '2023-11-27 14:23:51', 'admin edit Lorjohn Raña'),
-(184, '2021-00027', '2023-11-27 14:24:06', 'admin edit Lorjohn Raña'),
-(185, '2021-00027', '2023-11-27 14:25:48', 'admin edit Lorjohn Raña'),
-(186, '2021-00027', '2023-11-27 14:25:57', 'admin edit Lorjohn Raña'),
-(187, '2021-00027', '2023-11-27 14:26:02', 'admin edit Lorjohn Raña'),
-(188, '2021-00027', '2023-11-27 14:26:10', 'admin edit Lorjohn Raña'),
-(189, '2021-00027', '2023-11-27 14:27:41', 'admin edit Lorjohn Raña'),
-(190, '2021-00027', '2023-11-27 14:27:58', 'admin edit Lorjohn Raña'),
-(191, '2021-00027', '2023-11-27 14:28:02', 'admin edit Lorjohn Raña'),
-(192, '2021-00027', '2023-11-27 14:30:39', 'admin edit Lorjohn Raña'),
-(193, '2021-00027', '2023-11-27 14:30:51', 'admin edit Lorjohn Raña'),
-(194, '2021-00027', '2023-11-27 14:31:03', 'admin edit Lorjohn Raña'),
-(195, '2021-00027', '2023-11-27 14:32:04', 'admin edit Lorjohn Raña'),
-(196, '2021-00027', '2023-11-27 14:32:12', 'admin edit Lorjohn Raña'),
-(197, '2021-00027', '2023-11-27 14:33:48', 'admin edit Lorjohn Raña'),
-(198, '2021-00027', '2023-11-27 14:37:32', 'admin edit Lorjohn Raña'),
-(199, '2021-00027', '2023-11-27 14:37:36', 'admin edit Lorjohn Raña'),
-(200, '2021-00027', '2023-11-27 14:39:09', 'admin added Lorjohn Raña'),
-(201, '2021-00027', '2023-11-27 14:39:14', 'admin edit Lorjohn Raña'),
-(202, '2021-00027', '2023-11-27 14:41:01', 'admin edit Lorjohn Raña'),
-(203, '2021-00027', '2023-11-27 14:41:08', 'admin edit Lorjohn Raña'),
-(204, '2021-00027', '2023-11-27 14:41:16', 'admin edit Lorjohn Raña'),
-(205, '2021-00027', '2023-11-27 14:41:57', 'admin edit Lorjohn Raña'),
-(206, '2021-00027', '2023-11-27 14:48:02', 'admin edit Lorjohn Raña'),
-(207, '2021-00027', '2023-11-27 14:49:26', 'admin edit Lorjohn Raña'),
-(208, '2021-00027', '2023-11-27 14:54:00', 'admin edit Lorjohn Raña'),
-(209, '2021-00027', '2023-11-27 14:54:04', 'admin edit Lorjohn Raña'),
-(210, '2021-00027', '2023-11-27 14:54:07', 'admin edit Lorjohn Raña'),
-(211, '2021-00027', '2023-11-27 14:54:15', 'admin edit Lorjohn Raña'),
-(212, '2021-00027', '2023-11-27 14:54:19', 'admin edit Lorjohn Raña'),
-(213, '2021-00027', '2023-11-28 18:35:12', 'admin added Cabinet 312ad'),
-(214, '2021-00027', '2023-11-28 18:59:31', 'admin edit Lorjohn Raña'),
-(215, '2021-00027', '2023-11-28 19:22:07', 'admin edit Lorjohn Raña'),
-(216, '2021-00027', '2023-11-28 19:22:17', 'admin edit Lorjohn Raña'),
-(217, '2021-00027', '2023-11-28 19:22:59', 'admin added Cabinet 312ad'),
-(218, '2021-00027', '2023-11-28 19:36:20', 'admin edit Lorjohn Raña'),
-(219, '2021-00027', '2023-11-28 19:36:29', 'admin edit Doormat Raña'),
-(220, '2021-00027', '2023-11-28 19:54:00', 'admin added Cabinet SADADS'),
-(221, '2021-00027', '2023-11-28 19:54:27', 'admin edit Cabinet SADADS'),
-(222, '2021-00027', '2023-12-13 07:06:12', 'admin added Brynn Smith'),
-(223, '2021-00027', '2023-12-13 07:14:32', 'admin edit lorjohn Smith'),
-(224, '2021-00027', '2023-12-13 07:20:52', 'admin edit lorjohn Smith'),
-(225, '2021-00027', '2023-12-13 07:21:08', 'admin edit lorjohn Smith'),
-(226, '2021-00027', '2023-12-13 07:21:20', 'admin edit lorjohn Smith'),
-(227, '2021-00027', '2023-12-13 07:21:29', 'admin edit lorjohn Smith'),
-(228, '2021-00027', '2023-12-13 07:22:21', 'admin added Hamish Ford'),
-(229, '2021-00027', '2023-12-13 07:22:30', 'admin edit Hamish Ford');
+(230, '2021-00027', '2023-12-13 17:28:33', 'admin added Mason Hall'),
+(231, '2021-00027', '2023-12-13 17:33:57', 'admin added Kirk Walker');
 
 -- --------------------------------------------------------
 
@@ -430,13 +324,21 @@ CREATE TABLE IF NOT EXISTS `tbl_reserve` (
   `reserve_id` int NOT NULL AUTO_INCREMENT,
   `user_id` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
   `book_id` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
-  `reserve_date` date NOT NULL,
-  `return_date` date NOT NULL,
+  `transaction_id` int NOT NULL,
+  `date` timestamp NOT NULL,
   `status` varchar(25) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT 'Pending',
   PRIMARY KEY (`reserve_id`),
   KEY `book_id` (`book_id`),
-  KEY `reserve_user_id_fk` (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  KEY `reserve_user_id_fk` (`user_id`),
+  KEY `reserve_transaction_id_fk` (`transaction_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `tbl_reserve`
+--
+
+INSERT INTO `tbl_reserve` (`reserve_id`, `user_id`, `book_id`, `transaction_id`, `date`, `status`) VALUES
+(21, '2021-00027', 'B4', 1093, '2023-12-14 11:25:47', 'Approved');
 
 -- --------------------------------------------------------
 
@@ -505,21 +407,34 @@ CREATE TABLE IF NOT EXISTS `tbl_transaction` (
   PRIMARY KEY (`id`),
   KEY `trans_user_id_fk` (`user_id`),
   KEY `trans_book_id_fk` (`book_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1063 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=1094 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `tbl_transaction`
 --
 
 INSERT INTO `tbl_transaction` (`id`, `user_id`, `book_id`, `transaction_type`, `date_requested`, `date_return`, `status`) VALUES
-(1055, '2021-10028', 'B5', 'Borrow', '2023-12-12', NULL, 'Approve'),
-(1056, '2021-10028', 'B2', 'Borrow', '2023-12-12', NULL, 'Approve'),
-(1057, '2021-10028', 'B6', 'Borrow', '2023-12-12', NULL, 'Approve'),
-(1058, '2021-00027', 'B5', 'Reserve', '0000-00-00', '0000-00-00', 'Approve'),
-(1059, '2021-00027', 'B2', 'Reserve', '0000-00-00', '0000-00-00', 'Approve'),
-(1060, '2021-00027', 'B3', 'Borrow', '2023-12-13', NULL, 'Approve'),
-(1061, '2021-00027', 'B9', 'Reserve', '0000-00-00', '0000-00-00', 'Approve'),
-(1062, '2021-00027', 'B8', 'Borrow', '2023-12-13', NULL, 'Approve');
+(1092, '2021-00027', 'B5', 'Borrow', '2023-12-14', NULL, 'Approved'),
+(1093, '2021-00027', 'B4', 'Reserve', '0000-00-00', '0000-00-00', 'Approved');
+
+--
+-- Triggers `tbl_transaction`
+--
+DROP TRIGGER IF EXISTS `after_transaction_approval`;
+DELIMITER $$
+CREATE TRIGGER `after_transaction_approval` AFTER UPDATE ON `tbl_transaction` FOR EACH ROW BEGIN
+    IF NEW.status = 'Approved' AND OLD.status != 'Approved' THEN
+        IF NEW.transaction_type = 'Borrow' THEN
+            INSERT INTO tbl_borrow (user_id, book_id, transaction_id, date, status)
+            VALUES (NEW.user_id, NEW.book_id, NEW.id, NOW(), NEW.status);
+        ELSEIF NEW.transaction_type = 'Reserve' THEN
+            INSERT INTO tbl_reserve (user_id, book_id, transaction_id, date, status)
+            VALUES (NEW.user_id, NEW.book_id, NEW.id, NOW(), NEW.status);
+        END IF;
+    END IF;
+END
+$$
+DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -546,17 +461,21 @@ CREATE TABLE IF NOT EXISTS `tbl_user` (
   `phone_number` varchar(25) COLLATE utf8mb4_general_ci NOT NULL,
   `address` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
   `img` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
+  `account_creation_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`user_id`),
   UNIQUE KEY `user_id` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `tbl_user`
 --
 
-INSERT INTO `tbl_user` (`id`, `user_id`, `fname`, `lname`, `initial`, `year`, `course`, `major`, `username`, `password`, `status`, `user_type`, `email`, `usep_email`, `phone_number`, `address`, `img`) VALUES
-(20, '2021-00027', 'despenser', 'kyowa', 'M', '2nd', 'BTVTED', 'Information Security', 'John123', '$2y$10$LxFDVnSXPhqNRwGoArN9yuWuj0FTnDAgU9Er9pX6a/3Skat3zihQG', 'Active', 'Student', 'lmran0027@gmail.com', 'lmran0027@gmail.com', '09096763912', 'tagum', 'me-removebg (1).png'),
-(27, '2021-10028', 'Lorjohn', 'Rana', 'M', '3rd', 'BSIT', 'Information Security', 'lmrana', '$2y$10$/nsDdEQV4Ow2Xp8QHOtZQ.Vx5fLd.XKpJNf/aa6is53VVpdPyYFWa', 'Active', 'Student', 'lorjohn143@gmail.com', 'lorjohn143@usep.edu.ph', '09096763912', 'Sabina Homes Apokon', 'photo1695631639-transformed.jpeg');
+INSERT INTO `tbl_user` (`id`, `user_id`, `fname`, `lname`, `initial`, `year`, `course`, `major`, `username`, `password`, `status`, `user_type`, `email`, `usep_email`, `phone_number`, `address`, `img`, `account_creation_date`) VALUES
+(20, '2021-00027', 'despenser', 'kyowa', 'M', '4th', 'BTVTED', 'Information Security', 'John123', '$2y$10$LxFDVnSXPhqNRwGoArN9yuWuj0FTnDAgU9Er9pX6a/3Skat3zihQG', 'Active', 'Student', 'lmran0027@gmail.com', 'lmran0027@gmail.com', '09096763912', 'tagum', 'icons8-user-50.png', '0000-00-00 00:00:00'),
+(27, '2021-10028', 'Lorjohn', 'Rana', 'M', '3rd', 'BSIT', 'Information Security', 'lmrana', '$2y$10$/nsDdEQV4Ow2Xp8QHOtZQ.Vx5fLd.XKpJNf/aa6is53VVpdPyYFWa', 'Active', 'Student', 'lorjohn143@gmail.com', 'lorjohn143@usep.edu.ph', '09096763912', 'Sabina Homes Apokon', '265063833_435018991361457_3478573601706912404_n.jp', '0000-00-00 00:00:00'),
+(29, '2021-12345', 'Warren', 'Hartman', 'M', '5th', 'BSED', 'Mathematics', 'nisobufy', '$2y$10$R.YaqsXvyfmYLlC/bBGadeIYAcIuW.mJi26Wx3m8NXmP4lCI8bj4a', 'Active', 'Student', 'jucucaryq@gmail.com', 'jymeseqez@usep.edu.ph', '09096763912', 'Vel distinctio Vita', 'logo.png', '2023-12-13 17:10:35'),
+(31, '2021-21132', 'Hilda', 'Downs', 'M', '4th', 'BSABE', 'Information Security', 'cyjalidew', '$2y$10$0KxpebM9MHWcpVhG50ECuOGUFj9AyEjjqaKQt8WqrSVgd81nPgloi', 'Active', 'Student', 'maseli@gmail.com', 'kumeriruj@usep.edu.ph', '09096763912', 'Consequat Vero cons', 'IMG_9747__1_-removebg-preview.png', '2023-12-13 17:40:09'),
+(30, '2021-43212', 'Hasad', 'Mcneil', 'M', '2nd', 'BSIT', 'English', 'qepixofune', '$2y$10$hzGSwnrrjl9mNVRpUbj6XOXd/H1.okRGyDEBr3x0A5Cipv1nKGRMG', 'Active', 'Student', 'qikusibyhi@gmail.com', 'copymomina@usep.edu.ph', '09096763912', 'Quaerat quis corrupt', '400865813_325398640382436_4221974037372489828_n.jp', '2023-12-13 17:15:09');
 
 -- --------------------------------------------------------
 
@@ -629,7 +548,6 @@ CREATE TABLE IF NOT EXISTS `vw_book_request` (
 `id` int
 ,`transaction_type` varchar(25)
 ,`date_requested` date
-,`date_return` date
 ,`status` varchar(25)
 ,`user_id` varchar(50)
 ,`fname` varchar(50)
@@ -638,6 +556,7 @@ CREATE TABLE IF NOT EXISTS `vw_book_request` (
 ,`year` varchar(50)
 ,`course` varchar(100)
 ,`major` varchar(100)
+,`book_id` varchar(100)
 ,`book_title` varchar(100)
 ,`author` varchar(100)
 ,`shelf` varchar(100)
@@ -714,7 +633,7 @@ CREATE TABLE IF NOT EXISTS `vw_user_record` (
 DROP TABLE IF EXISTS `vw_book_request`;
 
 DROP VIEW IF EXISTS `vw_book_request`;
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vw_book_request`  AS SELECT `tbl_transaction`.`id` AS `id`, `tbl_transaction`.`transaction_type` AS `transaction_type`, `tbl_transaction`.`date_requested` AS `date_requested`, `tbl_transaction`.`date_return` AS `date_return`, `tbl_transaction`.`status` AS `status`, `tbl_user`.`user_id` AS `user_id`, `tbl_user`.`fname` AS `fname`, `tbl_user`.`lname` AS `lname`, `tbl_user`.`initial` AS `initial`, `tbl_user`.`year` AS `year`, `tbl_user`.`course` AS `course`, `tbl_user`.`major` AS `major`, `tbl_book`.`book_title` AS `book_title`, `tbl_book`.`author` AS `author`, `tbl_book`.`shelf` AS `shelf`, `tbl_book`.`book_img` AS `book_img`, `tbl_book`.`publisher` AS `publisher`, `tbl_book`.`category` AS `category` FROM ((`tbl_transaction` join `tbl_user` on((`tbl_transaction`.`user_id` = `tbl_user`.`user_id`))) join `tbl_book` on((`tbl_transaction`.`book_id` = `tbl_book`.`book_id`)))  ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vw_book_request`  AS SELECT `tbl_transaction`.`id` AS `id`, `tbl_transaction`.`transaction_type` AS `transaction_type`, `tbl_transaction`.`date_requested` AS `date_requested`, `tbl_transaction`.`status` AS `status`, `tbl_user`.`user_id` AS `user_id`, `tbl_user`.`fname` AS `fname`, `tbl_user`.`lname` AS `lname`, `tbl_user`.`initial` AS `initial`, `tbl_user`.`year` AS `year`, `tbl_user`.`course` AS `course`, `tbl_user`.`major` AS `major`, `tbl_book`.`book_id` AS `book_id`, `tbl_book`.`book_title` AS `book_title`, `tbl_book`.`author` AS `author`, `tbl_book`.`shelf` AS `shelf`, `tbl_book`.`book_img` AS `book_img`, `tbl_book`.`publisher` AS `publisher`, `tbl_book`.`category` AS `category` FROM ((`tbl_transaction` join `tbl_user` on((`tbl_transaction`.`user_id` = `tbl_user`.`user_id`))) join `tbl_book` on((`tbl_transaction`.`book_id` = `tbl_book`.`book_id`)))  ;
 
 -- --------------------------------------------------------
 
@@ -724,7 +643,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 DROP TABLE IF EXISTS `vw_borrow_counts`;
 
 DROP VIEW IF EXISTS `vw_borrow_counts`;
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vw_borrow_counts`  AS SELECT `vw_book_request`.`category` AS `category`, count(`vw_book_request`.`id`) AS `borrow_count` FROM `vw_book_request` WHERE ((`vw_book_request`.`transaction_type` = 'Borrow') AND (`vw_book_request`.`status` = 'Approve')) GROUP BY `vw_book_request`.`category``category`  ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vw_borrow_counts`  AS SELECT `vw_book_request`.`category` AS `category`, count(`vw_book_request`.`id`) AS `borrow_count` FROM `vw_book_request` WHERE ((`vw_book_request`.`transaction_type` = 'Borrow') AND (`vw_book_request`.`status` = 'Approved')) GROUP BY `vw_book_request`.`category``category`  ;
 
 -- --------------------------------------------------------
 
@@ -761,10 +680,18 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 
 --
+-- Constraints for table `tbl_book_rating`
+--
+ALTER TABLE `tbl_book_rating`
+  ADD CONSTRAINT `rating_book_id_fk` FOREIGN KEY (`book_id`) REFERENCES `tbl_book` (`book_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `rating_book_id_user_fk` FOREIGN KEY (`user_id`) REFERENCES `tbl_user` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
 -- Constraints for table `tbl_borrow`
 --
 ALTER TABLE `tbl_borrow`
   ADD CONSTRAINT `book_id_fk` FOREIGN KEY (`book_id`) REFERENCES `tbl_book` (`book_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `borrow_transaction_id_fk` FOREIGN KEY (`transaction_id`) REFERENCES `tbl_transaction` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `user_id_fk` FOREIGN KEY (`user_id`) REFERENCES `tbl_user` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
@@ -780,6 +707,12 @@ ALTER TABLE `tbl_course`
   ADD CONSTRAINT `college_id_FK` FOREIGN KEY (`college_id`) REFERENCES `tbl_college` (`college_id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
 
 --
+-- Constraints for table `tbl_feedback`
+--
+ALTER TABLE `tbl_feedback`
+  ADD CONSTRAINT `feedback_user_id_fk` FOREIGN KEY (`user_id`) REFERENCES `tbl_user` (`user_id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+
+--
 -- Constraints for table `tbl_record`
 --
 ALTER TABLE `tbl_record`
@@ -790,6 +723,7 @@ ALTER TABLE `tbl_record`
 --
 ALTER TABLE `tbl_reserve`
   ADD CONSTRAINT `reserve_book_id_fk` FOREIGN KEY (`book_id`) REFERENCES `tbl_book` (`book_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `reserve_transaction_id_fk` FOREIGN KEY (`transaction_id`) REFERENCES `tbl_transaction` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `reserve_user_id_fk` FOREIGN KEY (`user_id`) REFERENCES `tbl_user` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
