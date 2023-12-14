@@ -65,8 +65,11 @@ $(document).ready(function () {
                         title: 'swal-title',
                         content: 'my-swal-content',
                         confirmButton: 'my-confirm-button'
-                    }
-                }).then((result) => {
+                    },
+                    confirmButtonText: 'OK', // Change the text of the confirm button
+                    confirmButtonColor: '#FF0000' // Change the color of the confirm button to red
+
+            }).then((result) => {
                     // Check if the user clicked "OK"
                     if (result.isConfirmed) {
                         // Reload the page

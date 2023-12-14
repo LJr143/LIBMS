@@ -34,10 +34,16 @@ if (isset($_SESSION['user'])) {
             $loggedUser = $user[0];
             $_SESSION['user_id'] = $loggedUser['user_id'];
         } else {
-            echo 'Admin data not found.';
+            echo '<script>
+            alert("Invalid Login Credentials!");
+            window.location.href="../index.php";
+</script>';
         }
     } else {
-        echo 'Invalid admin ID.';
+        echo '<script>
+            alert("Invalid Login Credentials!");
+            window.location.href="../index.php";
+</script>';
     }
 }
 ?>

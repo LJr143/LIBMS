@@ -1,6 +1,6 @@
 <?php
-require_once 'C:\wamp64\www\LIBMS\db_config\config.php';
-include "authentication.php";
+require_once '../db_config/config.php';
+require_once 'authentication.php';
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 $db = new Database();

@@ -11,13 +11,29 @@ class TransactionData
         $this->database = $database;
     }
 
-    public function getAllTransaction(): array
+    public function getAllTransactionByUser($user_id): array
     {
-        $sql = "SELECT * FROM vw_book_request";
-        $stmt = $this->database->executeQuery($sql);
+        $sql = "SELECT * FROM vw_book_request WHERE user_id = :user_id";
+        try {
+            $stmt = $this->database->getDb()->prepare($sql);
+            $stmt->bindParam(':user_id', $user_id, PDO::PARAM_STR);
 
-        // Fetch all records
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+            if ($stmt->execute()) {
+                $errorInfo = $stmt->errorInfo();
+                if ($errorInfo[0] !== '00000') {
+                    // Log or print the error information
+                    error_log("Database error: " . $errorInfo[2]);
+                }
+
+                return $stmt->fetchAll(PDO::FETCH_ASSOC);
+            } else {
+                return array();
+            }
+        } catch (PDOException $e) {
+            // Handle PDO exception
+            error_log("PDO Exception: " . $e->getMessage());
+            return array();
+        }
     }
     public function getPendingTransaction(): array
     {

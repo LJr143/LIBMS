@@ -1,6 +1,6 @@
 <?php
-require_once 'C:\wamp64\www\LIBMS\db_config\config.php';
-error_reporting(0);
+require_once '../db_config/config.php';
+error_reporting(E_ALL);
 
 class UserAuthentication
 {

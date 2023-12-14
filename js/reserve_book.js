@@ -1,21 +1,35 @@
 $(document).ready(function () {
-
     $('#reserveBookBtn').on('click', function () {
         var bookId = $('#book_id').val();
         var userId = $(this).data('user-id');
         $('#bookModal').modal('hide');
 
-
         fetchBookData(bookId);
 
         $('#reserveConfirmBtn').on('click', function () {
-            $('#reserveModal').modal('hide');
             var date = $('#date_reserve_vw').val();
             var returnDate = $('#date_return_vw').val();
 
-
-            processBookReserving(bookId, userId, date, returnDate)
+            if (date && returnDate) {
+                // Both dates are selected, proceed with reservation
+                processBookReserving(bookId, userId, date, returnDate);
+                $('#reserveModal').modal('hide');
+            } else {
+                // Show an error message because dates are not selected
+                Swal.fire({
+                    title: 'Error!',
+                    text: 'Please select both reservation and return dates.',
+                    icon: 'error'
+                }).then(() => {
+                    // Reload the reservation modal and set dates
+                    $('#reserveModal').modal('show');
+                    // Set the previously selected dates (if any)
+                    $('#date_reserve_vw').val(date);
+                    $('#date_return_vw').val(returnDate);
+                });
+            }
         });
+
 
         fetchBookData(bookId, function (response) {
             // Handle success of fetching book data
@@ -23,8 +37,6 @@ $(document).ready(function () {
             $('#reserveBookAuthor').text(response[0].author);
             $('#reserveBookGenre').text(response[0].genre);
             $('#reserveBookPublisher').text(response[0].publisher);
-
-
         });
     });
 
@@ -47,7 +59,6 @@ $(document).ready(function () {
             type: 'POST',
             data: { bookId: bookId, userId: userId, date: date, returnDate: returnDate },
             success: function (reserveResponse) {
-
                 Swal.fire({
                     title: 'SUCCESS!',
                     text: 'YOUR REQUEST IS SENT!',
