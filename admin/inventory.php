@@ -1,9 +1,9 @@
 <?php
 session_start();
-require_once 'C:\wamp64\www\LIBMS\db_config\config.php';
-include 'C:\wamp64\www\LIBMS\operations\authentication.php';
-include 'C:\wamp64\www\LIBMS\includes\fetch_staff_data.php';
-include 'C:\wamp64\www\LIBMS\includes\fetch_books_data.php';
+require_once '../db_config/config.php';
+include '../operations/authentication.php';
+include '../includes/fetch_staff_data.php';
+include '../includes/fetch_books_data.php';
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
@@ -96,7 +96,7 @@ if (isset($_SESSION['user'])) {
             <div class="col col-md-2 side_bar">
                 <div class="profile_section">
                     <div>
-                        <img style="border: 3px solid white; width: 60px; border-radius: 60px;" src="../img/<?= $loggedAdmin['img'] ?>" alt="">
+                        <img style="border: 3px solid white; width: 60px; height: 60px; border-radius: 60px;" src="../img/<?= $loggedAdmin['img'] ?>" alt="">
                         <div style="position: absolute; top: 55px; right: 72px; background:#01d501; height: 15px; width: 15px; border-radius: 60px;"></div>
                     </div>
                     <div style="display: block; text-align: center; color: white; height: 20px;">
@@ -184,7 +184,7 @@ if (isset($_SESSION['user'])) {
                     <div class=" d-flex justify-content-end align-items-center" style="height: 50px; width: 6%; margin-right: 20px ">
                         <div class="dropdown" style=" margin-right: 0px; position: absolute">
                             <button style="background: none; border: none;" class=" dropdown-toggle" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
-                                <img src="../img/<?= $loggedAdmin['img'] ?>" alt="" width="35px" style="border-radius: 60px; border: 1px solid #4d0202">
+                                <img src="../img/<?= $loggedAdmin['img'] ?>" alt="" width="35px" height="35px" style="border-radius: 60px; border: 1px solid #4d0202">
                             </button>
                             <ul class="dropdown-menu dropdown-menu-dark dropdown_menu_setting aria-labelledby=" dropdownMenuButton2">
                                 <li><a style="font-size: 12px; color: white;" class="dropdown-item" href="profile.php"><img src="../icons/manage_account.png" alt="" class="custom_icon"><span>Manage Account</span></a></li>
@@ -428,15 +428,15 @@ if (isset($_SESSION['user'])) {
                                     <div class="input-group has-validation">
                                         <select name="" id="bookCategory" style="font-size: 10px; width: 130px; height: 28px; padding: 2px 5px; border-radius: 5px" required>
                                             <option value="" disabled selected> Select Category</option>
-                                            <option value="option">Environment and Forestry</option>
-                                            <option value="option">Agriculture and Agriculture Engineering</option>
-                                            <option value="option">Usepiana</option>
-                                            <option value="option">General Information</option>
-                                            <option value="option">Filipiñiana </option>
-                                            <option value="option">Educational</option>
-                                            <option value="option">Video Tapes</option>
-                                            <option value="option">Special Education</option>
-                                            <option value="option">Others</option>
+                                            <option value="Environment and Forestry">Environment and Forestry</option>
+                                            <option value="Agriculture and Agriculture Engineering">Agriculture and Agriculture Engineering</option>
+                                            <option value="Usepiana">Usepiana</option>
+                                            <option value="General Information">General Information</option>
+                                            <option value="Filipiñiana">Filipiñiana </option>
+                                            <option value="Educational">Educational</option>
+                                            <option value="Video Tapes">Video Tapes</option>
+                                            <option value="Special Education">Special Education</option>
+                                            <option value="Others">Others</option>
                                         </select>
                                         <div class="invalid-feedback" style="font-size: 8px">
                                             Not a valid category!
@@ -574,15 +574,15 @@ if (isset($_SESSION['user'])) {
                                     <div class="input-group has-validation">
                                         <select name="" id="editBookCategory" style="font-size: 10px; width: 130px; height: 28px; padding: 2px 5px; border-radius: 5px" required>
                                             <option value="" disabled selected> Select Category</option>
-                                            <option value="option">Environment and Forestry</option>
-                                            <option value="option">Agriculture and Agriculture Engineering</option>
-                                            <option value="option">Usepiana</option>
-                                            <option value="option">General Information</option>
-                                            <option value="option">Filipiñiana </option>
-                                            <option value="option">Educational</option>
-                                            <option value="option">Video Tapes</option>
-                                            <option value="option">Special Education</option>
-                                            <option value="option">Others</option>
+                                            <option value="Environment and Forestry">Environment and Forestry</option>
+                                            <option value="Agriculture and Agriculture Engineering">Agriculture and Agriculture Engineering</option>
+                                            <option value="Usepiana">Usepiana</option>
+                                            <option value="General Information">General Information</option>
+                                            <option value="Filipiñiana">Filipiñiana </option>
+                                            <option value="Educational">Educational</option>
+                                            <option value="Video Tapes">Video Tapes</option>
+                                            <option value="Special Education">Special Education</option>
+                                            <option value="Others">Others</option>
                                         </select>
                                         <div class="invalid-feedback" style="font-size: 8px">
                                             Not a valid category!

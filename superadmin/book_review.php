@@ -1,12 +1,12 @@
 <?php
 session_start();
-require_once 'C:\wamp64\www\LIBMS\db_config\config.php';
-include 'C:\wamp64\www\LIBMS\operations\authentication.php';
-include 'C:\wamp64\www\LIBMS\includes\fetch_user_data.php';
-include 'C:\wamp64\www\LIBMS\includes\fetch_books_data.php';
-include 'C:\wamp64\www\LIBMS\includes\fetch_staff_data.php';
-include 'C:\wamp64\www\LIBMS\includes\fetch_superadmin_data.php';
-include 'C:\wamp64\www\LIBMS\includes\fetch_feedback_data.php';
+require_once '../db_config/config.php';
+include '../operations/authentication.php';
+include '../includes/fetch_user_data.php';
+include '../includes/fetch_books_data.php';
+include '../includes/fetch_staff_data.php';
+include '../includes/fetch_superadmin_data.php';
+include '../includes/fetch_feedback_data.php';
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
@@ -135,16 +135,16 @@ if (isset($_SESSION['user'])) {
                     <div class="col col-md-10" style="display: flex; align-items: center;">
                         <div class="search_by" style="font-size: 13px;">
                             <select name="" id="select-book-category">
-                                <option value="option">Search Categories</option>
-                                <option value="option">Environment and Forestry</option>
-                                <option value="option">Agriculture and Agriculture Engineering</option>
-                                <option value="option">Usepiana</option>
-                                <option value="option">General Information</option>
-                                <option value="option">Filipiñiana </option>
-                                <option value="option">Educational</option>
-                                <option value="option"> Video Tapes</option>
-                                <option value="option"> Special Education</option>
-                                <option value="option">Others</option>
+                                <option value="Search Categories">Search Categories</option>
+                                <option value="Environment and Forestry">Environment and Forestry</option>
+                                <option value="Agriculture and Agriculture Engineering">Agriculture and Agriculture Engineering</option>
+                                <option value="Usepiana">Usepiana</option>
+                                <option value="General Information">General Information</option>
+                                <option value="Filipiñiana">Filipiñiana </option>
+                                <option value="Educational">Educational</option>
+                                <option value="Video Tapes"> Video Tapes</option>
+                                <option value="Special Education"> Special Education</option>
+                                <option value="Others">Others</option>
                             </select>
                         </div>
                         <div class="input_search-wrapper" style="margin-left: 20px;">
@@ -165,140 +165,6 @@ if (isset($_SESSION['user'])) {
                     </div>
                     <div style="width: 95%; min-height: 90vh; border-radius: 5px; box-shadow: 0px 4px 8px rgba(0,0,0,0.27);">
                         <div style="margin: 10px 20px 20px 20px; width: 97%; display: flex; justify-content: space-between; flex-wrap: wrap; align-items: flex-start;">
-                            <div class="card" style="width: calc(33.33% - 20px); height: 290px; box-shadow: 0px 3px 6px rgba(0,0,0,0.26); margin: 10px 0px; border: 1px solid black;">
-                                <div class="card-body">
-                                    <div style="width: 100%; height: 21vh; display: flex; margin-top: 10px;">
-                                        <div style=" height: 26vh; width: 148px; overflow: hidden ">
-                                            <img style="width: 100%" src="../img/The Hobbit.jpg" alt="">
-                                        </div>
-                                        <div style="width: 100%; height: 21vh; margin-left: 15px;">
-                                            <div style="display: flex;">
-                                                <h6 style="font-size: 14px; font-weight: 700; font-style: italic">The Hobbit</h6>
-                                                <h6 style="color: #FFCA00; font-size: 14px; margin-left: 100px;"><i class="bi bi-star-fill"></i> 4.2 out of 5</h6>
-                                            </div>
-                                            <div class="book_information" style="font-size: 12px; line-height: .3;  margin-top: 5px;">
-                                                <p>1234777658366</p> <!-- book isbn -->
-                                                <p>J.R.R Tolkien</p> <!-- book author -->
-                                            </div>
-                                            <div>
-                                                <!-- stars supposed to be in here -->
-                                                <?php include('../includes/star_rating.php'); ?>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                </div>
-                                <a href="student_book_reviews.php"><button class="view_button">VIEW</button></a>
-                            </div>
-
-                            <div class="card" style="width: calc(33.33% - 20px); height: 290px; box-shadow: 0px 3px 6px rgba(0,0,0,0.26); margin: 10px 0px; border: 1px solid black;">
-                                <div class="card-body">
-                                    <div style="width: 100%; height: 21vh; display: flex; margin-top: 10px;">
-                                        <div style=" height: 26vh; width: 148px; overflow: hidden ">
-                                            <img style="width: 100%" src="../img/The Hobbit.jpg" alt="">
-                                        </div>
-                                        <div style="width: 100%; height: 21vh; margin-left: 15px;">
-                                            <div style="display: flex;">
-                                                <h6 style="font-size: 14px; font-weight: 700; font-style: italic">The Hobbit</h6>
-                                                <h6 style="color: #FFCA00; font-size: 14px; margin-left: 100px;"><i class="bi bi-star-fill"></i> 4.2 out of 5</h6>
-                                            </div>
-                                            <div class="book_information" style="font-size: 12px; line-height: .3;  margin-top: 5px;">
-                                                <p>1234777658366</p> <!-- book isbn -->
-                                                <p>J.R.R Tolkien</p> <!-- book author -->
-                                            </div>
-                                            <div>
-                                                <!-- stars supposed to be in here -->
-                                                <?php include('../includes/star_rating.php'); ?>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                </div>
-                                <a href="student_book_reviews.php"><button  class="view_button">VIEW</button></a>
-                            </div>
-
-
-                            <div class="card" style="width: calc(33.33% - 20px); height: 290px; box-shadow: 0px 3px 6px rgba(0,0,0,0.26); margin: 10px 0px; border: 1px solid black;">
-                                <div class="card-body">
-                                    <div style="width: 100%; height: 21vh; display: flex; margin-top: 10px;">
-                                        <div style=" height: 26vh; width: 148px; overflow: hidden ">
-                                            <img style="width: 100%" src="../img/cat.jpeg" alt="">
-                                        </div>
-                                        <div style="width: 100%; height: 21vh; margin-left: 15px;">
-                                            <div style="display: flex;">
-                                                <h6 style="font-size: 14px; font-weight: 700; font-style: italic">The Bitten Cat</h6>
-                                                <h6 style="color: #FFCA00; font-size: 14px; margin-left: 100px;"><i class="bi bi-star-fill"></i> 5 out of 5</h6>
-                                            </div>
-                                            <div class="book_information" style="font-size: 12px; line-height: .3;  margin-top: 5px;">
-                                                <p>1234777658366</p> <!-- book isbn -->
-                                                <p>Chuchu</p> <!-- book author -->
-                                            </div>
-                                            <div>
-                                                <!-- stars supposed to be in here -->
-                                                <?php include('../includes/star_rating.php'); ?>
-                                            </div>
-                                        </div>
-
-                                    </div>
-
-                                </div>
-                                <a href="student_book_reviews.php"><button class="view_button">VIEW</button></a>
-                            </div>
-
-                            <div class="card" style="width: calc(33.33% - 20px); height: 290px; box-shadow: 0px 3px 6px rgba(0,0,0,0.26); margin: 10px 0px; border: 1px solid black;">
-                                <div class="card-body">
-                                    <div style="width: 100%; height: 21vh; display: flex; margin-top: 10px;">
-                                        <div style=" height: 26vh; width: 148px; overflow: hidden ">
-                                            <img style="width: 100%" src="../img/The Hobbit.jpg" alt="">
-                                        </div>
-                                        <div style="width: 100%; height: 21vh; margin-left: 15px;">
-                                            <div style="display: flex;">
-                                                <h6 style="font-size: 14px; font-weight: 700; font-style: italic">The Hobbit</h6>
-                                                <h6 style="color: #FFCA00; font-size: 14px; margin-left: 100px;"><i class="bi bi-star-fill"></i> 4.2 out of 5</h6>
-                                            </div>
-                                            <div class="book_information" style="font-size: 12px; line-height: .3;  margin-top: 5px;">
-                                                <p>1234777658366</p> <!-- book isbn -->
-                                                <p>J.R.R Tolkien</p> <!-- book author -->
-                                            </div>
-                                            <div>
-                                                <!-- stars supposed to be in here -->
-                                                <?php include('../includes/star_rating.php'); ?>
-                                            </div>
-                                        </div>
-
-                                    </div>
-
-                                </div>
-                                <a href="student_book_reviews.php"><button class="view_button">VIEW</button></a>
-                            </div>
-
-                            <div class="card" style="width: calc(33.33% - 20px); height: 290px; box-shadow: 0px 3px 6px rgba(0,0,0,0.26); margin: 10px 0px; border: 1px solid black;">
-                                <div class="card-body">
-                                    <div style="width: 100%; height: 21vh; display: flex; margin-top: 10px;">
-                                        <div style=" height: 26vh; width: 148px; overflow: hidden ">
-                                            <img style="width: 100%" src="../img/The Hobbit.jpg" alt="">
-                                        </div>
-                                        <div style="width: 100%; height: 21vh; margin-left: 15px;">
-                                            <div style="display: flex;">
-                                                <h6 style="font-size: 14px; font-weight: 700; font-style: italic">The Hobbit</h6>
-                                                <h6 style="color: #FFCA00; font-size: 14px; margin-left: 100px;"><i class="bi bi-star-fill"></i> 4.2 out of 5</h6>
-                                            </div>
-                                            <div class="book_information" style="font-size: 12px; line-height: .3;  margin-top: 5px;">
-                                                <p>1234777658366</p> <!-- book isbn -->
-                                                <p>J.R.R Tolkien</p> <!-- book author -->
-                                            </div>
-                                            <div>
-                                                <!-- stars supposed to be in here -->
-                                                <?php include('../includes/star_rating.php'); ?>
-                                            </div>
-                                        </div>
-
-                                    </div>
-
-                                </div>
-                                <a href="student_book_reviews.php"><button class="view_button">VIEW</button></a>
-                            </div>
-
                             <div class="card" style="width: calc(33.33% - 20px); height: 290px; box-shadow: 0px 3px 6px rgba(0,0,0,0.26); margin: 10px 0px; border: 1px solid black;">
                                 <div class="card-body">
                                     <div style="width: 100%; height: 21vh; display: flex; margin-top: 10px;">

@@ -66,7 +66,7 @@ class StaffData
     public function addStaff($firstName, $lastName, $mi, $staffId, $Pemail, $Oemail, $phoneNumber, $telephoneNumber, $address, $admin_role, $username, $password, $profile): bool
     {
         // Hash the password
-        $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+
 
         $sql = "INSERT INTO tbl_admin (fname, lname, initial, admin_id, email, personal_email, phone_number, tele_number, address, admin_role, username, password, img)
             VALUES (:fname, :lname, :initial, :admin_id, :email, :personal_email, :phone_number, :tele_number, :address, :admin_role, :username, :password, :img)";
@@ -84,7 +84,7 @@ class StaffData
         $stmt->bindParam(':address', $address, PDO::PARAM_STR);
         $stmt->bindParam(':admin_role', $admin_role, PDO::PARAM_STR);
         $stmt->bindParam(':username', $username, PDO::PARAM_STR);
-        $stmt->bindParam(':password', $hashedPassword, PDO::PARAM_STR); // Use hashed password
+        $stmt->bindParam(':password', $password, PDO::PARAM_STR);
         $stmt->bindParam(':img', $profile, PDO::PARAM_STR);
 
         // Execute the query
@@ -94,9 +94,9 @@ class StaffData
     // Inside the StaffData class
     public function updateStaff($userId, $firstName, $lastName, $mi, $Pemail, $Oemail, $phoneNumber, $telephoneNumber, $address, $admin_role, $username, $password, $img) {
         // Hash the password if it is provided
-        if (!empty($password)) {
-            $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
-        }
+//        if (!empty($password)) {
+//            $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+//        }
 
         // SQL query without the img column
         $sql = "UPDATE tbl_admin 
@@ -135,7 +135,7 @@ class StaffData
 
         // Bind the password parameter if provided
         if (!empty($password)) {
-            $stmt->bindParam(':password', $hashedPassword, PDO::PARAM_STR);
+            $stmt->bindParam(':password', $password, PDO::PARAM_STR);
         }
 
         // Bind the img parameter if provided

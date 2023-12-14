@@ -1,10 +1,11 @@
 <?php
 session_start();
-require_once 'C:\wamp64\www\LIBMS\db_config\config.php';
-include 'C:\wamp64\www\LIBMS\includes\fetch_books_data.php';
-include 'C:\wamp64\www\LIBMS\operations\authentication.php';
-include 'C:\wamp64\www\LIBMS\includes\fetch_student_data.php';
-include 'C:\wamp64\www\LIBMS\includes\fetch_transaction_data.php';
+require_once '../db_config/config.php';
+include '../operations/authentication.php';
+include '../includes/fetch_user_data.php';
+include '../includes/fetch_books_data.php';
+include '../includes/fetch_student_data.php';
+include '../includes/fetch_transaction_data.php';
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 $database = new Database();
@@ -121,16 +122,16 @@ $getAllTransaction = $transactionData->getAllTransactionByUser($userID);
         <div class="row search-by">
             <div class="dropdown col-md-4">
                 <select name="" id="select-book-category">
-                    <option value="option">Search Categories</option>
-                    <option value="option">Environment and Forestry</option>
-                    <option value="option">Agriculture and Agriculture Engineering</option>
-                    <option value="option">Usepiana</option>
-                    <option value="option">General Information</option>
-                    <option value="option">Filipiñiana </option>
-                    <option value="option">Educational</option>
-                    <option value="option"> Video Tapes</option>
-                    <option value="option"> Special Education</option>
-                    <option value="option">Overall</option>
+                    <option value="Search Categories">Search Categories</option>
+                    <option value="Environment and Forestry">Environment and Forestry</option>
+                    <option value="Agriculture and Agriculture Engineering">Agriculture and Agriculture Engineering</option>
+                    <option value="Usepiana">Usepiana</option>
+                    <option value="General Information">General Information</option>
+                    <option value="Filipiñiana">Filipiñiana </option>
+                    <option value="Educational">Educational</option>
+                    <option value="Video Tapes"> Video Tapes</option>
+                    <option value="Special Education"> Special Education</option>
+                    <option value="Overall">Overall</option>
                 </select>
 
             </div>
@@ -169,11 +170,11 @@ $getAllTransaction = $transactionData->getAllTransactionByUser($userID);
 
                 </div>
             </div>
-        <div class="container mt-4 card  " style="min-height: 50vh; max-height: 100vh; width: 100%">
+        <div class="container mt-4 card  " style="min-height: 50vh; max-height: 200vh; width: 100%;">
             <div style=" margin-top: 10px">
                 <p style="font-size: 12px; font-weight: bold; font-style: italic">Borrowed Book Status</p>
             </div>
-            <main class="table">
+            <main class="table" style= "height: 100vh; overflow: scroll">
                 <section class="table__header">
                     <div class="input-group">
                         <input type="search" placeholder="Search Data...">

@@ -1,12 +1,12 @@
 <?php
 session_start();
-require_once 'C:\wamp64\www\LIBMS\db_config\config.php';
-include 'C:\wamp64\www\LIBMS\operations\authentication.php';
-include 'C:\wamp64\www\LIBMS\includes\fetch_user_data.php';
-include 'C:\wamp64\www\LIBMS\includes\fetch_books_data.php';
-include 'C:\wamp64\www\LIBMS\includes\fetch_staff_data.php';
-include 'C:\wamp64\www\LIBMS\includes\fetch_superadmin_data.php';
-include 'C:\wamp64\www\LIBMS\includes\fetch_feedback_data.php';
+require_once '../db_config/config.php';
+include '../operations/authentication.php';
+include '../includes/fetch_user_data.php';
+include '../includes/fetch_books_data.php';
+include '../includes/fetch_staff_data.php';
+include '../includes/fetch_superadmin_data.php';
+include '../includes/fetch_feedback_data.php';
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
@@ -18,10 +18,12 @@ $bookData = new BookData($database);
 $userData = new UserData($database);
 $adminData = new StaffData($database);
 $superAdminData = new SuperAdminData($database);
+$feedbackData = new FeedbackData($database);
 
 
 $numberOfBooks = $bookData->getNumberOfBooks();
 $numberOfUsers = $userData->getNumberOfUser();
+$getAllFeedback = $feedbackData->getAllFeedback();
 
 //Authenticate
 if ($userAuth->isAuthenticated()) {
@@ -60,22 +62,7 @@ if (isset($_SESSION['user'])) {
         }
     }
 }
-$feedbackData = array(
-    array(
-        'userStarCounts' => 3,
-        'username' => 'Sheena Mariz Pagas',
-        'date' => '07 November 2023',
-        'comment' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
-    ),
-    // Add more elements as needed
-);
 
-foreach ($feedbackData as $feedback) {
-    $userStarCounts = $feedback['userStarCounts'];
-    $username = $feedback['username'];
-    $date = $feedback['date'];
-    $comment = $feedback['comment'];
-}
 ?>
 <!doctype html>
 <html lang="en">
@@ -90,7 +77,35 @@ foreach ($feedbackData as $feedback) {
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10/dist/sweetalert2.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
     <link rel="stylesheet" href="../css/superadmin_staff.css">
+    <style>
+        .star-rating {
+            display: inline-block;
+            font-size: 24px;
+        }
+
+        .star {
+            cursor: pointer;
+            display: inline-block;
+            margin-right: 5px;
+            font-size: 24px;
+        }
+
+        .star:before {
+            content: '\2605'; /* Unicode character for a filled star */
+        }
+
+        .star[data-value="0"]:before {
+            content: '\2606'; /* Unicode character for an empty star */
+        }
+
+        .star.highlighted:before {
+            color: gold; /* Highlighted star color */
+        }
+
+    </style>
+
 </head>
+
 
 <body>
     <div>
@@ -149,7 +164,6 @@ foreach ($feedbackData as $feedback) {
                 </div>
                 <div style="display: flex; justify-content: center; ">
                     <div>
-
                     </div>
                     <div style="width: 95%; min-height: 80vh;border-radius: 5px; box-shadow: 0px 4px 8px rgba(0,0,0,0.27);">
                         <div class="row" style="width: 98%; height: 50px; margin: 10px 20px; display:flex; justify-content: center; align-content: center; align-items: center">
@@ -166,58 +180,41 @@ foreach ($feedbackData as $feedback) {
                             </div>
                         </div>
                         <div style="margin: 0px 20px 20px 20px; width: 97%; display:flex; justify-content: space-between; flex-wrap: wrap ">
-                            <?php
-                            // Replace this with your actual database retrieval logic
-                            $feedbackData = fetchFeedbackData(); // Implement this function to fetch feedback data
-
-                            foreach ($feedbackData as $feedback) {
-                                $userStarCounts = $feedback['star_count'];
-                                $username = $feedback['fname'] . ' ' . $feedback['lname'] . ' ' . $feedback['initials'];
-                                $date = $feedback['feedback_date'];
-                                $comment = $feedback['feedback_comments'];
-
-                            ?>
+                            <?php foreach ($getAllFeedback as $feedback) : ?>
                                 <div class="card" style="width: 37.5rem; height: 200px; box-shadow: 0px 3px 6px rgba(0,0,0,0.26); margin: 10px 0px;">
                                     <div class="card-body">
                                         <h6 class="card-title"><input type="checkbox"></h6>
                                         <div class="row" style="margin-top: -10px">
                                             <div class="col col-md-6" style="display: flex; height: 40px; align-items: center; align-content: center">
                                                 <div>
-                                                    <img style="width: 35px" src="../icons/user.png" alt="">
+                                                    <img style="width: 35px" src="../img/<?php echo $feedback['img'];?>" alt="">
                                                 </div>
                                                 <div style="padding: 0; margin: 0 0 0 5px; height: 35px; width: 15ch;">
                                                     <div style="margin-top: 2px">
-                                                        <p style="font-size: 12px; font-weight:600"><?php echo $username; ?></p>
-                                                        <p style="font-size: 10px; margin-top: -20px;"><?php echo $date; ?></p>
+                                                        <p style="font-size: 12px; font-weight:600"><?php echo $feedback['fname']. ' '. $feedback['initial'] . ' '.$feedback['lname'];?></p>
+                                                        <p style="font-size: 10px; margin-top: -20px;"><?= $feedback['feedback_date'] ?></p>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col col-md-6" style=" display: flex; justify-content: flex-end; align-content: center; align-items: center;">
-                                                <div class="user-rating" data-rating="<?php echo $userStarCounts; ?>">
-                                                    <!-- Use a loop to generate stars based on the star count -->
-                                                    <?php
-                                                    for ($i = 1; $i <= 5; $i++) {
-                                                        $filledClass = ($i <= $userStarCounts) ? 'filled' : ''; // Add 'filled' class for filled stars
-                                                    ?>
-                                                        <span class="star <?php echo $filledClass; ?>" data-value="<?php echo $i; ?>">&#9733;</span>
-                                                    <?php
-                                                    }
-                                                    ?>
+                                            <div class="col col-md-6" style="display: flex; justify-content: flex-end; align-items: center;">
+                                                <div>
+                                                    <?php for ($i = 1; $i <= 5; $i++) : ?>
+                                                        <span class="star <?php echo ($i <= $feedback['star_count']) ? 'highlighted' : ''; ?>" data-value="<?= $i ?>"></span>
+                                                    <?php endfor; ?>
                                                 </div>
+
                                             </div>
                                         </div>
                                         <div style="width: 100%; display: flex; justify-content: center; margin-top: 10px; text-align: center">
-                                            <p style="width: 70ch; font-size: 12px" class="card-text"><?php echo $comment; ?></p>
+                                            <p style=" height: 60px; width: 70ch; font-size: 12px;" class="card-text"><?= $feedback['feedback_comments'] ?></p>
                                         </div>
-                                        <button style="border: none; background: none; margin-top: 10px; margin-left: 90%;" class="deleteFeedback" data-feedback-id="<?php echo $feedback['feedback_id']; ?>">
+                                        <button style="border: none; background: none; margin-top: 10px; margin-left: 90%;" class="deleteFeedback" data-feedback-id="">
                                             <img style="width: 20px" src="../icons/delete_rating.png" alt="">
                                         </button>
 
                                     </div>
                                 </div>
-                            <?php
-                            }
-                            ?>
+                            <?php endforeach; ?>
                         </div>
 
                     </div>
@@ -300,8 +297,6 @@ foreach ($feedbackData as $feedback) {
             });
         }
     </script>
-
-
     <script>
         document.getElementById('deleteAllFeedback').addEventListener('click', function() {
             showDeleteConfirmation(1); // Pass a unique identifier
@@ -337,36 +332,31 @@ foreach ($feedbackData as $feedback) {
         }
     </script>
     <script>
-        // JavaScript code to handle star rating interactions
-        document.addEventListener('DOMContentLoaded', function() {
-            let userRating = document.querySelector('.user-rating');
-            let stars = userRating.querySelectorAll('.star');
+        document.addEventListener('DOMContentLoaded', function () {
+            const ratingContainer = document.querySelector('.star-rating');
+            const ratingValue = parseFloat(ratingContainer.getAttribute('data-rating'));
+            const starsContainer = document.createElement('div');
+            starsContainer.classList.add('stars-container');
 
-            // Add click event listeners to stars
-            stars.forEach(function(star) {
-                star.addEventListener('click', function() {
-                    let value = this.getAttribute('data-value');
-                    userRating.setAttribute('data-rating', value);
+            for (let i = 1; i <= 5; i++) {
+                const star = document.createElement('span');
+                star.classList.add('star');
+                star.setAttribute('data-value', i);
 
-                    // Reset all stars to empty
-                    stars.forEach(function(s) {
-                        s.classList.remove('filled');
-                    });
+                // Highlight stars based on the rating value
+                if (i <= ratingValue) {
+                    star.classList.add('highlighted');
+                }
 
-                    // Fill stars up to the clicked star
-                    for (let i = 1; i <= value; i++) {
-                        stars[i - 1].classList.add('filled');
-                    }
+                starsContainer.appendChild(star);
+            }
 
-                    // You can send an AJAX request to update the database with the new rating
-                    // For simplicity, I'm just logging the selected rating here
-                    console.log('Selected Rating:', value);
-                });
-            });
+            ratingContainer.appendChild(starsContainer);
         });
+
+
     </script>
 
-    <!-- Add this script in your HTML file, preferably at the end of the body tag -->
 
 </body>
 

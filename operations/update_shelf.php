@@ -1,8 +1,8 @@
 <?php
 session_start();
-require_once 'C:\wamp64\www\LIBMS\db_config\config.php';
-include 'C:\wamp64\www\LIBMS\includes\fetch_shelf_data.php';
-include 'C:\wamp64\www\LIBMS\includes\logs_operation.php';
+require_once '../db_config/config.php';
+include '../includes/fetch_shelf_data.php';
+include '../includes/logs_operation.php';
 $database = new Database();
 $log = new Logs($database);
 

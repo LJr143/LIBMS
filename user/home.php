@@ -241,7 +241,7 @@ if (isset($_SESSION['user'])) {
                                 </div>
 
                                 <div class="row vw_btns_borrow_reserve" style="display: flex; flex-wrap: wrap; height: 30px; width: 550px;">
-                                    <button data-bs-toggle="modal" data-bs-target="#borrowModal" type="button" class="btn btn-secondary borrow-button">Borrow</button>
+                                    <button data-bs-toggle="modal" data-bs-target="#borrowModal"  data-user-id="<?php echo $_SESSION['user_id']; ?>" id="borrowBookBtn" type="button" class="btn btn-secondary borrow-button">Borrow</button>
                                     <button data-bs-toggle="modal" data-bs-target="#reserveModal" data-user-id="<?php echo $_SESSION['user_id']; ?>" id="reserveBookBtn" type="button" class="btn btn-secondary reserve-button">Reserve</button>
                                     <img src="../icons/heart.png" alt="" style="width: 20px">
                                 </div>
@@ -269,9 +269,7 @@ if (isset($_SESSION['user'])) {
                                 <p style="font-style: italic; font-weight: 700;">Confirmation</p>
                             </div>
                             <div style="font-size: 12px; width: 100%; display: flex; justify-content: center;">
-                                <p style="font-weight: 700;">Would you like to borrow <?php echo "<i><b>{$books['book_title']}</b></i>"; ?>
-                                    by <?php echo "<i><b>{$books['author']}</b></i>"; ?>
-                                    ?</p>
+                                <p style="font-weight: 700;">Would you like to borrow <b style="font-weight: 900; font-style: italic;" id="book_title"></b> by <b style="font-weight: 900; font-style: italic;" id="book_author"></b>?</p>
                             </div>
 
                             <div style="font-size: 12px; width: 100%; display: flex; justify-content: center;">
@@ -385,7 +383,6 @@ if (isset($_SESSION['user'])) {
             </div>
         </div>
     </div>
-
     <!-- Feedback Modal -->
     <div class="modal fade " id="feedbackModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog  modal-dialog-centered">

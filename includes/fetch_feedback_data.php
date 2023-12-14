@@ -1,5 +1,6 @@
 <?php
-require_once 'C:\wamp64\www\LIBMS\db_config\config.php';
+date_default_timezone_set('Asia/Manila');
+require_once '../db_config/config.php';
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
@@ -14,12 +15,12 @@ class FeedbackData
 
     public function getAllFeedback(): array
     {
-        $sql = "SELECT * FROM tbl_user";
+        $sql = "SELECT * FROM vw_feedback";
         $stmt = $this->database->query($sql);
 
         if ($stmt) {
-            $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
-            return $users;
+            $feedback = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            return $feedback;
         } else {
             return array();
         }
@@ -45,8 +46,8 @@ class FeedbackData
 
         // Bind parameters
         $stmt->bindParam(':user_id', $user_id, PDO::PARAM_STR);
-        $stmt->bindParam(':feedback_comments', $comment, PDO::PARAM_STR);  // Fix the parameter name here
-        $stmt->bindParam(':star_count', $star_count, PDO::PARAM_INT);  // Assuming star_count is an integer
+        $stmt->bindParam(':feedback_comments', $comment, PDO::PARAM_STR);
+        $stmt->bindParam(':star_count', $star_count, PDO::PARAM_INT);
 
         // Execute the query
         return $stmt->execute();

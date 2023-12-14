@@ -107,6 +107,7 @@ class UserAuthentication
         return ['status' => 'error', 'message' => 'User not found'];
     }
 
+
     private function validateUserSuperAdmin($username, $password, $role): array
     {
         $query = "SELECT username, password FROM tbl_superadmin WHERE username = :username AND admin_role = :role";
