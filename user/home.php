@@ -269,9 +269,8 @@ if (isset($_SESSION['user'])) {
                                 <p style="font-style: italic; font-weight: 700;">Confirmation</p>
                             </div>
                             <div style="font-size: 12px; width: 100%; display: flex; justify-content: center;">
-                                <p style="font-weight: 700;">Would you like to borrow <span id="book_title"></span>"; ?>
-                                    by <span id="book_author"></span>"; ?>
-                                    ?</p>
+                                <p style="font-weight: 700;">Would you like to borrow <span id="book_title"></span>
+                                    by <span id="book_author"></span>?</p>
                             </div>
 
                             <div style="font-size: 12px; width: 100%; display: flex; justify-content: center;">
@@ -385,7 +384,6 @@ if (isset($_SESSION['user'])) {
             </div>
         </div>
     </div>
-
     <!-- Feedback Modal -->
     <div class="modal fade " id="feedbackModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog  modal-dialog-centered">
