@@ -1,9 +1,9 @@
 <?php
 session_start();
-require_once 'C:\wamp64\www\LIBMS\db_config\config.php';
-include 'C:\wamp64\www\LIBMS\includes\fetch_books_data.php';
-include 'C:\wamp64\www\LIBMS\operations\authentication.php';
-include 'C:\wamp64\www\LIBMS\includes\fetch_student_data.php';
+require_once '../db_config/config.php';
+include '../includes/fetch_books_data.php';
+include '../operations/authentication.php';
+include '../includes/fetch_student_data.php';
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 $database = new Database();
