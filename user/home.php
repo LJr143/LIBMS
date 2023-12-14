@@ -64,7 +64,7 @@ if (isset($_SESSION['user'])) {
             gap: 20px;
             /* Adjust this value for spacing between stars within a group */
             height: 30px;
-            
+
         }
     </style>
 
@@ -99,8 +99,8 @@ if (isset($_SESSION['user'])) {
                         <li><a style="font-size: 12px; color: white;" class="dropdown-item" href="profile.php"><img src="../icons/manage_account.png" alt="" class="custom_icon"><span>Manage Account</span></a></li>
                         <li><a style="font-size: 12px; color: white;" class="dropdown-item" href="#"><img src="../icons/help.png" alt="" class="custom_icon"><span>Help</span></a></li>
 
-                        <li id="FeedbackBtn"><a style="font-size: 12px; color: white;" class="dropdown-item" href="#"><img src="../icons/help.png" alt="" class="custom_icon"><span>Feedback</span></a></li>        <!--button for feedback modal -->
-                        <li id="bookReviewBtn"><a style="font-size: 12px; color: white;" class="dropdown-item" href="#"><img src="../icons/help.png" alt="" class="custom_icon"><span>Book Review</span></a></li>   <!--button for book review modal -->
+                        <li id="FeedbackBtn"><a style="font-size: 12px; color: white;" class="dropdown-item" href="#"><img src="../icons/help.png" alt="" class="custom_icon"><span>Feedback</span></a></li> <!--button for feedback modal -->
+                        <li id="bookReviewBtn"><a style="font-size: 12px; color: white;" class="dropdown-item" href="#"><img src="../icons/help.png" alt="" class="custom_icon"><span>Book Review</span></a></li> <!--button for book review modal -->
                         <li>
                             <hr class="dropdown-divider">
                         </li>
@@ -358,13 +358,15 @@ if (isset($_SESSION['user'])) {
                             </div>
 
                             <div style="font-size: 12px; width: 100%; display: flex; align-content: center;">
-                                <p style="padding: 5px 0px; margin-left: 100px; font-weight: 700;">Reservation Date: &nbsp;&nbsp;</p><span>
+                                <p style="padding: 5px 0px; margin-left: 100px; font-weight: 700;">Reservation Date: &nbsp;&nbsp;</p>
+                                <span>
                                     <label for="date_reserve_vw"></label>
-                                    <input name="date_reserve_vw" id="date_reserve_vw" style="padding: 2px 10px;" type="date" required>
+                                    <input name="date_reserve_vw" id="date_reserve_vw" style="padding: 2px 10px;" type="date" required min="<?php echo date('Y-m-d'); ?>" onchange="updateReturnDateConstraints()">
                                 </span>
                             </div>
                             <div style="font-size: 12px; width: 100%; display: flex; align-content: center;">
-                                <p style="padding: 5px 0px; margin-left: 100px; font-weight: 700;">Return Date: &nbsp;&nbsp;</p><span>
+                                <p style="padding: 5px 0px; margin-left: 100px; font-weight: 700;">Return Date: &nbsp;&nbsp;</p>
+                                <span>
                                     <label for="date_return_vw"></label>
                                     <input name="date_return_vw" id="date_return_vw" style="margin-left: 30px;padding: 2px 10px;" type="date" required>
                                 </span>
@@ -385,7 +387,7 @@ if (isset($_SESSION['user'])) {
     <!-- Feedback Modal -->
     <div class="modal fade " id="feedbackModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog  modal-dialog-centered">
-            <div class="modal-content" >
+            <div class="modal-content">
                 <div class="modal-body">
                     <form action="" method="post">
 
@@ -456,7 +458,33 @@ if (isset($_SESSION['user'])) {
         </div>
     </div>
 
+<<<<<<< HEAD
     
+=======
+    <!-- Book Review succesfully submitted -->
+    <div class="modal fade " id="succesfulBookReviewModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog  modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <form action="" method="post">
+                        <div style="width: 100%; height: 180px; padding: 10px;">
+                            <div style="width: 100%; display: flex; justify-content: center;"><i class="bi bi-chat" style="font-size: 50px; color: #711717;"></i></div>
+                            <div style="font-size: 14px; letter-spacing: 0.2px; width: 100%; color: #711717; display: flex; justify-content: center; margin-top: 30px">
+                                <p style="font-style: italic; font-weight: 700;">BOOK REVIEW SUBMITTED!</p>
+                            </div>
+                        </div>
+                        <div style="font-size: 12px; width: 100%; display: flex; justify-content: center;">
+                            <button data-bs-dismiss="modal" type="button" style="width: 95px; margin: 0px 20px; font-weight: bold; border-radius: 5px; padding: 8px; color: #711717; background-color: transparent; border: 1px solid #711717">CLOSE</button>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+>>>>>>> 1bfaca025c17245c2f659ccc936c96514b190d0d
 
     <script src="../node_modules/jquery/dist/jquery.min.js"></script>
     <script src="../node_modules/sweetalert2/dist/sweetalert2.all.min.js"></script>
@@ -561,6 +589,32 @@ if (isset($_SESSION['user'])) {
     <script src="../js/borrow_book.js"></script>
     <script src="../js/reserve_book.js"></script>
     <script src="../js/add_feedback.js"></script>
+    <script>
+    function updateReturnDateConstraints() {
+        // Get the selected reservation date
+        const reservationDate = new Date(document.getElementById('date_reserve_vw').value);
+
+        // Calculate the minimum allowed return date (the selected reservation date)
+        const minReturnDate = reservationDate.toLocaleDateString('en-CA'); // 'en-CA' for 'YYYY-MM-DD' format
+
+        // Calculate the maximum allowed return date (3 days from the reservation date)
+        const maxReturnDate = new Date(reservationDate);
+        maxReturnDate.setDate(maxReturnDate.getDate() + 2);
+
+        // Format the min and max return dates in the required format (YYYY-MM-DD)
+        const formattedMinReturnDate = minReturnDate;
+        const formattedMaxReturnDate = maxReturnDate.toLocaleDateString('en-CA');
+
+        // Set the min and max attributes of the return date input
+        document.getElementById('date_return_vw').setAttribute('min', formattedMinReturnDate);
+        document.getElementById('date_return_vw').setAttribute('max', formattedMaxReturnDate);
+    }
+
+    // Call the function initially to set initial constraints
+    updateReturnDateConstraints();
+</script>
+
+
 
 </body>
 
