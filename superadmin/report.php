@@ -372,57 +372,69 @@ if (isset($_SESSION['user'])) {
     <script src="https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-datalabels/2.2.0/chartjs-plugin-datalabels.min.js" integrity="sha512-JPcRR8yFa8mmCsfrw4TNte1ZvF1e3+1SdGMslZvmrzDYxS69J7J49vkFL8u6u8PlPJK+H3voElBtUCzaXj+6ig==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://unpkg.com/chart.js-plugin-labels-dv/dist/chartjs-plugin-labels.min.js"></script>
 
-
     <script>
-        const ctx = document.getElementById('overallchart').getContext('2d');
+        // Fetch data from the server
+        fetch('../includes/fetch_overall_counts.php')
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+                const ctx = document.getElementById('overallchart').getContext('2d');
 
-        const chart1 = new Chart(ctx, {
-            type: 'pie',
-            data: {
-                labels: ['Damage', 'Reserved', 'Borrowed', 'Returned', 'Unreturned', 'Lost'],
-                datasets: [{
-                    label: '',
-                    data: [5, 20, 25, 16.7, 25, 8.3],
-                    backgroundColor: [
-                        'rgba(0, 0, 0, 1)',
-                        'rgba(139, 21, 0, 1)',
-                        'rgba(182, 28, 0, 1)',
-                        'rgba(246, 37, 0, 1)',
-                        'rgba(255, 78, 47, 1)',
-                        'rgba(143, 48, 31, 1)'
-                    ],
-                    borderColor: [
-                        'rgba(0, 0, 0, 1)',
-                        'rgba(139, 21, 0, 1)',
-                        'rgba(182, 28, 0, 1)',
-                        'rgba(246, 37, 0, 1)',
-                        'rgba(255, 78, 47, 1)',
-                        'rgba(143, 48, 31, 1)'
-                    ],
-                    borderWidth: 0,
-                }]
-            },
-            options: {
-                maintainAspectRatio: false,
-                layout: {
-                    padding: 10,
-                },
+                const colors = [
+                    'rgba(139, 21, 0, 1)',
+                    'rgba(182, 28, 0, 1)',
+                    'rgba(246, 37, 0, 1)',
+                    'rgba(255, 78, 47, 1)',
+                    'rgba(143, 48, 31, 1)',
+                    'rgba(0, 0, 0, 1)'
+                ];
 
-                plugins: {
-                    legend: {
-                        display: false,
+                const chart1 = new Chart(ctx, {
+                    type: 'pie',
+                    data: {
+                        labels: ['Overall Borrow', 'Damage', 'Reserved', 'Returned', 'Unreturned', 'Lost'],
+                        datasets: [{
+                            label: '',
+                            data: [
+                                data.overall_borrow_count,
+                                data.damage_count,
+                                data.reserved_count,
+                                data.returned_count,
+                                data.unreturned_count,
+                                data.lost_count
+                            ],
+                            backgroundColor: colors,
+                            borderColor: colors,
+                            borderWidth: 0,
+                        }]
                     },
-                    labels: {
-                        render: 'percentage',
-                        fontColor: 'black',
-                        fontStyle: 'bolder',
-                        position: 'outside',
-                        textMargin: 6,
-                    }
-                }
-            },
-        });
+                    options: {
+                        maintainAspectRatio: false,
+                        layout: {
+                            padding: 10,
+                        },
+                        plugins: {
+                            legend: {
+                                display: false,
+                            },
+                            labels: {
+                                render: function (args) {
+                                    return args.value; // Display the count instead of the percentage
+                                },
+                                fontColor: 'black',
+                                fontStyle: 'bolder',
+                                position: 'outside',
+                                textMargin: 6,
+                            }
+                        }
+                    },
+                });
+            })
+            .catch(error => console.error('Error fetching data:', error));
+
     </script>
+
+
     <script>
         document.getElementById('mySelect').addEventListener('change', function() {
             window.location.href = this.value;
