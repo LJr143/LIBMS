@@ -175,7 +175,7 @@ if (isset($_SESSION['user'])) {
                                             </div>
                                         </div>
                                         <div style="width: 100%; display: flex; justify-content: center; margin-top: 10px; text-align: center">
-                                            <p style="width: 70ch; font-size: 12px; border: 1px solid black" class="card-text"></p>
+                                            <p style=" height: 100px; width: 70ch; font-size: 12px; border: 1px solid black" class="card-text"></p>
                                         </div>
                                         <button style="border: none; background: none; margin-top: 10px; margin-left: 90%;" class="deleteFeedback" data-feedback-id="">
                                             <img style="width: 20px" src="../icons/delete_rating.png" alt="">
