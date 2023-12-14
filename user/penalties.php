@@ -191,7 +191,7 @@ $getAllTransaction = $transactionData->getAllTransactionByUser($userID);
                     </div>
                 </section>
                 <section class="table__body">
-                    <table>
+                    <table style="height: 100vh;">
                         <thead>
                         <tr>
                             <th>Transaction Id</th>
