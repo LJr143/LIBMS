@@ -96,7 +96,7 @@ if (isset($_SESSION['user'])) {
                         <img src="../img/<?php echo $loggedUser['img'] ?>" alt="" width="35px" style="border-radius: 60px; border: 1px solid #4d0202">
                     </button>
                     <ul class="dropdown-menu dropdown-menu-dark dropdown_menu_setting aria-labelledby=" dropdownMenuButton2">
-                        <li><a style="font-size: 12px; color: white;" class="dropdown-item" href="profile.php"><img src="../icons/manage_account.png" alt="" class="custom_icon"><span>Manage Account</span></a></li>
+                        <li><a style="font-size: 12px; color: white;" class="dropdown-item" href="manage_account.php"><img src="../icons/manage_account.png" alt="" class="custom_icon"><span>Manage Account</span></a></li>
                         <li><a style="font-size: 12px; color: white;" class="dropdown-item" href="#"><img src="../icons/help.png" alt="" class="custom_icon"><span>Help</span></a></li>
 
                         <li id="FeedbackBtn"><a style="font-size: 12px; color: white;" class="dropdown-item" href="#"><img src="../icons/help.png" alt="" class="custom_icon"><span>Feedback</span></a></li> <!--button for feedback modal -->
