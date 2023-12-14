@@ -428,15 +428,15 @@ if (isset($_SESSION['user'])) {
                                     <div class="input-group has-validation">
                                         <select name="" id="bookCategory" style="font-size: 10px; width: 130px; height: 28px; padding: 2px 5px; border-radius: 5px" required>
                                             <option value="" disabled selected> Select Category</option>
-                                            <option value="option">Environment and Forestry</option>
-                                            <option value="option">Agriculture and Agriculture Engineering</option>
-                                            <option value="option">Usepiana</option>
-                                            <option value="option">General Information</option>
-                                            <option value="option">Filipiñiana </option>
-                                            <option value="option">Educational</option>
-                                            <option value="option">Video Tapes</option>
-                                            <option value="option">Special Education</option>
-                                            <option value="option">Others</option>
+                                            <option value="Environment and Forestry">Environment and Forestry</option>
+                                            <option value="Agriculture and Agriculture Engineering">Agriculture and Agriculture Engineering</option>
+                                            <option value="Usepiana">Usepiana</option>
+                                            <option value="General Information">General Information</option>
+                                            <option value="Filipiñiana">Filipiñiana </option>
+                                            <option value="Educational">Educational</option>
+                                            <option value="Video Tapes">Video Tapes</option>
+                                            <option value="Special Education">Special Education</option>
+                                            <option value="Others">Others</option>
                                         </select>
                                         <div class="invalid-feedback" style="font-size: 8px">
                                             Not a valid category!
@@ -574,15 +574,15 @@ if (isset($_SESSION['user'])) {
                                     <div class="input-group has-validation">
                                         <select name="" id="editBookCategory" style="font-size: 10px; width: 130px; height: 28px; padding: 2px 5px; border-radius: 5px" required>
                                             <option value="" disabled selected> Select Category</option>
-                                            <option value="option">Environment and Forestry</option>
-                                            <option value="option">Agriculture and Agriculture Engineering</option>
-                                            <option value="option">Usepiana</option>
-                                            <option value="option">General Information</option>
-                                            <option value="option">Filipiñiana </option>
-                                            <option value="option">Educational</option>
-                                            <option value="option">Video Tapes</option>
-                                            <option value="option">Special Education</option>
-                                            <option value="option">Others</option>
+                                            <option value="Environment and Forestry">Environment and Forestry</option>
+                                            <option value="Agriculture and Agriculture Engineering">Agriculture and Agriculture Engineering</option>
+                                            <option value="Usepiana">Usepiana</option>
+                                            <option value="General Information">General Information</option>
+                                            <option value="Filipiñiana">Filipiñiana </option>
+                                            <option value="Educational">Educational</option>
+                                            <option value="Video Tapes">Video Tapes</option>
+                                            <option value="Special Education">Special Education</option>
+                                            <option value="Others">Others</option>
                                         </select>
                                         <div class="invalid-feedback" style="font-size: 8px">
                                             Not a valid category!
