@@ -45,8 +45,8 @@ class FeedbackData
 
         // Bind parameters
         $stmt->bindParam(':user_id', $user_id, PDO::PARAM_STR);
-        $stmt->bindParam(':feedback_comments', $comment, PDO::PARAM_STR);  // Fix the parameter name here
-        $stmt->bindParam(':star_count', $star_count, PDO::PARAM_INT);  // Assuming star_count is an integer
+        $stmt->bindParam(':feedback_comments', $comment, PDO::PARAM_STR);
+        $stmt->bindParam(':star_count', $star_count, PDO::PARAM_INT);
 
         // Execute the query
         return $stmt->execute();
