@@ -2,21 +2,18 @@ $(document).ready(function () {
     $('.borrow-button').on('click', function () {
         var bookId = $('#book_id').val();
         $('#bookModal').modal('hide');
-
         setBorrowDateFields();
-
         fetchBookData(bookId);
     });
+
     $('.barrow_confirm_btn').on('click', function () {
         var bookId = $('#book_id').val();
         var userId = $(this).data('user-id');
         var date = $('#date_borrowed_vw').val();
 
-
         $('#borrowModal').modal('hide');
 
         fetchBookData(bookId, function (response) {
-
             $('#book_title').text(response[0].book_title);
             $('#book_author').text(response[0].author);
 
@@ -24,15 +21,15 @@ $(document).ready(function () {
         });
     });
 
+
     function setBorrowDateFields() {
         var today = new Date();
         var formattedToday = today.toISOString().split('T')[0];
-        document.getElementById("date_borrowed_vw").value = formattedToday;
-
+        $('#date_borrowed_vw').val(formattedToday);
         var dueDate = new Date();
         dueDate.setDate(today.getDate() + 3);
         var formattedDueDate = dueDate.toISOString().split('T')[0];
-        document.getElementById("date_due_vw").value = formattedDueDate;
+        $('#date_due_vw').val(formattedDueDate);
     }
 
     function fetchBookData(bookId, successCallback) {
@@ -42,6 +39,8 @@ $(document).ready(function () {
             data: { bookId: bookId },
             dataType: 'json',
             success: function (response) {
+                console.log('Fetch Book Data Response:', response);
+
                 // Check if the response is an array with at least one object
                 if (Array.isArray(response) && response.length > 0 && typeof response[0] === 'object') {
                     successCallback(response);
@@ -57,13 +56,11 @@ $(document).ready(function () {
 
 
     function processBookBorrowing(bookId, userId, date) {
-
         $.ajax({
             url: '../operations/borrow_book.php',
             type: 'POST',
             data: { bookId: bookId, userId: userId, date: date },
             success: function (borrowResponse) {
-
                 Swal.fire({
                     title: 'SUCCESS!',
                     text: 'YOUR REQUEST IS SENT!',
@@ -74,13 +71,10 @@ $(document).ready(function () {
                         content: 'my-swal-content',
                         confirmButton: 'my-confirm-button'
                     },
-                    confirmButtonText: 'OK', // Change the text of the confirm button
-                    confirmButtonColor: '#FF0000' // Change the color of the confirm button to red
-
-            }).then((result) => {
-                    // Check if the user clicked "OK"
+                    confirmButtonText: 'OK',
+                    confirmButtonColor: '#FF0000'
+                }).then((result) => {
                     if (result.isConfirmed) {
-                        // Reload the page
                         location.reload();
                     }
                 });
