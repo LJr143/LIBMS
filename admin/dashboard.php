@@ -578,8 +578,6 @@ if (isset($_SESSION['user'])) {
             event.stopPropagation();
         }
     </script>
-    <script src="../js/fetch_transaction.js"></script>
-
     <script>
         // new book count
         fetch('../includes/fetch_new_books_count.php')
@@ -600,6 +598,7 @@ if (isset($_SESSION['user'])) {
             })
             .catch(error => console.error('Error fetching data:', error));
     </script>
+    <script src="../js/fetch_transaction.js"></script>
 </body>
 
 </html>

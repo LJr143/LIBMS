@@ -38,7 +38,7 @@ $books = $bookData->getAllBooks();
                     <a class="nav-link" href="wishlist.php">WISHLIST</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="penalties.php">PENALTIES</a>
+                    <a class="nav-link" href="penalties.php">TRANSACTION</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link " href="credit_score.php"  >CREDIT SCORE</a>

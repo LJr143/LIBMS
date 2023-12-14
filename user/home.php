@@ -83,7 +83,7 @@ if (isset($_SESSION['user'])) {
                     <a class="nav-link" href="wishlist.php">WISHLIST</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="penalties.php">PENALTIES</a>
+                    <a class="nav-link" href="penalties.php">TRANSACTION</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link " href="credit_score.php">CREDIT SCORE</a>
@@ -100,7 +100,6 @@ if (isset($_SESSION['user'])) {
                         <li><a style="font-size: 12px; color: white;" class="dropdown-item" href="#"><img src="../icons/help.png" alt="" class="custom_icon"><span>Help</span></a></li>
 
                         <li id="FeedbackBtn"><a style="font-size: 12px; color: white;" class="dropdown-item" href="#"><img src="../icons/help.png" alt="" class="custom_icon"><span>Feedback</span></a></li> <!--button for feedback modal -->
-                        <li id="bookReviewBtn"><a style="font-size: 12px; color: white;" class="dropdown-item" href="#"><img src="../icons/help.png" alt="" class="custom_icon"><span>Book Review</span></a></li> <!--button for book review modal -->
                         <li>
                             <hr class="dropdown-divider">
                         </li>
@@ -421,43 +420,6 @@ if (isset($_SESSION['user'])) {
 
         </div>
     </div>
-
-    <!-- Book Review Modal -->
-    <div class="modal fade " id="bookReviewModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog  modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-body">
-                    <form action="" method="post">
-                        <div style="width: 100%; height: 300px">
-                            <div style="font-size: 14px; letter-spacing: 0.2px; width: 100%; color: #711717; display: flex; justify-content: center; margin-top: 30px">
-                                <p style="font-style: italic; font-weight: 700;">BOOK REVIEW</p>
-                            </div>
-                            <div style="font-size: 30px; width: 40%; display: flex; justify-content: center; height: 70px; margin-left: 30%;">
-                                <div class="bookRating">
-                                    <i class="bi bi-star" data-index="0"></i>
-                                    <i class="bi bi-star" data-index="1"></i>
-                                    <i class="bi bi-star" data-index="2"></i>
-                                    <i class="bi bi-star" data-index="3"></i>
-                                    <i class="bi bi-star" data-index="4"></i>
-                                </div>
-                            </div>
-                            <p style="padding: 5px 0px; margin-left: 117px; font-weight: 700; font-size:12px;">The ChatGPT Millionare by Neil Dagger</p>
-                            <div style="font-size: 12px; width: 85%; display: flex; align-content: center; margin-left:35px;">
-                                <textarea id="reviewComment" type="text" rows="6" class="form-control" aria-describedby="inputGroupPrepend" style="font-size: 10px; resize: none;" required></textarea>
-                            </div>
-                        </div>
-                        <div style="font-size: 12px; width: 100%; display: flex; justify-content: center;">
-                            <button data-bs-dismiss="modal" type="button" style="width: 95px; margin: 0px 20px; font-weight: bold; border-radius: 5px; padding: 8px; color: #711717; background-color: transparent; border: 1px solid #711717">CANCEL</button>
-                            <button data-bs-toggle="modal" id="submitReviewBtn" class="review_submit_btn" type="button" style="width: 95px; font-weight: bold; border-radius: 5px; padding: 8px; color: white; background-color: #740000; border: 1px solid #711717">SUBMIT</button>
-                        </div>
-                    </form>
-                </div>
-
-            </div>
-
-        </div>
-    </div>
-
 
     <script src="../node_modules/jquery/dist/jquery.min.js"></script>
     <script src="../node_modules/sweetalert2/dist/sweetalert2.all.min.js"></script>
