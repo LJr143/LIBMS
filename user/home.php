@@ -241,7 +241,7 @@ if (isset($_SESSION['user'])) {
                                 </div>
 
                                 <div class="row vw_btns_borrow_reserve" style="display: flex; flex-wrap: wrap; height: 30px; width: 550px;">
-                                    <button  data-user-id="<?php echo $_SESSION['user_id']; ?>" id="borrowBookBtn" type="button" class="btn btn-secondary borrow-button">Borrow</button>
+                                    <button data-bs-toggle="modal" data-bs-target="#borrowModal"  data-user-id="<?php echo $_SESSION['user_id']; ?>" id="borrowBookBtn" type="button" class="btn btn-secondary borrow-button">Borrow</button>
                                     <button data-bs-toggle="modal" data-bs-target="#reserveModal" data-user-id="<?php echo $_SESSION['user_id']; ?>" id="reserveBookBtn" type="button" class="btn btn-secondary reserve-button">Reserve</button>
                                     <img src="../icons/heart.png" alt="" style="width: 20px">
                                 </div>
