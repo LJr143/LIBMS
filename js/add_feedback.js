@@ -3,6 +3,9 @@ $(document).ready(function() {
     $('#FeedbackBtn').click(function() {
         $('#feedbackModal').modal('show');
     });
+    $('#bookReviewBtn').click(function() {
+        $('#bookReviewModal').modal('show');
+    });
 
     // Handle star rating click
     $('.rating i').click(function() {

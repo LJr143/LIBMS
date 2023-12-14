@@ -1,7 +1,7 @@
 <?php
 session_start();
-require_once 'db_config\config.php';
-include "operations/authentication.php";
+require_once '../db_config/config.php';
+include "../operations/authentication.php";
 $db = new Database();
 $userAuth = new UserAuthentication($db);
 
