@@ -1,5 +1,5 @@
 <?php
-require_once 'db_config/config.php';
+require_once '../db_config/config.php';
 error_reporting(0);
 
 class UserAuthentication
