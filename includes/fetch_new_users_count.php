@@ -1,9 +1,8 @@
 <?php
 $host = 'localhost';
-$database = 'lms_db';
-$username = 'root';
-$password = '';
-
+$database = 'u657994792_lms_db';
+$username = 'u657994792_usep_tagum_lms';
+$password = 'Usep_tagum_lms123';
 try {
     // Create a PDO connection
     $conn = new PDO("mysql:host=$host;dbname=$database", $username, $password);
