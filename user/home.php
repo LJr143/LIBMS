@@ -100,7 +100,7 @@ if (isset($_SESSION['user'])) {
                         <li><a style="font-size: 12px; color: white;" class="dropdown-item" href="manage_account.php"><img src="../icons/manage_account.png" alt="" class="custom_icon"><span>Manage Account</span></a></li>
                         <li><a style="font-size: 12px; color: white;" class="dropdown-item" href="#"><img src="../icons/help.png" alt="" class="custom_icon"><span>Help</span></a></li>
 
-                        <li id="FeedbackBtn"><a style="font-size: 12px; color: white;" class="dropdown-item" href="#"><img src="../icons/help.png" alt="" class="custom_icon"><span>Feedback</span></a></li> <!--button for feedback modal -->
+                        <li id="FeedbackBtn"><a style="font-size: 12px; color: white;" class="dropdown-item" href="#"><i class="bi bi-chat" style="margin-right: 10px; font-size: 15px; color: black"></i><span>Feedback</span></a></li> <!--button for feedback modal -->
                         <li>
                             <hr class="dropdown-divider">
                         </li>
