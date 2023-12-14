@@ -147,7 +147,7 @@ if (isset($_SESSION['user'])) {
                             <div style="margin: 14px 0 0 0;">
                                 <div style="display: flex; width: 100%; justify-content: center">
                                     <p style="font-size: 12px; color: rgb(116,0,0); font-weight: 600; font-style: italic">Lorjohn M. Raña</p>
-                                    <span><button style="border: none; background: transparent">
+                                    <span><button style="border: none; background: transparent" data-bs-toggle="modal" data-bs-target="#editLibrarianModal">
                                             <img style="width: 15px; margin: -10px 0 0 5px;" src="../icons/edit_profile_icon.png" alt="">
                                         </button></span>
                                 </div>
@@ -238,6 +238,110 @@ if (isset($_SESSION['user'])) {
 
         </div>
     </div>
+    </div>
+
+    <div class="modal fade" id="editLibrarianModal" tabindex="-1" role="dialog" aria-labelledby="editLibrarianModalLabel" aria-hidden="true">
+        <div class="modal-dialog  modal-dialog-centered" role="document" style="max-width: 800px;">
+            <div class="modal-content">
+                <div class="modal-header" style="height: 15px;">
+
+                    <p class="modal-title" id="borrowModalLabel " style="font-size: 12px; color: #800000; font-weight: 600;">
+                        <i class="bi bi-pencil-square ml-3 m-3" style="font-size: 16px; color: #800000;"></i>EDIT PROFILE
+                    </p>
+                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close" style="background-color: transparent; border:none;">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="container-fluid " style="padding-left: 40px ; padding-right: 40px">
+                        <div class="row">
+
+                            <!-- uploading image -->
+                            <div style="width: 100px; height: 100px; overflow: hidden; border: 1px solid maroon; border-radius: 50%; margin: 0 auto; margin-top:40px;">
+                                <label for="editprofilePictureInput" class="AddImageContainer" style="display: flex; justify-content: center; align-items: center; width: 100%; height: 100%;">
+                                    <i class="bi bi-plus-circle" title="Add Image" style="color: grey;"></i>
+                                    <img src="../img/me_sample_profile.jpg" width="100" height="100" id="Profile-Pic" style="display: block; margin-left: -14px;">
+                                </label>
+                                <input type="file" accept="image/jpeg, image/png, image/jpg" id="editprofilePictureInput" class="visually-hidden mb-0" accept="image/*" onchange="updateProfilePicture(event)">
+                            </div>
+
+
+                            <form id="UpdateStaffProfileDisplay" class="row needs-validation" style="margin-left: 30px; width: 80%; height: 65%;" novalidate>
+                                <input type="text" name="userID" id="userID" style="display: none;">
+                                <div class="col-md-5 firstname">
+                                    <label for="editLibrarianFirstName" class="form-label mb-0" style="font-size: 12px;">FIRST NAME</label>
+                                    <input type="text" class="form-control" placeholder="Juan" id="editLibrarianFirstName" style="font-size: 10px; text-transform: capitalize !important;" pattern="[A-Za-z]+(?: [A-Za-z]+)?" required>
+                                    <div class="invalid-feedback" style="font-size: 8px">
+                                        Not a valid first name!
+                                    </div>
+                                </div>
+                                <div class="col-md-5">
+                                    <label for="editLibrarianLastName" class="form-label mb-0" style="font-size: 12px;">LAST NAME</label>
+                                    <input type="text" class="form-control" placeholder="Dela Cruz" id="editLibrarianLastName" style="font-size: 10px; text-transform: capitalize !important;" required pattern="[A-Za-z]+" required>
+                                    <div class="invalid-feedback" style="font-size: 8px">
+                                        Not a valid last name!
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <label for="editLibrarianMI" class="form-label mb-0" style="font-size: 12px;">M.I.</label>
+                                    <input type="text" class="form-control mb-0" placeholder="I" id="editLibrarianMI" style="font-size: 10px; text-transform: uppercase !important;" required pattern="[A-Za-z]{1}">
+                                    <div class="invalid-feedback" style="font-size:8px">
+                                        Not a valid M.I. !
+                                    </div>
+                                </div>
+
+                                <div class="col-md-5 mt-3">
+                                    <label for="editLibrarianEmail" class="form-label mb-0" style="font-size: 12px;">EMAIL ADDRESS</label>
+                                    <div class="input-group has-validation">
+                                        <input type="email" class="form-control" id="editLibrarianEmail" aria-describedby="inputGroupPrepend" placeholder="juan001@usep.edu.ph" style="font-size: 10px;" required>
+                                        <div class="invalid-feedback" style="font-size: 8px;">
+                                            Not a valid email address!
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4 mt-3">
+                                    <label for="editLibrarianPhoneNumber" class="form-label mb-0" style="font-size: 12px;">PHONE NUMBER</label>
+                                    <input type="tel" class="form-control" id="editLibrarianPhoneNumber" pattern="[0-9]{11}" placeholder="091234567890" style="font-size: 10px;" required>
+                                    <div class="invalid-feedback" style="font-size: 8px">
+                                        Not a valid phone number with 11 digits!
+                                    </div>
+                                </div>
+
+                                <div class="col-md-8 mt-2">
+                                    <label for="editLibrarianAddress" class="form-label mb-0" style="font-size: 12px; ">ADDRESS</label>
+                                    <input type="text" class="form-control" id="editLibrarianAddress" style="font-size: 10px; text-transform: capitalize !important;" placeholder="Purok, Baranggay, City/Municipality, Province" required>
+                                    <div class="invalid-feedback" style="font-size: 8px">
+                                        Not a valid address!
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4 mt-2">
+                                    <label for="editLibrarianTelNumber" class="form-label mb-0" style="font-size: 12px;">TELEPHONE NUMBER</label>
+                                    <input type="tel" class="form-control" id="editLibrarianTelNumber" pattern="[0-9]{3}-[0-9]{4}" placeholder="234-5678" style="font-size: 10px;" required>
+                                    <div class="invalid-feedback" style="font-size: 8px">
+                                        Not a valid tel number with 10 digits!
+                                    </div>
+                                </div>
+
+                                <div class=" col col-md-3 mt-3">
+                                    <label for="editLibrarianUsername" class="form-label mb-0" style="font-size: 12px;">USERNAME</label>
+                                    <div class="input-group has-validation">
+                                        <input type="text" class="form-control" id="editLibrarianUsername" aria-describedby="inputGroupPrepend" value="johnjohn" style="font-size: 10px;" readonly>
+                                    </div>
+                                </div>
+
+
+                                <div class=" wishlist-container  mt-4 mb-0 " style=" display: flex; justify-content: flex-end; width: 664px; ">
+                                    <button style="height: 25px; width: 100px" type="button" class="clear shadow " onclick="clearPhoto()">CLEAR</button>
+                                    <button style="height: 25px; width: 100px" type="button" id="submitBtn" class="add shadow" >SAVE</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
