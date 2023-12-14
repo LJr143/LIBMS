@@ -14,12 +14,12 @@ class FeedbackData
 
     public function getAllFeedback(): array
     {
-        $sql = "SELECT * FROM tbl_user";
+        $sql = "SELECT * FROM vw_feedback";
         $stmt = $this->database->query($sql);
 
         if ($stmt) {
-            $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
-            return $users;
+            $feedback = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            return $feedback;
         } else {
             return array();
         }
