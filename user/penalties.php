@@ -122,16 +122,16 @@ $getAllTransaction = $transactionData->getAllTransactionByUser($userID);
         <div class="row search-by">
             <div class="dropdown col-md-4">
                 <select name="" id="select-book-category">
-                    <option value="option">Search Categories</option>
-                    <option value="option">Environment and Forestry</option>
-                    <option value="option">Agriculture and Agriculture Engineering</option>
-                    <option value="option">Usepiana</option>
-                    <option value="option">General Information</option>
-                    <option value="option">Filipiñiana </option>
-                    <option value="option">Educational</option>
-                    <option value="option"> Video Tapes</option>
-                    <option value="option"> Special Education</option>
-                    <option value="option">Overall</option>
+                    <option value="Search Categories">Search Categories</option>
+                    <option value="Environment and Forestry">Environment and Forestry</option>
+                    <option value="Agriculture and Agriculture Engineering">Agriculture and Agriculture Engineering</option>
+                    <option value="Usepiana">Usepiana</option>
+                    <option value="General Information">General Information</option>
+                    <option value="Filipiñiana">Filipiñiana </option>
+                    <option value="Educational">Educational</option>
+                    <option value="Video Tapes"> Video Tapes</option>
+                    <option value="Special Education"> Special Education</option>
+                    <option value="Overall">Overall</option>
                 </select>
 
             </div>

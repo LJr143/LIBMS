@@ -9,10 +9,10 @@ $log = new Logs($database);
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     try {
         // Validate and sanitize input
-        $userId = filter_input(INPUT_POST, 'userId', FILTER_SANITIZE_STRING);
-        $comment = filter_input(INPUT_POST, 'comment', FILTER_SANITIZE_STRING);
-        $star_count = filter_input(INPUT_POST, 'rating', FILTER_VALIDATE_INT);
-        $bookId = filter_input(INPUT_POST, 'bookId', FILTER_SANITIZE_STRING);
+        $userId = isset($_POST['userId']) ? htmlspecialchars($_POST['userId'], ENT_QUOTES, 'UTF-8') : null;
+        $comment = isset($_POST['comment']) ? htmlspecialchars($_POST['comment'], ENT_QUOTES, 'UTF-8') : null;
+        $star_count = isset($_POST['rating']) ? filter_var($_POST['rating'], FILTER_VALIDATE_INT) : null;
+        $bookId = isset($_POST['bookId']) ? htmlspecialchars($_POST['bookId'], ENT_QUOTES, 'UTF-8') : null;
 
         if ($userId === false || $comment === null || $star_count === false) {
             throw new Exception('Invalid input data.');
