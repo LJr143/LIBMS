@@ -1,31 +1,29 @@
 $(document).ready(function () {
-    $('.borrow-button').on('click', function () {
-        var bookId = $('#book_id').val();
-        $('#bookModal').modal('hide');
-        setBorrowDateFields();
-        fetchBookData(bookId);
-    });
-
-    $('.barrow_confirm_btn').on('click', function () {
+    $('#borrowBookBtn').on('click', function () {
         var bookId = $('#book_id').val();
         var userId = $(this).data('user-id');
-        var date = $('#date_borrowed_vw').val();
+        $('#bookModal').modal('hide');
+        $('#borrowModal').modal('show');
 
-        $('#borrowModal').modal('hide');
+        setBorrowDateFields();
 
         fetchBookData(bookId, function (response) {
             $('#book_title').text(response[0].book_title);
             $('#book_author').text(response[0].author);
+        });
 
+        $('.barrow_confirm_btn').on('click', function () {
+            var date = $('#date_borrowed_vw').val();
+            $('#borrowModal').modal('hide');
             processBookBorrowing(bookId, userId, date);
         });
     });
-
 
     function setBorrowDateFields() {
         var today = new Date();
         var formattedToday = today.toISOString().split('T')[0];
         $('#date_borrowed_vw').val(formattedToday);
+
         var dueDate = new Date();
         dueDate.setDate(today.getDate() + 3);
         var formattedDueDate = dueDate.toISOString().split('T')[0];
@@ -38,22 +36,12 @@ $(document).ready(function () {
             type: 'POST',
             data: { bookId: bookId },
             dataType: 'json',
-            success: function (response) {
-                console.log('Fetch Book Data Response:', response);
-
-                // Check if the response is an array with at least one object
-                if (Array.isArray(response) && response.length > 0 && typeof response[0] === 'object') {
-                    successCallback(response);
-                } else {
-                    console.error('Invalid response format from fetch_book.php:', response);
-                }
-            },
+            success: successCallback,
             error: function () {
                 console.error('Error fetching Book data.');
             }
         });
     }
-
 
     function processBookBorrowing(bookId, userId, date) {
         $.ajax({
@@ -86,3 +74,31 @@ $(document).ready(function () {
         });
     }
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
