@@ -81,3 +81,7 @@
     display: block;
     line-height: 0.5;
 }
+
+.accordion-button::after {
+    filter: invert(100%); /* Change the color to your desired color */
+}

@@ -28,9 +28,9 @@ $userAuth = new UserAuthentication($db);
     <?php include 'header.php' ?>
     <div class="main-content">
         <div class="form-box" >
-            <form action="" method="POST" enctype="multipart/form-data">
+            <form action="create-newpass.php" method="POST" enctype="multipart/form-data">
                 <div class="form-content">
-                <a href="forgotpassword.php">
+               
                     <div style="position: absolute; top: 70px; left: 520px; transform: translate(0, 100); padding: 10px ">
                     <img src="img/ArrowLeft.png" alt="arrow" class="arrow" style="width: 20px; height: 20px;">
                    </a> 
@@ -44,26 +44,24 @@ $userAuth = new UserAuthentication($db);
                     </div>
                 
     <div style="display: inline; margin: 0; padding: 0;">
-    <div style="display: flex; justify-content: center" class="otp-container">
-      <div style="display: flex; gap: 10px; margin-top: 40px" class="otp-input ">
-        <input style="width: 20px; height: 1px; border: none; background-color: #000; outline: none;color: #000; font-size: 16px; text-align: center;" type="text" maxlength="1" oninput="handleInput(event, 0)" required>
-        <input style="width: 20px; height: 1px; border: none; background-color: #000; outline: none;color: #000; font-size: 16px; text-align: center;" type="text" maxlength="1" oninput="handleInput(event, 1)" required>
-        <input style="width: 20px; height: 1px; border: none; background-color: #000; outline: none;color: #000; font-size: 16px; text-align: center;" type="text" maxlength="1" oninput="handleInput(event, 2)" required>
-        <input style="width: 20px; height: 1px; border: none; background-color: #000; outline: none;color: #000; font-size: 16px; text-align: center;" type="text" maxlength="1" oninput="handleInput(event, 3)" required>
-        <input style="width: 20px; height: 1px; border: none; background-color: #000; outline: none;color: #000; font-size: 16px; text-align: center;" type="text" maxlength="1" oninput="handleInput(event, 4)" required>
-        <input style="width: 20px; height: 1px; border: none; background-color: #000; outline: none;color: #000; font-size: 16px; text-align: center;" type="text" maxlength="1" oninput="handleInput(event, 5)" required>
-      </div>
-    </div>
-    <span id="emailWarning" style="color: red; display: none; font-size: 8px">Invalid pin</span><br>
+    
+    <div style="display: flex; justify-content: center; width: 250px;" class="otp-container">
+  <input style=" width: 20px; height: 40px; font-size: 20px; border: none;border-bottom: 1px solid #000; outline: none; margin: 0 8px; justify-content: center" type="text" class="otp-input" maxlength="1" autofocus />
+  <input style=" width: 20px; height: 40px; font-size: 20px; border: none;border-bottom: 1px solid #000; outline: none; margin: 0 8px; justify-content: center" type="text" class="otp-input" maxlength="1" autofocus />
+  <input style=" width: 20px; height: 40px; font-size: 20px; border: none;border-bottom: 1px solid #000; outline: none; margin: 0 8px; justify-content: center" type="text" class="otp-input" maxlength="1" autofocus />
+  <input style=" width: 20px; height: 40px; font-size: 20px; border: none;border-bottom: 1px solid #000; outline: none; margin: 0 8px; justify-content: center"type="text" class="otp-input" maxlength="1"  autofocus/>
+  <input style=" width: 20px; height: 40px; font-size: 20px; border: none;border-bottom: 1px solid #000; outline: none; margin: 0 8px; justify-content: center" type="text" class="otp-input" maxlength="1" autofocus />
+  <input style=" width: 20px; height: 40px; font-size: 20px; border: none;border-bottom: 1px solid #000; outline: none; margin: 0 8px; justify-content: center" type="text" class="otp-input" maxlength="1" autofocus />
+</div>
+    
+    <span id="emailWarning" style="color: red; display: none; font-size: 8px; justify-content: center">Invalid pin</span><br>
     <div style=" position: relative; top:-10px;text-align: center; margin: 0; padding: 0; ">
       <p style="font-weight: 500; font-size: 7px; letter-spacing: 0.2px;">RESEND (45)</p>
     </div>
-    <div style="position: relative; top:-20px; margin: 0; padding: 0;">
-      <input type="submit" name="form_submit_btn" value="CONFIRM" id="form_submit_btn">
-    </div>
+    <div style="position: relative; top: -20px; margin: 0; padding: 0;">
+    <input type="submit" name="form_submit_btn" value="CONFIRM" id="form_submit_btn">
   </div>
-
-                    
+  </div>   
                 </div>
 
 
@@ -71,10 +69,55 @@ $userAuth = new UserAuthentication($db);
         </div>
     </div>
 </div>
-
 <script>
-   
-  </script>
+const otpInputs = document.querySelectorAll('.otp-input');
+const submitButton = document.getElementById('form_submit_btn');
+const emailWarning = document.getElementById('emailWarning');
 
+function handleInput(event) {
+  const input = event.target;
+  if (input.value) {
+    const nextInput = input.nextElementSibling;
+    if (nextInput && nextInput.tagName === 'INPUT') {
+      nextInput.focus();
+    }
+  }
+}
+
+function redirectToAnotherPage(event) {
+  event.preventDefault(); // Prevent the form from submitting normally
+  if (isOTPComplete()) {
+    window.location.href = 'create-newpass.php'; // Replace with the desired URL of the destination page
+  } else {
+    emailWarning.style.display = 'block';
+  }
+}
+
+function isOTPComplete() {
+  for (let i = 0; i < otpInputs.length; i++) {
+    if (!otpInputs[i].value) {
+      return false;
+    }
+  }
+  return true;
+}
+
+otpInputs.forEach((input, index) => {
+  input.addEventListener('input', handleInput);
+  input.addEventListener('keydown', (event) => {
+    if (event.key === 'Backspace' && !input.value) {
+      const previousInput = otpInputs[index - 1];
+      if (previousInput && previousInput.tagName === 'INPUT') {
+        previousInput.focus();
+      }
+    }
+  });
+});
+
+submitButton.addEventListener('click', redirectToAnotherPage);
+
+// Auto-focus the first OTP input field when the page loads
+otpInputs[0].focus();
+</script>
 </body>
 </html>

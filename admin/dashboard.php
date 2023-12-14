@@ -125,7 +125,6 @@ if (isset($_SESSION['user'])) {
                                     <a href="student.php">All Students</a><br>
                                     <a href="college.php">Colleges</a><br>
                                     <a href="course.php">Courses</a><br>
-                                    <a href="section.php">Sections</a>
                                 </div>
                             </div>
                         </li>

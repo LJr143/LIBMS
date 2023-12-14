@@ -60,6 +60,7 @@ include 'C:\wamp64\www\LIBMS\includes\fetch_borrow_details.php';
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
     <link rel="stylesheet" href="../css/superadmin_report.css">
     <link rel="stylesheet" href="../css/logout.css">
+    <link rel="stylesheet" href="../css/side_bar.css">
 </head>
 
 <body style="">
@@ -109,7 +110,6 @@ include 'C:\wamp64\www\LIBMS\includes\fetch_borrow_details.php';
                                     <a href="student.php">All Students</a><br>
                                     <a href="college.php">Colleges</a><br>
                                     <a href="course.php">Courses</a><br>
-                                    <a href="section.php">Sections</a>
                                 </div>
                             </div>
                         </li>

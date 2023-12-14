@@ -158,7 +158,7 @@ if (isset($_SESSION['user'])) {
                                         <tr style="height: 40px; background-color: rgb(246,246,246); margin-bottom: 10px; border: 1px solid rgba(0,0,0,0.25);">
                                             <td><input type="checkbox"></td>
                                             <td></td>
-                                            <td><?php echo $staff['fname'] ?>&nbsp;<?php echo $staff['lname']; ?></td>
+                                            <td><?php echo ucwords( $staff  ['fname'] )?>&nbsp;<?php echo ucwords( $staff['lname']); ?></td>
                                             <td><?php echo $staff['admin_role'] ?></td>
                                             <td class="<?php echo ($staff['status'] == 'Active') ? 'active-status' : 'inactive-status'; ?>">
                                                 <?php echo $staff['status']; ?>
@@ -391,30 +391,28 @@ if (isset($_SESSION['user'])) {
 
                                     <img src="" width="220px" height="100px" id="EditProfilePic" style="display: block;">
                                 </label>
-                                <form id="editStaffForm" method="post" enctype="multipart/form-data">
                                     <input type="file" accept="image/jpeg, image/png, image/jpg" id="EditprofilePictureInput" class="visually-hidden mb-0" accept="image/*" onchange="updateProfilePicture(event)">
-                                </form>
                             </div>
 
 
                             <form id="editStaffForm" class="row needs-validation" style="margin-left: 30px; width: 80%; height: 65%; ">
                                 <div class="col-md-5 firstname">
                                     <label for="EditStaffFname" class="form-label mb-0" style="font-size: 12px;">FIRST NAME</label>
-                                    <input type="text" class="form-control" placeholder="Juan" id="EditStaffFname" name="EditStaffFname" style="font-size: 10px; text-transform: capitalize !important;" required>
+                                    <input type="text" class="form-control" placeholder="Juan" id="EditStaffFname" name="EditStaffFname" pattern="^[\s\S]*$" style="font-size: 10px; text-transform: capitalize !important;" required>
                                     <div class="invalid-feedback" style="font-size: 8px">
                                         Not a valid first name!
                                     </div>
                                 </div>
                                 <div class="col-md-5">
                                     <label for="EditStaffLname" class="form-label mb-0" style="font-size: 12px;">LAST NAME</label>
-                                    <input type="text" class="form-control" placeholder="Dela Cruz" id="EditStaffLname" name="EditStaffLname" style="font-size: 10px; text-transform: capitalize !important;" required>
+                                    <input type="text" class="form-control" placeholder="Dela Cruz" id="EditStaffLname" name="EditStaffLname"  pattern="^[\s\S]*$" style="font-size: 10px; text-transform: capitalize !important;" required>
                                     <div class="invalid-feedback" style="font-size: 8px">
                                         Not a valid last name!
                                     </div>
                                 </div>
                                 <div class="col-md-2">
                                     <label for="EditStaffInitial" class="form-label mb-0" style="font-size: 12px;">M.I.</label>
-                                    <input type="text" class="form-control mb-0" placeholder="I" id="EditStaffInitial" pattern="[A-Za-z]{1}" name="EditStaffInitial" style="font-size: 10px; text-transform: capitalize !important;" required>
+                                    <input type="text" class="form-control mb-0" placeholder="I" id="EditStaffInitial" name="EditStaffInitial" pattern="^$|^[A-Za-z]{2,}$" style="font-size: 10px; text-transform: capitalize !important;" >
                                     <div class="invalid-feedback" style="font-size: 8px">
                                         Not a valid M.I.!
                                     </div>
@@ -431,7 +429,7 @@ if (isset($_SESSION['user'])) {
                                 <div class="col-md-5 mt-2">
                                     <label for="EditStaffPemail" class="form-label mb-0" style="font-size: 12px;">PERSONAL EMAIL ADDRESS</label>
                                     <div class="input-group has-validation">
-                                        <input type="email" class="form-control " id="EditStaffPemail" name="EditStaffPemail" aria-describedby="inputGroupPrepend" placeholder="juancruz@gmail.com" style="font-size: 10px;" required>
+                                        <input type="email" class="form-control " id="EditStaffPemail" name="EditStaffPemail" aria-describedby="inputGroupPrepend" pattern="^[A-Za-z0-9._%+-]+@gmail\.com$" placeholder="juancruz@gmail.com" style="font-size: 10px;" required>
                                         <div class="invalid-feedback" style="font-size: 8px">
                                             Not a valid email address!
                                         </div>
@@ -440,7 +438,7 @@ if (isset($_SESSION['user'])) {
 
                                 <div class="col-md-4 mt-2">
                                     <label for="EditStaffPnumber" class="form-label mb-0" style="font-size: 12px;">PHONE NUMBER</label>
-                                    <input type="text" class="form-control" id="EditStaffPnumber" name="EditStaffPnumber" placeholder="091234567890" pattern="[0-9]{11}" style="font-size: 10px;" required>
+                                    <input type="text" class="form-control" id="EditStaffPnumber" name="EditStaffPnumber" placeholder="091234567890" pattern="^09\d{9}$" style="font-size: 10px;" required>
                                     <div class="invalid-feedback" style="font-size: 8px">
                                         Not a valid phone number with 11 digits!
                                     </div>
@@ -448,7 +446,7 @@ if (isset($_SESSION['user'])) {
 
                                 <div class="col-md-4 mt-2">
                                     <label for="EditStaffTnumber" class="form-label mb-0" style="font-size: 12px;">TELEPHONE NUMBER</label>
-                                    <input type="text" class="form-control" id="EditStaffTnumber" name="EditStaffTnumber" placeholder="291-3281-919" pattern="[0-9]{3}-[0-9]{4}-[0-9]{3}" style="font-size: 10px;" required>
+                                    <input type="text" class="form-control" id="EditStaffTnumber" name="EditStaffTnumber" placeholder="291-3281-919" pattern="[0-9]{3}-[0-9]{4}" style="font-size: 10px;" required>
                                     <div class="invalid-feedback" style="font-size: 8px">
                                         Not a valid tel number with 10 digits!
                                     </div>
@@ -474,7 +472,7 @@ if (isset($_SESSION['user'])) {
                                 <div class="col col-md-5 mt-3">
                                     <label for="EditStaffOemail" class="form-label mb-0" style="font-size: 12px;">EMAIL ADDRESS</label>
                                     <div class="input-group has-validation">
-                                        <input type="email" class="form-control " id="EditStaffOemail" name="EditStaffOemail" aria-describedby="inputGroupPrepend" placeholder="@usep.edu.ph" style="font-size: 10px;" readonly>
+                                        <input type="email" class="form-control " id="EditStaffOemail" name="EditStaffOemail" aria-describedby="inputGroupPrepend" placeholder="juan@usep.edu.ph" style="font-size: 10px;" readonly>
                                         <div class="invalid-feedback" style="font-size: 8px;">
                                             Not a valid email address!
                                         </div>
@@ -484,7 +482,7 @@ if (isset($_SESSION['user'])) {
                                 <div class=" col col-md-3 mt-3">
                                     <label for="EditStaffUsername" class="form-label mb-0" style="font-size: 12px;">USERNAME</label>
                                     <div class="input-group has-validation">
-                                        <input type="text" class="form-control" id="EditStaffUsername" name="EditUsername" aria-describedby="inputGroupPrepend" placeholder="juandlz" style="font-size: 10px;" readonly>
+                                        <input type="text" class="form-control" id="EditStaffUsername" name="EditUsername" aria-describedby="inputGroupPrepend" pattern="^.{6,}$" placeholder="juandlz" style="font-size: 10px;" readonly>
                                         <div class="invalid-feedback" style="font-size: 8px">
                                             Not a valid username!
                                         </div>
@@ -494,7 +492,8 @@ if (isset($_SESSION['user'])) {
                                 <div class="col col-md-4 mt-3">
                                     <label for="Editpsw" class="form-label mb-0" style="font-size: 12px;">PASSWORD</label>
                                     <div class="input-group has-validation">
-                                        <input type="password" class="form-control" placeholder="Password_456" id="Editpsw" name="Editpsw" style="font-size: 10px;" aria-describedby="inputGroupPrepend" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" readonly>
+                                        <input type="password" class="form-control" placeholder="Password_456" id="Editpsw" name="Editpsw" style="font-size: 10px;" aria-describedby="inputGroupPrepend"
+                                               pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" readonly>
                                         <div class="invalid-feedback" id="passwordRequirements" style="font-size: 8px; display: none;">
                                             Not a valid password!
                                         </div>
