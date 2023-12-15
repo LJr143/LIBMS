@@ -109,3 +109,35 @@ nav .right-side > .right-side-text {
 .custom-input-class{
     font-size: 12px;
 }
+
+.my-swal-popup {
+    width: 330px;
+    height: 300px;
+    background-color: #ffffff;
+}
+
+/* Custom CSS for the title text */
+.my-swal-popup .swal-title {
+    color: #711717;
+    font-size: 14px;
+}
+
+.my-swal-popup .my-swal-content {
+    font-weight: 600;
+    color: black;
+    font-size: 12px;
+    margin-top: -8px;
+}
+
+.my-swal-popup .my-cancel-button {
+    background-color: #dfdfdf !important;
+    color: #711717 !important;
+    border-color: #711717 !important;
+    font-size: 13px !important;
+}
+
+.my-swal-popup .my-confirm-button {
+    background-color: #711717;
+    color: #ffffff;
+    font-size: 13px !important;
+}
