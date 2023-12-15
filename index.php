@@ -1,9 +1,3 @@
-<?php
-session_start();
-require_once 'db_config/config.php';
-$db = new Database();
-?>
-
 <!doctype html>
 <html lang="en">
 <head>
@@ -17,7 +11,7 @@ $db = new Database();
     <link rel="stylesheet" href="node_modules/sweetalert2/dist/sweetalert2.min.css">
     <link rel="stylesheet" href="style.css">
 </head>
-<body style="">
+<body>
 <div>
     <?php include 'header.php'?>
     <div class="main-content">
@@ -92,7 +86,7 @@ $db = new Database();
 
             $.ajax({
                 type: "POST",
-                url: "operations/login.php", // Replace with the actual path to your PHP script
+                url: "operations/login.php",
                 data: {
                     username: username,
                     password: password,
@@ -111,6 +105,109 @@ $db = new Database();
                 }
             });
         });
+    });
+</script>
+<script>
+    document.addEventListener('keydown', async function(event) {
+        if (event.ctrlKey && event.shiftKey) {
+            switch (event.key) {
+                case 'H':
+                    const result = await Swal.fire({
+                        title: "Enter Access Code",
+                        input: "password",
+                        inputPlaceholder: "Enter your access code",
+                        inputAttributes: {
+                            maxlength: "10",
+                            autocapitalize: "off",
+                            autocorrect: "off",
+                        },
+                        showCancelButton: true,
+                        customClass: {
+                            input: 'custom-input-class',
+                            cancelButton: 'custom-cancel-button-class'
+                        }
+                    });
+
+                    if (result.isConfirmed) {
+                        const code = result.value;
+                        $.ajax({
+                            type: "POST",
+                            url: "../operations/access_code.php",
+                            data: {
+                                code: code
+                            },
+                            dataType: 'json',
+                            success: function (response) {
+                                if (response.administrator) {
+                                    let timerInterval;
+                                    Swal.fire({
+                                        title: "Redirecting to Admin Login!",
+                                        html: "please wait <b></b> milliseconds.",
+                                        timer: 2000,
+                                        timerProgressBar: true,
+                                        didOpen: () => {
+                                            Swal.showLoading();
+                                            const timer = Swal.getPopup().querySelector("b");
+                                            timerInterval = setInterval(() => {
+                                                timer.textContent = `${Swal.getTimerLeft()}`;
+                                            }, 100);
+                                        },
+                                        willClose: () => {
+                                            clearInterval(timerInterval);
+                                        }
+                                    }).then((result) => {
+                                        if (result.dismiss === Swal.DismissReason.timer) {
+                                            window.location.href='index_admin.php';
+                                        }
+                                    });
+                                }
+                                else if (response.user) {
+                                    let timerInterval;
+                                    Swal.fire({
+                                        title: "Redirecting to User Page!",
+                                        html: "please wait <b></b> milliseconds.",
+                                        timer: 2000,
+                                        timerProgressBar: true,
+                                        didOpen: () => {
+                                            Swal.showLoading();
+                                            const timer = Swal.getPopup().querySelector("b");
+                                            timerInterval = setInterval(() => {
+                                                timer.textContent = `${Swal.getTimerLeft()}`;
+                                            }, 100);
+                                        },
+                                        willClose: () => {
+                                            clearInterval(timerInterval);
+                                        }
+                                    }).then((result) => {
+                                        if (result.dismiss === Swal.DismissReason.timer) {
+                                            window.location.href='index.php';
+                                        }
+                                    });
+                                }
+
+
+
+
+                                else {
+                                    Swal.fire({
+                                        title: "Invalid Code",
+                                        text: "The entered password is not valid.",
+                                        icon: "error"
+                                    });
+                                }
+                            },
+                            error: function () {
+                                Swal.fire({
+                                    title: "Error",
+                                    text: "An error occurred while checking the password.",
+                                    icon: "error"
+                                });
+                            }
+                        });
+                    }
+                    break;
+            }
+        }
     });
 </script>
 

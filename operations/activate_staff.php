@@ -15,8 +15,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Suspend the staff member
     $success = $staffData->activateStaff($adminId);
-//    $addedStaff = $staffName;
-//    $addLog = $log->activateAddLogs($_SESSION['loggedAdminID'], $_SESSION['user'], $addedStaff);
 
     // Send a JSON response indicating success or failure
     header('Content-Type: application/json');

@@ -309,3 +309,7 @@ nav .right-side > .right-side-text {
 .star.filled {
     color: gold; 
 }
+.operation_all_btn:hover{
+    background-color: #490303;
+    color: white;
+}

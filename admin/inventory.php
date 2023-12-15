@@ -427,15 +427,13 @@ if (isset($_SESSION['user'])) {
                                     <label for="bookCategory" class="form-label mb-0" style="font-size: 12px;">CATEGORY</label>
                                     <div class="input-group has-validation">
                                         <select name="" id="bookCategory" style="font-size: 10px; width: 130px; height: 28px; padding: 2px 5px; border-radius: 5px" required>
-                                            <option value="" disabled selected> Select Category</option>
-                                            <option value="Environment and Forestry">Environment and Forestry</option>
-                                            <option value="Agriculture and Agriculture Engineering">Agriculture and Agriculture Engineering</option>
-                                            <option value="Usepiana">Usepiana</option>
+                                            <option value="">Select category</option>
                                             <option value="General Information">General Information</option>
                                             <option value="Filipiñiana">Filipiñiana </option>
                                             <option value="Educational">Educational</option>
                                             <option value="Video Tapes">Video Tapes</option>
                                             <option value="Special Education">Special Education</option>
+                                            <option value="Usepiana">Usepiana</option>
                                             <option value="Others">Others</option>
                                         </select>
                                         <div class="invalid-feedback" style="font-size: 8px">
@@ -573,16 +571,14 @@ if (isset($_SESSION['user'])) {
                                     <label for="editBookCategory" class="form-label mb-0" style="font-size: 12px;">CATEGORY</label>
                                     <div class="input-group has-validation">
                                         <select name="" id="editBookCategory" style="font-size: 10px; width: 130px; height: 28px; padding: 2px 5px; border-radius: 5px" required>
-                                            <option value="" disabled selected> Select Category</option>
-                                            <option value="Environment and Forestry">Environment and Forestry</option>
-                                            <option value="Agriculture and Agriculture Engineering">Agriculture and Agriculture Engineering</option>
-                                            <option value="Usepiana">Usepiana</option>
-                                            <option value="General Information">General Information</option>
-                                            <option value="Filipiñiana">Filipiñiana </option>
-                                            <option value="Educational">Educational</option>
-                                            <option value="Video Tapes">Video Tapes</option>
-                                            <option value="Special Education">Special Education</option>
-                                            <option value="Others">Others</option>
+                                         <option value="">Select category</option>
+                                        <option value="General Information">General Information</option>
+                                        <option value="Filipiñiana">Filipiñiana </option>
+                                        <option value="Educational">Educational</option>
+                                        <option value="Video Tapes">Video Tapes</option>
+                                        <option value="Special Education">Special Education</option>
+                                        <option value="Usepiana">Usepiana</option>
+                                        <option value="Others">Others</option>
                                         </select>
                                         <div class="invalid-feedback" style="font-size: 8px">
                                             Not a valid category!
@@ -671,12 +667,11 @@ if (isset($_SESSION['user'])) {
 
     </div>
 
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="../node_modules/jquery/dist/jquery.min.js"></script>
+    <script src="../node_modules/sweetalert2/dist/sweetalert2.all.min.js"></script>
+    <script src="../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../node_modules/swiper/swiper-bundle.min.js"></script>
+    <script src="../node_modules/chart.js/dist/chart.umd.js"></script>
     <script>
         function updateBookPicture(event) {
             const input = event.target;

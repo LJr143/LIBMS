@@ -10,7 +10,6 @@ class UserAuthentication
     {
         $this->db = $dbConnection->getDb();
     }
-
     public function login($username, $password): array
     {
         // Validate the user with the original password
@@ -24,8 +23,6 @@ class UserAuthentication
 
         return $response;
     }
-
-
     public function loginAdmin($username, $password, $role): array
     {
         $response = $this->validateUserAdmin($username, $password, $role);
@@ -39,7 +36,6 @@ class UserAuthentication
 
         return $response;
     }
-
     public function loginSuperAdmin($username, $password, $role): array
     {
         $response = $this->validateUserSuperAdmin($username, $password, $role);
@@ -53,19 +49,16 @@ class UserAuthentication
 
         return $response;
     }
-
     public function logout(): array
     {
         session_start();
         session_destroy();
         return ['status' => 'success', 'message' => 'Logout successful'];
     }
-
     public function isAuthenticated(): bool
     {
         return isset($_SESSION['user']);
     }
-
     private function validateUser($username, $password): array
     {
         $query = "SELECT username, password, status, user_id FROM tbl_user WHERE username = :username";
@@ -85,7 +78,6 @@ class UserAuthentication
 
         return ['status' => 'error', 'message' => 'User not found'];
     }
-
     private function validateUserAdmin($username, $password, $role): array
     {
         $query = "SELECT username, password, status FROM tbl_admin WHERE username = :username AND admin_role = :role";
@@ -106,8 +98,6 @@ class UserAuthentication
 
         return ['status' => 'error', 'message' => 'User not found'];
     }
-
-
     private function validateUserSuperAdmin($username, $password, $role): array
     {
         $query = "SELECT username, password FROM tbl_superadmin WHERE username = :username AND admin_role = :role";

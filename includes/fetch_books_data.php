@@ -34,6 +34,29 @@ class BookData
             return 0;
         }
     }
+
+    public function getNumberOfBooksReserve(): int
+    {
+        $sql = "SELECT COUNT(*) as num_books_reserve FROM tbl_transaction WHERE transaction_type='Reserve' AND status='Approved'";
+        $stmt = $this->database->prepare($sql);
+
+        if ($stmt->execute()) {
+            return (int) $stmt->fetch(PDO::FETCH_ASSOC)['num_books_reserve'];
+        } else {
+            return 0;
+        }
+    }
+    public function getNumberOfBooksBorrow(): int
+    {
+        $sql = "SELECT COUNT(*) as num_books_borrow FROM tbl_transaction WHERE transaction_type='Borrow' AND status='Approved'";
+        $stmt = $this->database->prepare($sql);
+
+        if ($stmt->execute()) {
+            return (int) $stmt->fetch(PDO::FETCH_ASSOC)['num_books_borrow'];
+        } else {
+            return 0;
+        }
+    }
     public function getBookById($bookId): array
     {
         $sql = "SELECT * FROM tbl_book WHERE book_id = :bookId";
@@ -196,8 +219,6 @@ class BookData
             ];
         }
     }
-
-
     public function deleteBook($bookId){
         $sql = "DELETE FROM tbl_book WHERE book_id = :book_ID";
 
@@ -206,6 +227,8 @@ class BookData
 
         return $stmt->execute();
     }
+
+
 
 
 }

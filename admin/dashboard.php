@@ -427,9 +427,6 @@ if (isset($_SESSION['user'])) {
                 }
             })
             .then(errorMessage => console.log('Server Response:', errorMessage));
-
-
-
         const chart2 = new Chart(ctx1, {
             type: 'bar',
             data: {
@@ -522,8 +519,6 @@ if (isset($_SESSION['user'])) {
                 });
             })
             .catch(error => console.error('Error fetching data:', error));
-
-
 
         const chart4 = new Chart(ctx3, {
             type: 'line',

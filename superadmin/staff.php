@@ -1,7 +1,7 @@
 <?php
 session_start();
 require_once '../db_config/config.php';
-include '../operations/authentication.php';
+include '../includes/authentication.php';
 include '../includes/fetch_user_data.php';
 include '../includes/fetch_books_data.php';
 include '../includes/fetch_staff_data.php';
@@ -39,6 +39,7 @@ if (isset($_SESSION['user'])) {
 
         if (!empty($admin)) {
             $loggedAdmin = $admin[0];
+            $userId = $loggedAdmin['admin_id'];
         } else {
             echo 'Admin data not found.';
         }
@@ -57,14 +58,13 @@ if (isset($_SESSION['user'])) {
     <title>USeP | LMS</title>
     <link rel="icon" href="../icons/usep-logo.png">
     <link href="../node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="../node_modules/sweetalert2/dist/sweetalert2.min.js">
     <link rel="stylesheet" href="../node_modules/bootstrap-icons/font/bootstrap-icons.css">
     <link rel="stylesheet" href="../css/superadmin_staff.css">
     <link rel="stylesheet" href="../css/logout.css">
+
 </head>
 
 <body style="">
-    <div>
         <?php include 'header.php' ?>
         <div class="main-content d-flex">
             <div class="col col-md-2 side_bar">
@@ -93,7 +93,7 @@ if (isset($_SESSION['user'])) {
 
             </div>
             <div class="col" style=" width: 100%; height: 100vh; ">
-                <div style="background-color: white; width: 95%; height: 45px; margin: 15px; border-radius: 5px;display: flex; box-shadow: 0px 4px 8px rgba(0,0,0,0.27); align-content: center; align-items: center">
+                <div style="background-color: white; width: 95%; height: 45px; margin: 15px 15px 15px 30px; border-radius: 5px;display: flex; box-shadow: 0px 4px 8px rgba(0,0,0,0.27); align-content: center; align-items: center">
                     <div style="width: 90%">
                         <p style="font-size: 10px; font-weight: 700; margin: 14px">HOME | STAFF</p>
                     </div>
@@ -118,54 +118,48 @@ if (isset($_SESSION['user'])) {
                         </div>
                     </div>
                 </div>
-
                 <div style="display: flex; justify-content: center; ">
                     <div style="background-color: white; width: 95%; height: 55px; margin: 15px; border-radius: 5px;display: flex; box-shadow: 0px 4px 8px rgba(0,0,0,0.27); align-items: center">
                         <div class="col col-md-10">
-                            <select name="" id="" style="width: 150px; padding: 0px 10px; margin-left: 10px; border-radius: 5px;  height: 30px; font-size: 12px;">
+                            <select id="searchBySelect" name="searchBySelect" style="font-weight: bold; border: 2px solid black; width: 200px; padding: 0px 10px; margin-left: 10px; border-radius: 5px;  height: 30px; font-size: 12px;">
                                 <option value="">Search By</option>
-                                <option value="">Part Time</option>
-                                <option value="">Full Time</option>
-                                <option value="">Staff</option>
-                                <option value="">Faculty</option>
-
+                                <option value="Active">Active</option>
+                                <option value="Suspended">Suspended</option>
                             </select>
                         </div>
                         <div class="col col-md-2">
-                            <button style="width: 30px; border: none; background: transparent;"><img style="width: 25px; margin-right: 20px;" src="../icons/download_icon.png" alt=""></button>
+                            <button id="printButton" style="width: 30px; border: none; background: transparent;"><img style="width: 25px; margin-right: 20px;" src="../icons/download_icon.png" alt=""></button>
                             <button id="addStaffBtn" style="font-size: 12px; width: 150px; height: 30px; border-radius: 5px; background-color: rgb(128,0,0); color: white; border: none">ADD STAFF</button>
                         </div>
                     </div>
                 </div>
-
                 <div style="display: flex; justify-content: center; ">
                     <div style="font-size: 12px; background-color: white; width: 95%; max-height: 550px; box-shadow: 0px 4px 8px rgba(0,0,0,0.27);">
                         <div style="width: 100%; display: flex; justify-content: center; border-radius: 5px">
-                            <table style="width: 98%; font-size: 12px;" class=" table text-center">
+                            <table style="width: 98%; font-size: 12px;" class=" table table-bordered text-center" id="staffTable">
                                 <thead>
-                                    <tr>
-                                        <th><input type="checkbox" id="selectAllCheckbox" style="position: absolute; margin: 2px 0px 0px -20px;">Select All</th>
-                                        <th></th>
-                                        <th>Employee</th>
-                                        <th>Role</th>
-                                        <th>Status</th>
-                                        <th>Manage</th>
-
+                                    <tr style="background-color: #440404; color: white">
+                                        <th style="max-width: 80px; min-width: 80px;"><input type="checkbox" id="selectAllCheckbox" style="position: absolute; margin: 2px 0px 0px -20px;">Select All</th>
+                                        <th style="max-width: 150px; min-width: 150px;"></th>
+                                        <th style="max-width: 150px; min-width: 150px;">Employee</th>
+                                        <th style="max-width: 100px; min-width: 100px;">Role</th>
+                                        <th style="max-width: 150px; min-width: 150px;">Status</th>
+                                        <th style="max-width: 150px; min-width: 150px;">Manage</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <?php foreach ($staffList as $staff) { ?>
-                                        <tr style="height: 40px; background-color: rgb(246,246,246); margin-bottom: 10px; border: 1px solid rgba(0,0,0,0.25);">
+                                        <tr class="employee-info" style="height: 40px; background-color: rgb(246,246,246); margin-bottom: 10px; border: 1px solid rgba(0,0,0,0.25);">
                                             <td><input type="checkbox"></td>
-                                            <td></td>
-                                            <td><?php echo ucwords( $staff  ['fname'] )?>&nbsp;<?php echo ucwords( $staff['lname']); ?></td>
-                                            <td><?php echo $staff['admin_role'] ?></td>
-                                            <td class="<?php echo ($staff['status'] == 'Active') ? 'active-status' : 'inactive-status'; ?>">
+                                            <td><img class="custom_img" src="../img/<?= $staff['img']; ?>" alt=""></td>
+                                            <td class="employee-name"><?php echo ucwords( $staff  ['fname'] )?>&nbsp;<?php echo ucwords( $staff['lname']); ?></td>
+                                            <td class="employee-role"><?php echo $staff['admin_role'] ?></td>
+                                            <td class="<?php echo ($staff['status'] == 'Active') ? 'active-status' : 'inactive-status'; ?> employee-status">
                                                 <?php echo $staff['status']; ?>
                                             </td>
                                             <td style="padding: 1px;">
                                                 <div class="btn-group" role="group">
-                                                    <a href="#" class="btn custom-btn editStudentProfile" data-admin-id="<?php echo $staff['admin_id']; ?>">
+                                                    <a href="#" class="btn custom-btn editStaffProfile" data-admin-id="<?php echo $staff['admin_id']; ?>">
                                                         <i class="bi bi-pencil-square"></i>
                                                     </a>
                                                     <a href="#" class="btn custom-btn deleteStudent" data-admin-id="<?php echo $staff['admin_id']; ?>" data-staff-name="<?php echo $staff['fname'] . " " . $staff['lname']; ?>">
@@ -174,12 +168,12 @@ if (isset($_SESSION['user'])) {
 
                                                     <?php if ($staff['status'] == 'Active') { ?>
                                                         <!-- Show "Suspend" button when status is Active -->
-                                                        <a href="#" class="btn custom-btn suspend_staff" data-admin-id="<?php echo $staff['admin_id']; ?>" data-staff-name="<?php echo $staff['fname'] . " " . $staff['lname']; ?>">
+                                                        <a href="#" class="btn custom-btn suspend_staff" data-admin-id="<?php echo $staff['id']; ?>" data-staff-name="<?php echo $staff['fname'] . " " . $staff['lname']; ?>">
                                                             <i class="bi bi-exclamation-octagon"></i>
                                                         </a>
                                                     <?php } else { ?>
                                                         <!-- Show "Activate" button when status is Suspended -->
-                                                        <a href="#" class="btn custom-btn activate_staff" data-admin-id="<?php echo $staff['admin_id']; ?>" data-staff-name="<?php echo $staff['fname'] . " " . $staff['lname']; ?>">
+                                                        <a href="#" class="btn custom-btn activate_staff" data-admin-id="<?php echo $staff['id']; ?>" data-staff-name="<?php echo $staff['fname'] . " " . $staff['lname']; ?>">
                                                             <i class="bi bi-check"></i>
                                                         </a>
                                                     <?php } ?>
@@ -194,11 +188,11 @@ if (isset($_SESSION['user'])) {
                         <div style="width: 100%; display: flex; justify-content: center; margin: 20px 0px">
                             <div class="row" style="width: 98%;">
                                 <div class="col col-md-8" style="">
-                                    <img style="width: 180px" src="../icons/pagination_sample.png" alt="">
+
                                 </div>
                                 <div class="col col-md-4" style="display: flex; padding: 0; margin: 0">
-                                    <button style="margin-left: 160px" id="deleteAllStaff" class="operation_all_btn">Delete All</button>
-                                    <button style="margin-left: 10px;" id="suspendAll" class="operation_all_btn">Suspend All</button>
+                                    <button style="margin-left: 160px" id="deleteAllStaff" class="operation_all_btn" data-admin-id="<?= $userId?>">Delete All</button>
+                                    <button style="margin-left: 10px;" id="suspendAll" class="operation_all_btn" data-admin-id="<?= $userId?>">Suspend All</button>
                                 </div>
                             </div>
 
@@ -207,12 +201,10 @@ if (isset($_SESSION['user'])) {
 
                     </div>
                 </div>
-
             </div>
         </div>
-    </div>
 
-    <!--           Add Staff Modal-->
+    <!-- Add Staff Modal-->
     <div class="modal fade" id="staffModal" tabindex="-1" role="dialog" aria-labelledby="staffModalLabel" aria-hidden="true">
         <div class="modal-dialog  modal-dialog-centered" role="document" style="max-width: 800px;">
             <div class="modal-content">
@@ -229,8 +221,6 @@ if (isset($_SESSION['user'])) {
                     <div class="container-fluid " style="padding-left: 40px ; padding-right: 40px">
                         <div class="row">
 
-                            <!-- uploading image -->
-                            <!-- add new photo -->
                             <div style="width: 100px; height:220px;">
                                 <div class="col-md-2" style="margin-bottom: 0px; margin-left: 8px;">
                                     <div class="AddImageContainer" style="margin-top: 60px; display: flex; justify-content: center; border: 1px solid maroon; width: 100px; height: 100px">
@@ -243,7 +233,7 @@ if (isset($_SESSION['user'])) {
                             </div>
 
 
-                            <form id="addStaffForm" class="row needs-validation" style="margin-left: 30px; width: 80%; height: 65%; " novalidate>
+                            <form id="addStaffForm" class="row" style="margin-left: 30px; width: 80%; height: 65%; ">
                                 <div class="col-md-5 firstname">
                                     <label for="addStaffFname" class="form-label mb-0" style="font-size: 12px;">FIRST NAME</label>
                                     <input type="text" class="form-control" placeholder="Juan" id="addStaffFname" name="addStaffFname" style="font-size: 10px; text-transform: capitalize !important;" required>
@@ -367,10 +357,8 @@ if (isset($_SESSION['user'])) {
         </div>
     </div>
 
-
-
-    <!-- Edit Student Modal -->
-    <div class="modal fade" id="editStudentModal" tabindex="-1" role="dialog" aria-labelledby="editStudentModalLabel" aria-hidden="true">
+    <!-- Edit Staff Modal -->
+    <div class="modal fade" id="editStaffModal" tabindex="-1" role="dialog" aria-labelledby="editStaffModalLabel" aria-hidden="true">
         <div class="modal-dialog  modal-dialog-centered" role="document" style="max-width: 800px;">
             <div class="modal-content">
                 <div class="modal-header" style="height: 15px;">
@@ -395,7 +383,7 @@ if (isset($_SESSION['user'])) {
                             </div>
 
 
-                            <form id="editStaffForm" class="row needs-validation" style="margin-left: 30px; width: 80%; height: 65%; ">
+                            <form id="editStaffForm" class="row" style="margin-left: 30px; width: 80%; height: 65%; ">
                                 <div class="col-md-5 firstname">
                                     <label for="EditStaffFname" class="form-label mb-0" style="font-size: 12px;">FIRST NAME</label>
                                     <input type="text" class="form-control" placeholder="Juan" id="EditStaffFname" name="EditStaffFname" pattern="^[\s\S]*$" style="font-size: 10px; text-transform: capitalize !important;" required>
@@ -405,14 +393,14 @@ if (isset($_SESSION['user'])) {
                                 </div>
                                 <div class="col-md-5">
                                     <label for="EditStaffLname" class="form-label mb-0" style="font-size: 12px;">LAST NAME</label>
-                                    <input type="text" class="form-control" placeholder="Dela Cruz" id="EditStaffLname" name="EditStaffLname"  pattern="^[\s\S]*$" style="font-size: 10px; text-transform: capitalize !important;" required>
+                                    <input type="text" class="form-control" placeholder="Dela Cruz" id="EditStaffLname" name="EditStaffLname" style="font-size: 10px; text-transform: capitalize !important;" required>
                                     <div class="invalid-feedback" style="font-size: 8px">
                                         Not a valid last name!
                                     </div>
                                 </div>
                                 <div class="col-md-2">
                                     <label for="EditStaffInitial" class="form-label mb-0" style="font-size: 12px;">M.I.</label>
-                                    <input type="text" class="form-control mb-0" placeholder="I" id="EditStaffInitial" name="EditStaffInitial" pattern="^$|^[A-Za-z]{2,}$" style="font-size: 10px; text-transform: capitalize !important;" >
+                                    <input type="text" class="form-control mb-0" placeholder="I" id="EditStaffInitial" name="EditStaffInitial" style="font-size: 10px; text-transform: capitalize !important;" >
                                     <div class="invalid-feedback" style="font-size: 8px">
                                         Not a valid M.I.!
                                     </div>
@@ -420,7 +408,7 @@ if (isset($_SESSION['user'])) {
 
                                 <div class="col-md-3 mt-2">
                                     <label for="EditStaffID" class="form-label mb-0" style="font-size: 12px;">STAFF ID</label>
-                                    <input type="text" class="form-control" id="EditStaffID" name="EditStaffID" placeholder="2021-00565" pattern="[0-9]{4}-[0-9]{5}" style="font-size: 10px;" required>
+                                    <input type="text" class="form-control" id="EditStaffID" name="EditStaffID" placeholder="2021-00565" style="font-size: 10px;" required>
                                     <div class="invalid-feedback" style="font-size: 8px">
                                         Not a valid student ID!
                                     </div>
@@ -429,7 +417,7 @@ if (isset($_SESSION['user'])) {
                                 <div class="col-md-5 mt-2">
                                     <label for="EditStaffPemail" class="form-label mb-0" style="font-size: 12px;">PERSONAL EMAIL ADDRESS</label>
                                     <div class="input-group has-validation">
-                                        <input type="email" class="form-control " id="EditStaffPemail" name="EditStaffPemail" aria-describedby="inputGroupPrepend" pattern="^[A-Za-z0-9._%+-]+@gmail\.com$" placeholder="juancruz@gmail.com" style="font-size: 10px;" required>
+                                        <input type="email" class="form-control " id="EditStaffPemail" name="EditStaffPemail" aria-describedby="inputGroupPrepend" placeholder="juancruz@gmail.com" style="font-size: 10px;" required>
                                         <div class="invalid-feedback" style="font-size: 8px">
                                             Not a valid email address!
                                         </div>
@@ -438,7 +426,7 @@ if (isset($_SESSION['user'])) {
 
                                 <div class="col-md-4 mt-2">
                                     <label for="EditStaffPnumber" class="form-label mb-0" style="font-size: 12px;">PHONE NUMBER</label>
-                                    <input type="text" class="form-control" id="EditStaffPnumber" name="EditStaffPnumber" placeholder="091234567890" pattern="^09\d{9}$" style="font-size: 10px;" required>
+                                    <input type="text" class="form-control" id="EditStaffPnumber" name="EditStaffPnumber" placeholder="091234567890"  style="font-size: 10px;" required>
                                     <div class="invalid-feedback" style="font-size: 8px">
                                         Not a valid phone number with 11 digits!
                                     </div>
@@ -446,7 +434,7 @@ if (isset($_SESSION['user'])) {
 
                                 <div class="col-md-4 mt-2">
                                     <label for="EditStaffTnumber" class="form-label mb-0" style="font-size: 12px;">TELEPHONE NUMBER</label>
-                                    <input type="text" class="form-control" id="EditStaffTnumber" name="EditStaffTnumber" placeholder="291-3281-919" pattern="[0-9]{3}-[0-9]{4}" style="font-size: 10px;" required>
+                                    <input type="text" class="form-control" id="EditStaffTnumber" name="EditStaffTnumber" placeholder="291-3281-919" style="font-size: 10px;" required>
                                     <div class="invalid-feedback" style="font-size: 8px">
                                         Not a valid tel number with 10 digits!
                                     </div>
@@ -513,17 +501,26 @@ if (isset($_SESSION['user'])) {
         </div>
     </div>
 
-
-
     <script src="../node_modules/jquery/dist/jquery.min.js"></script>
     <script src="../node_modules/sweetalert2/dist/sweetalert2.all.min.js"></script>
     <script src="../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="../node_modules/swiper/swiper-bundle.min.js"></script>
     <script src="../node_modules/sweetalert2/dist/sweetalert2.all.js"></script>
 
+        <script>
+            $(document).ready(function () {
+                $('#searchBySelect').on('change', function () {
+                    var selectedStatus = $(this).val();
 
+                    $('.employee-info').show();
 
-    <script>
+                    if (selectedStatus) {
+                        $('.employee-status:not(:contains("' + selectedStatus + '"))').parent().hide();
+                    }
+                });
+            });
+        </script>
+        <script>
         const listItems = document.querySelectorAll('li');
         listItems.forEach((listItem) => {
             listItem.addEventListener('click', () => {
@@ -545,14 +542,8 @@ if (isset($_SESSION['user'])) {
             });
         });
     </script>
-
-    <script>
+        <script>
         $(document).ready(function() {
-            // Attach a click event to the "ADD STAFF" button
-            $("#addStaffBtn").click(function() {
-                // Show the staff modal
-                $("#staffModal").modal("show");
-            });
 
             // Handle the file input change event
             $("#addStaffinput-file").change(function() {
@@ -596,111 +587,30 @@ if (isset($_SESSION['user'])) {
         //     $("#staffModal").modal("hide");
         // }
     </script>
-
-
-
-    <script>
-        document.getElementById('deleteAllStaff').addEventListener('click', function() {
-            showDeleteConfirmation(1); // Pass a unique identifier
-        });
-
-        function showDeleteConfirmation(id) {
-            const iconHtml = '<div style="background-color: white; padding: 21px; "><i class="bi bi-trash3-fill" style="font-size: 50px; color: #711717;"></i></div>';
-
-            Swal.fire({
-                title: 'ARE YOU SURE?',
-                text: 'Do you really want to delete this / these staff? Process cannot be undone.',
-                icon: null, // Remove the 'icon' property, as it's overridden by 'iconHtml'
-                iconHtml: iconHtml, // Set the custom iconHtml with the trash icon
-                showCancelButton: true,
-                confirmButtonColor: '#711717',
-                confirmButtonText: 'DELETE',
-                cancelButtonText: 'CANCEL',
-                cancelButtonColor: '#e3e6e9',
-                customClass: {
-                    popup: 'my-swal-popup',
-                    content: 'my-swal-content',
-                    title: 'swal-title',
-                    cancelButton: 'my-cancel-button',
-                    confirmButton: 'my-confirm-button'
-                },
-                width: '520px'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    // If the user confirms, you can proceed with the deletion logic here
-                    Swal.fire('DELETED!', 'SUCCESSFULLY DELETED!.', 'success');
-                }
-            });
-        }
-    </script>
-    <script>
-        document.getElementById('suspendAll').addEventListener('click', function() {
-            showSuspendConfirmation(1); // Pass a unique identifier
-        });
-
-        function showSuspendConfirmation(id) {
-            const iconHtml = '<div style="background-color: white; padding: 21px; "><i class="bi bi-exclamation-triangle fill" style="font-size: 50px; color: #711717;"></i></div>';
-
-            Swal.fire({
-                title: 'ARE YOU SURE?',
-                text: 'Do you really want to suspend this / these staff? Process cannot be undone. ',
-                icon: null, // Remove the 'icon' property, as it's overridden by 'iconHtml'
-                iconHtml: iconHtml, // Set the custom iconHtml with the trash icon
-                showCancelButton: true,
-                cancelButtonText: 'CANCEL',
-                cancelButtonColor: '#611818',
-                confirmButtonText: 'SUSPEND',
-                confirmButtonColor: '#711717',
-                customClass: {
-                    popup: 'my-swal-popup',
-                    content: 'my-swal-content',
-                    title: 'swal-title',
-                    cancelButton: 'my-cancel-button',
-                    confirmButton: 'my-confirm-button',
-                },
-                width: '520px'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    // If the user confirms, you can proceed with the suspension logic here
-                    Swal.fire('Suspended!', 'The account has been suspended.', 'success');
-                }
-            });
-        }
-    </script>
-    <script>
+        <script>
         $(document).ready(function() {
-            $('.editStudentProfile').click(function(e) {
+            $('.editStaffProfile').click(function(e) {
                 e.preventDefault();
 
-                // Get the admin_id from the data attribute
                 var adminId = $(this).data('admin-id');
 
-                // Make an AJAX request to fetch staff data
                 $.ajax({
-                    url: '../operations/fetch_staff.php', // Replace with your backend endpoint
+                    url: '../operations/fetch_staff.php',
                     type: 'POST',
                     data: {
                         adminId: adminId
                     },
                     dataType: 'json',
                     success: function(response) {
-                        // Log the response to inspect the structure
-                        console.log(response);
-
-                        // Handle the response and populate your modal with data
                         populateModal(response);
                     },
                     error: function() {
-                        // Handle errors
                         console.error('Error fetching staff data.');
                     }
                 });
             });
 
             function populateModal(data) {
-                // Log the data to inspect the structure
-                console.log(data);
-
                 // Populate the modal fields with data received from the server
                 $('#EditStaffFname').val(data[0].fname);
                 $('#EditStaffLname').val(data[0].lname);
@@ -726,7 +636,7 @@ if (isset($_SESSION['user'])) {
                     $('#EditProfilePic').attr('src', '../icons/user.png');
                 }
                 // Show the modal
-                $('#editStudentModal').modal('show');
+                $('#editStaffModal').modal('show');
             }
         });
 
@@ -767,12 +677,98 @@ if (isset($_SESSION['user'])) {
             }
         }
     </script>
+        <script>
+        $(document).ready(function () {
+
+            // Hide elements with class 'no-print'
+            $('.no-print').hide();
+
+            // Add a click event for the print button
+            $("#printButton").click(function () {
+                printTable();
+            });
+
+            // Function to print the table
+            function printTable() {
+                // Create a new window
+                var printWindow = window.open('', '_blank');
+
+                // Write the HTML content of the table to the new window
+                printWindow.document.write('<html><head><title>University Library Staff Report</title>');
+
+                // Add University logo and header
+                printWindow.document.write('<div style="text-align: center; font-size: 12px;">' +
+                    '<img id="logo" style="width: 100px;" src="../icons/usep-logo.png" alt="">' +
+                    '</br>' +
+                    '<h1>University of Southeastern Philippines Tagum-Mabini Campus</h1></div>');
+
+                // Add custom print styles
+                printWindow.document.write('<style>' +
+                    'body { font-size: 10pt; margin: 0; }' +
+                    '#logo { width: 50px; height: auto; margin-right: 10px; }' +
+                    'h1 { text-align: center; font-size: 14px; margin-bottom: 20px; }' +
+                    'table { width: 100%; border-collapse: collapse; margin-bottom: 20px; }' +
+                    'th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }' +
+                    '.active-status { color: green; }' +
+                    '.inactive-status { color: red; }' +
+                    '@media print {' +
+                    '   .no-print { display: none; }' +
+                    '   th, td { padding: 6px; }' +
+                    '}' +
+                    '</style>');
+
+                printWindow.document.write('</head><body>');
+                printWindow.document.write('<table style="width:100%; border-collapse: collapse;">');
+                printWindow.document.write('<tr> <th style="text-align: center">NAME</th>' +
+                    '<th style="text-align: center">STATUS</th>' +
+                    '<th style="text-align: center">ROLE</th>');
+
+                var employeeElements = $(".employee-info");
+                employeeElements.each(function () {
+
+                    // Extract employee information from the selected element
+                    var employeeName = $(this).find('.employee-name').text();
+                    var employeeStatus = $(this).find('.employee-status').text();
+                    var employeeRole = $(this).find('.employee-role').text();
+
+                    // Add rows to the table for name, status, and role
+                    printWindow.document.write('<tr>');
+                    printWindow.document.write('<td style="text-align: center;">' + employeeName + '</td>');
+                    printWindow.document.write('<td style="text-align: center;">' + employeeStatus + '</td>');
+                    printWindow.document.write('<td style="text-align: center;">' + employeeRole + '</td>');
+                    printWindow.document.write('</tr>');
+
+
+
+                });
+                printWindow.document.write('</table>');
+
+
+                // Close the document of the new window
+                printWindow.document.write('</body><footer style="margin-top: 50px;">University of Southeastern Philippines Tagum-Mabini Campus Electronic Generated Report</footer></html>');
+                printWindow.document.close();
+
+                // Wait for the image to load before triggering the print
+                var logoImage = printWindow.document.getElementById('logo');
+                if (logoImage.complete) {
+                    // If the image is already loaded, trigger the print
+                    printWindow.print();
+                } else {
+                    // If the image is still loading, wait for the 'load' event
+                    logoImage.onload = function () {
+                        printWindow.print();
+                    };
+                }
+            }
+        });
+
+    </script>
+
     <script src="../js/add_staff.js"></script>
     <script src="../js/update_staff.js"></script>
     <script src="../js/delete_staff.js"></script>
     <script src="../js/suspend_staff.js"></script>
     <script src="../js/logout_script.js"></script>
-    <script src="../js/student.js"></script>
 
 </body>
 

@@ -12,7 +12,7 @@ class SuperAdminData
         $this->database = $database->getDb();
     }
 
-    public function getAllStaff(): array
+    public function getAllLibrarian(): array
     {
         $sql = "SELECT * FROM tbl_superadmin WHERE admin_role = 'Librarian'";
         $stmt = $this->database->query($sql);
@@ -25,7 +25,7 @@ class SuperAdminData
         }
     }
 
-    public function getNumberOfStaff(): int
+    public function getNumberOfLibrarian(): int
     {
         $sql = "SELECT COUNT(*) as num_user FROM tbl_superadmin WHERE admin_role = 'Librarian'";
         $stmt = $this->database->prepare($sql);
@@ -61,6 +61,22 @@ class SuperAdminData
         } else {
             return array();
         }
+    }
+
+    public function confirmPasswordSuperAdmin($userId, $password): bool
+    {
+        $sql = "SELECT * FROM tbl_superadmin WHERE admin_id = :userId AND password = :password";
+        $stmt = $this->database->prepare($sql);
+        $stmt->bindParam(':userId', $userId, PDO::PARAM_STR);
+        $stmt->bindParam(':password', $password, PDO::PARAM_STR);
+
+        $stmt->execute();
+
+        // Fetch the result
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        // Check if a matching record was found
+        return ($result !== false);
     }
 
 }

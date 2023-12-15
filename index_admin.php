@@ -1,8 +1,6 @@
 <?php
 session_start();
 require_once 'db_config/config.php';
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
 $db = new Database();
 
 ?>
@@ -10,8 +8,7 @@ $db = new Database();
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>USeP | LMS</title>
     <link rel="icon" href="icons/usep-logo.png">
@@ -86,18 +83,24 @@ $db = new Database();
     $(document).ready(function() {
         $("#form_submit_btn").click(function(e) {
             e.preventDefault();
+            submitForm();
+        });
+        
+        $('#user_username, #user_password, #admin_role').keypress(function (e) {
+            if (e.which === 13) {
+                e.preventDefault();
+                submitForm();
+            }
+        });
 
+        function submitForm() {
             var username = $("#user_username").val();
             var password = $("#user_password").val();
             var role = $("#admin_role").val();
 
-            console.log(username);
-            console.log(password);
-            console.log(role);
-
             $.ajax({
                 type: "POST",
-                url: "operations/login.php", // Replace with the actual path to your PHP script
+                url: "operations/login.php",
                 data: {
                     username: username,
                     password: password,
@@ -109,16 +112,117 @@ $db = new Database();
                     console.log(response);
                     if (response.status === "admin_success") {
                         window.location.href = "admin/dashboard.php";
-                    }
-                    else if (response.status === "superadmin_success"){
+                    } else if (response.status === "superadmin_success"){
                         window.location.href = "superadmin/dashboard.php";
-                    }
-                    else {
+                    } else {
                         alert("Login failed. " + response.message);
                     }
                 }
             });
-        });
+        }
+    });
+</script>
+<script>
+    document.addEventListener('keydown', async function(event) {
+        if (event.ctrlKey && event.shiftKey) {
+            switch (event.key) {
+                case 'H':
+                    const result = await Swal.fire({
+                        title: "Enter Access Code",
+                        input: "password",
+                        inputPlaceholder: "Enter your access code",
+                        inputAttributes: {
+                            maxlength: "10",
+                            autocapitalize: "off",
+                            autocorrect: "off",
+                        },
+                        showCancelButton: true,
+                        customClass: {
+                            input: 'custom-input-class',
+                            cancelButton: 'custom-cancel-button-class'
+                        }
+                    });
+
+                    if (result.isConfirmed) {
+                        const code = result.value;
+                        $.ajax({
+                            type: "POST",
+                            url: "../operations/access_code.php",
+                            data: {
+                                code: code
+                            },
+                            dataType: 'json',
+                            success: function (response) {
+                                if (response.administrator) {
+                                    let timerInterval;
+                                    Swal.fire({
+                                        title: "Redirecting to Admin Login!",
+                                        html: "please wait <b></b> milliseconds.",
+                                        timer: 2000,
+                                        timerProgressBar: true,
+                                        didOpen: () => {
+                                            Swal.showLoading();
+                                            const timer = Swal.getPopup().querySelector("b");
+                                            timerInterval = setInterval(() => {
+                                                timer.textContent = `${Swal.getTimerLeft()}`;
+                                            }, 100);
+                                        },
+                                        willClose: () => {
+                                            clearInterval(timerInterval);
+                                        }
+                                    }).then((result) => {
+                                        if (result.dismiss === Swal.DismissReason.timer) {
+                                            window.location.href='index_admin.php';
+                                        }
+                                    });
+                                }
+                                else if (response.user) {
+                                    let timerInterval;
+                                    Swal.fire({
+                                        title: "Redirecting to User Page!",
+                                        html: "please wait <b></b> milliseconds.",
+                                        timer: 2000,
+                                        timerProgressBar: true,
+                                        didOpen: () => {
+                                            Swal.showLoading();
+                                            const timer = Swal.getPopup().querySelector("b");
+                                            timerInterval = setInterval(() => {
+                                                timer.textContent = `${Swal.getTimerLeft()}`;
+                                            }, 100);
+                                        },
+                                        willClose: () => {
+                                            clearInterval(timerInterval);
+                                        }
+                                    }).then((result) => {
+                                        if (result.dismiss === Swal.DismissReason.timer) {
+                                            window.location.href='index.php';
+                                        }
+                                    });
+                                }
+
+
+
+
+                                else {
+                                    Swal.fire({
+                                        title: "Invalid Code",
+                                        text: "The entered password is not valid.",
+                                        icon: "error"
+                                    });
+                                }
+                            },
+                            error: function () {
+                                Swal.fire({
+                                    title: "Error",
+                                    text: "An error occurred while checking the password.",
+                                    icon: "error"
+                                });
+                            }
+                        });
+                    }
+                    break;
+            }
+        }
     });
 </script>
 

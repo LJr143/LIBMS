@@ -12,7 +12,6 @@ class StaffData
     {
         $this->database = $database->getDb();
     }
-
     public function getAllStaff(): array
     {
         $sql = "SELECT * FROM tbl_admin WHERE admin_role = 'Staff'";
@@ -25,7 +24,6 @@ class StaffData
             return array();
         }
     }
-
     public function getNumberOfStaff(): int
     {
         $sql = "SELECT COUNT(*) as num_user FROM tbl_admin WHERE admin_role = 'Staff'";
@@ -50,7 +48,6 @@ class StaffData
             return null;
         }
     }
-
     public function getStaffById($userId): array
     {
         $sql = "SELECT * FROM tbl_admin WHERE admin_id = :userId";
@@ -65,9 +62,6 @@ class StaffData
     }
     public function addStaff($firstName, $lastName, $mi, $staffId, $Pemail, $Oemail, $phoneNumber, $telephoneNumber, $address, $admin_role, $username, $password, $profile): bool
     {
-        // Hash the password
-
-
         $sql = "INSERT INTO tbl_admin (fname, lname, initial, admin_id, email, personal_email, phone_number, tele_number, address, admin_role, username, password, img)
             VALUES (:fname, :lname, :initial, :admin_id, :email, :personal_email, :phone_number, :tele_number, :address, :admin_role, :username, :password, :img)";
         $stmt = $this->database->prepare($sql);
@@ -90,15 +84,7 @@ class StaffData
         // Execute the query
         return $stmt->execute();
     }
-
-    // Inside the StaffData class
     public function updateStaff($userId, $firstName, $lastName, $mi, $Pemail, $Oemail, $phoneNumber, $telephoneNumber, $address, $admin_role, $username, $password, $img) {
-        // Hash the password if it is provided
-//        if (!empty($password)) {
-//            $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
-//        }
-
-        // SQL query without the img column
         $sql = "UPDATE tbl_admin 
         SET fname = :fname, lname = :lname, initial = :initial, 
             email = :email, personal_email = :personal_email, 
@@ -106,12 +92,9 @@ class StaffData
             address = :address, admin_role = :admin_role, 
             username = :username";
 
-        // Include password update if provided
         if (!empty($password)) {
             $sql .= ", password = :password";
         }
-
-        // Include img update if provided
         if ($img !== null) {
             $sql .= ", img = :img";
         }
@@ -146,8 +129,6 @@ class StaffData
         // Execute the query
         return $stmt->execute();
     }
-
-
     public function updateStaffProfile($userId, $firstName, $lastName, $mi, $Oemail, $phoneNumber, $telephoneNumber, $address, $img) {
         // SQL query without the img column
         $sql = "UPDATE tbl_admin 
@@ -188,17 +169,12 @@ class StaffData
         return $stmt->execute();
     }
     public function updateStaffLoginProfile($userId, $oldPassword, $newPassword, $confirmPassword) {
-        // Check if old password matches the user's current password
         if (!$this->isOldPasswordCorrect($userId, $oldPassword)) {
-            return false; // Old password doesn't match, return false
+            return false;
         }
-
-        // Check if the new password and confirm password match
         if ($newPassword !== $confirmPassword) {
-            return false; // New password and confirm password don't match, return false
+            return false;
         }
-
-        // Update the password
         $sql = "UPDATE tbl_admin 
             SET password = :newPassword
             WHERE admin_id = :userId";
@@ -212,9 +188,8 @@ class StaffData
         // Execute the query
         return $stmt->execute();
     }
-
-// Function to check if the old password matches the user's current password
-    private function isOldPasswordCorrect($userId, $oldPassword) {
+    private function isOldPasswordCorrect($userId, $oldPassword): bool
+    {
         $sql = "SELECT password FROM tbl_admin WHERE admin_id = :userId";
         $stmt = $this->database->prepare($sql);
         $stmt->bindParam(':userId', $userId, PDO::PARAM_STR);
@@ -225,10 +200,6 @@ class StaffData
         // Check if the old password matches
         return $oldPassword === $result['password'];
     }
-
-
-
-
     public function deleteStaff($adminId){
         $sql = "DELETE FROM tbl_admin WHERE admin_id = :admin_ID";
 
@@ -237,105 +208,87 @@ class StaffData
 
         return $stmt->execute();
     }
-    public function suspendStaff($adminId) {
-        $status = "Suspended";
-        $sql = "UPDATE tbl_admin SET status = :status WHERE admin_id = :admin_id";
-
-        $stmt = $this->database->prepare($sql);
-        $stmt->bindParam(':status', $status, PDO::PARAM_STR);
-        $stmt->bindParam(':admin_id', $adminId, PDO::PARAM_INT);
-
-        // Execute the query
-        $stmt->execute();
-
-        // Check for success
-        if ($stmt->rowCount() > 0) {
-            // The update was successful
-            return true;
-        } else {
-            // No records were updated, or an error occurred
-            return false;
-        }
-    }
-    public function activateStaff($adminId) {
-        $status = "Active";
-        $sql = "UPDATE tbl_admin SET status = :status WHERE admin_id = :admin_id";
-
-        $stmt = $this->database->prepare($sql);
-        $stmt->bindParam(':status', $status, PDO::PARAM_STR);
-        $stmt->bindParam(':admin_id', $adminId, PDO::PARAM_INT);
-
-        // Execute the query
-        $stmt->execute();
-
-        // Check for success
-        if ($stmt->rowCount() > 0) {
-            // The update was successful
-            return true;
-        } else {
-            // No records were updated, or an error occurred
-            return false;
-        }
-    }
-
-    public function deleteAllStaff($adminId) {
-        $status = "Active";
-        $sql = "TRUNCATE TABLE tbl_admin";
-
-        $stmt = $this->database->prepare($sql);
-        $stmt->bindParam(':status', $status, PDO::PARAM_STR);
-        $stmt->bindParam(':admin_id', $adminId, PDO::PARAM_INT);
-
-        // Execute the query
-        $stmt->execute();
-
-        // Check for success
-        if ($stmt->rowCount() > 0) {
-            // The update was successful
-            return true;
-        } else {
-            // No records were updated, or an error occurred
-            return false;
-        }
-    }
-    
-    public function getAllUserStarCounts(): array
+    public function deleteAllStaff(): bool
     {
-        $userStarCounts = array();
+        try {
+            $sql = "DELETE FROM tbl_admin";
+            $stmt = $this->database->prepare($sql);
 
-        // Fetch star counts for all users
-        $result = $this->database->query("SELECT user_id, star_count FROM tbl_feedback");
+            // Execute the query
+            $stmt->execute();
 
-        if ($result) {
-            while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
-                $user_id = $row['user_id'];
-                $starCount = (int) $row['star_count'];
-                $userStarCounts[$user_id] = $starCount;
-            }
+            return true;
+        } catch (PDOException $e) {
+
+            return false;
         }
-
-        return $userStarCounts;
     }
+    public function suspendStaff($adminId): bool
+    {
+        $status = "Suspended";
+        $sql = "UPDATE tbl_admin SET status = :status WHERE id = :admin_id";
+
+        $stmt = $this->database->prepare($sql);
+        $stmt->bindParam(':status', $status, PDO::PARAM_STR);
+        $stmt->bindParam(':admin_id', $adminId, PDO::PARAM_INT);
+
+        // Execute the query
+        $stmt->execute();
+
+        // Check for success
+        if ($stmt->rowCount() > 0) {
+            // The update was successful
+            return true;
+        } else {
+            // No records were updated, or an error occurred
+            return false;
+        }
+    }
+    public function suspendAllStaff(): bool
+    {
+        try {
+            $sql = "UPDATE tbl_admin SET status = 'Suspended'";
+            $stmt = $this->database->prepare($sql);
+
+            // Execute the query
+            $stmt->execute();
+
+            // Check if any rows were affected
+            if ($stmt->rowCount() > 0) {
+                return true; // Successfully suspended staff
+            } else {
+                return false; // No rows were affected (perhaps no staff accounts to suspend)
+            }
+        } catch (PDOException $e) {
+            // Log or handle the specific PDO exception
+            error_log("PDOException in suspendAllStaff: " . $e->getMessage());
+            return false; // Failed to suspend staff
+        }
+    }
+
+    public function activateStaff($adminId): bool
+    {
+        $status = "Active";
+        $sql = "UPDATE tbl_admin SET status = :status WHERE id = :admin_id";
+
+        $stmt = $this->database->prepare($sql);
+        $stmt->bindParam(':status', $status, PDO::PARAM_STR);
+        $stmt->bindParam(':admin_id', $adminId, PDO::PARAM_INT);
+
+        // Execute the query
+        $stmt->execute();
+
+        // Check for success
+        if ($stmt->rowCount() > 0) {
+            // The update was successful
+            return true;
+        } else {
+            // No records were updated, or an error occurred
+            return false;
+        }
+    }
+
+
 }
 
-$database = new Database(); // Assuming you have a Database class
-$staffData = new StaffData($database);
 
-// Get star counts for all users
-$userStarCounts = $staffData->getAllUserStarCounts();
-
-// Call the getAllStaff method to retrieve all staff data
-$staffList = $staffData->getAllStaff();
-
-// Check if there are staff members
-if (!empty($staffList)) {
-    foreach ($staffList as $staff) {
-        // Access staff data fields
-        $adminId = $staff['admin_id'];
-        $username = $staff['username'];
-    }
-} else {
-    // No staff members found
-    echo "No staff members found.";
-}
-?>
