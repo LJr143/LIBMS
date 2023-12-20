@@ -1,6 +1,6 @@
 <?php
 require_once '../db_config/config.php';
-include '../operations/authentication.php';
+include '../includes/authentication.php';
 include '../includes/fetch_user_data.php';
 include '../includes/fetch_books_data.php';
 include '../includes/fetch_wishlist_data.php';

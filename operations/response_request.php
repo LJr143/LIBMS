@@ -1,4 +1,5 @@
 <?php
+session_start();
 error_reporting(E_ALL);
 error_log(print_r($_POST, true));
 require_once '../db_config/config.php';
@@ -22,7 +23,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         $book = new BookData($database);
 
-        $result = $book->bookRequest($status, $transactionId);
+        $result = $book->bookRequest($status, $transactionId, $_SESSION['staffId']);
 
         header('Content-Type: application/json');
         echo json_encode($result);

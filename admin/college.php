@@ -1,7 +1,7 @@
 <?php
 session_start();
 require_once '../db_config/config.php';
-include '../operations/authentication.php';
+include '../includes/authentication.php';
 include '../includes/fetch_user_data.php';
 include '../includes/fetch_college_data.php';
 include '../includes/fetch_staff_data.php';

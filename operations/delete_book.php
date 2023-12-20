@@ -1,4 +1,5 @@
 <?php
+session_start();
 error_reporting(0);
 require_once '../db_config/config.php';
 include '../includes/fetch_books_data.php';
@@ -13,6 +14,7 @@ $bookData = new BookData($database);
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Get the admin_id from the POST request
     $bookId = $_POST['book_id'];
+    $bookName = $_POST['bookName'];
 
     // Delete the staff member
     $success = $bookData->deleteBook($bookId);
@@ -20,6 +22,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Send a JSON response indicating success or failure
     header('Content-Type: application/json');
+    $deleteBookLog = $log->deleteAddBookLogs($_SESSION['loggedAdminID'], $_SESSION['user'], $bookName);
     echo json_encode(['success' => $success]);
 } else {
     // Handle other request methods or invalid requests

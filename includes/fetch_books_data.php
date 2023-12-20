@@ -37,7 +37,7 @@ class BookData
 
     public function getNumberOfBooksReserve(): int
     {
-        $sql = "SELECT COUNT(*) as num_books_reserve FROM tbl_transaction WHERE transaction_type='Reserve' AND status='Approved'";
+        $sql = "SELECT COUNT(*) as num_books_reserve FROM tbl_reserve WHERE status='Approved'";
         $stmt = $this->database->prepare($sql);
 
         if ($stmt->execute()) {
@@ -48,7 +48,7 @@ class BookData
     }
     public function getNumberOfBooksBorrow(): int
     {
-        $sql = "SELECT COUNT(*) as num_books_borrow FROM tbl_transaction WHERE transaction_type='Borrow' AND status='Approved'";
+        $sql = "SELECT COUNT(*) as num_books_borrow FROM tbl_borrow WHERE  status='Approved'";
         $stmt = $this->database->prepare($sql);
 
         if ($stmt->execute()) {
@@ -57,6 +57,19 @@ class BookData
             return 0;
         }
     }
+    public function getNumberOfBooksCategory($category): int
+    {
+        $sql = "SELECT COUNT(*) as num_books_category FROM tbl_book WHERE  category = :category";
+        $stmt = $this->database->prepare($sql);
+        $stmt->bindParam(':category', $category, PDO::PARAM_STR);
+
+        if ($stmt->execute()) {
+            return (int) $stmt->fetch(PDO::FETCH_ASSOC)['num_books_category'];
+        } else {
+            return 0;
+        }
+    }
+
     public function getBookById($bookId): array
     {
         $sql = "SELECT * FROM tbl_book WHERE book_id = :bookId";
@@ -188,13 +201,14 @@ class BookData
             return ['success' => false, 'message' => 'Error inserting record'];
         }
     }
-    public function bookRequest($status, $transaction_id): array {
+    public function bookRequest($status, $transaction_id, $adminId): array {
         try {
-            $sql = "UPDATE tbl_transaction SET status = :status WHERE id = :transaction_id";
+            $sql = "UPDATE tbl_transaction SET status = :status, admin_id = :adminId WHERE id = :transaction_id";
             $stmt = $this->database->prepare($sql);
 
             // Bind parameters
             $stmt->bindParam(':status', $status, PDO::PARAM_STR);
+            $stmt->bindParam(':adminId', $adminId, PDO::PARAM_STR);
             $stmt->bindParam(':transaction_id', $transaction_id, PDO::PARAM_INT);
 
             // Execute the query
@@ -227,8 +241,6 @@ class BookData
 
         return $stmt->execute();
     }
-
-
 
 
 }

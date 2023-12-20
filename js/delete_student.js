@@ -21,7 +21,7 @@ function deleteStudent(userId) {
         url: '../operations/delete_student.php',
         type: 'POST',
         data: { user_id: userId,
-                staffName: studentMemberName,},
+                studentName: studentMemberName,},
         dataType: 'json',
         success: function(response) {
             console.log(response);

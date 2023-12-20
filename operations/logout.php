@@ -1,7 +1,7 @@
 <?php
 
 require_once '../db_config/config.php';
-require_once 'authentication.php';
+require_once '../includes/authentication.php';
 
 // Initialize the database and authentication classes
 $database = new Database();

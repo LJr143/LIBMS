@@ -184,10 +184,6 @@
                                         }
                                     });
                                 }
-
-
-
-
                                 else {
                                     Swal.fire({
                                         title: "Invalid Code",

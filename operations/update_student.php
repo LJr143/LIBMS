@@ -97,6 +97,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Send a JSON response indicating success or failure
     if ($result) {
+        $addedStudent = $firstName . " " . $lastName;
+        $addLog = $log-> editAddLogs($_SESSION['loggedAdminID'], $_SESSION['user'], $addedStudent);
         echo json_encode(['success' => true]);
     } else {
         echo json_encode(['success' => false, 'error' => 'Failed to update student.']);

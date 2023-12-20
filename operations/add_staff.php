@@ -46,7 +46,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         if ($result) {
             $addedStaff = $firstName . " " . $lastName;
-            $addLog = $log->insertAddLogs($_SESSION['loggedAdminID'], $_SESSION['user'], $addedStaff);
+            $addBookLog = $log->insertAddBookLogs($_SESSION['loggedAdminID'], $_SESSION['user'], $addedStaff);
             header('Content-Type: application/json');
             echo json_encode(['success' => true]);
         } else {

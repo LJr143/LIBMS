@@ -23,6 +23,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Send a JSON response indicating success or failure
     if ($result) {
+        $action = "{$_SESSION['user']} edit shelf category {$shelfCategory}";
+        $addLog = $log->insertAddCollegeLogs($_SESSION['loggedAdminID'], $action);
         echo json_encode(['success' => true]);
     } else {
         echo json_encode(['success' => false, 'error' => 'Failed to update book.']);

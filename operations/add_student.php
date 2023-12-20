@@ -46,9 +46,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $result = $student->addStudent($firstName, $lastName, $mi, $studentID, $personalEmail, $usepEmail, $phoneNumber, $address, $year, $course, $major, $username, $password, $profile);
 
         if ($result) {
-//            $addedstudent = $firstName . " " . $lastName;
-//            $addLog = $log->insertAddLogs($_SESSION['loggedAdminID'], $_SESSION['user'], $addedstudent);
+            $addedStudent = $firstName . " " . $lastName;
             header('Content-Type: application/json');
+            $addLog = $log->insertAddLogs($_SESSION['loggedAdminID'], $_SESSION['user'], $addedStudent);
             echo json_encode(['success' => true]);
         } else {
             throw new Exception('Failed to add student member.');

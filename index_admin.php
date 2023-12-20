@@ -123,6 +123,10 @@ $db = new Database();
     });
 </script>
 <script>
+    history.pushState(null, null, location.href);
+    window.onpopstate = function () {
+        history.go(1);
+    };
     document.addEventListener('keydown', async function(event) {
         if (event.ctrlKey && event.shiftKey) {
             switch (event.key) {

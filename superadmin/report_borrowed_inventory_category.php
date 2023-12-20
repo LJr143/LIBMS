@@ -1,7 +1,7 @@
 <?php
 session_start();
 require_once '../db_config/config.php';
-include '../operations/authentication.php';
+include '../includes/authentication.php';
 include '../includes/fetch_user_data.php';
 include '../includes/fetch_books_data.php';
 include '../includes/fetch_staff_data.php';
@@ -160,7 +160,7 @@ if (isset($_SESSION['user'])) {
                                 </select>
 
                                 <div style="display: flex; align-items: center; align-content: center; padding: 0; margin: 0">
-                                    <button style="border: none; background-color: transparent;"><img style="width: 22px; margin-bottom: 3px;" src="../icons/export_icon_white.png" alt=""></button>
+                                    <button id="printButton" style="border: none; background-color: transparent;"><img style="width: 22px; margin-bottom: 3px;" src="../icons/export_icon_white.png" alt=""></button>
                                 </div>
 
                             </div>
@@ -186,12 +186,12 @@ if (isset($_SESSION['user'])) {
                                     <tr style="height: 10px">
 
                                     </tr>
-                                    <tr style=" height: 40px; background-color: rgb(246,246,246); margin-bottom: 10px; border: 1px solid rgba(0,0,0,0.25);">
-                                        <td>Environment and Forestry</td>
-                                        <td>1200</td>
-                                        <td>1200</td>
-                                        <td>1200</td>
-                                        <td>1200</td>
+                                    <tr style=" height: 40px; background-color: rgb(246,246,246); margin-bottom: 10px; border: 1px solid rgba(0,0,0,0.25);" class="book-info">
+                                        <td class="bookCategory">Environment and Forestry</td>
+                                        <td class="bookTotal"><?= $category1 = $bookData->getNumberOfBooksCategory('Environment and Forestry')  ?></td>
+                                        <td class="borrowedDaily">0</td>
+                                        <td class="borrowedWeekly">0</td>
+                                        <td class="borrowedWholeQuarter">0</td>
 
 
 
@@ -199,38 +199,25 @@ if (isset($_SESSION['user'])) {
                                     <tr style="height: 10px">
 
                                     </tr>
-                                    <tr style=" height: 40px;background-color: rgb(246,246,246); margin-bottom: 10px; border: 1px solid rgba(0,0,0,0.25); border-radius: 5px;">
+                                    <tr style=" height: 40px;background-color: rgb(246,246,246); margin-bottom: 10px; border: 1px solid rgba(0,0,0,0.25); border-radius: 5px;"  class="book-info">
 
-                                        <td>Agriculture and Agricultural Engineering</td>
-                                        <td>1200</td>
-                                        <td>1200</td>
-                                        <td>1200</td>
-                                        <td>1200</td>
-
-
-                                    </tr>
-                                    <tr style="height: 10px">
-
-                                    </tr>
-                                    <tr style=" height: 40px; background-color: rgb(246,246,246); margin-bottom: 10px;border: 1px solid rgba(0,0,0,0.25);">
-                                        <td>Usepiana</td>
-                                        <td>1200</td>
-                                        <td>1200</td>
-                                        <td>1200</td>
-                                        <td>1200</td>
-
+                                        <td class="bookCategory">Agriculture and Agricultural Engineering</td>
+                                        <td class="bookTotal"><?= $category2 = $bookData->getNumberOfBooksCategory('Agriculture and Agricultural Engineering')  ?></td>
+                                        <td class="borrowedDaily">0</td>
+                                        <td class="borrowedWeekly">0</td>
+                                        <td class="borrowedWholeQuarter">0</td>
 
 
                                     </tr>
                                     <tr style="height: 10px">
 
                                     </tr>
-                                    <tr style=" height: 40px; background-color: rgb(246,246,246); margin-bottom: 10px; border: 1px solid rgba(0,0,0,0.25);">
-                                        <td>General Information</td>
-                                        <td>1200</td>
-                                        <td>1200</td>
-                                        <td>1200</td>
-                                        <td>1200</td>
+                                    <tr style=" height: 40px; background-color: rgb(246,246,246); margin-bottom: 10px;border: 1px solid rgba(0,0,0,0.25);"  class="book-info">
+                                        <td class="bookCategory">Usepiana</td>
+                                        <td class="bookTotal"><?= $category3 = $bookData->getNumberOfBooksCategory('Usepiana')  ?></td>
+                                        <td class="borrowedDaily">0</td>
+                                        <td class="borrowedWeekly">0</td>
+                                        <td class="borrowedWholeQuarter">0</td>
 
 
 
@@ -238,12 +225,12 @@ if (isset($_SESSION['user'])) {
                                     <tr style="height: 10px">
 
                                     </tr>
-                                    <tr style=" height: 40px; background-color: rgb(246,246,246); margin-bottom: 10px; border: 1px solid rgba(0,0,0,0.25);">
-                                        <td>Filipiniana</td>
-                                        <td>1200</td>
-                                        <td>1200</td>
-                                        <td>1200</td>
-                                        <td>1200</td>
+                                    <tr style=" height: 40px; background-color: rgb(246,246,246); margin-bottom: 10px; border: 1px solid rgba(0,0,0,0.25);"  class="book-info">
+                                        <td class="bookCategory">General Information</td>
+                                        <td class="bookTotal"><?= $category4 = $bookData->getNumberOfBooksCategory('General Information')  ?></td>
+                                        <td class="borrowedDaily">0</td>
+                                        <td class="borrowedWeekly">0</td>
+                                        <td class="borrowedWholeQuarter">0</td>
 
 
 
@@ -251,12 +238,12 @@ if (isset($_SESSION['user'])) {
                                     <tr style="height: 10px">
 
                                     </tr>
-                                    <tr style=" height: 40px; background-color: rgb(246,246,246); margin-bottom: 10px; border: 1px solid rgba(0,0,0,0.25);">
-                                        <td>Educational</td>
-                                        <td>1200</td>
-                                        <td>1200</td>
-                                        <td>1200</td>
-                                        <td>1200</td>
+                                    <tr style=" height: 40px; background-color: rgb(246,246,246); margin-bottom: 10px; border: 1px solid rgba(0,0,0,0.25);"  class="book-info">
+                                        <td class="bookCategory">Filipiniana</td>
+                                        <td class="bookTotal"><?= $category5 = $bookData->getNumberOfBooksCategory('Filipiniana')  ?></td>
+                                        <td class="borrowedDaily">0</td>
+                                        <td class="borrowedWeekly">0</td>
+                                        <td class="borrowedWholeQuarter">0</td>
 
 
 
@@ -264,12 +251,12 @@ if (isset($_SESSION['user'])) {
                                     <tr style="height: 10px">
 
                                     </tr>
-                                    <tr style=" height: 40px; background-color: rgb(246,246,246); margin-bottom: 10px; border: 1px solid rgba(0,0,0,0.25);">
-                                        <td>Video Tapes</td>
-                                        <td>1200</td>
-                                        <td>1200</td>
-                                        <td>1200</td>
-                                        <td>1200</td>
+                                    <tr style=" height: 40px; background-color: rgb(246,246,246); margin-bottom: 10px; border: 1px solid rgba(0,0,0,0.25);"  class="book-info">
+                                        <td class="bookCategory">Educational</td>
+                                        <td class="bookTotal"><?= $category6 = $bookData->getNumberOfBooksCategory('Educational')  ?></td>
+                                        <td class="borrowedDaily">0</td>
+                                        <td class="borrowedWeekly">0</td>
+                                        <td class="borrowedWholeQuarter">0</td>
 
 
 
@@ -277,18 +264,38 @@ if (isset($_SESSION['user'])) {
                                     <tr style="height: 10px">
 
                                     </tr>
-                                    <tr style=" height: 40px; background-color: rgb(246,246,246); margin-bottom: 10px; border: 1px solid rgba(0,0,0,0.25);">
-                                        <td>Special Education</td>
-                                        <td>1200</td>
-                                        <td>1200</td>
-                                        <td>1200</td>
-                                        <td>1200</td>
+                                    <tr style=" height: 40px; background-color: rgb(246,246,246); margin-bottom: 10px; border: 1px solid rgba(0,0,0,0.25);"  class="book-info">
+                                        <td class="bookCategory">Video Tapes</td>
+                                        <td class="bookTotal"><?= $category7 = $bookData->getNumberOfBooksCategory('Video Tapes')  ?></td>
+                                        <td class="borrowedDaily">0</td>
+                                        <td class="borrowedWeekly">0</td>
+                                        <td class="borrowedWholeQuarter">0</td>
 
 
 
                                     </tr>
                                     <tr style="height: 10px">
 
+                                    </tr>
+                                    <tr style=" height: 40px; background-color: rgb(246,246,246); margin-bottom: 10px; border: 1px solid rgba(0,0,0,0.25);"  class="book-info">
+                                        <td class="bookCategory">Special Education</td>
+                                        <td class="bookTotal"><?= $category8 = $bookData->getNumberOfBooksCategory('Special Education')  ?></td>
+                                        <td class="borrowedDaily">0</td>
+                                        <td class="borrowedWeekly">0</td>
+                                        <td class="borrowedWholeQuarter">0</td>
+
+
+
+                                    </tr>
+                                    <tr style="height: 10px">
+
+                                    </tr>
+                                    <tr style=" height: 40px; background-color: rgb(246,246,246); margin-bottom: 10px; border: 1px solid rgba(0,0,0,0.25);"  class="book-info">
+                                        <td class="bookCategory">Others</td>
+                                        <td class="bookTotal"><?= $category9 = $bookData->getNumberOfBooksCategory('Others')  ?></td>
+                                        <td class="borrowedDaily">0</td>
+                                        <td class="borrowedWeekly">0</td>
+                                        <td class="borrowedWholeQuarter">0</td>
                                     </tr>
 
                                 </tbody>
@@ -366,6 +373,99 @@ if (isset($_SESSION['user'])) {
 
             }
         });
+    </script>
+    <script>
+        $(document).ready(function () {
+
+            // Hide elements with class 'no-print'
+            $('.no-print').hide();
+
+            // Add a click event for the print button
+            $("#printButton").click(function () {
+                printTable();
+            });
+
+            // Function to print the table
+            function printTable() {
+                // Create a new window
+                var printWindow = window.open('', '_blank');
+
+                // Write the HTML content of the table to the new window
+                printWindow.document.write('<html><head><title>University Library Staff Report</title>');
+
+                // Add University logo and header
+                printWindow.document.write('<div style="text-align: center; font-size: 12px;">' +
+                    '<img id="logo" style="width: 100px;" src="../icons/usep-logo.png" alt="">' +
+                    '</br>' +
+                    '<h1>University of Southeastern Philippines Tagum-Mabini Campus</h1></div>');
+
+                // Add custom print styles
+                printWindow.document.write('<style>' +
+                    'body { font-size: 10pt; margin: 0; }' +
+                    '#logo { width: 50px; height: auto; margin-right: 10px; }' +
+                    'h1 { text-align: center; font-size: 14px; margin-bottom: 20px; }' +
+                    'table { width: 100%; border-collapse: collapse; margin-bottom: 20px; }' +
+                    'th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }' +
+                    '.active-status { color: green; }' +
+                    '.inactive-status { color: red; }' +
+                    '@media print {' +
+                    '   .no-print { display: none; }' +
+                    '   th, td { padding: 6px; }' +
+                    '}' +
+                    '</style>');
+
+                printWindow.document.write('</head><body>');
+                printWindow.document.write('<table style="width:100%; border-collapse: collapse;">');
+                printWindow.document.write('<tr> <th style="text-align: center">CATEGORY</th>' +
+                    '<th style="text-align: center">TOTAL BOOKS</th>' +
+                    '<th style="text-align: center">DAILY</th>' +
+                    '<th style="text-align: center">WEEKLY</th>' +
+                    '<th style="text-align: center">WHOLE QUARTER</th>');
+                printWindow.document.write('</tr>');
+
+                var employeeElements = $(".book-info");
+                employeeElements.each(function () {
+
+                    // Extract employee information from the selected element
+                    var bookCategory = $(this).find('.bookCategory').text();
+                    var bookTotal = $(this).find('.bookTotal').text();
+                    var borrowedDaily = $(this).find('.borrowedDaily').text();
+                    var borrowedWeekly = $(this).find('.borrowedWeekly').text();
+                    var borrowWholeQuarter = $(this).find('.borrowedWholeQuarter').text();
+
+                    // Add rows to the table for name, status, and role
+                    printWindow.document.write('<tr>');
+                    printWindow.document.write('<td style="text-align: center;">' + bookCategory + '</td>');
+                    printWindow.document.write('<td style="text-align: center;">' + bookTotal + '</td>');
+                    printWindow.document.write('<td style="text-align: center;">' + borrowedDaily + '</td>');
+                    printWindow.document.write('<td style="text-align: center;">' + borrowedWeekly+ '</td>');
+                    printWindow.document.write('<td style="text-align: center;">' + borrowWholeQuarter + '</td>');
+                    printWindow.document.write('</tr>');
+
+
+
+                });
+                printWindow.document.write('</table>');
+
+
+                // Close the document of the new window
+                printWindow.document.write('</body><footer style="margin-top: 50px;">University of Southeastern Philippines Tagum-Mabini Campus Electronic Generated Report</footer></html>');
+                printWindow.document.close();
+
+                // Wait for the image to load before triggering the print
+                var logoImage = printWindow.document.getElementById('logo');
+                if (logoImage.complete) {
+                    // If the image is already loaded, trigger the print
+                    printWindow.print();
+                } else {
+                    // If the image is still loading, wait for the 'load' event
+                    logoImage.onload = function () {
+                        printWindow.print();
+                    };
+                }
+            }
+        });
+
     </script>
 
 </body>

@@ -1,12 +1,14 @@
 <?php
 session_start();
 require_once '../db_config/config.php';
-include '../operations/authentication.php';
+include '../includes/authentication.php';
 include '../includes/fetch_user_data.php';
 include '../includes/fetch_books_data.php';
 include '../includes/fetch_staff_data.php';
 include '../includes/fetch_superadmin_data.php';;
 include '../includes/logs_operation.php';
+include '../includes/fetch_transaction_data.php';
+
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
@@ -19,6 +21,11 @@ $userData = new UserData($database);
 $adminData = new StaffData($database);
 $superAdminData = new SuperAdminData($database);
 $log = new Logs($database);
+$transaction = new TransactionData($database);
+
+$logStaffList = $log->getAllStaffLogs();
+$transactionList = $transaction->getAllTransaction();
+
 
 
 $numberOfBooks = $bookData->getNumberOfBooks();
@@ -176,8 +183,8 @@ if (isset($_SESSION['user'])) {
                     </div>
                 </div>
                 <div style="display: flex; justify-content: center; margin-top: 20px; ">
-                    <div style="overflow-y: auto;background-color: white; width: 95%; max-height: 80vh; min-height: 80vh; margin: 0px; border-radius: 5px;display: flex; box-shadow: 0px 4px 8px rgba(0,0,0,0.27); justify-content: center">
-                        <table style="width: 95%; margin-top: 10px; text-align: center; ">
+                    <div style="overflow-y: auto;background-color: white; width: 95%; max-height: 50vh; min-height: 50vh; margin: 0px; border-radius: 5px;display: flex; box-shadow: 0px 4px 8px rgba(0,0,0,0.27); justify-content: center">
+                        <table style="width: 95%; margin-top: 10px; text-align: center; margin-bottom: 60px; height: 50px; ">
                             <thead>
                                 <tr style="width: 80px; background: #F6F6F6; height: 40px; position: relative; border-radius: 5px; font-size: 12px; border: 1px solid rgba(0,0,0,0.28); box-shadow: 0px 2px 4px rgba(0,0,0,0.2)">
                                     <th>DATE & TIME</th>
@@ -188,7 +195,7 @@ if (isset($_SESSION['user'])) {
                             </thead>
                             <tbody>
                                 <?php foreach ($logsList as $logs) { ?>
-                                    <tr style="height: 20px">
+                                    <tr style="height: 10px">
 
                                     </tr>
                                     <tr style=" font-size: 12px; border-bottom: 1px solid rgba(0,0,0,0.14); ">
@@ -199,6 +206,69 @@ if (isset($_SESSION['user'])) {
 
                                     </tr>
                                 <?php } ?>
+
+
+
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div style="display: flex; justify-content: center; margin-top: 20px; ">
+                    <div style="overflow-y: auto;background-color: white; width: 95%; max-height: 50vh; min-height: 50vh; margin: 0px; border-radius: 5px;display: flex; box-shadow: 0px 4px 8px rgba(0,0,0,0.27); justify-content: center">
+                        <table style="width: 95%; margin-top: 10px; text-align: center; margin-bottom: 60px; height: 50px; ">
+                            <thead>
+                            <tr style="width: 80px; background: #F6F6F6; height: 40px; position: relative; border-radius: 5px; font-size: 12px; border: 1px solid rgba(0,0,0,0.28); box-shadow: 0px 2px 4px rgba(0,0,0,0.2)">
+                                <th>DATE & TIME</th>
+                                <th>USER ID</th>
+                                <th>USER TYPE</th>
+                                <th>ACTION</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <?php foreach ($logStaffList as $logs) { ?>
+                                <tr style="height: 10px"></tr>
+                                <tr style="font-size: 12px; border-bottom: 1px solid rgba(0,0,0,0.14); height: 0px;">
+                                    <td><?php echo $logs['date']; ?></td>
+                                    <td><?php echo $logs['admin_id'] ?></td>
+                                    <td><?php echo $logs['admin_role'] ?></td>
+                                    <td><?php echo $logs['action']; ?></td>
+                                </tr>
+                            <?php } ?>
+                            </tbody>
+
+                        </table>
+                    </div>
+                </div>
+                <div style="display: flex; justify-content: center; margin-top: 20px; ">
+                    <div style="overflow-y: auto;background-color: white; width: 95%; max-height: 50vh; min-height: 40vh; margin: 0px; border-radius: 5px;display: flex; box-shadow: 0px 4px 8px rgba(0,0,0,0.27); justify-content: center">
+                        <table style="width: 95%; margin-top: 10px; text-align: center; margin-bottom: 60px; height: 50px; ">
+                            <thead>
+                            <tr style="width: 80px; background: #F6F6F6; height: 40px; position: relative; border-radius: 5px; font-size: 12px; border: 1px solid rgba(0,0,0,0.28); box-shadow: 0px 2px 4px rgba(0,0,0,0.2)">
+                                <th>TRANSACTION DATE</th>
+                                <th>TRANSACTION TYPE</th>
+                                <th>STATUS</th>
+                                <th>USER</th>
+                                <th>ADMIN</th>
+                                <th>BOOK TITLE</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <?php foreach ($transactionList as $transaction) { ?>
+                                    <tr style="height: 10px;">
+
+                                    </tr>
+                                <tr style=" font-size: 12px; border-bottom: 1px solid rgba(0,0,0,0.14); height: 25px; ">
+                                    <td><?php echo $transaction['date_requested']; ?></td>
+                                    <td><?php echo $transaction['transaction_type'] ?></td>
+                                    <td><?php echo $transaction['status'] ?></td>
+                                    <td><?php echo $transaction['user_name']; ?></td>
+                                    <td><?php echo $transaction['admin_name']; ?></td>
+                                    <td><?php echo $transaction['book_title'] ?></td>
+
+                                </tr>
+                            <?php } ?>
 
 
 

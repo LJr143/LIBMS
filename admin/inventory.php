@@ -1,7 +1,7 @@
 <?php
 session_start();
 require_once '../db_config/config.php';
-include '../operations/authentication.php';
+include '../includes/authentication.php';
 include '../includes/fetch_staff_data.php';
 include '../includes/fetch_books_data.php';
 error_reporting(E_ALL);
@@ -44,9 +44,9 @@ if (isset($_SESSION['user'])) {
     $adminID = $userData->getStaffIdByUsername($adminUsername);
     if (!empty($adminID)) {
         $admin = $userData->getStaffById($adminID);
-
         if (!empty($admin)) {
             $loggedAdmin = $admin[0];
+           $_SESSION['loggedAdminID'] = $loggedAdmin['admin_id'];
         } else {
             echo 'Admin data not found.';
         }

@@ -10,6 +10,18 @@ class TransactionData
     {
         $this->database = $database;
     }
+    public function getAllTransaction(): array
+    {
+        $sql = "SELECT * FROM vw_staff_transaction";
+        $stmt = $this->database->getDb()->prepare($sql);
+
+        if ($stmt->execute()) {
+            $transactions = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            return $transactions;
+        } else {
+            return array();
+        }
+    }
 
     public function getAllTransactionByUser($user_id): array
     {
@@ -45,6 +57,16 @@ class TransactionData
         // Fetch all records
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+
+    public function getUserTransaction(): array
+    {
+        $sql = "SELECT * FROM vw_book_request";
+        $stmt = $this->database->executeQuery($sql);
+
+        // Fetch all records
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
     public function getPendingTransactionCount(): int
     {
         $status = 'Pending';

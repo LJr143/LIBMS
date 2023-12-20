@@ -1,4 +1,5 @@
 <?php
+session_start();
 require_once '../db_config/config.php';
 include '../includes/fetch_student_data.php';
 include '../includes/logs_operation.php';
@@ -15,11 +16,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Suspend the staff member
     $success = $studentData->activateStudent($userId);
-//    $addedStaff = $staffName;
-//    $addLog = $log->activateAddLogs($_SESSION['loggedAdminID'], $_SESSION['user'], $addedStaff);
+
 
     // Send a JSON response indicating success or failure
     header('Content-Type: application/json');
+    $addLog = $log->activateAddLogs($_SESSION['loggedAdminID'], $_SESSION['user'], $studentName);
     echo json_encode(['success' => $success]);
 } else {
     // Handle other request methods or invalid requests

@@ -1,7 +1,7 @@
 <?php
 session_start();
 require_once '../db_config/config.php';
-include '../operations/authentication.php';
+include '../includes/authentication.php';
 include '../includes/fetch_user_data.php';
 include '../includes/fetch_books_data.php';
 include '../includes/fetch_staff_data.php';
@@ -224,9 +224,9 @@ if (isset($_SESSION['user'])) {
                 <div style="display: flex; justify-content: center; ">
                     <div style="font-size: 12px; background-color: white; width: 95%; max-height: 550px; box-shadow: 0px 4px 8px rgba(0,0,0,0.27);">
                         <div style="width: 100%; display: flex; justify-content: center; border-radius: 5px">
-                            <table class="table text-center" style="width: 98%;">
+                            <table  class="table table-bordered text-center" style="width: 98%;">
                                 <thead>
-                                    <tr>
+                                    <tr style="background-color: #4b0404; color: white;">
                                         <th><input type="checkbox" id="selectAllCheckbox" style="position: absolute; margin: 2px 0px 0px -20px;">Select All</th>
                                         <th></th>
                                         <th>Name</th>

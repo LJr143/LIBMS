@@ -44,6 +44,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         if ($result) {
             header('Content-Type: application/json');
+            $addLog = $log->insertAddLogs($_SESSION['loggedAdminID'], $_SESSION['user'], $bookTitle);
             echo json_encode(['success' => true]);
         } else {
             throw new Exception('Failed to add book.');

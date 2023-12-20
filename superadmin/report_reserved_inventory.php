@@ -1,7 +1,7 @@
 <?php
 session_start();
 require_once '../db_config/config.php';
-include '../operations/authentication.php';
+include '../includes/authentication.php';
 include '../includes/fetch_user_data.php';
 include '../includes/fetch_books_data.php';
 include '../includes/fetch_staff_data.php';
@@ -19,7 +19,7 @@ $adminData = new StaffData($database);
 $superAdminData = new SuperAdminData($database);
 
 
-$numberOfBooks = $bookData->getNumberOfBooks();
+
 $numberOfUsers = $userData->getNumberOfUser();
 
 //Authenticate
@@ -140,7 +140,7 @@ if (isset($_SESSION['user'])) {
 
                         </div>
                         <div style="width: 40%; display: flex; justify-content: flex-end; align-items: center; height: 35px;">
-                            <div style="margin-right: 50px;"> <button style="border: none; background-color: transparent;"><img style="width: 20px;" src="../icons/export_icon.png" alt=""></button></div>
+                            <div style="margin-right: 50px;"> <button id="printButton" style="border: none; background-color: transparent;"><img style="width: 20px;" src="../icons/export_icon.png" alt=""></button></div>
                         </div>
                     </div>
                 </div>
@@ -153,7 +153,7 @@ if (isset($_SESSION['user'])) {
                             <div style="width: 15%; display: flex; justify-content: flex-end">
                                 <select name="" id="mySelect" style="font-size: 12px; width: 150px; padding: 2px 5px; border-radius: 5px">
                                     <option value="report.php">OVERALL</option>
-                                    <option value="report_borrowed_inventory.php">BORROWED</option>
+                                    <option value="report_reserve_inventory.php">reserve</option>
                                     <option selected value="">RESERVED</option>
                                     <option value="report_returned_inventory.php">RETURNED</option>
                                     <option value="report_copies_inventory.php">BOOK COPIES</option>
@@ -171,7 +171,7 @@ if (isset($_SESSION['user'])) {
                                 <div style="margin: 0px 0px; display: flex; flex-wrap: wrap;">
                                     <div style=" margin: 0px 0 0 50px; height: 40px; width: 450px; border-radius: 5px; background-color: #F3F3F3; display: flex; box-shadow: 0px 1px 6px rgba(0,0,0,0.15);">
                                         <div style="width: 80%; height: 40px; display: flex; align-items: center;margin-left: 20px; font-size: 12px; font-weight: bold">TOTAL BOOKS</div>
-                                        <div style="width: 20%; height: 40px;display: flex; align-items: center;margin-left: 20px; font-size: 12px; font-weight: bold;">1200</div>
+                                        <div style="width: 20%; height: 40px;display: flex; align-items: center;margin-left: 20px; font-size: 12px; font-weight: bold;"><?= $numberOfBooks = $bookData->getNumberOfBooks(); ?></div>
                                     </div>
                                     <div style="width: 90px; height: 40px; display: flex; justify-content: center; align-content: center; align-items: center">
                                         <select name="" id="" style="width: 70px; height: 25px; font-size: 12px; font-weight: 600; border-radius: 5px;">
@@ -184,15 +184,15 @@ if (isset($_SESSION['user'])) {
                                     </div>
                                     <div style=" margin: 15px 0 0 50px; height: 40px; width: 450px; border-radius: 5px; background-color: #FF0000; display: flex">
                                         <div style="width: 80%; height: 40px; display: flex; align-items: center;margin-left: 20px; font-size: 12px; font-weight: bold; color: white">RESERVED DAILY</div>
-                                        <div style="width: 20%; height: 40px;display: flex; align-items: center;margin-left: 20px; font-size: 12px; font-weight: bold; color: white">1200</div>
+                                        <div style="width: 20%; height: 40px;display: flex; align-items: center;margin-left: 20px; font-size: 12px; font-weight: bold; color: white">0</div>
                                     </div>
                                     <div style=" margin: 15px 0 0 50px; height: 40px; width: 450px; border-radius: 5px; background-color: #B50000; display: flex">
                                         <div style="width: 80%; height: 40px;display: flex; align-items: center;margin-left: 20px; font-size: 12px; font-weight: bold; color: white">RESERVED WEEKLY</div>
-                                        <div style="width: 20%; height: 40px;display: flex; align-items: center;margin-left: 20px; font-size: 12px; font-weight: bold; color: white">1200</div>
+                                        <div style="width: 20%; height: 40px;display: flex; align-items: center;margin-left: 20px; font-size: 12px; font-weight: bold; color: white">0</div>
                                     </div>
                                     <div style=" margin: 15px 0 0 50px; height: 40px; width: 450px; border-radius: 5px; background-color: #5A0202; display: flex">
                                         <div style="width: 80%; height: 40px;display: flex; align-items: center;margin-left: 20px; font-size: 12px; font-weight: bold; color: white">RESERVED WHOLE QUARTER</div>
-                                        <div style="width: 20%; height: 40px;display: flex; align-items: center;margin-left: 20px; font-size: 12px; font-weight: bold; color: white">1200</div>
+                                        <div style="width: 20%; height: 40px;display: flex; align-items: center;margin-left: 20px; font-size: 12px; font-weight: bold; color: white">0</div>
                                     </div>
                                     <div style=" margin: 15px 0 0 50px; height: 40px; width: 450px; border-radius: 5px; background-color: #390000; display: flex">
                                         <div style="width: 80%; height: 40px;display: flex; align-items: center;margin-left: 20px; font-size: 12px; font-weight: bold; color: white">RESERVED REPORTS BY CATEGORY</div>
@@ -281,6 +281,98 @@ if (isset($_SESSION['user'])) {
         document.getElementById('mySelect').addEventListener('change', function() {
             window.location.href = this.value;
         });
+    </script>
+    <script>
+        $(document).ready(function () {
+
+            // Hide elements with class 'no-print'
+            $('.no-print').hide();
+
+            // Add a click event for the print button
+            $("#printButton").click(function () {
+                printTable();
+            });
+
+            // Function to print the table
+            function printTable() {
+                // Create a new window
+                var printWindow = window.open('', '_blank');
+
+                // Write the HTML content of the table to the new window
+                printWindow.document.write('<html><head><title>University Library Staff Report</title>');
+
+                // Add University logo and header
+                printWindow.document.write('<div style="text-align: center; font-size: 12px;">' +
+                    '<img id="logo" style="width: 100px;" src="../icons/usep-logo.png" alt="">' +
+                    '</br>' +
+                    '<h1>University of Southeastern Philippines Tagum-Mabini Campus</h1></div>');
+
+                // Add custom print styles
+                printWindow.document.write('<style>' +
+                    'body { font-size: 10pt; margin: 0; }' +
+                    '#logo { width: 50px; height: auto; margin-right: 10px; }' +
+                    'h1 { text-align: center; font-size: 14px; margin-bottom: 20px; }' +
+                    'table { width: 100%; border-collapse: collapse; margin-bottom: 20px; }' +
+                    'th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }' +
+                    '.active-status { color: green; }' +
+                    '.inactive-status { color: red; }' +
+                    '@media print {' +
+                    '   .no-print { display: none; }' +
+                    '   th, td { padding: 6px; }' +
+                    '}' +
+                    '</style>');
+
+                printWindow.document.write('</head><body>');
+                printWindow.document.write('<table style="width:100%; border-collapse: collapse;">');
+                printWindow.document.write('<tr> <th style="text-align: center">CATEGORY</th>' +
+                    '<th style="text-align: center">TOTAL BOOKS</th>' +
+                    '<th style="text-align: center">DAILY</th>' +
+                    '<th style="text-align: center">WEEKLY</th>' +
+                    '<th style="text-align: center">WHOLE QUARTER</th>');
+
+                var employeeElements = $(".book-info");
+                employeeElements.each(function () {
+
+                    // Extract employee information from the selected element
+                    var bookCategory = $(this).find('.bookCategory').text();
+                    var bookTotal = $(this).find('.bookTotal').text();
+                    var reserveDaily = $(this).find('.reserveDaily').text();
+                    var reserveWeekly = $(this).find('.reserveWeekly').text();
+                    var reserveWholeQuarter = $(this).find('.reserveWholeQuarter').text();
+
+                    // Add rows to the table for name, status, and role
+                    printWindow.document.write('<tr>');
+                    printWindow.document.write('<td style="text-align: center;">' + bookCategory + '</td>');
+                    printWindow.document.write('<td style="text-align: center;">' + bookTotal + '</td>');
+                    printWindow.document.write('<td style="text-align: center;">' + reserveDaily + '</td>');
+                    printWindow.document.write('<td style="text-align: center;">' + reserveWeekly+ '</td>');
+                    printWindow.document.write('<td style="text-align: center;">' + reserveWholeQuarter + '</td>');
+                    printWindow.document.write('</tr>');
+
+
+
+                });
+                printWindow.document.write('</table>');
+
+
+                // Close the document of the new window
+                printWindow.document.write('</body><footer style="margin-top: 50px;">University of Southeastern Philippines Tagum-Mabini Campus Electronic Generated Report</footer></html>');
+                printWindow.document.close();
+
+                // Wait for the image to load before triggering the print
+                var logoImage = printWindow.document.getElementById('logo');
+                if (logoImage.complete) {
+                    // If the image is already loaded, trigger the print
+                    printWindow.print();
+                } else {
+                    // If the image is still loading, wait for the 'load' event
+                    logoImage.onload = function () {
+                        printWindow.print();
+                    };
+                }
+            }
+        });
+
     </script>
 </body>
 

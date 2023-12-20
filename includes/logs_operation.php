@@ -26,6 +26,19 @@ class Logs
         }
     }
 
+    public function getAllStaffLogs(): array
+    {
+        $sql = "SELECT * FROM vw_logs_staff";
+        $stmt = $this->database->query($sql);
+
+        if ($stmt) {
+            $logs = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            return $logs;
+        } else {
+            return array();
+        }
+    }
+
     public function insertAddLogs($userID,$user, $name): bool
     {
         $admin_id = $userID;
@@ -71,6 +84,22 @@ class Logs
 
         return $stmt->execute();
     }
+
+    public function insertAddCollegeLogs($userID, $actions): bool
+    {
+        $admin_id = $userID;
+        $action = $actions;
+        $timestamp = date("Y-m-d H:i:s");
+
+        $sql = "INSERT INTO tbl_logs (admin_id,action, date) VALUES (:admin_id,:action, :timestamp)";
+        $stmt = $this->database->prepare($sql);
+
+        $stmt->bindParam(':admin_id', $admin_id, PDO::PARAM_STR);
+        $stmt->bindParam(':action', $action, PDO::PARAM_STR);
+        $stmt->bindParam(':timestamp', $timestamp, PDO::PARAM_STR);
+
+        return $stmt->execute();
+    }
     public function suspendAddLogs($userID, $user, $name): bool
     {
         $admin_id = $userID;
@@ -103,8 +132,53 @@ class Logs
         return $stmt->execute();
     }
 
+    public function insertAddBookLogs($userID,$user, $name): bool
+    {
+        $admin_id = $userID;
+        $action = "{$user} added book {$name}";
+        $timestamp = date("Y-m-d H:i:s");
 
+        $sql = "INSERT INTO tbl_logs (admin_id,action, date) VALUES (:admin_id,:action, :timestamp)";
+        $stmt = $this->database->prepare($sql);
 
+        $stmt->bindParam(':admin_id', $admin_id, PDO::PARAM_STR);
+        $stmt->bindParam(':action', $action, PDO::PARAM_STR);
+        $stmt->bindParam(':timestamp', $timestamp, PDO::PARAM_STR);
+
+        return $stmt->execute();
+    }
+
+    public function editAddBookLogs($userID,$user, $name): bool
+    {
+        $admin_id = $userID;
+        $action = "{$user} edit book {$name}";
+        $timestamp = date("Y-m-d H:i:s");
+
+        $sql = "INSERT INTO tbl_logs (admin_id,action, date) VALUES (:admin_id,:action, :timestamp)";
+        $stmt = $this->database->prepare($sql);
+
+        $stmt->bindParam(':admin_id', $admin_id, PDO::PARAM_STR);
+        $stmt->bindParam(':action', $action, PDO::PARAM_STR);
+        $stmt->bindParam(':timestamp', $timestamp, PDO::PARAM_STR);
+
+        return $stmt->execute();
+    }
+
+    public function deleteAddBookLogs($userID, $user, $name): bool
+    {
+        $admin_id = $userID;
+        $action = "{$user} deleted book {$name}";
+        $timestamp = date("Y-m-d H:i:s");
+
+        $sql = "INSERT INTO tbl_logs (admin_id, action, date) VALUES (:admin_id, :action, :timestamp)";
+        $stmt = $this->database->prepare($sql);
+
+        $stmt->bindParam(':admin_id', $admin_id, PDO::PARAM_STR);
+        $stmt->bindParam(':action', $action, PDO::PARAM_STR);
+        $stmt->bindParam(':timestamp', $timestamp, PDO::PARAM_STR);
+
+        return $stmt->execute();
+    }
 
 }
 
@@ -114,13 +188,4 @@ $logsData = new Logs($database);
 // Call the getAllStaff method to retrieve all staff data
 $logsList = $logsData->getAllLogs();
 
-// Check if there are staff members
-if (!empty($logsList)) {
-    foreach ($logsList as $logs) {
-        // Access staff data fields
-        $adminId = $logs['admin_id'];
-        $date = $logs['date'];
-        $action = $logs['action'];
-    }
-}
 

@@ -1,7 +1,7 @@
 <?php
 session_start();
 require_once '../db_config/config.php';
-include '../operations/authentication.php';
+include '../includes/authentication.php';
 include '../includes/fetch_user_data.php';
 include '../includes/fetch_books_data.php';
 include '../includes/fetch_staff_data.php';
@@ -19,7 +19,6 @@ $adminData = new StaffData($database);
 $superAdminData = new SuperAdminData($database);
 
 
-$numberOfBooks = $bookData->getNumberOfBooks();
 $numberOfUsers = $userData->getNumberOfUser();
 
 //Authenticate
@@ -190,10 +189,10 @@ if (isset($_SESSION['user'])) {
                                     </tr>
                                     <tr style=" height: 40px; background-color: rgb(246,246,246); margin-bottom: 10px; border: 1px solid rgba(0,0,0,0.25);">
                                         <td>TOTAL BOOKS</td>
-                                        <td>1200</td>
-                                        <td>1200</td>
-                                        <td>1200</td>
-                                        <td>1200</td>
+                                        <td>0</td>
+                                        <td>0</td>
+                                        <td>0</td>
+                                        <td>0</td>
                                     </tr>
                                     <tr style="height: 10px">
 
@@ -201,10 +200,10 @@ if (isset($_SESSION['user'])) {
                                     <tr style=" height: 40px;background-color: rgb(246,246,246); margin-bottom: 10px; border: 1px solid rgba(0,0,0,0.25); border-radius: 5px;">
 
                                         <td>RESERVED</td>
-                                        <td>1200</td>
-                                        <td>1200</td>
-                                        <td>1200</td>
-                                        <td>1200</td>
+                                        <td>0</td>
+                                        <td>0</td>
+                                        <td>0</td>
+                                        <td>0</td>
 
 
 
@@ -214,10 +213,10 @@ if (isset($_SESSION['user'])) {
                                     </tr>
                                     <tr style=" height: 40px; background-color: rgb(246,246,246); margin-bottom: 10px;border: 1px solid rgba(0,0,0,0.25);">
                                         <td>BORROWED</td>
-                                        <td>1200</td>
-                                        <td>1200</td>
-                                        <td>1200</td>
-                                        <td>1200</td>
+                                        <td>0</td>
+                                        <td>0</td>
+                                        <td>0</td>
+                                        <td>0</td>
 
 
 
@@ -227,10 +226,10 @@ if (isset($_SESSION['user'])) {
                                     </tr>
                                     <tr style=" height: 40px; background-color: rgb(246,246,246); margin-bottom: 10px; border: 1px solid rgba(0,0,0,0.25);">
                                         <td>RETURNED</td>
-                                        <td>1200</td>
-                                        <td>1200</td>
-                                        <td>1200</td>
-                                        <td>1200</td>
+                                        <td>0</td>
+                                        <td>0</td>
+                                        <td>0</td>
+                                        <td>0</td>
 
 
 
@@ -240,10 +239,10 @@ if (isset($_SESSION['user'])) {
                                     </tr>
                                     <tr style=" height: 40px; background-color: rgb(246,246,246); margin-bottom: 10px; border: 1px solid rgba(0,0,0,0.25);">
                                         <td>UNRETURNED</td>
-                                        <td>1200</td>
-                                        <td>1200</td>
-                                        <td>1200</td>
-                                        <td>1200</td>
+                                        <td>0</td>
+                                        <td>0</td>
+                                        <td>0</td>
+                                        <td>0</td>
 
 
 
@@ -253,20 +252,20 @@ if (isset($_SESSION['user'])) {
                                     </tr>
                                     <tr style=" height: 40px; background-color: rgb(246,246,246); margin-bottom: 10px; border: 1px solid rgba(0,0,0,0.25);">
                                         <td>DAMAGED</td>
-                                        <td>1200</td>
-                                        <td>1200</td>
-                                        <td>1200</td>
-                                        <td>1200</td>
+                                        <td>0</td>
+                                        <td>0</td>
+                                        <td>0</td>
+                                        <td>0</td>
                                     </tr>
                                     <tr style="height: 10px">
 
                                     </tr>
                                     <tr style=" height: 40px; background-color: rgb(246,246,246); margin-bottom: 10px; border: 1px solid rgba(0,0,0,0.25);">
                                         <td>LOST</td>
-                                        <td>1200</td>
-                                        <td>1200</td>
-                                        <td>1200</td>
-                                        <td>1200</td>
+                                        <td>0</td>
+                                        <td>0</td>
+                                        <td>0</td>
+                                        <td>0</td>
                                 </tbody>
                             </table>
                         </div>

@@ -1,7 +1,7 @@
 <?php
 session_start();
 require_once '../db_config/config.php';
-include '../operations/authentication.php';
+include '../includes/authentication.php';
 include '../includes/fetch_user_data.php';
 include '../includes/fetch_books_data.php';
 include '../includes/fetch_staff_data.php';
@@ -41,14 +41,18 @@ if (isset($_SESSION['user'])) {
         $accessType = $_SESSION['admin_role'];
         if ($accessType == 'Librarian') {
             $adminID = $superAdminData->getSuperadminIdByUsername($adminUsername);
+            $_SESSION['staffId'] = $adminID;
             if (!empty($adminID)) {
                 $admin = $superAdminData->getSuperadminById($adminID);
                 $loggedAdmin = $admin[0];
             } else {
                 echo 'SuperAdmin data not found.';
+                header('Location: ../index_admin.php');
             }
         } else if ($accessType == 'Staff') {
+
             $adminID = $adminData->getStaffIdByUsername($adminUsername);
+            $_SESSION['staffId'] = $adminID;
             if (!empty($adminID)) {
                 $admin = $adminData->getStaffById($adminID);
                 $loggedAdmin = $admin[0];

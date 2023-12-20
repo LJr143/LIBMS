@@ -21,7 +21,7 @@ function deleteBook(bookId) {
         url: '../operations/delete_book.php',
         type: 'POST',
         data: { book_id: bookId,
-                staffName: bookName,},
+                bookName: bookName,},
         dataType: 'json',
         success: function(response) {
             console.log(response);

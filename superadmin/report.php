@@ -21,6 +21,8 @@ $superAdminData = new SuperAdminData($database);
 
 $numberOfBooks = $bookData->getNumberOfBooks();
 $numberOfUsers = $userData->getNumberOfUser();
+$numberOfBooksReserve = $bookData->getNumberOfBooksReserve();
+$numberOfBooksBorrow = $bookData->getNumberOfBooksBorrow();
 
 //Authenticate
 if ($userAuth->isAuthenticated()) {
@@ -69,9 +71,8 @@ if (isset($_SESSION['user'])) {
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>USeP | LMS</title>
     <link rel="icon" href="../icons/usep-logo.png">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.32/dist/sweetalert2.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link href="../node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../node_modules/bootstrap-icons/font/bootstrap-icons.css">
     <link rel="stylesheet" href="../css/superadmin_report.css">
 </head>
 
@@ -175,27 +176,27 @@ if (isset($_SESSION['user'])) {
                                     </div>
                                     <div style=" margin: 15px 0 0 50px; height: 40px; width: 450px; border-radius: 5px; background-color: #740000; display: flex">
                                         <div style="width: 80%; height: 40px; display: flex; align-items: center;margin-left: 20px; font-size: 12px; font-weight: bold; color: white">BOOKS RESERVED</div>
-                                        <div style="width: 20%; height: 40px;display: flex; align-items: center;margin-left: 20px; font-size: 12px; font-weight: bold; color: white">...</div>
+                                        <div style="width: 20%; height: 40px;display: flex; align-items: center;margin-left: 20px; font-size: 12px; font-weight: bold; color: white"><?= $numberOfBooksReserve ?></div>
                                     </div>
                                     <div style=" margin: 15px 0 0 50px; height: 40px; width: 450px; border-radius: 5px; background-color: #9D0101; display: flex">
                                         <div style="width: 80%; height: 40px;display: flex; align-items: center;margin-left: 20px; font-size: 12px; font-weight: bold; color: white">BOOKS BORROWED</div>
-                                        <div style="width: 20%; height: 40px;display: flex; align-items: center;margin-left: 20px; font-size: 12px; font-weight: bold; color: white">...</div>
+                                        <div style="width: 20%; height: 40px;display: flex; align-items: center;margin-left: 20px; font-size: 12px; font-weight: bold; color: white"><?= $numberOfBooksBorrow?></div>
                                     </div>
                                     <div style=" margin: 15px 0 0 50px; height: 40px; width: 450px; border-radius: 5px; background-color: #E10000; display: flex">
                                         <div style="width: 80%; height: 40px;display: flex; align-items: center;margin-left: 20px; font-size: 12px; font-weight: bold; color: white">BOOKS RETURNED</div>
-                                        <div style="width: 20%; height: 40px;display: flex; align-items: center;margin-left: 20px; font-size: 12px; font-weight: bold; color: white">...</div>
+                                        <div style="width: 20%; height: 40px;display: flex; align-items: center;margin-left: 20px; font-size: 12px; font-weight: bold; color: white">0</div>
                                     </div>
                                     <div style=" margin: 15px 0 0 50px; height: 40px; width: 450px; border-radius: 5px; background-color: #F54B02; display: flex">
                                         <div style="width: 80%; height: 40px;display: flex; align-items: center;margin-left: 20px; font-size: 12px; font-weight: bold; color: white">BOOKS UNRETURNED</div>
-                                        <div style="width: 20%; height: 40px;display: flex; align-items: center;margin-left: 20px; font-size: 12px; font-weight: bold; color: white">...</div>
+                                        <div style="width: 20%; height: 40px;display: flex; align-items: center;margin-left: 20px; font-size: 12px; font-weight: bold; color: white">0</div>
                                     </div>
                                     <div style=" margin: 15px 0 0 50px; height: 40px; width: 450px; border-radius: 5px; background-color: #78220F; display: flex">
                                         <div style="width: 80%; height: 40px; display: flex; align-items: center;margin-left: 20px; font-size: 12px; font-weight: bold; color: white">LOST BOOKS</div>
-                                        <div style="width: 20%; height: 40px;display: flex; align-items: center;margin-left: 20px; font-size: 12px; font-weight: bold; color: white">...</div>
+                                        <div style="width: 20%; height: 40px;display: flex; align-items: center;margin-left: 20px; font-size: 12px; font-weight: bold; color: white">0</div>
                                     </div>
                                     <div style=" margin: 15px 0 0 50px; height: 40px; width: 450px; border-radius: 5px; background-color: #000000; display: flex">
                                         <div style="width: 80%; height: 40px;display: flex; align-items: center;margin-left: 20px; font-size: 12px; font-weight: bold; color: white">DAMAGED BOOKS</div>
-                                        <div style="width: 20%; height: 40px;display: flex; align-items: center;margin-left: 20px; font-size: 12px; font-weight: bold; color: white">...</div>
+                                        <div style="width: 20%; height: 40px;display: flex; align-items: center;margin-left: 20px; font-size: 12px; font-weight: bold; color: white">0</div>
                                     </div>
                                 </div>
 
@@ -227,13 +228,13 @@ if (isset($_SESSION['user'])) {
                                     </tr>
                                     <tr style=" height: 40px; background-color: rgb(246,246,246); margin-bottom: 10px; border: 1px solid rgba(0,0,0,0.25);">
                                         <td>Environment and Forestry</td>
-                                        <td>1200</td>
-                                        <td>1200</td>
-                                        <td>1200</td>
-                                        <td>1200</td>
-                                        <td>1200</td>
-                                        <td>1200</td>
-                                        <td>1200</td>
+                                        <td><?= $category1 = $bookData->getNumberOfBooksCategory('Environment and Forestry')  ?></td>
+                                        <td>0</td>
+                                        <td>0</td>
+                                        <td>0</td>
+                                        <td>0</td>
+                                        <td>0</td>
+                                        <td>0</td>
 
 
                                     </tr>
@@ -243,13 +244,13 @@ if (isset($_SESSION['user'])) {
                                     <tr style=" height: 40px;background-color: rgb(246,246,246); margin-bottom: 10px; border: 1px solid rgba(0,0,0,0.25); border-radius: 5px;">
 
                                         <td>Agriculture and Agricultural Engineering</td>
-                                        <td>1200</td>
-                                        <td>1200</td>
-                                        <td>1200</td>
-                                        <td>1200</td>
-                                        <td>1200</td>
-                                        <td>1200</td>
-                                        <td>1200</td>
+                                        <td><?= $category2 = $bookData->getNumberOfBooksCategory('Agriculture and Agricultural Engineering')  ?></td>
+                                        <td>0</td>
+                                        <td>0</td>
+                                        <td>0</td>
+                                        <td>0</td>
+                                        <td>0</td>
+                                        <td>0</td>
 
 
                                     </tr>
@@ -258,13 +259,13 @@ if (isset($_SESSION['user'])) {
                                     </tr>
                                     <tr style=" height: 40px; background-color: rgb(246,246,246); margin-bottom: 10px;border: 1px solid rgba(0,0,0,0.25);">
                                         <td>Usepiana</td>
-                                        <td>1200</td>
-                                        <td>1200</td>
-                                        <td>1200</td>
-                                        <td>1200</td>
-                                        <td>1200</td>
-                                        <td>1200</td>
-                                        <td>1200</td>
+                                        <td><?= $category3 = $bookData->getNumberOfBooksCategory('Usepiana')  ?></td>
+                                        <td>0</td>
+                                        <td>0</td>
+                                        <td>0</td>
+                                        <td>0</td>
+                                        <td>0</td>
+                                        <td>0</td>
 
 
                                     </tr>
@@ -273,13 +274,13 @@ if (isset($_SESSION['user'])) {
                                     </tr>
                                     <tr style=" height: 40px; background-color: rgb(246,246,246); margin-bottom: 10px; border: 1px solid rgba(0,0,0,0.25);">
                                         <td>General Information</td>
-                                        <td>1200</td>
-                                        <td>1200</td>
-                                        <td>1200</td>
-                                        <td>1200</td>
-                                        <td>1200</td>
-                                        <td>1200</td>
-                                        <td>1200</td>
+                                        <td><?= $category4 = $bookData->getNumberOfBooksCategory('General Information')  ?></td>
+                                        <td>0</td>
+                                        <td>0</td>
+                                        <td>0</td>
+                                        <td>0</td>
+                                        <td>0</td>
+                                        <td>0</td>
 
 
                                     </tr>
@@ -288,13 +289,13 @@ if (isset($_SESSION['user'])) {
                                     </tr>
                                     <tr style=" height: 40px; background-color: rgb(246,246,246); margin-bottom: 10px; border: 1px solid rgba(0,0,0,0.25);">
                                         <td>Filipiniana</td>
-                                        <td>1200</td>
-                                        <td>1200</td>
-                                        <td>1200</td>
-                                        <td>1200</td>
-                                        <td>1200</td>
-                                        <td>1200</td>
-                                        <td>1200</td>
+                                        <td><?= $category5 = $bookData->getNumberOfBooksCategory('Filipiniana')  ?></td>
+                                        <td>0</td>
+                                        <td>0</td>
+                                        <td>0</td>
+                                        <td>0</td>
+                                        <td>0</td>
+                                        <td>0</td>
 
 
                                     </tr>
@@ -303,13 +304,13 @@ if (isset($_SESSION['user'])) {
                                     </tr>
                                     <tr style=" height: 40px; background-color: rgb(246,246,246); margin-bottom: 10px; border: 1px solid rgba(0,0,0,0.25);">
                                         <td>Educational</td>
-                                        <td>1200</td>
-                                        <td>1200</td>
-                                        <td>1200</td>
-                                        <td>1200</td>
-                                        <td>1200</td>
-                                        <td>1200</td>
-                                        <td>1200</td>
+                                        <td><?= $category6 = $bookData->getNumberOfBooksCategory('Educational')  ?></td>
+                                        <td>0</td>
+                                        <td>0</td>
+                                        <td>0</td>
+                                        <td>0</td>
+                                        <td>0</td>
+                                        <td>0</td>
 
 
                                     </tr>
@@ -318,13 +319,13 @@ if (isset($_SESSION['user'])) {
                                     </tr>
                                     <tr style=" height: 40px; background-color: rgb(246,246,246); margin-bottom: 10px; border: 1px solid rgba(0,0,0,0.25);">
                                         <td>Video Tapes</td>
-                                        <td>1200</td>
-                                        <td>1200</td>
-                                        <td>1200</td>
-                                        <td>1200</td>
-                                        <td>1200</td>
-                                        <td>1200</td>
-                                        <td>1200</td>
+                                        <td><?= $category7 = $bookData->getNumberOfBooksCategory('Video Tapes')  ?></td>
+                                        <td>0</td>
+                                        <td>0</td>
+                                        <td>0</td>
+                                        <td>0</td>
+                                        <td>0</td>
+                                        <td>0</td>
 
 
                                     </tr>
@@ -333,17 +334,29 @@ if (isset($_SESSION['user'])) {
                                     </tr>
                                     <tr style=" height: 40px; background-color: rgb(246,246,246); margin-bottom: 10px; border: 1px solid rgba(0,0,0,0.25);">
                                         <td>Special Education</td>
-                                        <td>1200</td>
-                                        <td>1200</td>
-                                        <td>1200</td>
-                                        <td>1200</td>
-                                        <td>1200</td>
-                                        <td>1200</td>
-                                        <td>1200</td>
+                                        <td><?= $category8 = $bookData->getNumberOfBooksCategory('Special Education')  ?></td>
+                                        <td>0</td>
+                                        <td>0</td>
+                                        <td>0</td>
+                                        <td>0</td>
+                                        <td>0</td>
+                                        <td>0</td>
 
 
                                     </tr>
                                     <tr style="height: 10px">
+
+                                    </tr>
+                                    <tr style=" height: 40px; background-color: rgb(246,246,246); margin-bottom: 10px; border: 1px solid rgba(0,0,0,0.25);">
+                                        <td>Others</td>
+                                        <td><?= $category9 = $bookData->getNumberOfBooksCategory('Others')  ?></td>
+                                        <td>0</td>
+                                        <td>0</td>
+                                        <td>0</td>
+                                        <td>0</td>
+                                        <td>0</td>
+                                        <td>0</td>
+
 
                                     </tr>
 
